@@ -359,7 +359,22 @@
     "FillOutSurvey": "Wypełnij ankietę",
     "FormSubmitted": "Formularz został wysłany",
     "FormSubmitError": "Wystąpił błąd podczas wysyłania formularza. Prosimy spróbować wysłać go ponownie za chwilę.",
-    "FillRequired": "Proszę wypełnić wszystkie pola wymagane przed wysłaniem formularza."
+    "FillRequired": "Proszę wypełnić wszystkie pola wymagane przed wysłaniem formularza.",
+    "Category": {
+      "PublicAdministration": "Administracja Publiczna",
+      "BusinessAndEconomy": "Biznes i Gospodarka",
+      "BudgetAndPublicFinance": "Budżet i Finanse Publiczne",
+      "Security": "Bezpieczeństwo",
+      "Culture": "Kultura",
+      "ScienceAndEducation": "Nauka i Oświata",
+      "WorkAndSocialAssistance": "Praca i Pomoc Społeczna",
+      "RegionsAndCities": "Regiony i miasta",
+      "Agriculture": "Rolnictwo",
+      "Society": "Społeczeństwo",
+      "SportAndTourism": "Sport i Turystyka",
+      "Environment": "Środowisko",
+      "Health": "Zdrowie"
+    }
   },
   "Connector": {
     "About": "o",

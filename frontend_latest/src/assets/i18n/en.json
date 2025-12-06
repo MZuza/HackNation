@@ -359,7 +359,22 @@
     "FillOutSurvey": "Fill out survey",
     "FormSubmitted": "Form successfully submitted",
     "FormSubmitError": "There was an error during submitting the form. Please try send it again in a moment.",
-    "FillRequired": "Fill all required fields"
+    "FillRequired": "Fill all required fields",
+    "Category": {
+      "PublicAdministration": "Public Administration",
+      "BusinessAndEconomy": "Business and Economy",
+      "BudgetAndPublicFinance": "Budget and Public Finance",
+      "Security": "Security",
+      "Culture": "Culture",
+      "ScienceAndEducation": "Science and Education",
+      "WorkAndSocialAssistance": "Work and Social Assistance",
+      "RegionsAndCities": "Regions and cities",
+      "Agriculture": "Agriculture",
+      "Society": "Society",
+      "SportAndTourism": "Sport and Tourism",
+      "Environment": "Environment",
+      "Health": "Health"
+    }
   },
   "Connector": {
     "About": "about",

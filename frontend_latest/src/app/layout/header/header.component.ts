@@ -25,6 +25,7 @@ import { BreadcrumbsComponent } from '@app/shared/breadcrumbs/breadcrumbs.compon
 import { CmsBlock2Component } from '@app/shared/cms/cms-block2/cms-block2.component';
 import { ClickOutsideDirective } from '@app/shared/directives/click-outside.directive';
 import { TooltipDirective } from '@app/shared/tooltip/tooltip.directive';
+import { FormComponent } from '@app/form/form.component';
 
 /**
  * Header Component
@@ -47,10 +48,10 @@ import { TooltipDirective } from '@app/shared/tooltip/tooltip.directive';
     AsyncPipe,
     ClickOutsideDirective,
     UpperCasePipe,
-    BreadcrumbsComponent,
-    ActivityNotificationsComponent
+    ActivityNotificationsComponent,
+    FormComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   /**
@@ -124,12 +125,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.loggedIn = isLoggedIn;
     });
     this.highContrastService.init(this.renderer);
-    this.highContrastService.getCurrentContrastMode()
-      .pipe(
-        takeUntil(this.destroy$)
-      )
-      .subscribe((mode) => this.highContrastMode = mode);
-
+    this.highContrastService
+      .getCurrentContrastMode()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(mode => (this.highContrastMode = mode));
 
     // auto close menu in mobile mode
     this.router.events
@@ -171,12 +170,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.currentLang = language;
     this.translate.use(language);
     this.cookieService.set('currentLang', language, undefined, '/');
-    if (isPlatformBrowser(this.platformId)) {
-      window.location.href = '/' + language;
-    }
     this.languageBootstrapService.setBootstrapLanguage(language);
     if (isPlatformBrowser(this.platformId)) {
       this.renderer.setAttribute(document.documentElement, 'lang', language);
+      window.location.href = '/' + language;
     }
   }
 

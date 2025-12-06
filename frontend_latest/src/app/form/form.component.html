@@ -29,13 +29,13 @@
 
   <div class="form-field">
     <label for="category">{{ 'Attribute.Category' | translate }}:</label>
-    <input id="category" type="text" formControlName="category" />
+    <select id="category" formControlName="category">
+      <option value="" disabled>{{ 'Action.ChooseCategory' | translate }}</option>
+      <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name | translate }}</option>
+    </select>
     <div *ngIf="itemForm.get('category')?.invalid && itemForm.get('category')?.touched" class="validation-error">
       <span *ngIf="itemForm.get('category')?.errors?.['required']">
         {{ 'Validation.RequiredField' | translate }}
-      </span>
-      <span *ngIf="itemForm.get('category')?.errors?.['maxlength']">
-        {{ 'Validation.VarMaxLength' | translate : { param: 50 } }}
       </span>
     </div>
   </div>
