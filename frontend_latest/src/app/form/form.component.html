@@ -1,16 +1,74 @@
-<label for="name">Powiat: </label>
-<input id="name" type="text" [formControl]="name" />
-<label for="name">Gmina: </label>
-<input id="name" type="text" [formControl]="name" />
-<label for="name">Nazwa: </label>
-<input id="name" type="text" [formControl]="name" />
-<label for="name">Kategoria: </label>
-<input id="name" type="text" [formControl]="name" />
-<label for="name">Data znalezienia: </label>
-<input id="name" type="text" [formControl]="name" />
-<label for="name">Opis miejsca: </label>
-<input id="name" type="text" [formControl]="name" />
-<label for="name">Biuro kontaktowe: </label>
-<input id="name" type="text" [formControl]="name" />
-<label for="name">Opublikowano: </label>
-<input id="name" type="text" [formControl]="name" />
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="item-form">
+  <div class="form-field">
+    <label for="county">Powiat:</label>
+    <input id="county" type="text" formControlName="county" />
+    <div *ngIf="itemForm.get('county')?.invalid && itemForm.get('county')?.touched" class="validation-error">
+      <span *ngIf="itemForm.get('county')?.errors?.['required']">
+        {{ 'Validation.RequiredField' | translate }}
+      </span>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="municipality">Gmina:</label>
+    <input id="municipality" type="text" formControlName="municipality" />
+  </div>
+
+  <div class="form-field">
+    <label for="name">{{ 'Attribute.Name' | translate }}:</label>
+    <input id="name" type="text" formControlName="name" />
+    <div *ngIf="itemForm.get('name')?.invalid && itemForm.get('name')?.touched" class="validation-error">
+      <span *ngIf="itemForm.get('name')?.errors?.['required']">
+        {{ 'Validation.RequiredField' | translate }}
+      </span>
+      <span *ngIf="itemForm.get('name')?.errors?.['maxlength']">
+        {{ 'Validation.VarMaxLength' | translate : { param: 100 } }}
+      </span>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="category">{{ 'Attribute.Category' | translate }}:</label>
+    <input id="category" type="text" formControlName="category" />
+    <div *ngIf="itemForm.get('category')?.invalid && itemForm.get('category')?.touched" class="validation-error">
+      <span *ngIf="itemForm.get('category')?.errors?.['required']">
+        {{ 'Validation.RequiredField' | translate }}
+      </span>
+      <span *ngIf="itemForm.get('category')?.errors?.['maxlength']">
+        {{ 'Validation.VarMaxLength' | translate : { param: 50 } }}
+      </span>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="foundDate">Data znalezienia:</label>
+    <input id="foundDate" type="date" formControlName="foundDate" />
+    <div *ngIf="itemForm.get('foundDate')?.invalid && itemForm.get('foundDate')?.touched" class="validation-error">
+      <span *ngIf="itemForm.get('foundDate')?.errors?.['required']">
+        {{ 'Validation.RequiredField' | translate }}
+      </span>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="placeDescription">Opis miejsca:</label>
+    <textarea id="placeDescription" formControlName="placeDescription"></textarea>
+    <div *ngIf="itemForm.get('placeDescription')?.invalid && itemForm.get('placeDescription')?.touched" class="validation-error">
+      <span *ngIf="itemForm.get('placeDescription')?.errors?.['required']">
+        {{ 'Validation.RequiredField' | translate }}
+      </span>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="contactOffice">Biuro kontaktowe:</label>
+    <input id="contactOffice" type="text" formControlName="contactOffice" />
+    <div *ngIf="itemForm.get('contactOffice')?.invalid && itemForm.get('contactOffice')?.touched" class="validation-error">
+      <span *ngIf="itemForm.get('contactOffice')?.errors?.['required']">
+        {{ 'Validation.RequiredField' | translate }}
+      </span>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="itemForm.invalid">{{ 'Action.Save' | translate }}</button>
+</form>
