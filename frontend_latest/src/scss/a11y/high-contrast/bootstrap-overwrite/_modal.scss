@@ -1,0 +1,26 @@
+/* MODAL (BOOTSTRAP)
+*********************/
+.modal {
+    background-color: rgba($hcSecondary, 0.8);
+
+    &-dialog {
+        border: 1px solid currentColor;
+    }
+
+
+    &-body {
+        &::before {
+            background-color: currentColor;
+        }
+    }
+
+
+    &-footer {
+        border: none;
+    }
+
+    .close {
+        color: currentColor;
+        opacity: 1;
+    }
+}

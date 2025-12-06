@@ -1,0 +1,30 @@
+.sparql {
+  #editor, #prefixes, #sparqlResult {
+    border-color: $hcPrimary;
+
+    div {
+      background: unset;
+    }
+
+    span, div {
+      color: $hcPrimary !important;
+    }
+  }
+
+  .sparql--example {
+    background: $hcSecondary;
+    border: 1px solid $hcPrimary;
+    box-sizing: border-box;
+  }
+
+
+  .sparql-editor--wrapper {
+    background: $hcSecondary;
+    border: 1px solid $hcPrimary;
+  }
+
+  .sparql--format-label {
+    color: $hcPrimary;
+  }
+
+}

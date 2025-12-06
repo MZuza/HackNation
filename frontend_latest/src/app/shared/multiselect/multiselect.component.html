@@ -1,0 +1,112 @@
+<div class="dropdown dropdown--animated" [ngClass]="{ open: isExpanded, show: isExpanded }" (blur)="isExpanded = false">
+  <!-- dropdown trigger - multi -->
+  <button
+    class="btn dropdown-toggle"
+    type="button"
+    *ngIf="multiselect"
+    aria-haspopup="true"
+    [attr.aria-controls]="generatedId"
+    [attr.aria-expanded]="isExpanded"
+    [attr.aria-labelledby]="labelId ? labelId : null"
+    (click)="toggleDropdown()"
+    #toggler
+  >
+    <ng-container *ngIf="!selected.length"> {{ 'Action.Choose' | translate }}... </ng-container>
+    <ng-container *ngIf="selected.length">
+      {{ 'Filters.VarSelected' | translate: { param: selected.length } }}
+    </ng-container>
+  </button>
+
+  <!-- dropdown trigger - single -->
+  <button
+    class="btn dropdown-toggle"
+    type="button"
+    *ngIf="!multiselect"
+    aria-haspopup="true"
+    [attr.aria-controls]="generatedId"
+    [attr.aria-expanded]="isExpanded"
+    [attr.aria-labelledby]="labelId ? labelId : null"
+    (click)="toggleDropdown($event)"
+  >
+    <ng-container *ngIf="!selected">{{ 'Action.Choose' | translate }}...</ng-container>
+    <ng-container *ngIf="selected">{{ selected[displayValue] }}</ng-container>
+  </button>
+
+  <!-- dropdown menu -->
+  <div
+    class="dropdown-menu"
+    id="{{ generatedId }}"
+    [attr.aria-hidden]="!isExpanded"
+    [ngClass]="{ show: isExpanded }"
+    *ngIf="isExpanded"
+    @toggleVertically
+  >
+    <!-- animation -->
+
+    <!-- search through the list -->
+    <div class="dropdown-item-search" *ngIf="showSearchInput && options && options.length > 1">
+      <input
+        type="text"
+        class="form-control form-control-sm"
+        #inputFilter
+        [(ngModel)]="searchText"
+        placeholder="{{ 'Action.Search' | translate }}..."
+        [attr.aria-label]="'Action.Search' | translate"
+      />
+
+      <!-- realtime search info -->
+      <p role="status" aria-live="polite" aria-atomic="true" class="visually-hidden">
+        {{ 'Found.PluralCount' | translate: { param: filteredOptions.length } }}
+      </p>
+    </div>
+
+    <!-- MULTI select list -->
+    <ul class="dropdown__list" *ngIf="multiselect">
+      <li class="dropdown-item" *ngFor="let item of filteredOptions; let itemIndex = index">
+        <input
+          type="checkbox"
+          class="dropdown-item__input"
+          id="chk-{{ itemIndex }}"
+          [checked]="isItemSelected(item)"
+          (click)="selectItem(item)"
+          (keyup.enter)="selectItem(item)"
+        />
+
+        <label for="chk-{{ itemIndex }}" class="dropdown-item__text">
+          <span aria-hidden="true" [innerHtml]="item[displayValue] || item | sanitizeHtml"></span>
+          <span class="visually-hidden" *ngIf="item.titleTranslationKey">
+            {{ item.titleTranslationKey | translate }}
+            {{ item.key }}
+          </span>
+        </label>
+      </li>
+    </ul>
+
+    <!-- SINGLE select list -->
+    <ul class="dropdown__list" *ngIf="!multiselect">
+      <li class="dropdown-item" *ngFor="let item of filteredOptions; let itemIndex = index">
+        <input
+          type="radio"
+          groupname="radio-group"
+          class="dropdown-item__input"
+          id="radio-{{ itemIndex }}"
+          [checked]="isItemSelected(item)"
+          [attr.aria-label]="item"
+          (click)="selectItem(item)"
+          (keyup.enter)="selectItem(item)"
+        />
+
+        <label for="radio-{{ itemIndex }}" class="dropdown-item__text">
+          {{ item[displayValue] || item }}
+        </label>
+      </li>
+    </ul>
+
+    <!-- apply multiselect filters -->
+    <div class="dropdown__apply-wrapper">
+      <button class="btn btn-primary btn-sm dropdown__apply" (click)="applyFilters()">
+        {{ 'Filters.Apply' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

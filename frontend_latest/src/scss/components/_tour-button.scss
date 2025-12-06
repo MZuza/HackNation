@@ -1,0 +1,44 @@
+.tour-button-wrapper {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  width: 75px;
+  height: 75px;
+  z-index: 100001;
+ 
+  .tour-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 6px 12px;
+    border-radius: 50%;
+    background-color: #00AEEF;
+    color: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+    &:hover {
+      color: #fff;
+      filter: brightness(90%);
+    }
+
+    .icon {
+      pointer-events: none;
+      fill: currentColor;
+      width: 52px;
+      height: 42px;
+    }
+  }
+}
+@media only screen and (hover: none) and (pointer: coarse){
+    
+  .tour-button-wrapper {
+    position: fixed;
+    right: 32px;
+    bottom: 65px;
+    width: 75px;
+    height: 75px;
+    z-index: 100001;
+  } 
+}

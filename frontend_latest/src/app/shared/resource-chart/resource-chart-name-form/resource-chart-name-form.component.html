@@ -1,0 +1,48 @@
+<div class="pt-3" id="chart-name-form">
+  <div class="container px-0">
+    <form (ngSubmit)="onFormSubmit(f)" #f="ngForm">
+      <div class="row align-items-end">
+        <!-- chart name -->
+        <div class="col">
+          <label for="name">
+            {{ 'Chart.Name' | translate }}
+          </label>
+
+          <input
+            class="form-control"
+            type="text"
+            autocomplete="off"
+            placeholder="{{ 'ApplicationForm.EnterName' | translate }}..."
+            [attr.aria-label]="'ApplicationForm.EnterName' | translate"
+            [attr.aria-invalid]="nameField.touched && nameField.invalid"
+            [ngModel]="name"
+            name="name"
+            id="name"
+            #nameField="ngModel"
+            required
+            [minlength]="nameMinChars"
+          />
+        </div>
+
+        <!-- submit -->
+        <div class="col-sm col-sm-auto">
+          <button type="submit" class="btn btn-primary px-5" *ngIf="f.valid">
+            {{ 'Action.Save' | translate }}
+          </button>
+
+          <!-- fake submit -->
+          <button type="button" class="btn btn-secondary px-5" *ngIf="f.invalid">
+            {{ 'Action.Save' | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- title validation error -->
+    <div class="mt-1" *ngIf="nameField.touched && nameField.invalid" @toggleVertically>
+      <p class="alert alert-danger m-0 p-2" role="alert" id="name_error" aria-live="polite">
+        {{ 'Validation.VarMinLength' | translate: { param: nameMinChars } }}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<form class="bg-custom custom-form p-4" [formGroup]="feedbackForm" (ngSubmit)="onFormSubmit()" *ngIf="!isFeedbackSent">
+
+    <!-- feedback -->
+    <div class="form-group" 
+        [ngClass]="{'form-group-invalid': feedbackForm.controls.feedback.touched && feedbackForm.controls.feedback.invalid}">
+        
+        <label for="feedback">
+            {{ 'Datasets.Feedback' | translate }}
+        </label>
+
+        <!-- feedback textarea -->
+        <textarea class="form-control" name="feedback" id="feedback" rows="5"
+            formControlName="feedback"
+            [attr.aria-describedby]="'feedback_error'"
+            [attr.aria-invalid]="feedbackForm.controls.feedback.touched && feedbackForm.controls.feedback.invalid">
+        </textarea>
+        
+        <!-- feedback error -->
+        <div role="alert" aria-live="polite" id="feedback_error" @toggleVertically
+            *ngIf="feedbackForm.controls.feedback.touched && feedbackForm.controls.feedback.invalid">
+
+            <!-- required error -->
+            <small class="form-text text-danger" *ngIf="feedbackForm.controls.feedback.errors?.required">
+                {{ 'Validation.VarRequired' | translate:{param: 'Datasets.Feedback' | translate } }}
+            </small>
+
+            <!-- min length error -->
+            <small class="form-text text-danger" *ngIf="feedbackForm.controls.feedback.errors?.minlength">
+                {{ 'Validation.VarRequired' | translate:{param: 'Datasets.Feedback' | translate } }}
+            </small>
+            
+            <!-- max length error -->
+            <small class="form-text text-danger" *ngIf="feedbackForm.controls.feedback.errors?.maxlength">
+                {{ 'Validation.VarMaxFieldLengthExceeded' | translate: {param: feedbackForm.controls.feedback.errors.maxlength['actualLength'] - maxFeedbackLength} }}
+            </small>
+        </div>
+    </div>
+                
+    <!-- captcha -->
+    <app-math-captcha formControlName="captcha"></app-math-captcha>
+
+    <!-- submit form -->
+    <div class="text-right">
+
+        <!-- fake submit -->
+        <button type="button" class="btn btn-secondary"
+            aria-describedby="feedback_error captcha_required_error captcha_number_error"
+            *ngIf="!feedbackForm.valid">
+            {{ 'Action.Send' | translate }}
+            {{ 'Datasets.Feedback' | translate | lowercase }}
+        </button>
+
+        <!-- submit -->
+        <button type="submit" class="btn btn-primary"
+            *ngIf="feedbackForm.valid">
+            {{ 'Action.Send' | translate }}
+            {{ 'Datasets.Feedback' | translate | lowercase }}
+        </button>
+    </div>
+</form>
+
+<!-- feedback sent -->
+<div class="alert alert-success" role="alert" aria-live="assertive" *ngIf="isFeedbackSent">
+    {{ 'Datasets.FeedbackSentSuccess' | translate}}
+</div>

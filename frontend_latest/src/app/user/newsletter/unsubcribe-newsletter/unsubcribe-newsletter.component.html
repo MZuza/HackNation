@@ -1,0 +1,32 @@
+<div class="container vertical-spacing">
+
+    <header class="vertical-spacing">
+        <div class="container">
+            <h1 class="heading heading--separator">
+                {{ 'Newsletter.Unsubscription' | translate }}
+            </h1>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+
+        <app-notifications></app-notifications>
+
+        <div id="success" *ngIf="successMessage">
+            <div class="row">
+                <p class="col-6 font-weight-bold text-nowrap"> {{ successMessage }}</p>
+            </div>
+            <div class="row">
+                <link-button [labelTranslateKey]="'Newsletter.Subscribe'"
+                             [routerLink]="['/newsletter']"></link-button>
+            </div>
+        </div>
+
+        <div id="error" *ngIf="errorMessage">
+            <div class="row">
+                <h4 class="col-5 text-nowrap"> {{ errorMessage }}.</h4>
+            </div>
+
+        </div>
+    </div>
+</div>

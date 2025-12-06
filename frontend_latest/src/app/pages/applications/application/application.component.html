@@ -1,0 +1,111 @@
+<header class="vertical-spacing">
+  <div class="container pb-3">
+    <h1 class="heading">
+      {{ 'Applications.Self' | translate }}
+    </h1>
+
+    <!-- introduction -->
+    <p>
+      {{ 'Applications.Description1Aof3' | translate }}
+      <a class="font-weight-bold" [routerLink]="['/'] | localize" target="_blank">Dane.gov.pl</a>
+      {{ 'Applications.Description1Bof3' | translate }}
+      <a class="font-weight-bold" [routerLink]="'suggest'">{{ 'Applications.Suggest' | translate }}</a>
+      {{ 'Applications.Description1Cof3' | translate }}
+    </p>
+    <p class="mb-4">{{ 'Applications.Description2of3' | translate }}</p>
+
+    <app-search-suggest
+      tooltipText="{{ 'Tour.Tooltip.Applications.Search.text' | translate }}"
+      [placeholderTranslationKey]="'Applications.SearchFor'"
+      [searchQuery]="params.q"
+      [apiModels]="[apiModel.SHOWCASE]"
+      [maxResultsPerModel]="3"
+      [useTriggers]="true"
+      (searchTrigger)="updateParams({ q: $event.q, sort: 'relevance' })"
+      (clearTrigger)="updateParams({ q: '', sort: '-date' })"
+      (moveToSearchResultTrigger)="moveToSearchResult()"
+    >
+    </app-search-suggest>
+  </div>
+</header>
+
+<div class="container results-section pb-0 pb-lg-4">
+  <div class="row no-gutters">
+    <aside class="col-lg-4 col-xl-3 bg-custom">
+      <!--applications filters-->
+      <app-applications-list-view-filters
+        [filtersOptions]="filters"
+        [maxLength]="maxLength"
+        [originalSelectedData]="backupSelectedFilters"
+        [data]="selectedFilters"
+        (applyFilters)="updateParams($event, null, true)"
+      ></app-applications-list-view-filters>
+    </aside>
+    <div class="col-lg-8 col-xl-9">
+      <div class="ml-0 ml-lg-4">
+        <!-- SELECTED FILTERS -->
+        <app-dataset-selected-filters
+          [selectedIds]="backupSelectedFilters"
+          [selectedFiltersCount]="selectedFiltersCount"
+          (clearAllFilters)="clearSelectedFilters()"
+          (clearSingleFilter)="clearSelectedFilter($event)"
+        >
+        </app-dataset-selected-filters>
+
+        <!--result counters and sort dropdown-->
+        <app-found-results-counters-and-sort
+          *ngIf="items?.length"
+          [selected]="params?.sort"
+          (update)="updateParams($event)"
+          [counters]="[{ label: 'Applications.Self' | translate, count: count }]"
+          [sortOptions]="[
+            { label: 'Sort.Default' | translate, value: 'relevance' },
+            { label: 'Attribute.NameAsc' | translate, value: 'title' },
+            { label: 'Attribute.NameDesc' | translate, value: '-title' },
+            { label: 'Attribute.AvailabilityDate' | translate, value: '-date' },
+            { label: 'Attribute.Popularity' | translate, value: '-views_count' }
+          ]"
+        >
+        </app-found-results-counters-and-sort>
+
+        <!-- api notifications -->
+        <app-notifications></app-notifications>
+
+        <!-- no results found -->
+        <app-no-results-found [q]="params.q" *ngIf="params.q && !items?.length"></app-no-results-found>
+
+        <!-- RESULTS LIST -->
+        <app-application-results [items]="items"></app-application-results>
+
+        <!-- RESULTS FOOTER -->
+        <footer class="results-footer pt-5" *ngIf="items && items.length">
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- results per page -->
+            <app-items-per-page [selected]="params?.per_page" (selectedChange)="updateParams({ per_page: $event })"> </app-items-per-page>
+
+            <!-- pagination -->
+            <app-pagination
+              [itemsPerPage]="params.per_page"
+              [totalItems]="count"
+              [(page)]="params.page"
+              (numPages)="numPages = $event"
+              (pageChange)="updateParams({ page: $event })"
+            >
+            </app-pagination>
+          </div>
+
+          <!--suggest application-->
+          <div class="results-action m-0 pt-4">
+            <app-new-data-contact
+              class="w-100"
+              [titleTranslationKey]="'Applications.Description4'"
+              [routerLink]="'suggest'"
+              [buttonTranslationKey]="'Applications.Suggest'"
+            >
+            </app-new-data-contact>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>

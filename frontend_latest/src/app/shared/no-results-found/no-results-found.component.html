@@ -1,0 +1,13 @@
+<div class="pb-4" @toggleVertically>
+  <p class="alert alert-warning m-0 font-weight-bold" role="alert" aria-live="polite">
+    <ng-container *ngIf="q"> {{ 'Found.NothingFor' | translate }} "{{ q }}" </ng-container>
+
+    <ng-container *ngIf="!q && !hasAdditionalQueryCriteria">
+      {{ 'Found.Nothing' | translate }}
+    </ng-container>
+
+    <ng-container *ngIf="!q && hasAdditionalQueryCriteria">
+      {{ 'Found.NothingForCriteria' | translate }}
+    </ng-container>
+  </p>
+</div>

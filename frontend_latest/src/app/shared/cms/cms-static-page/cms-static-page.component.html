@@ -1,0 +1,15 @@
+<div>
+    <header class="bg-custom vertical-spacing" *ngIf="displayPageHeader" >
+        <div class="container">
+            <h1 class="heading" *ngIf="pageTitle">
+                {{ pageTitle }}
+            </h1>
+        </div>
+    </header>
+
+    <div [ngClass]="{'vertical-spacing': displayPageHeader}">
+        <app-notifications></app-notifications>
+        <app-loader *ngIf="!pageTitle"></app-loader>
+        <cms-block2 *ngIf="pageTitle" [widgetsSubject]="pageWidget" [isFullWidth]="false"></cms-block2>
+    </div>
+</div>

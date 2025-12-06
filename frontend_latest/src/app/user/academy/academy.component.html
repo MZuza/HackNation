@@ -1,0 +1,42 @@
+<h1 class="heading">{{ 'MyDashboard.Aod' | translate }}</h1>
+
+<!-- TABS: ANCHORS -->
+<div class="tabs">
+  <ul class="tab-list row no-gutters" role="tablist">
+    <!-- info -->
+    <li class="tab-list__item col-md-6" role="presentation">
+      <a
+        class="tab-list__link"
+        role="tab"
+        id="tab1"
+        [routerLink]="['info']"
+        routerLinkActive="tab-list__link--active"
+        #infoActive="routerLinkActive"
+        [attr.aria-selected]="infoActive.isActive ? true : false"
+        aria-controls="aod-tabs"
+      >
+        {{ 'Aod.Information' | translate }}
+      </a>
+    </li>
+
+    <!-- courses -->
+    <li class="tab-list__item col-md-6" role="presentation">
+      <a
+        class="tab-list__link"
+        role="tab"
+        id="tab2"
+        [routerLink]="['courses']"
+        routerLinkActive="tab-list__link--active"
+        #coursesActive="routerLinkActive"
+        [attr.aria-selected]="coursesActive.isActive ? true : false"
+        aria-controls="aod-tabs"
+      >
+        {{ 'Aod.Courses' | translate }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="tabs-content" role="tabpanel" id="aod-tabs" tabindex="0">
+  <router-outlet></router-outlet>
+</div>

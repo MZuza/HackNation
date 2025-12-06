@@ -1,0 +1,14 @@
+<app-result-list [items]="items">
+  <ng-template let-item>
+    <app-default-result-item
+      [item]="item"
+      [detailsUrl]="item.attributes.slug"
+    ></app-default-result-item>
+  </ng-template>
+
+  <ng-template let-item>
+    <app-details-result-item
+      [detailsData]="[{ titleTranslationKey: 'Attribute.AvailabilityDate', data: item.attributes?.created, isDate: true }]"
+    ></app-details-result-item>
+  </ng-template>
+</app-result-list>

@@ -1,0 +1,76 @@
+<h3 class="heading heading--xs">
+    Lista komentarzy ({{ comments?.length || 0 }})
+</h3>
+
+<ul class="list-unstyled mb-3">
+    <li class="schedule-comment-item" *ngFor="let comment of comments">
+
+        <div class="d-flex flex-row">
+            <div class="d-none d-md-inline-block">
+                <span class="schedule-comment-item__initial-letter mr-3" aria-hidden="true">
+                    {{ comment.attributes.author | slice:0:1 | titlecase }}
+                </span>                
+            </div>
+
+            <div class="w-100">             
+                <div class="d-flex flex-column flex-md-row mb-3 justify-content-between w-100">
+
+                    <!-- author -->
+                    <span class="d-inline-block p-0 pr-md-4 mr-md-auto">
+                        <span class="font-weight-bold d-md-block d-lg-inline">
+                            autor:
+                        </span>
+                        {{ comment.attributes.author }}
+                    </span>
+                    
+                    <!-- created -->
+                    <span class="d-inline-block p-0 pr-md-4">
+                        <span class="font-weight-bold d-md-block d-lg-inline">
+                            data dodania:
+                        </span>
+                        <span class="d-inline-block">
+                            {{ comment.attributes.created | translateDateFormat | async }}
+                        </span>
+                    </span>
+                    
+                    <!-- modified -->
+                    <span class="d-inline-block p-0" *ngIf="comment.attributes.created !== comment.attributes.modified">
+                        <span class="font-weight-bold d-md-block d-lg-inline">
+                            data edycji:
+                        </span>
+                        <span class="d-inline-block">
+                            {{ comment.attributes.modified | translateDateFormat | async }}
+                        </span>
+                    </span>
+                </div>
+                
+                <!-- comment text -->
+                <div class="" *ngIf="comment.id !== commentToEdit?.id" @toggleVertically>
+                    <p class="schedule-comment-item__text">
+                        {{ comment.attributes.text }}
+                    </p>
+                    
+                    <button type="button" 
+                        class="btn btn-link p-0" 
+                        (click)="commentToEdit = comment" 
+                        *ngIf="currentUserEmail === comment.attributes.author">
+                        Edytuj 
+                        <span class="visually-hidden">
+                            komentarz
+                        </span>
+                    </button>
+                </div>
+
+                <!-- edit form -->
+                <div *ngIf="comment.id === commentToEdit?.id" @toggleVertically>
+                    <app-schedule-comments-form
+                        [scheduleItemId]="scheduleItemId"
+                        [commentToEdit]="comment"
+                        (entrySaved)="onCommentUpdate($event)"
+                        (editCanceled)="onEditCancel()">
+                    </app-schedule-comments-form>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

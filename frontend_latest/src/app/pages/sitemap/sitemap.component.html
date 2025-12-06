@@ -1,0 +1,76 @@
+<div class="container vertical-spacing">
+    <h1 class="heading heading--separator">
+        {{ 'Menu.Sitemap' | translate }}
+    </h1>
+
+    <!-- SITEMAP MENU -->
+    <ul class="list-unstyled" role="menu">
+        <li role="presentation">
+            <a role="menuitem" [routerLink]="['/!'] | localize">
+                {{ 'Menu.Home' | translate }}
+            </a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" [routerLink]="['/!dataset'] | localize">
+                {{ 'Menu.Datasets' | translate }}
+            </a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" [routerLink]="['/!institution'] | localize">
+                {{ 'Menu.Institutions' | translate }}
+            </a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" [routerLink]="['/!showcase'] | localize">
+                {{ 'Menu.Showcases' | translate }}
+            </a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" [routerLink]="['/!article'] | localize">
+                {{ 'Menu.News' | translate }}
+            </a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem"
+               [routerLink]="['/!' + routerEndpoints.KNOWLEDGE_BASE + '/!' + routerEndpoints.USEFUL_MATERIALS] | localize">
+                {{ 'Menu.KnowledgeBase' | translate }}
+            </a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem"
+               [routerLink]="['/!' + routerEndpoints.DGA] | localize">
+              {{ 'Menu.DGAInformationPoint' | translate }}
+            </a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem"
+               [routerLink]="['/!' + '/!brokenlinks'] | localize">
+              {{ "BrokenLinks.Self" | translate }}
+            </a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" [routerLink]="['/!about'] | localize">
+                {{ 'Menu.About' | translate }}
+            </a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" [routerLink]="['/!forms/!ankieta-o-portalu'] | localize">
+                {{ 'Cms.FillOutSurvey' | translate }}
+            </a>
+        </li>
+        <li role="presentation">
+            {{ 'Menu.Sitemap' | translate }}
+        </li>
+
+        <!-- contact info modal -->
+        <li role="presentation" class="text-primary">
+            <app-write-us-info
+                [buttonLabel]="'Menu.Contact'"
+                [buttonSize]="'md'"
+                [buttonLook]="'link'"
+                [inheritLook]="true">
+            </app-write-us-info>
+        </li>
+    </ul>
+</div>
+

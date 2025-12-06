@@ -1,0 +1,20 @@
+<ng-container *ngIf="fileSize < 1024">
+    <span>{{ fileSize / 1024 | number:'0.0-2'}}</span>
+    <abbr title="{{ 'File.KbAbbreviation' | translate }}">kB</abbr>
+</ng-container>
+
+<ng-container *ngIf="fileSize >= 1024 && fileSize < 1024 * 1024">
+    <span>{{ fileSize / 1024 | number:'0.0-0' }}</span>
+    <abbr title="{{ 'File.KbAbbreviation' | translate }}">kB</abbr>
+</ng-container>
+
+<ng-container *ngIf="fileSize >= 1024 * 1024 && fileSize < 1024 * 1024 * 1024">
+    <span>{{ fileSize / 1024 / 1024 | number:'0.0-2' }}</span>
+    <abbr title="{{ 'File.MbAbbreviation' | translate }}">MB</abbr>
+</ng-container>
+
+<ng-container *ngIf="fileSize >= 1024 * 1024 * 1024">
+    <span>{{ fileSize / 1024 / 1024 / 1024 | number:'0.0-2' }}</span>
+    <abbr title="{{ 'File.GbAbbreviation' | translate }}">GB</abbr>
+</ng-container>
+

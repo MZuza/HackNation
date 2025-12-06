@@ -1,0 +1,77 @@
+<div role="tabpanel" attr.aria-labelledby="tabFollowedList">
+  <section class="results-section vertical-spacing">
+    <header class="results-header">
+      <h2 class="heading heading--md heading--separator">
+        {{ 'Datasets.Self' | translate }}
+        ({{ count || 0 }})
+      </h2>
+
+      <!-- api notifications -->
+      <app-notifications></app-notifications>
+    </header>
+
+    <!-- no results found -->
+    <p *ngIf="!items || (items && !items.length)">
+      {{ 'Found.Nothing' | translate }}
+    </p>
+
+    <!-- RESULT LIST -->
+    <app-result-list [items]="items">
+      <!-- LEFT -->1
+      <ng-template let-item>
+        <!-- promoted text-->
+        <div *ngIf="item.attributes.is_promoted" class="result-item-promoted__left--promoted-tex-pill">
+          <span class="bg-custom">{{ 'Attribute.PromotedData' | translate }}</span>
+        </div>
+        <!-- title -->
+        <h3 class="heading heading--sm heading--primary-link">
+          <a class="heading__link" [routerLink]="['/' | localize, subscriptionType, item.id]">
+            {{ item.attributes.title }}
+          </a>
+        </h3>
+
+        <!-- notes -->
+        <div [innerHTML]="item.attributes.notes | sanitizeHtml"></div>
+      </ng-template>
+
+      <!-- RIGHT -->
+      <ng-template let-item let-index="index">
+        <div class="d-flex flex-column flex-sm-row align-items-sm-center d-lg-block">
+          <!-- remove subscription -->
+          <div class="subscribe-button">
+            <button class="btn btn-danger btn-sm" (click)="removeSubscription(index)">
+              {{ 'Action.StopObserve' | translate }}
+
+              <span class="visually-hidden">
+                {{ item.attributes.title }}
+              </span>
+            </button>
+          </div>
+
+          <!-- update date -->
+          <div class="small mt-2 mt-sm-0 mt-lg-2 ml-0 ml-sm-2 ml-lg-0">
+            <span class="d-inline d-lg-block font-weight-bold"> {{ 'Attribute.UpdateDate' | translate }}: </span>
+            {{ item.attributes.verified | translateDateFormat | async }}
+          </div>
+        </div>
+      </ng-template>
+    </app-result-list>
+
+    <!-- RESULTS FOOTER -->
+    <footer class="results-footer" *ngIf="count > 0">
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- results per page -->
+        <app-items-per-page [selected]="params?.per_page" (selectedChange)="updateParams({ per_page: $event })"> </app-items-per-page>
+
+        <!-- pagination -->
+        <app-pagination
+          [itemsPerPage]="params.per_page"
+          [totalItems]="count"
+          [page]="params.page"
+          (pageChange)="updateParams({ page: $event })"
+        >
+        </app-pagination>
+      </div>
+    </footer>
+  </section>
+</div>

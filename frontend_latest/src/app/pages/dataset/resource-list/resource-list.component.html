@@ -1,0 +1,22 @@
+<app-result-list [items]="items">
+
+    <!-- LEFT -->
+    <ng-template let-item>
+        <app-resource-item-info 
+            [item]="item" 
+            [isSortParamsDataDate]="isSortParamsDataDate"
+            [isSortParamsCreated]="isSortParamsCreated" 
+            [urlNavigation]="routerEndpoints.RESOURCES">
+        </app-resource-item-info>
+    </ng-template>
+
+    <!-- RIGHT -->
+    <ng-template let-item>
+        <app-resource-item-files-download 
+            [item]="item" 
+            [titleTranslationKey]="item.titleTranslationKey"
+            (download)="onDownload($event)">
+        </app-resource-item-files-download>
+    </ng-template>
+
+</app-result-list>

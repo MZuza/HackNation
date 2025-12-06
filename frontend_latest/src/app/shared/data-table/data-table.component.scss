@@ -1,0 +1,30 @@
+@import "base/variables";
+
+.icon-external-link {
+  width: 16px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.data-table-link-tooltip .mdc-tooltip__surface{
+  background-color: #0f2648;
+  color: #fff;
+}
+
+body.black-white .data-table-link-tooltip .mdc-tooltip__surface {
+  border: 1px solid white;
+  background: black !important;
+}
+
+body.black-yellow .data-table-link-tooltip .mdc-tooltip__surface {
+  color: currentColor;
+  border: 1px solid $color-yellow;
+  background: black !important;
+}
+
+body.yellow-black .data-table-link-tooltip .mdc-tooltip__surface {
+  color: currentColor;
+  border: 1px solid black;
+  background: $color-yellow !important;
+}
+

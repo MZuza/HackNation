@@ -1,0 +1,18 @@
+
+.modal {
+    &-header {
+        padding-bottom: 0;
+        border: none;
+    }
+
+    &-body {
+        &::before {
+            content: "";
+            background-color: $color-blue-light;
+            display: block;
+            width: 25px;
+            height: 5px;
+            margin-bottom: 20px;
+        }
+    }
+}

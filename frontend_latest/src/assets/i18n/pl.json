@@ -1,0 +1,1359 @@
+{
+  "MC": "Ministerstwo Cyfryzacji",
+  "MaintainedBy": "Serwis prowadzony przez",
+  "Slogan": "Portal danych",
+  "SloganDescription": "Korzystaj z danych bezpłatnie, również do celów komercyjnych",
+  "Description": "Dane o szczególnym znaczeniu dla rozwoju innowacyjności w państwie i rozwoju społeczeństwa informacyjnego w jednym miejscu",
+  "GoTo": "Przejdź do strony",
+  "PageTop": "Początek strony",
+  "Loading": "Trwa ładowanie danych...",
+  "LookingForDifferentData": "Szukasz innych danych?",
+  "BackToHome": "Przejdź do Strony głównej",
+  "HistoryBack": "Przejdź do poprzedniej strony",
+  "Version": "Wersja: ",
+  "Modal": "Okno dialogowe",
+  "SourceCode": "Kod źródłowy portalu",
+  "ApiDocumentation": "Dokumentacja API",
+  "RDFDocumentation": "Dokumentacja RDF",
+  "Hint": "Podpowiedź",
+  "ROUTES.404": "404",
+  "Yes": "Tak",
+  "About": {
+    "Self": "O serwisie"
+  },
+  "Action": {
+    "Add": "Dodaj",
+    "Remove": "Usuń",
+    "Open": "Otwórz",
+    "Close": "Zamknij",
+    "Choose": "Wybierz",
+    "Save": "Zapisz",
+    "Cancel": "Anuluj",
+    "Edit": "Edytuj",
+    "Download": "Pobierz",
+    "Show": "Pokaż",
+    "Hide": "Ukryj",
+    "ExpandDescription": "Rozwiń cały opis",
+    "CollapseDescription": "Zwiń opis",
+    "Search": "Szukaj",
+    "SearchFor": "Wyszukaj",
+    "Register": "Zarejestruj się",
+    "Login": "Zaloguj się",
+    "Logout": "Wyloguj się",
+    "Remember": "Zapamiętaj",
+    "RememberMe": "Zapamiętaj mnie",
+    "Check": "Zaznacz",
+    "Uncheck": "Odznacz",
+    "See": "Zobacz",
+    "Increase": "Powiększ",
+    "Decrease": "Zmniejsz",
+    "Change": "Zmień",
+    "Sort": "Sortuj",
+    "SeeResultsViaApiTooltip": "Zobacz odpowiedź z API w formacie JSON służącą do prezentacji danych na bieżącej stronie",
+    "SeeResultsViaApi": "Wyświetl dane poprzez API",
+    "Send": "Wyślij",
+    "SwitchViewTo": "Przełącz widok na",
+    "Observe": "Obserwuj",
+    "StopObserve": "Przestań obserwować",
+    "GoToSource": "Przejdź do źródła",
+    "GoTo": "Przejdź do",
+    "Go": "Przejdź",
+    "OpenInNewWindow": "Otwórz w nowym oknie",
+    "LoadMore": "Załaduj więcej",
+    "Subscribe": "Zamów",
+    "Preview": "Wyświetl",
+    "Enter": "Wprowadź",
+    "Expand": "Rozwiń",
+    "Collapse": "Zwiń",
+    "ChooseCategory": "Wybierz kategorię",
+    "EnterRegion": "Podaj lokalizacje",
+    "DownloadAll": "Pobierz cały zbiór",
+    "Copied": "Skopiowano"
+  },
+  "ActivityNotification": {
+    "object_restored": "Przywrócono",
+    "object_trashed": "Usunięto",
+    "object_removed": "Usunięto",
+    "object_updated": "Zaktualizowano",
+    "updated": "Zaktualizowano",
+    "application": {
+      "related_object_publicated": "Opublikowano zbiór powiązany z",
+      "related_object_updated": "Zaktualizowano zbiór powiązany z",
+      "related_object_restored": "Przywrócono zbiór powiązany z",
+      "related_object_removed": "Usunięto zbiór powiązany z",
+      "related_object_trashed": "Usunięto zbiór powiązany z"
+    },
+    "dataset": {
+      "related_object_publicated": "Opublikowano zasób powiązany z",
+      "related_object_updated": "Zaktualizowano zasób powiązany z",
+      "related_object_restored": "Przywrócono zasób powiązany z",
+      "related_object_removed": "Usunięto zasób powiązany z",
+      "related_object_trashed": "Usunięto zasób powiązany z"
+    },
+    "datasetRelated": {
+      "related_object_publicated": "Dodano nowe dane do",
+      "related_object_updated": "Zaktualizowano dane w",
+      "related_object_restored": "Przywrócono dane w",
+      "related_object_removed": "Usunięto dane z"
+    },
+    "query": {
+      "result_count_incresed": "Liczba wyników w odpowiedzi zwiększyła się dla",
+      "result_count_decresed": "Liczba wyników w odpowiedzi zmniejszyła się dla"
+    }
+  },
+  "ApplicationForm": {
+    "Self": "PoCoTo",
+    "Title": "Zaproponuj",
+    "Name": "Nazwa",
+    "ApplicantEmail": "E-mail zgłaszającego",
+    "Author": "Autor",
+    "Logo": "Logo",
+    "LogoHint": "(logo, które będzie wyświetlane podczas przeglądania)",
+    "Graphics": "Grafika ilustracyjna",
+    "GraphicsHint": "(grafika będzie wyświetlana w szczegółach aplikacji)",
+    "InternalDatasets": "Wyszukaj zbiór danych na portalu",
+    "InternalDatasetsHint": "(który został wykorzystany do budowy aplikacji)",
+    "ExternalDatasets": "Jeśli wykorzystałeś dane publiczne spoza portalu",
+    "ExternalDatasetsHint": "(wprowadź nazwę zbioru lub podaj link do zbioru)",
+    "ComaSeparated": "Oddzielone przecinkami",
+    "RelatedDatasetsLimitAlert": "Została osiągnięta maksymalna liczba {param} zbiorów danych dla propozycji aplikacji",
+    "Website": "Adres strony z informacją",
+    "SuggestionSentSuccess": "Dziękujemy za zgłoszenie propozycji ponownego wykorzystania danych",
+    "EnterName": "Wprowadź nazwę",
+    "Link": "Link",
+    "DataProcessing": "Potwierdzam przyjęcie do wiadomości następujących informacji",
+    "Url": "https://",
+    "ApplicationType": "Rodzaj aplikacji",
+    "ApplicationTypeHint": "Wymagane jest uzupełnienie przynajmniej jednego linku",
+    "MobileType": "Aplikacja mobilna",
+    "DesktopType": "Aplikacja desktopowa",
+    "LicenceType": "Rodzaj licencji",
+    "FreeLicence": "Darmowa aplikacja",
+    "PaidLicence": "Płatna aplikacja",
+    "iOSLinkText": "iOS - link do aplikacji:",
+    "AndroidLinkText": "Android - link do aplikacji:",
+    "WinLinkText": "Windows - link do aplikacji:",
+    "LinLinkText": "Linux - link do aplikacji:",
+    "MacLinkText": "MacOS - link do aplikacji:",
+    "EnterAuthor": "Wprowadź autora"
+  },
+  "Applications": {
+    "Self": "Ponowne wykorzystanie danych",
+    "Description": "Opis",
+    "Link": "Link do aplikacji",
+    "LogoApp": "Logo aplikacji",
+    "Logo": "Logo",
+    "Suggest": "Zaproponuj",
+    "SuggestFooterName": "Zaproponuj ponowne wykorzystanie",
+    "Description1Aof3": "Jeśli stworzyłeś lub znasz aplikację, stronę internetową lub inny produkt wykorzystujący w szczególności otwarte dane pochodzące np. z portalu",
+    "Description1Bof3": "i chcesz udostępnić informacje o nich w portalu – kliknij przycisk",
+    "Description1Cof3": "i wypełnij formularz.",
+    "Description2of3": "Nie promujemy konkretnych rozwiązań, ale upowszechniamy informacje o projektach wykorzystujących dane.",
+    "Description3of3": "Jesteśmy zainteresowani kolejnymi przykładami",
+    "Description4": "Jesteśmy zainteresowani kolejnymi przykładami wykorzystania danych",
+    "NoLogo": "Brak logo",
+    "SearchFor": "Wyszukaj",
+    "ShowDetails": "Pokaż szczegóły",
+    "HideDetails": "Ukryj szczegóły",
+    "SeeAll": "Zobacz wszystkie przykłady",
+    "LinkNoApp": "Link"
+  },
+  "Articles": {
+    "News": "Aktualności",
+    "SearchFor": "Wyszukaj artykuł"
+  },
+  "Attribute": {
+    "Details": "Szczegóły",
+    "Author": "Autor",
+    "Category": "Kategoria",
+    "CategoryTooltip": "kategorie",
+    "CategoryLong": "Kategoria danych",
+    "Format": "Format",
+    "FormatTooltip": "format",
+    "FormatLong": "Format dostarczonych danych",
+    "Institution": "Dostawca",
+    "InstitutionTooltip": "dostawców",
+    "InstitutionLong": "Dostawca danych",
+    "Order": "Kolejność",
+    "License": "Licencja",
+    "LicenseLong": "Wybierz licencję",
+    "LicenseTooltip": "licencja",
+    "Tags": "Słowa kluczowe",
+    "Type": "Typ",
+    "Source": "Źródło",
+    "HarvestedSource": "Dane pochodzą z zewnętrznego portalu",
+    "DownloadCount": "Liczba pobrań",
+    "ViewsCount": "Liczba wyświetleń",
+    "OpennessScore": "Poziom otwartości danych",
+    "VisualizationType": "Sposób wizualizacji danych",
+    "ResourceType": "Typ zasobu",
+    "Popularity": "Popularność",
+    "Created": "Utworzono",
+    "Modified": "Zmodyfikowano",
+    "Updated": "Zaktualizowano",
+    "Available": "Udostępniono",
+    "Date": "Data",
+    "AddDate": "Data dodania",
+    "CreationDate": "Data utworzenia",
+    "ModificationDate": "Data modyfikacji",
+    "LastModificationDate": "Data ostatniej modyfikacji",
+    "AvailabilityDate": "Data udostępnienia",
+    "DataDate": "Dane na dzień",
+    "UpdateDate": "Data aktualizacji",
+    "Name": "Nazwa",
+    "NameAsc": "Nazwa od A do Z",
+    "NameDesc": "Nazwa od Z do A",
+    "PopularityAsc": "Popularność rosnąco",
+    "PopularityDesc": "Popularność malejąco",
+    "Required": "Wymagane",
+    "UpdateFrequency": "Częstotliwość aktualizacji",
+    "Image": "Obraz",
+    "Size": "Rozmiar",
+    "Title": "Tytuł",
+    "DataSource": "Źródło danych",
+    "DateRange": "Zakres dat",
+    "From": "Od",
+    "To": "Do",
+    "AllData": "Wszystkie dane",
+    "LastImportDate": "Data ostatniego importu",
+    "HarvesterUpdateFrequency": "Częstotliwość importu",
+    "Period": "Okres",
+    "Metadata": "Metadane",
+    "HighValueData": "Dane o wysokiej wartości",
+    "HighValueDataFromEC": "Dane o wysokiej wartości z wykazu KE",
+    "ShowcasesCategory": "Kategoria",
+    "ApplicationTypes": "Rodzaje aplikacji",
+    "PlatformTypes": "Rodzaje platformy",
+    "LicenceType": "Rodzaj licencji",
+    "UsefulLinks": "Przydatne linki",
+    "Page": "Strona",
+    "GoTo": "Przejdź do",
+    "AppStore": "App Store",
+    "GooglePlay": "Google Play",
+    "IosStore": "aplikacji iOS",
+    "LinuxStore": "aplikacji Linux",
+    "WindowsStore": "aplikacji Windows",
+    "Region": "Lokalizacja danych",
+    "DynamicData": "Dane dynamiczne",
+    "ResearchData": "Dane badawcze",
+    "Supplements": "Dokumenty uzupełniające",
+    "Description": "Opis",
+    "PromotedData": "Dane promowane",
+    "ExternalDatasets": "Dane zewnętrzne",
+    "Language": "Język danych",
+    "ProtectedData": "Wykaz chronionych danych",
+    "ContainsProtectedData": "Zawiera wykaz chronionych danych"
+  },
+  "Breadcrumbs": {
+    "YouAreHere": "Jesteś w sekcji",
+    "Root": "Strona główna",
+    "HomeComponent": "",
+    "HelpAndRegulations": "Pomoc i regulaminy",
+    "RegulationsComponent": "Regulamin",
+    "DatasetModule": "Dane",
+    "DatasetComponent": "",
+    "DatasetItemComponent": "",
+    "SuggestDatasetComponent": "Zaproponuj zbiór danych",
+    "SubmissionListComponent": "Propozycje nowych danych",
+    "InstitutionModule": "Dostawcy",
+    "InstitutionComponent": "",
+    "InstitutionItemComponent": "",
+    "SuggestApplicationComponent": "Zaproponuj",
+    "ArticleModule": "Aktualności",
+    "LoginComponent": "Logowanie",
+    "RegisterComponent": "Rejestracja",
+    "SearchHistoryComponent": "Historia wyszukiwania",
+    "FollowedDatasetsComponent": "Obserwowane - Lista",
+    "FollowedObjectActivityComponent": "Obserwowane - Aktywność",
+    "FollowedQueryComponent": "Obserwowane - Wyniki wyszukiwania",
+    "ChangePasswordComponent": "Zmiana hasła",
+    "LostPasswordComponent": "Utworzenie nowego hasła",
+    "ResetPasswordComponent": "Utworzenie nowego hasła",
+    "DashboardComponent": "Mój pulpit",
+    "LabComponent": "Laboratorium OD",
+    "AcademyComponent": "Akademia OD",
+    "DataProposalComponent": "Propozycje nowych danych",
+    "MeetingsComponent": "Spotkania pełnomocników",
+    "ForumRegulationsComponent": "Regulamin forum",
+    "SitemapComponent": "Mapa strony",
+    "PageNotFoundComponent": "Nie ma takiej strony",
+    "SearchComponent": "Wyniki wyszukiwania",
+    "SurveyComponent": "Ankieta",
+    "NewsletterComponent": "Zamów newsletter",
+    "DeclarationComponent": "Deklaracja dostępności",
+    "ShowcasesComponent": "PoCoTo"
+  },
+  "BrokenLinks": {
+    "Self": "Uszkodzone linki",
+    "NumberOfBrokenLinks": "Liczba uszkodzonych linków",
+    "UpdateInfo": "Ostatnia aktualizacja",
+    "Search": "Wyszukiwarka",
+    "Tooltip": "Słowo lub fraza wpisane do pola „Wyszukaj” są wyszukiwane w danych w całej tabeli. Jeśli chcesz wyszukać dokładne wyrażenie, wpisz je w cudzysłowach, na przykład \"Ministerstwo Cyfryzacji”."
+  },
+  "Calendar": {
+    "CalendarLabel": "Kalendarz",
+    "NextMonthLabel": "Następny Miesiąc",
+    "NextMultiYearLabel": "Następne 20 lat",
+    "NextYearLabel": "Następny rok",
+    "OpenCalendarLabel": "Otwórz kalendarz",
+    "PrevMonthLabel": "Poprzedni miesiąc",
+    "PrevMultiYearLabel": "Poprzednie 20 lat",
+    "PrevYearLabel": "Poprzedni rok",
+    "SwitchToMonthViewLabel": "Wybierz datę",
+    "SwitchToMultiYearViewLabel": "Wybierz miesiąc i rok",
+    "DataPickerMask": "dd/mm/rrrr"
+  },
+  "Captcha": {
+    "Description": "W celu utrudnienia rozsyłania spamu przez automaty, proszę rozwiązać proste zadanie matematyczne",
+    "Label": "Zadanie matematyczne"
+  },
+  "Changes": {
+    "Self": "Zmiany",
+    "Title": "Powiadomienia o zmianach w obserwowanych obiektach",
+    "VarCount": "{param, plural, =1 {jedna zmiana} few {{param} zmiany} other {{param} zmian}}",
+    "Number": "Liczba zmian",
+    "None": "Bez zmian",
+    "NoneTitle": "Brak zmian w obserwowanych obiektach",
+    "NoneDescription": "Jeżeli pojawi się nowa zmiana, będzie widoczna w tym miejscu",
+    "MarkAllNotifications": "Oznacz wszystkie powiadomienia jako przeczytane"
+  },
+  "Chart": {
+    "Self": "Wykres",
+    "Type": "Typ wykresu",
+    "Params": "Parametry wykresu",
+    "Line": "Liniowy",
+    "Bar": "Kolumnowy",
+    "Scatter": "Punktowy",
+    "Pie": "Kołowy",
+    "Doughnut": "Pierścieniowy",
+    "Polararea": "Biegunowy",
+    "XaxisFormLabel": "Oś X (etykieta) - wybierz kolumnę z danymi",
+    "XaxisFormLabelValue": "Oś X (wartość) - wybierz kolumnę z danymi",
+    "YaxisFormLabel": "Oś Y (wartość) - wybierz kolumnę z danymi",
+    "YaxisNewColumn": "Oś Y dodaj nową kolumnę",
+    "YaxisNewColumnStatus": "Przycisk aktywny tylko dla rodzajów wykresów z układem współrzędnych",
+    "YaxisOnlyOneColumnAllowed": "Dla osi Y (wartość) może być zdefiniowana tylko jedna kolumna z danymi",
+    "Preview": "Podgląd wykresu",
+    "MaxColumnReached": "Wybrano maksymalną ilość kolumn",
+    "DuplicatesEncountered": "Wybrane wartości występują więcej niż 1 raz",
+    "SelectedValueExists": "Wartość została już wybrana. Wartości dla obu osi muszą być różne",
+    "MoreThanOneValueSelected": "Wybrano więcej niż jedną wartość",
+    "BeforeSaveMessage": "Jeżeli chcesz zapamiętać zdefiniowany wykres na stałe i mieć do niego dostęp niezależnie od urządzenia, z którego korzystasz ",
+    "Saved": "Wykres został pomyślnie zapisany",
+    "InMemory": "w pamięci przeglądarki",
+    "Deleted": "Wykres został pomyślnie usunięty",
+    "EditorPreview": "Widok edytora:",
+    "StatusNoChart": "Wykres nie jest zdefiniowany",
+    "StatusPreview": "Wykres w trybie podglądu",
+    "StatusDefault": "Wykres zdefiniowany przez dostawcę danych",
+    "StatusUserLoggedIn": "Wykres zdefiniowany przez użytkownika",
+    "StatusUserNotLoggedIn": "Wykres zdefiniowany przez użytkownika (zapisany w pamięci przeglądarki)",
+    "NoEditPermission": "Brak uprawnień do definiowania wykresu",
+    "AxisX": "Oś X",
+    "AxisY": "Oś Y",
+    "DataTable": "Dane z wykresu w formie tabelarycznej",
+    "Name": "Nazwa wykresu, który chcesz zapisać"
+  },
+  "Cms": {
+    "NotSupportedPlayer": "Wybrany odtwarzacz filmów nie jest obsługiwany.",
+    "FillOutSurvey": "Wypełnij ankietę",
+    "FormSubmitted": "Formularz został wysłany",
+    "FormSubmitError": "Wystąpił błąd podczas wysyłania formularza. Prosimy spróbować wysłać go ponownie za chwilę.",
+    "FillRequired": "Proszę wypełnić wszystkie pola wymagane przed wysłaniem formularza."
+  },
+  "Connector": {
+    "About": "o",
+    "Or": "lub"
+  },
+  "DatabaseOperations": {
+    "INSERT": "Dodano",
+    "UPDATE": "Zaktualizowano",
+    "DELETE": "Usunięto"
+  },
+  "DatabaseTables": {
+    "dataset": "Zbiór danych",
+    "application": "Aplikacja",
+    "article": "Artykuł",
+    "resource": "Zasób",
+    "user": "Użytkownika",
+    "tag": "Tag",
+    "dataset_tag": "Tag zbioru danych",
+    "application_tag": "Tag aplikacji",
+    "article_tag": "Tag artykułu",
+    "application_dataset": "Zbiór danych aplikacji"
+  },
+  "DataProposal": {
+    "Self": "Propozycje nowych danych",
+    "Info": "Poniżej wyświetlone są propozycje zgłoszone przez użytkowników. Są one analizowane przez dostawców danych, którzy na podstawie zgłoszeń mogą udostępnić dane na portalu. Jeśli chcesz wyrazić opinię na temat zgłoszonej propozycji kliknij w jej tytuł, w celu przejścia do odpowiedniego formularza.",
+    "Institution": "Nazwa instytucji publicznej odpowiedzialnej za dane",
+    "DataLink": "URL do danych",
+    "ReleaseDate": "Data dodania",
+    "Feedback": "Przekaż swoją ocenę lub opinię dotyczącą powyższej propozycji",
+    "Message": "Dziękujemy za przesłanie opinii",
+    "UserSuggestions": "Zobacz, co zaproponowali inni użytkownicy"
+  },
+  "DatasetForm": {
+    "Suggest": "Opisz dane, których szukasz na dane.gov.pl",
+    "DataDescription": "Opis danych",
+    "DataDescriptionLong": "Opisz dokładnie dane, których szukasz i jeśli możesz wskaż urząd, który może je posiadać. Możesz też podać link do danych w internecie. Przeanalizujemy przesłane propozycje i omówimy z właścicielem danych możliwość ich udostępnienia na portalu otwartych danych.",
+    "EnterName": "Wprowadź nazwę",
+    "SuggestDataset": "Zaproponuj dane",
+    "SuggestionSentSuccess": "Dziękujemy za zgłoszenie propozycji.",
+    "Heading": "Opisz dane, których szukasz na dane.gov.pl",
+    "Title": "Nazwa, rodzaj, dziedzina proponowanych danych",
+    "Notes": "Opis danych",
+    "OrganizationName": "Nazwa instytucji odpowiedzialnej za dane",
+    "DataLink": "Czy znalazłeś te dane w innym miejscu? Jeśli tak, podaj link",
+    "PotentialPossibilities": "Podaj potencjalne możliwości wykorzystania danych",
+    "TitlePlaceholder": "nazwę",
+    "OrganizationNamePlaceholder": "nazwę instytucji",
+    "DataLinkPlaceholder": "link",
+    "PotentialPossibilitiesPlaceholder": "potencjalne możliwości"
+  },
+  "DatasetQueryForm": {
+    "Placeholder": "Podaj nazwę wyszukiwania",
+    "Submit": "Zapisz wyniki wyszukiwania",
+    "SuccessfulSubmit": "Wyniki wyszukiwania zostały zapisane i dostępne są w",
+    "ErrorSubmit": "Obserwujesz już to zapytanie"
+  },
+  "DatasetRestrictions": {
+    "Self": "Warunki wykorzystywania",
+    "Allowed": "Wolno",
+    "Terms": "Na następujących warunkach",
+    "LicenseType": "Rodzaj licencji",
+    "LinkToLicense": "Link do licencji",
+    "LicenseSummaryLink": "Poniżej przystępne podsumowanie licencji, które dostępne jest również pod linkiem:",
+    "None": "Te dane mogą być ponownie wykorzystywane bez ograniczeń.",
+    "Intro": "Te dane mogą być ponownie wykorzystywane pod poniższymi warunkami:",
+    "NoneDataset": "Ten zbiór danych może być ponownie wykorzystywany bez ograniczeń.",
+    "IntroDataset": "Ten zbiór danych może być ponownie wykorzystywany pod poniższymi warunkami:",
+    "Original": "Odbiorca powinien zawrzeć kopię informacji w pierwotnie pozyskanej formie udostępniając przetworzoną informację"
+  },
+  "Datasets": {
+    "Self": "Zbiory danych",
+    "Single": "Zbiór danych",
+    "Genitive": "Zbioru danych",
+    "Choose": "Wybierz zbiór danych",
+    "SearchFor": "Wyszukaj zbiór danych",
+    "Count": "Liczba zbiorów danych",
+    "Details": "Szczegóły zbioru",
+    "History": "Historia zbioru",
+    "SeeHistory": "Zobacz historię",
+    "Feedback": "Uwagi",
+    "SendFeedback": "Zgłoś uwagi do zbioru",
+    "FeedbackSentSuccess": "Dziękujemy za przesłanie uwag.",
+    "ShowHistory": "Zobacz historię zbioru",
+    "HideHistory": "Ukryj historię zbioru",
+    "NoResources": "Ten zbiór danych nie posiada obecnie zasobów.",
+    "Harvester": "Dane pobierane automatycznie z:",
+    "MetadataRelatedCatalog": "Dla katalogu",
+    "MetadataRelatedDataset": "Dla zbioru danych",
+    "SubmissionItemInfo": "Propozycja zgłoszona przez użytkowników. Jest ona analizowana przez dostawców danych, którzy na podstawie zgłoszeń mogą udostępnić dane na portalu. Jeśli chcesz wyrazić opinię na temat zgłoszonej propozycji skorzystaj z formularza poniżej.",
+    "MoveToSearchResultText": "Aby przejść bezpośrednio do wyników wyszukiwania kliknij enter. Na końcu dokumentu znajduję się przycisk powrotu do pola wyszukiwania.",
+    "BackToSearchInputText": "Aby powrócić do pola wyszukiwarki na początku strony kliknij enter.",
+    "RelatedShowcases": "Powiązane przykłady ponownego wykorzystania"
+  },
+  "DgaInformationPoint": {
+    "Self": "Punkt informacyjny DGA",
+    "BackToList": "Powrót do listy",
+    "Tabs": {
+      "Information": "Informacje",
+      "ListOfProtectedData": "Wykaz chronionych danych",
+      "AccessApplication": "Wniosek o dostęp do chronionych danych"
+    }
+  },
+  "Embed": {
+    "Self": "Umieść na swojej stronie",
+    "Description": "Możesz skopiować kod wizualizatora danych do swojej platformy CMS lub bloga, jeżeli obsługuje on wklejanie kodu HTML.",
+    "Width": "Szerokość",
+    "Height": "Wysokość",
+    "Code": "Kod",
+    "OriginText": "Dane pochodzą z portalu"
+  },
+  "Errors": {
+    "Self": "Błąd",
+    "Single": "Wystąpił błąd",
+    "PageNotFound": "Nie znaleziono strony",
+    "404": "Link do strony może być uszkodzony lub strona mogła zostać usunięta",
+    "Redirect": "Trwa przekierowanie",
+    "PleaseWait": "Proszę czekać..."
+  },
+  "File": {
+    "Self": "Plik",
+    "Size": "Rozmiar pliku",
+    "Name": "Nazwa pliku",
+    "AcceptedTypes": "Dopuszczalne typy plików",
+    "KbAbbreviation": "Kilobajty",
+    "MbAbbreviation": "Megabajty",
+    "GbAbbreviation": "Gigabajty"
+  },
+  "Filters": {
+    "Self": "Filtry",
+    "ShowFilters": "Pokaż filtry",
+    "HideFilters": "Ukryj filtry",
+    "ApplyFilter": "Zastosuj",
+    "Applied": "Zastosowany",
+    "Apply": "Zastosuj filtry",
+    "ApplyOne": "Zastosuj filtr",
+    "ActiveFilters": "Aktywne filtry",
+    "AppliedFilters": "Zastosowane filtry",
+    "Add": "Dodaj filtr",
+    "Remove": "Usuń filtr",
+    "RemoveSelected": "Usuń wybrane filtry",
+    "Choose": "Wybierz kolumnę",
+    "Value": "Wpisz wartość",
+    "Hint": "Dla pól numerycznych, możesz używać wyrażeń logicznych (>, <, >=, <=), np.: '> 3500'",
+    "Selected": "Wybrano",
+    "VarSelected": "Wybrano {param, plural, =1 {1 filtr} few {{param} filtry} other {{param} filtrów}}",
+    "NoFiltersSelected": "Nie wybrano żadnych filtrów",
+    "ChooseOperation": "Wybierz operację",
+    "RestoreInitialView": "Przywróć widok pierwotny",
+    "NoResults": "Brak wyników",
+    "NoResultsFound": "Nie znaleziono wyników",
+    "VarElements": "{param, plural, =1 {1 element} few {{param} elementy} other {{param} elementów}}"
+  },
+  "Font": {
+    "Self": "Czcionka",
+    "Default": "Czcionka standardowa",
+    "Increased": "Czcionka powiększona"
+  },
+  "Found": {
+    "Self": "Znaleziono",
+    "VarCount": "Znaleziono { param } wyników",
+    "PluralCount": "Znaleziono {param, plural, =1 {jeden wynik} few {{param} wyniki} other {{param} wyników}}",
+    "Nothing": "Nie znaleziono żadnych wyników",
+    "NothingFor": "Nie znaleziono żadnych wyników dla",
+    "NothingForPhrase": "Nie znaleziono żadnych wyników dla wybranej frazy",
+    "NothingForCriteria": "Nie znaleziono żadnych wyników dla wybranych kryteriów"
+  },
+  "HighContrast": {
+    "Self": "Wysoki kontrast",
+    "Default": "Standardowy kontrast",
+    "BW": "Biały tekst na czarnym tle",
+    "BY": "Żółty tekst na czarnym tle",
+    "YB": "Czarny tekst na żółtym tle"
+  },
+  "Home": {
+    "OpenData": "Otwarte Dane",
+    "Description": "Dane o szczególnym znaczeniu dla rozwoju innowacyjności w państwie i rozwoju społeczeństwa informacyjnego w jednym miejscu",
+    "Stats": {
+      "Title": "Dane w liczbach",
+      "Institutions": "Liczba dostawców",
+      "Resources": "Liczba danych",
+      "MonthlyDatasets": "Liczba nowych zbiorów miesięcznie",
+      "ApiNumber": "Liczba API"
+    },
+    "Search": {
+      "Title": "Wyszukiwarka",
+      "PlaceholderText": "Wyszukaj dane"
+    },
+    "Categories": {
+      "Title": "Wybierz kategorię danych"
+    },
+    "Organizations": {
+      "Title": "Wybierz dostawcę danych",
+      "All": "Zobacz wszystkich dostawców",
+      "Datasets": "Liczba zbiorów danych"
+    },
+    "News": {
+      "Title": "Aktualności",
+      "All": "Zobacz wszystkie artykuły",
+      "ReadMore": "Czytaj więcej",
+      "ReadMoreAbout": "Czytaj więcej na temat"
+    },
+    "Apps": {
+      "Title": "Podziel się aplikacją!",
+      "Information": "Pokazujemy przykłady aplikacji, produktów i usług, wykorzystujących dane, zasoby kultury, bibliotek czy muzealia.",
+      "SeeAll": "Zobacz przykłady aplikacji",
+      "Description": "Przykłady aplikacji, które powstały dzięki otwartym danym",
+      "All": "Zobacz wszystkie aplikacje"
+    },
+    "ServiceAlert": {
+      "Self": "Komunikat serwisowy"
+    }
+  },
+  "Institutions": {
+    "Self": "Dostawcy",
+    "Single": "Dostawca",
+    "Description": "Opis Dostawcy",
+    "Genitive": "Dostawców",
+    "Choose": "Wybierz dostawcę",
+    "SearchFor": "Wyszukaj dostawcę",
+    "SeeAll": "Zobacz wszystkich dostawców",
+    "RelatedDatasets": "Powiązane dane",
+    "EpuapMailBox": "Adres skrzynki ePUAP",
+    "Type": "Typ dostawcy",
+    "TypeLocal": "Administracja samorządowa",
+    "TypeState": "Administracja rządowa",
+    "TypeOther": "Inne",
+    "TypePrivate": "Podmioty prywatne",
+    "TypeDevelopers": "Deweloperzy",
+    "ExternalDatasets": "Dane pochodzące spoza portalu",
+    "EdorAddress": "Adres do doręczeń elektronicznych",
+    "CopyEdorAddress": "Skopiuj adres do doręczeń elektronicznych"
+  },
+  "KnowledgeBase": {
+    "Self": "Baza wiedzy",
+    "News": "Aktualności",
+    "Help": "Pomoc",
+    "MultimediaTraining": "Szkolenia multimedialne",
+    "OtherMaterials": "Pozostałe materiały",
+    "Faq": "Często zadawane pytania",
+    "ListHeader": "Lista tematów",
+    "BackToList": "Powrót do listy"
+  },
+  "Language": {
+    "Self": "Język",
+    "Polish": "Język polski",
+    "English": "Język angielski",
+    "Current": "Aktualny język",
+    "ChangeTo": "Zmień na"
+  },
+  "Map": {
+    "AddressInput": "Wpisz adres",
+    "AddressLengthErrorMessage": "Adres powinien zawierać co najmniej 3 znaki.",
+    "AllPoints": "wszystkich obiektów",
+    "Options": "Opcje mapy",
+    "NotFoundLocation": "Nie można odnaleźć lokalizacji.",
+    "Point": "Obiekt bez etykiety",
+    "PointsFound": "Znalezionych obiektów:",
+    "Range": "Promień wyszukiwania",
+    "Show": "Pokaż lokalizację na mapie",
+    "UserLocation": "określ swoją lokalizację",
+    "MapView": "Otwórz mapę",
+    "ChangeRegion": "Zmień lokalizację",
+    "CloseMap": "Zamknij mapę",
+    "RefreshMap": "Odśwież mapę"
+  },
+  "Menu": {
+    "Self": "Menu",
+    "Main": "Menu główne",
+    "Home": "Strona główna",
+    "Datasets": "Dane",
+    "Institutions": "Dostawcy",
+    "Articles": "Baza wiedzy",
+    "About": "O serwisie",
+    "Sitemap": "Mapa strony",
+    "Contact": "Kontakt",
+    "KnowledgeBase": "Baza wiedzy",
+    "News": "Aktualności",
+    "Open": "Otwórz menu",
+    "Close": "Zamknij menu",
+    "Faq": "Często zadawane pytania",
+    "Declaration": "Deklaracja dostępności",
+    "Regulations": "Regulamin",
+    "Showcases": "PoCoTo",
+    "DGAInformationPoint": "Punkt informacyjny DGA",
+    "More": "Więcej"
+  },
+  "MyDashboard": {
+    "Self": "Mój pulpit",
+    "AdminPanel": "Panel administratora",
+    "MyAccount": "Moje dane",
+    "MyAccountId": "Identyfikator konta",
+    "MyAccountActiveFrom": "Konto aktywne od",
+    "FollowedObjects": "Obserwowane obiekty",
+    "Lod": "Laboratorium Otwartych Danych",
+    "Reports": "Raporty",
+    "Analyzes": "Analizy",
+    "Research": "Badania",
+    "Clock": "Zegar",
+    "Stats": "Statystyki",
+    "AllStats": "wszystkie statystyki",
+    "Chart": "wykres",
+    "LodMenu": "Laboratorium OD",
+    "Aod": "Akademia Otwartych Danych",
+    "AodMenu": "Akademia OD",
+    "NewDataProposal": "Propozycja nowych danych",
+    "ProxiesMeetings": "Spotkania pełnomocników",
+    "HodMenu": "Harmonogram OD",
+    "Hod": "Harmonogram otwierania danych",
+    "Forum": "Forum",
+    "SeeCourses": "Zobacz kursy",
+    "Planned": "Planowane",
+    "InProgress": "W trakcie",
+    "Realized": "Zrealizowane",
+    "GoToForum": "Przejdź na forum",
+    "GoToForumText": "Przejście na forum oznacza akceptację",
+    "GoToForumRegulations": "regulaminu",
+    "SeeData": "Zobacz dane",
+    "Active": "Aktywne",
+    "Inactive": "Nieaktywne",
+    "ViewDetails": "Zobacz szczegóły",
+    "Completed": "Zakończone",
+    "Started": "Rozpoczęte",
+    "Ready": "Gotowe",
+    "Recommendations": "Rekomendacje",
+    "Notification": "Zgłoszenia",
+    "StatusOfWorks": "Status prac",
+    "Response": "Odpowiedzi:",
+    "Views": "Odsłon:",
+    "Activity": "Aktywność:",
+    "Category": "Kategoria:",
+    "NoDataToDisplay": "Aktualnie nie ma żadnych dostępnych elementów do wyświetlenia.",
+    "AddLoginViaWK": "Logowanie przez login.gov.pl jest nieaktywne.\n\nChcesz skorzystać z dodatkowych sposobów logowania, takich jak profil zaufany, aplikacja mObywatel, e-dowód?",
+    "AddLoginViaWKButton": "Dodaj logowanie przez login.gov.pl",
+    "LoginAdded": "Logowanie przez login.gov.pl jest aktywne.\n\nPo wybraniu poniższej opcji utracisz możliwość logowania takimi sposobami jak profil zaufany, aplikacja mObywatel, e-dowód. Logowanie przez formularz będzie dostępne.",
+    "RemoveLoginViaWK": "Usuń logowanie przez login.gov.pl",
+    "Announcements": {
+      "LinkErrorLine1": "Nie udało się dodać logowania przez login.gov.pl",
+      "LinkErrorLine2": "Wystąpił błąd. Spróbuj ponownie później",
+      "LinkSuccess": "Logowanie przez login.gov.pl zostało dodane.",
+      "UnlinkSuccess": "Logowanie przez login.gov.pl zostało usunięte.",
+      "UnlinkError": "Logowanie przez login.gov.pl nie zostało usunięte.",
+      "SwitchError": "Wystąpił błąd i nie udało się przełączyć konta. Spróbuj ponownie później.",
+      "LoginErrorHeader":  "Nie możesz się zalogować przez login.gov.pl ",
+      "LoginErrorLine1": "Jeśli <b>masz konto</b> w portalu dane.gov.pl, zaloguj się e-mailem i hasłem. Następnie dodaj logowanie przez login.gov.pl w zakładce <b>Mój pulpit</b>.",
+      "LoginErrorLine2": "Jeśli <b>nie masz konta</b> w dane.gov.pl, zarejestruj się. "
+    },
+    "Dialog": {
+      "Title": "Czy potwierdzasz usunięcie logowania \nprzez login.gov.pl?",
+      "Confirm": "Tak, usuń",
+      "Cancel": "Nie, wróć"
+    }
+  },
+  "Lod": {
+    "Information": "Informacje",
+    "Analyses": "Analizy",
+    "Research": "Badania",
+    "Found": "Znaleziono",
+    "ExecutionDate": "Data wykonania",
+    "DownloadReport": "Pobierz raport",
+    "GoToReport": "Przejdź do raportu",
+    "Description": "Opis"
+  },
+  "Aod": {
+    "Information": "Informacje",
+    "Courses": "Kursy",
+    "RegistrationForCourse": "Zapisy na kurs",
+    "CoursesStatus": "Status kursów",
+    "Planned": "Planowane",
+    "Current": "W trakcie",
+    "Finished": "Zakończone",
+    "StartDate": "Data rozpoczęcia",
+    "EndDate": "Data zakończenia",
+    "DownloadSchedule": "Pobierz harmonogram",
+    "DownloadMaterials": "Pobierz materiały edukacyjne",
+    "NumberParticipants": "Liczba uczestników",
+    "CourseLocation": "Miejsce kursu",
+    "Description": "Opis",
+    "CourseSchedule": "Harmonogram kursu",
+    "ModuleType": "Rodzaj modułu"
+  },
+  "Ndp": {
+    "Self": "Propozycje nowych danych",
+    "Active": "Aktywne",
+    "Inactive": "Nieaktywne",
+    "AddDate": "Data dodania"
+  },
+  "ProxiesMeetings": {
+    "StatusMeetings": "Status spotkań",
+    "Planned": "Planowane",
+    "Finished": "Zakończone",
+    "StartDate": "Data rozpoczęcia",
+    "DurationHours": "Godziny trwania",
+    "MeetingLocation": "Miejsce spotkania",
+    "Agenda": "Agenda",
+    "DownloadMaterials": "Materiały do pobrania"
+  },
+  "Hod": {
+    "Planning": "Planowanie",
+    "Realization": "Ralizacja",
+    "Archives": "Archiwum",
+    "Period": "Okres",
+    "EndDate": "Data zakończenia",
+    "NewEndDate": "Nowa data zakończenia",
+    "ScheduleLink": "Link do harmonogramu",
+    "AllProxiesList": "Lista wszystkich pełnomocników",
+    "InvalidPageAddress": "Niepoprawny adres strony",
+    "SavedChanges": "Zmiany zostały zapisane",
+    "BackToForm": "Powrót do formularza",
+    "PlanningEndDate": "Data zakończenia planowania",
+    "NewPlanningEndDate": "Nowa data zakończenia planowania",
+    "ScheduleAssigned": "Harmonogram przypisany do",
+    "LockSchedule": "Zablokuj harmonogram",
+    "Notifications": "powiadomienia",
+    "NotificationContent": "Treść powiadomienia",
+    "MaxCharacters": "maksymalanie {param} znaków",
+    "SendTo": "Wyślij do",
+    "SendNotification": "Wyślij powiadomienie",
+    "MaxLengthError": "Maksymalna długość pola została przekroczona o"
+  },
+  "Schedule": {
+    "Edit": "Edytuj",
+    "Delete": "Usuń",
+    "Details": "Sczegóły"
+  },
+  "Newsletter": {
+    "Self": "Newsletter",
+    "Subscribe": "Zamów newsletter",
+    "Contact": "Bądź z nami w kontakcie",
+    "Description": "W celu zamówienia newslettera podaj adres e-mail",
+    "Description2": "Jeśli chcesz otrzymywać newsletter, zaakceptuj zgody następnie kliknij",
+    "RequiredMessage": "Akceptacja jest wymagana",
+    "SelectAll": "Akceptuję wszystkie poniższe zgody",
+    "SubscriptionSent": "Twoje zgłoszenie zostało wysłane.",
+    "Unsubscription": "Rezygnacja z newslettera"
+  },
+  "NotificationConsent": {
+    "Header": "Zgoda na otrzymywanie powiadomień",
+    "Required": "Proszę wyrazić zgodę na otrzymywanie powiadomień",
+    "ResignNotificationsButton": "Wyłącz powiadomienia e-mail",
+    "EnableNotificationsButton": "Włącz powiadomienia e-mail",
+    "AcceptButton": "Zatwierdź",
+    "CheckboxText": "Chcę otrzymywać powiadomienia o zmianach w obserwowanych zasobach portalu i wobec tego wyrażam zgodę na ich przesyłanie drogą elektroniczną na podany przeze mnie podczas rejestracji adres elektroniczny."
+  },
+  "Pagination": {
+    "Self": "Stronicowanie",
+    "Prev": "Poprzednia strona",
+    "VarRewind": "Wstecz o {param, plural, =1 {1 stronę} few {{param} strony} other {{param} stron}}",
+    "VarPage": "Strona {{ param }}",
+    "Page": "Strona",
+    "VarForward": "Naprzód o {param, plural, =1 {1 stronę} few {{param} strony} other {{param} stron}}",
+    "Next": "Następna strona",
+    "Last": "Ostatnia",
+    "ItemsPerPage": "Liczba wyników na stronie"
+  },
+  "PasswordStrength": {
+    "Self": "Siła hasła",
+    "Weak": "Bardzo słabe",
+    "Fair": "Słabe",
+    "Good": "Silne",
+    "Strong": "Bardzo silne"
+  },
+  "Resources": {
+    "Self": "Dane",
+    "Single": "Dane",
+    "Genitive": "Zasobu",
+    "SearchTable": "Wyszukaj w tabeli",
+    "TableWithMargins": "Tabela bez marginesow",
+    "TableWithoutMargins": "Tabela z marginesami",
+    "NoTableView": "Ten zasób nie posiada widoku tabelarycznego",
+    "TabularDataDescription": "ZOBACZ dane JSON",
+    "Feedback": "Uwagi",
+    "SendFeedback": "Zgłoś uwagi do danych",
+    "FeedbackSentSuccess": "Dziękujemy za przesłanie uwag.",
+    "VarTableRowsLimited": "Tabela wyświetla { param } wierszy z { param1 }. Jeżeli chcesz zobaczyć cały plik pobierz zasób.",
+    "MapView": "Mapa",
+    "TableView": "Tabela",
+    "ChartView": "Wykres",
+    "NoChartView": "Ten zasób nie posiada widoku wykresu",
+    "VarChartRowsLimited": "Wykres wyświetla { param } wierszy z { param1 }.",
+    "MapDescription": "Mapa z prezentacją danych zasobu",
+    "SpecialSigns": "Znaki umowne",
+    "RelatedResources": "Powiązane dane"
+  },
+  "ResourceFilter": {
+    "Column": "Kolumna",
+    "Operator": "Operator",
+    "Phrase": "Wartość",
+    "DataTypeLabel": "Typ danych",
+    "DataType": {
+      "integer": "Liczba",
+      "number": "Liczba",
+      "float": "Liczba zmiennoprzecinkowa",
+      "datetime": "Data i czas",
+      "date": "Data",
+      "time": "Czas",
+      "string": "Tekst",
+      "boolean": "Wartość logiczna",
+      "any": "dowolny"
+    },
+    "Operators": {
+      "string": {
+        "isEqual": "równa się",
+        "isNotEqual": "nie równa się",
+        "beginsWith": "zaczyna się od",
+        "itContains": "zawiera",
+        "doNotContain": "nie zawiera",
+        "isEmpty": "jest pusty",
+        "isNotEmpty": "nie jest pusty"
+      },
+      "integer": {
+        "isEqual": "równa się",
+        "isNotEqual": "nie równa się",
+        "isEmpty": "jest pusta",
+        "isNotEmpty": "nie jest pusta",
+        "isGreaterThan": "jest większa niż",
+        "isLessThan": "jest mniejsza niż",
+        "isGreaterOrEqual": "jest większa niż lub równa",
+        "isLessOrEqual": "jest mniejsza niż lub równa"
+      },
+      "datetime": {
+        "isEqual": "równa się",
+        "isNotEqual": "nie równa się",
+        "isEmpty": "jest pusta",
+        "isNotEmpty": "nie jest pusta",
+        "isGreaterThan": "jest późniejsza niż",
+        "isLessThan": "jest wcześniejsza niż",
+        "isGreaterOrEqual": "jest późniejsza niż lub równa",
+        "isLessOrEqual": "jest wcześniejsza niż lub równa"
+      },
+      "date": {
+        "isEqual": "równa się",
+        "isNotEqual": "nie równa się",
+        "isEmpty": "jest pusta",
+        "isNotEmpty": "nie jest pusta",
+        "isGreaterThan": "jest późniejsza niż",
+        "isLessThan": "jest wcześniejsza niż",
+        "isGreaterOrEqual": "jest późniejsza niż lub równa",
+        "isLessOrEqual": "jest wcześniejsza niż lub równa"
+      },
+      "boolean": {
+        "isEqual": "równa się",
+        "isNotEqual": "nie równa się",
+        "isEmpty": "jest pusty",
+        "isNotEmpty": "nie jest pusty"
+      }
+    }
+  },
+  "VisualizationTypesFilters": {
+    "Map": "Mapa",
+    "Chart": "Wykres",
+    "Table": "Widok tabelaryczny",
+    "None": "Brak wizualizacji"
+  },
+  "TypesFilters": {
+    "Api": "Api",
+    "File": "Plik",
+    "Website": "Strona internetowa",
+    "en": "angielski",
+    "pl": "polski"
+  },
+  "Rodo": {
+    "Title": "Polityka prywatności i RODO"
+  },
+  "Search": {
+    "Results": "Wyniki wyszukiwania",
+    "ClearInput": "Wyczyść pole wyszukiwania",
+    "Any": "Dowolne z tych słów",
+    "All": "Wszystkie słowa",
+    "Exact": "Dokładnie te słowa",
+    "Synonym": "Uwzględniając synonimy tych słów",
+    "AutoContentReload": "Automatyczne przeładowanie treści",
+    "Advanced": "Wyszukiwanie zaawansowane",
+    "SparqlSearch": "Wyszukiwanie SPARQL"
+  },
+  "ShowcasesCategory": {
+    "app": "Aplikacja",
+    "www": "Serwis WWW",
+    "others": "Inne"
+  },
+  "SkipTo": {
+    "Menu": "Przejdź do menu głównego",
+    "Content": "Przejdź do treści",
+    "Footer": "Przejdź do stopki",
+    "NewWindow": "(Otwiera się w nowym oknie)"
+  },
+  "Sort": {
+    "By": "Sortuj według",
+    "Ascending": "Rosnąco",
+    "Descending": "Malejąco",
+    "Default": "Trafność"
+  },
+  "Sparql": {
+    "Prefixes": "Prefiksy",
+    "SearchBy": "Wyszukiwanie przy pomocy zapytań",
+    "Description": "Wyszukiwanie metadanych dostawców danych, zbiorów danych oraz danych w bazie danych RDF z wykorzystaniem języka zapytań SPARQL. Narzędzie przeznaczone jest dla doświadczonych użytkowników języka SPARQL. Specyfikację SPARQL można znaleźć na",
+    "W3CPage": "stronie W3C.",
+    "Examples": "Przykłady",
+    "DaneExamples": "Przykłady zapytań dla dane.gov.pl",
+    "KronikaExamples": "Przykłady zapytań dla Kronik@",
+    "Format": "Wybierz Format",
+    "Request": "Wykonaj zapytanie",
+    "ResultPreview": "Podgląd wyniku",
+    "SearchResultFor": "Wynik wyszukiwania dla",
+    "ExitFromTextAreaForSr": "Aby wyjść z pola edycji wielowierszewej i przejścia dalej należy kliknąć CONTROL+q, aby wyjść do poprzedniego elementu należy kliknąć CONTROL+e"
+  },
+  "Tour": {
+    "Button": {
+      "IconLabel": "Czapka studencka",
+      "NewIconLabel": "Ikonka - zobacz funkcje portalu",
+      "TooltipTitle": "Przewodnik po portalu",
+      "TooltipText": "Przeglądaj najważniejsze funkcje dotyczące portalu."
+    },
+    "Show": "Pokaż przewodnik",
+    "Tooltip": {
+      "Header": {
+        "MyDashboard": {
+          "title": "Mój Pulpit",
+          "text": "Dostęp do dodatkowych funkcji portalu: zmiana hasła, obserwacja obiektów, statystyki i laboratorium otwartych danych."
+        }
+      },
+      "HomePage": {
+        "SearchBar": {
+          "title": "Wyszukiwarka",
+          "text": "Wpisane słowo lub fraza są wyszukiwane we wszystkich obiektach na portalu: tytułach i opisach zbiorów i danych, wśród dostawców danych, aplikacjach, artykułach oraz bazie wiedzy."
+        },
+        "DataCategories": {
+          "title": "Wybierz kategorię danych",
+          "text": "Dane przypisane są do kategorii tematycznych. Umożliwia to łatwiejsze dotarcie do poszukiwanych danych."
+        },
+        "Institution": {
+          "title": "Wybierz dostawcę danych",
+          "text": "Dane publikowane na portalu dostarczane są przez dostawców. Po wybraniu konkretnego dostawcy zostanie wyświetlona podstrona zawierająca informacje o dostawcy oraz udostępnione przez niego zbiory danych."
+        },
+        "Applications": {
+          "title": "PoCoTo - Ponowne wykorzystanie danych",
+          "text": "W tej sekcji można zapoznać się z przykładami ponownego wykorzystywania danych, w szczególności z rozwiązaniami informatycznymi (np. aplikacjami, serwisami www), które wykorzystują dane zgromadzone w portalu Dane.gov.pl oraz w innych źródłach."
+        }
+      },
+      "SearchResults": {
+        "SearchBar": {
+          "title": "Wyszukiwarka",
+          "text": "Wpisane słowo lub fraza są wyszukiwane we wszystkich obiektach na portalu: tytułach i opisach zbiorów i danych, wśród dostawców danych, aplikacjach, artykułach oraz bazie wiedzy."
+        }
+      },
+      "Dataset": {
+        "SearchBar": {
+          "title": "Wyszukiwarka",
+          "text": "Wpisane słowo lub fraza wyszukiwane są w tytułach, opisach i słowach kluczowych dwóch obiektów: zbiorach danych i danych (zasobach)."
+        },
+        "Found": {
+          "title": "Znaleziono",
+          "text": "Wyszukane obiekty prezentowane są na jednej zbiorczej liście oraz w umieszczonych nad listą oddzielnych zakładkach dla każdego typu obiektu."
+        },
+        "Follow": {
+          "title": "Przycisk obserwuj",
+          "text": "Wybór tej funkcji uruchamia procedurę stałego informowania użytkownika o wszystkich zmianach w wybranym zbiorze danych. Zmiany sygnalizowane są za pomocą ikony powiadomień na pasku statusu w nagłówku strony."
+        },
+        "FollowSearchResult": {
+          "title": "Obserwuj wyniki wyszukiwania",
+          "text": "Wybór tej funkcji umożliwia uzyskanie informacji o zmianach w ilości wyszukanych wyników dla uprzednio wybranych kryteriów. Zmiany sygnalizowane są za pomocą ikony powiadomień na pasku statusu w nagłówku strony."
+        },
+        "API": {
+          "title": "Wyświetl dane poprzez API",
+          "text": "Przycisk uruchamia nową podstronę zawierającą dane w formacie JSON dostarczane przez systemowe API portalu. Dane te służą do wyświetlania zawartości bieżącej strony internetowej."
+        },
+        "RelatedShowcases": {
+          "text": "Przykłady ponownego wykorzystania powiązanych danych ze zbioru danych."
+        }
+      },
+      "DatasetDetails": {
+        "Data": {
+          "title": "Dane",
+          "text": "Lista danych dostępnych na portalu w ramach wybranego zbioru danych. Dane można pobrać wybierając link po prawej stronie."
+        },
+        "Conditions": {
+          "title": "Warunki wykorzystywania",
+          "text": "Informacja na temat warunków ponownego wykorzystywania danych w tym zbiorze."
+        },
+        "Follow": {
+          "title": "Przycisk obserwuj",
+          "text": "Wybór tej funkcji uruchamia procedurę stałego informowania użytkownika o wszystkich zmianach w wybranym zbiorze danych. Zmiany sygnalizowane są za pomocą ikony powiadomień na pasku statusu w nagłówku strony."
+        },
+        "History": {
+          "title": "Historia zbioru",
+          "text": "Informacje dotyczące zmian wprowadzonych w zbiorze danych."
+        },
+        "DownloadAll": {
+          "text": "Wybór funkcji umożliwia pobranie skompresowanego pliku zawierającego wszystkie dane (pliki zasobów) powiązanych ze zbiorem danych."
+        },
+        "Supplements": {
+          "title": "Dokumenty uzupełniające",
+          "text": "Materiały dodatkowe związane ze zbiorem (np. instrukcje, dokumentacja API)"
+        }
+      },
+      "DatasetItem": {
+        "HighValueData": {
+          "title": "Dane o wysokiej wartości",
+          "text": "To informacje sektora publicznego, których ponowne wykorzystanie wiąże się z istotnymi korzyściami dla społeczeństwa, środowiska i gospodarki, w szczególności ze względu na ich przydatność do tworzenia usług, generowania miejsc pracy i innych zastosowań o wartości dodanej."
+        },
+        "HighValueDataFromEC": {
+          "title": "Dane o wysokiej wartości z wykazu KE",
+          "text": "To dane z wykazu ustanowionego w rozporządzeniu Komisji Europejskiej 2023/138 z dnia 21 grudnia 2022 r. ustanawiające wykaz szczególnych zbiorów danych o wysokiej wartości oraz warunki ich publikacji i ponownego wykorzystywania, które podlegają szczególnym zasadom udostępniania: bezpłatnie, w formacie nadającym się do odczytu maszynowego, za pośrednictwem API oraz – jeżeli to możliwe – do zbiorczego pobrania."
+        },
+        "DynamicData": {
+          "title": "Dane dynamiczne",
+          "text": "Dane podlegające częstym aktualizacjom, w szczególności ze względu na ich zmienność lub szybką dezaktualizację."
+        },
+        "ResearchData": {
+          "title": "Dane badawcze",
+          "text": "Informacje sektora publicznego utrwalone w postaci elektronicznej, inne niż publikacje naukowe, które zostały wytworzone lub zgromadzone w ramach działalności naukowej w rozumieniu art. 4 ustawy z dnia 20 lipca 2018 r. – Prawo o szkolnictwie wyższym i nauce (Dz. U. z 2021 r. poz. 478) i są wykorzystywane jako dowody w procesie badawczym lub służą weryfikacji poprawności ustaleń i wyników badań"
+        },
+        "ProtectedData": {
+          "title": "Wykaz chronionych danych",
+          "text": "To dane należące do instytucji publicznych. Nie są powszechnie dostępne ze względu na tajemnicę handlową, poufność informacji statystycznych, ochronę praw własności intelektualnej lub ochronę danych osobowych. Możesz jednak zawnioskować o ich udostępnienie."
+        },
+        "Supplements": {
+          "title": "Dokumenty uzupełniające",
+          "text": "Materiały dodatkowe związane z danymi (np. instrukcje, dokumentacja API)"
+        }
+      },
+      "Institutions": {
+        "Search": {
+          "title": "Wyszukiwarka",
+          "text": "Wpisane słowo lub fraza wyszukiwane są w nazwach dostawców."
+        },
+        "Filters": {
+          "title": "Filtry",
+          "text": "Zaznaczenie typu dostawcy oraz kliknięcie przycisku „Zastosuj” powoduje zawężenie wyników wyszukiwania do dostawców danego typu.  Zastosowanie filtru jest widoczne nad listą z wynikami wyszukiwania."
+        }
+      },
+      "InstitutionDetails": {
+        "Search": {
+          "title": "Wyszukiwarka",
+          "text": "Wpisane słowo lub fraza wyszukiwane są w tytułach, opisach i słowach kluczowych dwóch obiektów: zbiorach danych i danych (zasobach) udostępnionych przez wybranego dostawcę."
+        }
+      },
+      "Filters": {
+        "Self": {
+          "title": "Filtry",
+          "text": "Filtry ułatwiają wyszukiwanie dopasowując i ograniczając obszar do potrzeb użytkownika."
+        },
+        "Attribute": {
+          "CategoryLong": {
+            "title": "Filtry - kategoria",
+            "text": "Możesz zaznaczyć jedną lub kilka kategorii zawężając obszar wyszukiwania do swoich potrzeb. Swój wybór potwierdź przyciskiem „Zastosuj”."
+          },
+          "LicenseLong": {
+            "title": "Filtry - wybierz licencje",
+            "text": "Zaznaczenie jednej lub więcej licencji oraz klikniecie przycisku “zastosuj“ powoduje zawężenie wyników wyszukiwania do zbiorów danych oraz danych udostępnianych na podstawie zaznaczonej licencji."
+          },
+          "UpdateFrequency": {
+            "title": "Filtry - częstotliwość aktualizacji",
+            "text": "Możesz zaznaczyć częstotliwość, według której dane są aktualizowane. Dane aktualizowane są według okresów podanych przez dostawcę danych. Możesz zaznaczyć jedną lub kilka częstotliwości. Swój wybór potwierdź przyciskiem ”Zastosuj”"
+          },
+          "InstitutionLong": {
+            "title": "Filtry - dostawca",
+            "text": "Możesz zaznaczyć jednego lub kilku dostawców zawężając obszar wyszukiwania do swoich potrzeb. Swój wybór potwierdź przyciskiem „Zastosuj”."
+          },
+          "FormatLong": {
+            "title": "Filtry - format dostarczonych danych",
+            "text": "Możesz zaznaczyć jeden lub kilka formatów wyszukiwanych danych. Swój wybór potwierdź przyciskiem „Zastosuj”."
+          },
+          "OpennessScore": {
+            "title": "Filtry - poziom otwartości",
+            "text": "Więcej gwiazdek to wyższy poziom otwartości zbiorów. Oznacza to, że dane są lepiej przygotowane do dalszego przetwarzania. Możesz zaznaczyć jeden lub kilka poziomów. Swój wybór potwierdź przyciskiem „Zastosuj”."
+          },
+          "VisualizationType": {
+            "title": "Filtry - sposób wizualizacji",
+            "text": "Możesz wybrać jeden lub kilka sposobów wizualizacji danych. Metody wizualizacji określa dostawca danych. Swój wybór potwierdź przyciskiem „Zastosuj”."
+          },
+          "ResourceType": {
+            "title": "Filtry - typ zasobu",
+            "text": "Możesz wybrać jeden lub kilka typów zasobów: API, plik do pobrania lub odwiedzenie strony internetowej dostawcy z danymi. Swój wybór potwierdź przyciskiem „Zastosuj”."
+          },
+          "DateRange": {
+            "title": "Filtry - daty",
+            "text": "Możesz wybrać przedział czasowy określający aktualność danych. Swój wybór potwierdź przyciskiem „Zastosuj”."
+          },
+          "HighValueData": {
+            "title": "Filtry - dane o wysokiej wartości",
+            "text": "To informacje sektora publicznego, których ponowne wykorzystanie wiąże się z istotnymi korzyściami dla społeczeństwa, środowiska i gospodarki, w szczególności ze względu na ich przydatność do tworzenia usług, generowania miejsc pracy i innych zastosowań o wartości dodanej."
+          },
+          "HighValueDataFromEC": {
+            "title": "Filtry - dane o wysokiej wartości z wykazu KE",
+            "text": "To dane z wykazu ustanowionego w rozporządzeniu Komisji Europejskiej 2023/138 z dnia 21 grudnia 2022 r. ustanawiające wykaz szczególnych zbiorów danych o wysokiej wartości oraz warunki ich publikacji i ponownego wykorzystywania, które podlegają szczególnym zasadom udostępniania: bezpłatnie, w formacie nadającym się do odczytu maszynowego, za pośrednictwem API oraz – jeżeli to możliwe – do zbiorczego pobrania."
+          },
+          "DynamicData": {
+            "title": "Filtry - Dane dynamiczne",
+            "text": "Dane podlegające częstym aktualizacjom, w szczególności ze względu na ich zmienność lub szybką dezaktualizację."
+          },
+          "ResearchData": {
+            "title": "Filtry - Dane badawcze",
+            "text": "Informacje sektora publicznego utrwalone w postaci elektronicznej, inne niż publikacje naukowe, które zostały wytworzone lub zgromadzone w ramach działalności naukowej w rozumieniu art. 4 ustawy z dnia 20 lipca 2018 r. – Prawo o szkolnictwie wyższym i nauce (Dz. U. z 2021 r. poz. 478) i są wykorzystywane jako dowody w procesie badawczym lub służą weryfikacji poprawności ustaleń i wyników badań"
+          },
+          "ProtectedData": {
+            "title": "Filtry - Wykaz chronionych danych",
+            "text": "To dane należące do instytucji publicznych. Nie są powszechnie dostępne ze względu na tajemnicę handlową, poufność informacji statystycznych, ochronę praw własności intelektualnej lub ochronę danych osobowych. Możesz jednak zawnioskować o ich udostępnienie."
+          },
+          "Region": {
+            "title": "Lokalizacja danych",
+            "text": "Zasięg terytorialny danych"
+          },
+          "Language": {
+            "title": "Filtry - Język danych",
+            "text": ""
+          }
+        }
+      },
+      "Applications": {
+        "Search": {
+          "title": "Wyszukiwarka",
+          "text": "Wpisane słowo lub fraza są wyszukiwane w tytułach i opisach w rozwiązaniach do ponownego wykorzystania danych."
+        },
+        "Suggest": {
+          "title": "Zaproponuj innowację",
+          "text": "Każdy autor aplikacji, która bazuje na otwartych danych, może ją zgłosić do administratora portalu dane.gov.pl w celu udostepnienia jej na portalu."
+        }
+      },
+      "Article": {
+        "Search": {
+          "title": "Wyszukiwarka",
+          "text": "Wpisane słowo lub fraza są wyszukiwane w tytułach i opisach artykułów."
+        }
+      },
+      "InnovationDetails": {
+        "RelatedDatasets": {
+          "title": "Powiązane dane",
+          "text": "Lista otwartych danych, które są wykorzystywane w {param}."
+        },
+        "Link": {
+          "title": "Link do aplikacji",
+          "text": "Możesz zobaczyć i sprawdzić jak działa {param1}. W niektórych wypadkach zawiera też informacje techniczne przygotowane przez autora oraz umożliwia pobranie {param2} ze sklepu."
+        },
+        "LinkNoApp": {
+          "title": "Link"
+        }
+      },
+      "DataResource": {
+        "Search": {
+          "title": "Wyszukiwarka",
+          "text": "Słowo lub fraza wpisane do pola „Wyszukaj” są wyszukiwane w danych w całej tabeli. Do wyszukiwania można użyć filtrów."
+        },
+        "Filters": {
+          "title": "Pokaż filtry",
+          "text": "Definiując filtr wybieramy kolumnę tabeli, operator oraz wartość. Można utworzyć więcej niż jeden filtr."
+        },
+        "Table": {
+          "title": "Tabela",
+          "text": "Zakładka zawierająca dane przedstawione w postaci tabelarycznej."
+        },
+        "Chart": {
+          "title": "Wykres",
+          "text": "Zakładka pozwalająca na prezentację danych w formie wykresu."
+        },
+        "Map": {
+          "title": "Mapa",
+          "text": "Zakładka pozwalająca na prezentację danych na mapie."
+        },
+        "Parameters": {
+          "title": "Pokaż parametry/Ukryj parametry wykresu",
+          "text": "Przycisk wyświetla/ukrywa sekcję pozwalającą na zdefiniowanie wykresu. Użytkownik może utworzyć własny wykres."
+        },
+        "ShowChart": {
+          "title": "Wyświetl wykres",
+          "text": "Przycisk wyświetla zdefiniowany przez użytkownika wykres."
+        },
+        "SaveChart": {
+          "title": "Zapmiętaj wykres",
+          "text": "Funkcja umożliwia zapisanie wykresu zdefiniowanego przez użytkownika. Jest dostępna tylko dla użytkowników zalogowanych."
+        },
+        "MapSettings": {
+          "title": "Opcje mapy",
+          "text": "Funkcja umożliwia wybór interesującego obszaru na mapie pod względem własnej lokalizacji lub zadanego promienia wokół wybranego punktu."
+        }
+      },
+      "ApiValidation": {
+        "title": "Walidator zgodności API",
+        "text": "Narzędzie umożliwiające sprawdzenie czy API, jest zgodne ze standardem API."
+      }
+    }
+  },
+  "UseCases": {
+    "Self": "Przykłady użycia",
+    "Single": "Przykład użycia",
+    "AvailableUrls": "Dostępne adresy URL",
+    "Queries": "Przykładowe zapytania",
+    "Description1of2": "Dostęp do zbiorów danych poprzez API ze wsparciem dla mechanizmów wyszukiwania. Więcej informacji znajdziesz w",
+    "Description2of2": "w głównej dokumentacji CKAN Data API i rozszerzenia DataStore (po angielsku)."
+  },
+  "User": {
+    "Self": "Użytkownik",
+    "Single": "Użytkownik",
+    "Genitive": "Użytkownika",
+    "Admin": "Administrator",
+    "Email": "E-mail",
+    "EmailVerification": "Weryfikacja adresu e-mail",
+    "Password": "Hasło",
+    "NewPassword": "Nowe hasło",
+    "CurrentPassword": "Obecne hasło",
+    "RetypePassword": "Powtórz hasło",
+    "ForgottenPassword": "Nie pamiętam hasła",
+    "NewPasswordCreation": "Utworzenie nowego hasła",
+    "NewPasswordCreationDescription": "Podaj adres email, a następnie sprawdź swoją skrzynkę pocztową, na którą wyślemy do Ciebie link do formularza utworzenia nowego hasła.",
+    "NewPasswordCreationDescription1of3": "Na podany adres e-mail zostanie wysłany link ze zmianą hasła. Jeżeli nie będzie działał skorzystaj z",
+    "NewPasswordCreationDescription2of3": "formularza zmiany hasła",
+    "NewPasswordCreationDescription3of3": "i podaj kod, który otrzymałeś w wiadomości",
+    "NewPasswordCreationLinkSent": "Na Twój adres email został wysłany link do formularza utworzenia nowego hasła. Proszę sprawdzić również folder SPAM.",
+    "RodoCheckboxText": "Potwierdzam zapoznanie się z udostępnioną na portalu dane.gov.pl polityką prywatności i RODO",
+    "RegulationsCheckboxText": "Potwierdzam zapoznanie się z regulaminem udostępnionym na portalu dane.gov.pl",
+    "Login": "Logowanie",
+    "Logout": "Wylogowanie",
+    "Registration": "Rejestracja",
+    "SuccessfullRegistration": "Rejestracja przebiegła pomyślnie.",
+    "AdminPanel": "Przejdź do panelu administracyjnego",
+    "CreateAccount": "Załóż konto",
+    "LogIn": "Zaloguj się",
+    "CreatePassword": "Utwórz hasło",
+    "ChangePassword": "Zmień hasło",
+    "PasswordChange": "Zmiana hasła",
+    "PasswordChanged": "Twoje hasło zostało pomyślnie zmienione",
+    "Congratulations": "Gratulacje!",
+    "ActivationEmailSent": "Na Twój adres email został wysłany link aktywacyjny. Proszę sprawdzić również folder SPAM. Link aktywacyjny ważny jest przez 72 godziny.",
+    "SearchHistory": "Historia wyszukiwania",
+    "Followed": "Obserwowane",
+    "FollowedList": "Lista obserwowanych obiektów",
+    "FollowedDataset": "Obserwowane zbiory",
+    "FollowedActivity": "Aktywność obserwowanych obiektów",
+    "FollowedDatasetActivity": "Aktywność obserwowanych zbiorów",
+    "AccountActivated": "Twoje konto zostało aktywowane. Możesz się teraz zalogować.",
+    "Unregistered": "Nie masz jeszcze konta?",
+    "LogInToFollow": "Jeśli chcesz obserwować zbiory zaloguj się lub zarejestruj. Obserwowanie zbiorów jest dostępne dla użytkowników posiadających konto na portalu."
+  },
+  "Validation": {
+    "Self": "Walidacja",
+    "IsRequired": "jest wymagane",
+    "RequiredField": "Pole wymagane",
+    "VarRequired": "Pole \"{ param }\" jest wymagane",
+    "RequiredEmail": "Pole \"e-mail\" jest wymagane i musi zawierać poprawny adres e-mail",
+    "InvalidDate": "Niepoprawna data",
+    "InvalidEmail": "Niepoprawny adres e-mail",
+    "InvalidWebsiteUrl": "Niepoprawny adres strony. Adres powinien zawierać przedrostek: https://*",
+    "InvalidUrl": "Niepoprawny adres strony.",
+    "InvalidEmailOrPassword": "{ param } niepoprawny e-mail lub hasło",
+    "InvalidNumber": "Niepoprawna liczba",
+    "InvalidForm": "Formularz zawiera błędy.",
+    "VarMinLength": "Pole powinno zawierać co najmniej {param, plural, =1 {1 znak} few {{param} znaki} other {{param} znaków}}",
+    "VarMaxLength": "Maksymalnie {param} znaków",
+    "AtLeastOneOption": "Zaznacz przynajmniej jedną odpowiedź",
+    "RequiredPassword": "Pole \"Hasło\" jest wymagane",
+    "RequiredPasswordConfirmation": "Pole \"Powtórz hasło\" jest wymagane i jego wartość musi być zgodna z wcześniej wprowadzonym hasłem.",
+    "PasswordPolicy": "Hasło powinno zawierać co najmniej 8 znaków, jedną dużą literę, jedną małą, liczbę i znak specjalny",
+    "VarPasswordPolicy": "Hasło powinno zawierać co najmniej {param, plural, =1 {1 znak} few {{param} znaki} other {{param} znaków}}, jedną dużą literę, jedną małą, liczbę i znak specjalny",
+    "PasswordStrength": "Siła hasła",
+    "NotAcceptedFileType": "Niepoprawny format pliku",
+    "FormatNotRecognized": "Nierozpoznany format",
+    "VarMaxFieldLengthExceeded": "Maksymalna długość pola została przekroczona o {param, plural, =1 {1 znak} few {{param} znaki} other {{param} znaków}}",
+    "RodoCheckbox": "Proszę zaakceptować politykę prywatności i RODO",
+    "RegulationsCheckbox": "Proszę zaakceptować regulamin",
+    "NoLowercase": "Mała litera",
+    "NoUppercase": "Duża litera",
+    "NoNumbers": "Liczba",
+    "NoSpecialChars": "Znak specjalny",
+    "VarNoMinLength": "{param, plural, =1 {1 znak} few {{param} znaki} other {{param} znaków}}",
+    "RequireOneUrl": "Wymagane jest podanie przynajmniej jednego linku",
+    "RequireDataFromList": "Wymagany jest wybór zbioru danych z listy"
+  },
+  "WriteUs": {
+    "Self": "Napisz do nas",
+    "Info1of2": "Opisz dokładnie, jakie dane powinniśmy udostępnić Twoim zdaniem w portalu. Przeanalizujemy przesłane propozycje i omówimy z potencjalnymi dostawcami możliwość ich udostępnienia",
+    "Info2of2": "Tutaj też jest miejsce na Twoje propozycje ulepszenia portalu",
+    "MessageLabel": "Treść wiadomości",
+    "EmailLabel": "Zostaw email, jeżeli mamy odpisać",
+    "ThankYou": "Dziękujmy za Twoją opinię!",
+    "Suggestions": "Napisz do nas na adres e-mail:"
+  },
+  "Login": {
+    "ChooseMethod": "Wybierz sposób logowania",
+    "Choose": "Wybierz",
+    "LoginGovPl": {
+      "Header": "Zaloguj się przez login.gov.pl",
+      "Desc": "Logowanie do wielu serwisów administracji publicznej w Polsce przy użyciu profilu zaufanego lub e-dowodu."
+    },
+    "Email": {
+      "Header": "Zaloguj się e-mailem i hasłem",
+      "Desc": "Jeśli chcesz się zalogować przez formularz w portalu dane.gov.pl."
+    },
+    "NoAccount": "Nie masz jeszcze konta?",
+    "Register": "Zarejestruj się",
+    "BackToLogin": "Powrót do wyboru logowania"
+  },
+  "Guide": {
+    "ButtonCancel": "Przerwij",
+    "ButtonNext": "Dalej",
+    "ButtonClose": "Zakończ",
+    "ButtonBack": "Cofnij"
+  }
+}

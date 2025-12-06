@@ -1,0 +1,12 @@
+.subscribe-button {
+
+    .btn-default {
+        color: $hcPrimary;
+        background-color: $hcSecondary;
+
+        &:hover {
+            color: $hcSecondary;
+            background-color: $hcPrimary;
+        }
+    }
+}

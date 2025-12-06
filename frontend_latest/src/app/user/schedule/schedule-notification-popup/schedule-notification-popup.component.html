@@ -1,0 +1,110 @@
+
+<div class="activity-notifications" #activity_notifications>
+
+    <!-- popup trigger -->
+    <button type="button" class="btn btn-link p-0"
+        [attr.aria-controls]="isPopupVisible ? 'activity-notifications-popup' : null"
+        [attr.aria-pressed]="isPopupVisible"
+        [attr.aria-expanded]="isPopupVisible"
+        [attr.aria-label]="notifications?.length ? null : 'Brak powiadomień'"
+        aria-haspopup="true"
+        (click)="isPopupVisible=!isPopupVisible"
+        (keydown)="onPopupTriggerKeyDown($event)">
+        
+        <!-- icon -->
+        <svg class="icon icon-bell" aria-hidden="true">
+            <use href="/assets/icomoon/sprite/sprite.svg#icon-bell"></use>
+        </svg>
+
+        <span class="visually-hidden">
+            {{ isPopupVisible ? 'Pokaż' : 'Ukryj' }} powiadomienia
+        </span>
+
+        <!-- total number -->
+        <span class="activity-notifications__total" *ngIf="notifications?.length > 0">
+            <span class="badge badge-danger">
+                <span class="visually-hidden">
+                    Liczba powiadomień: 
+                </span>
+                {{ notifications?.length }}
+            </span>
+        </span>   
+    </button>
+    
+    <!--  -->
+    <div class="activity-notifications__popup activity-notifications__popup--right" 
+        id="activity-notifications-popup"
+        *ngIf="isPopupVisible"
+        @toggleVertically>
+
+        <ul class="list-group list-group-flush">
+            
+            <!-- schedule notifications -->
+            <ng-container *ngIf="isSchedulePopup">
+                <li class="list-group-item p-2" *ngFor="let notification of notifications; let isLast = last;">
+                    <button class="btn btn-link btn--multiline p-0" (click)="onNotificationClick(notification.id)" *ngIf="!isLast">
+                        {{ notification.verb }}
+                    </button> 
+                    <button class="btn btn-link btn--multiline p-0" (click)="onNotificationClick(notification.id)" *ngIf="isLast" (blur)="onPopupBlur()">
+                        {{ notification.verb }}
+                    </button> 
+                </li> 
+            </ng-container>
+           
+            
+            <!-- forum notifications -->
+            <ng-container *ngIf="!isSchedulePopup">
+                <li class="list-group-item p-2" *ngFor="let notification of notifications">
+
+                    <ng-container *ngIf="notification.fancy_title && notification.badge">
+                        <a href="{{ forumUrl }}/session/sso?return_path=/t/{{ notification.slug }}/{{ notification.topic_id }}/{{ notification.post_number }}" target="_blank" rel="noopener">
+                            <fa-icon class="mr-2" [icon]="fas[notification.badge.fa_icon]" aria-hidden="true"></fa-icon>{{ notification.fancy_title }}
+                            <span class="visually-hidden">
+                                {{ 'SkipTo.NewWindow' | translate }}
+                            </span>
+                        </a>
+                    </ng-container>
+
+                    <ng-container *ngIf="notification.fancy_title && !notification.badge">
+                        <a href="{{ forumUrl }}/session/sso?return_path=/t/{{ notification.slug }}/{{ notification.topic_id }}/{{ notification.post_number }}" target="_blank" rel="noopener">
+                            {{ notification.fancy_title }}
+                            <span class="visually-hidden">
+                                {{ 'SkipTo.NewWindow' | translate }}
+                            </span>
+                        </a>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="!notification.fancy_title && notification.badge">
+                        <a href="{{ forumUrl }}/session/sso?return_path=/badges/{{ notification.badge.id }}/{{ notification.badge.slug }}" target="_blank" rel="noopener">
+                            <fa-icon class="mr-2" [icon]="fas[notification.badge.fa_icon]" aria-hidden="true"></fa-icon>{{ notification.badge.name }}
+                            <span class="visually-hidden">
+                                {{ 'SkipTo.NewWindow' | translate }}
+                            </span>
+                        </a>
+                    </ng-container>
+                </li>
+            </ng-container>
+
+
+            <!-- nothing to display -->
+            <li class="list-group-item p-2" *ngIf="!notifications?.length">
+                Brak powiadomień
+            </li>
+        </ul>
+
+        <!-- forum additional actions -->
+        <ng-container *ngIf="!isSchedulePopup && notifications?.length">
+            <div class="d-flex justify-content-between p-2">
+                <span>
+                    <a class="btn btn-primary btn-sm" href="{{ forumUrl }}/session/sso?return_path=/u/{{ forumUsername }}/notifications" target="_blank">
+                        Zobacz wszystkie
+                    </a>
+                </span><span>
+                    <button class="btn btn-outline-primary btn-sm" (click)="markAsRead()" (blur)="onPopupBlur()">
+                        Oznacz jako przeczytane
+                    </button>                    
+                </span>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<app-result-list [items]="items">
+  <ng-template let-item>
+    <app-result-item-image class="col-xl-12 p-0 result-item-logo" [item]="item" [fromDatasetEndpoint]="true"></app-result-item-image>
+  </ng-template>
+
+  <ng-template let-item>
+    <app-details-result-item
+      [detailsData]="[
+        {
+          titleTranslationKey: 'Attribute.AvailabilityDate',
+          data: item.attributes?.created,
+          isDate: true,
+          language: item.attributes?.language
+        }
+      ]"
+      [isShowcaseView]="true"
+      [showcaseCategoryName]="item.attributes?.category_name"
+      [showcaseCategoryKey]="item.attributes?.category"
+    ></app-details-result-item>
+  </ng-template>
+</app-result-list>

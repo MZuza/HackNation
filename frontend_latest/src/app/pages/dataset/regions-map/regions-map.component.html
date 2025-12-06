@@ -1,0 +1,21 @@
+<div class="d-flex flex-row justify-content-start">
+  <div class="align-self-end mb-2">
+    <button type="button" class="btn btn-outline-primary mr-2" (click)="onCloseMap()">
+      <svg class="icon icon-filter-map" aria-hidden="true">
+        <use href="/assets/icomoon/sprite/sprite.svg#icon-filter-map"></use>
+      </svg>
+      {{ 'Map.CloseMap' | translate }}
+    </button>
+    <button *ngIf="refreshMapButton" type="button" class="btn btn-outline-danger" (click)="onRefreshMap()">
+      <svg class="icon icon-filter-map" aria-hidden="true">
+        <use href="/assets/icomoon/sprite/sprite.svg#icon-refresh-map"></use>
+      </svg>
+      {{ 'Map.RefreshMap' | translate }}
+    </button>
+  </div>
+</div>
+<div class="d-flex flex-nowrap">
+  <div class="dataset-map">
+    <div #mapRef class="dataset-map" id="datasetMap" role="application" [attr.aria-label]="'Resources.MapDescription' | translate"></div>
+  </div>
+</div>

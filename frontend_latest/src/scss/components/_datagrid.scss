@@ -1,0 +1,79 @@
+.datagrid {
+    width: 100%;
+    color: currentColor;
+    border-bottom : 1px solid $color-grey-light-6;
+
+    &-wrapper {
+        overflow-x: auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    // thead th
+    &__heading {
+        padding: 15px;
+        font-weight: normal;
+        background-color: $color-blue-dark;
+        color: $color-white;
+        font-size: 0.875rem;
+        vertical-align: top;
+
+        &:not(:first-child) {
+            border-left : 1px solid $color-grey-light-5;
+        }
+    }
+
+    &__sort-column {
+        color: $color-white;
+        padding-left: 20px;
+        position: relative;
+
+        &::before {
+            content: "\2191\2193";
+            color: $color-grey-light-7;
+            margin-left: -20px;
+            position: absolute;
+        }
+
+        &.ascending::before {
+            content: "\2191";
+            color: $color-white;
+        }
+
+        &.descending::before {
+            content: "\2193";
+            color: $color-white;
+        }
+    }
+
+    // tr
+    &__row {
+
+        &:nth-child(odd) {
+            background-color: $color-white;
+        }
+
+        &:nth-child(even) {
+            background-color: $color-grey-light-1;
+        }
+
+        &.hovered {
+            background-color: $color-hover;
+        }
+    }
+
+
+    // td
+    &__cell {
+        padding: 10px;
+        border-top: 1px solid $color-grey-light-1;
+        font-size: 0.875rem;
+        position: relative;
+        vertical-align: top;
+
+        &:not(:first-child) {
+            border-left : 1px solid $color-grey-light-5;
+        }
+    }
+}
+

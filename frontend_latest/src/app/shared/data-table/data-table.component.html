@@ -1,0 +1,116 @@
+@if (hasTableView && items) {
+  <div class="resource-view">
+    @if (count > countLimit) {
+      <div class="container">
+        <p class="alert alert-info mt-4">
+          {{ 'Resources.VarTableRowsLimited' | translate: { param: countLimit, param1: count } }}
+        </p>
+      </div>
+    }
+
+    <div class="container mt-4" id="data-table-pagination-top">
+      <div class="row no-gutters justified-between">
+        <app-items-per-page [selected]="params()?.per_page" (selectedChange)="updateParams({ per_page: $event })"></app-items-per-page>
+      </div>
+    </div>
+
+    <div class="vertical-spacing container">
+      <div class="sticky-header-table">
+        <table class="datagrid" #dataTable>
+          <caption class="visually-hidden">
+            tabela z danymi
+            {{
+              tableTitle
+            }}
+          </caption>
+          <thead>
+          <tr>
+            @for (column of columns; track column.name) {
+              @if (column.name === 'link') {
+                <th class="datagrid__heading" scope="col">
+                  <a>{{ column.description }}</a>
+                </th>
+              } @else {
+                <th
+                  class="datagrid__heading"
+                  scope="col"
+                  [attr.aria-sort]="
+                    params().sort.indexOf(column.name) === 0
+                    ? ('Sort.Ascending' | translate)
+                    : params().sort.indexOf(column.name) === 1
+                    ? ('Sort.Descending' | translate)
+                    : null
+                    "
+                >
+                  <a
+                    class="datagrid__sort-column"
+                    [routerLink]="['.']"
+                    [attr.aria-label]="('Sort.By' | translate) + ' ' + column.description"
+                    [ngClass]="{
+                        ascending: params().sort.indexOf(column.name) === 0,
+                        descending: params().sort.indexOf(column.name) === 1
+                      }"
+                    (click)="sortByColumn(column.name)"
+                  >
+                    {{ column.description }}
+                  </a>
+                </th>
+              }
+            }
+          </tr>
+          </thead>
+
+          <tbody>
+            @for (item of items; track item; let rowIndex = $index) {
+              <tr
+                class="datagrid__row"
+                (mouseenter)="hoveredRowIndex = rowIndex"
+                (mouseleave)="onMouseLeave()"
+                [ngClass]="hoveredRowIndex === rowIndex ? 'hovered' : ''"
+              >
+                @for (column of columns; track column.name; let cellIndex = $index) {
+                  <td
+                    class="datagrid__cell"
+                    tabindex="0"
+                    (keydown)="onKeyDown($event)"
+                    (focus)="onFocus(rowIndex, cellIndex)"
+                  >
+                    @if (column.name.includes('portal_data_link')) {
+                      <a [routerLink]="'/' + getUrlAfterNthSlash(item[column.name].val, 3)">{{ item[column.name] | resourceColumnData : 'repr' }}</a>
+                    } @else if (column.name.includes('link')) {
+                      <a [href]="item[column.name].val" [matTooltip]="item[column.name].val" matTooltipClass="data-table-link-tooltip">
+                        <svg class="icon icon-external-link" role="img" aria-hidden="true">
+                          <use href="/assets/icomoon/SVG/external-link.svg#external-link"></use>
+                        </svg>
+                        {{ item[column.name] | resourceColumnData : 'repr' }}
+                      </a>
+                    } @else {
+                      {{ item[column.name] | resourceColumnData : 'repr' }}
+                    }
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="container" id="resource-pagination">
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- items per page -->
+        <app-items-per-page [selected]="params()?.per_page" (selectedChange)="updateParams({ per_page: $event })"></app-items-per-page>
+
+        <!-- pagination -->
+        <app-pagination
+          [itemsPerPage]="params()?.per_page"
+          [totalItems]="count >= countLimit ? countLimit : count"
+          [(page)]="params().page"
+          (numPages)="numPages = $event"
+          (pageChange)="updateParams({ page: $event })"
+        >
+        </app-pagination>
+      </div>
+    </div>
+  </div>
+}

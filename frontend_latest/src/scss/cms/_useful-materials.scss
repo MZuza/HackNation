@@ -1,0 +1,29 @@
+.useful-materials {
+
+    .col {
+        min-height: 120px;
+        position: relative;
+        padding-right: 10px;
+        padding-left: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #eee;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+    }
+
+    .heading-title {
+        text-align: center;
+    }
+
+    .hover {
+
+        &:hover {
+            color: $color-blue-light;
+            border-color: $primary;
+            background-color: $color-hover;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+}

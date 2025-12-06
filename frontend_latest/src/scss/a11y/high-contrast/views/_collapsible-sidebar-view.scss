@@ -1,0 +1,21 @@
+.vertical-list__item-framed{
+    border: 1px solid $hcPrimary;
+}
+
+.vertical-menu {
+    &__item {
+
+        &.active {
+            background-color: $hcPrimary;
+
+            :link,
+            :visited {
+                color: $hcSecondary;
+
+                .icon > * {   
+                    fill: $hcSecondary;
+                }
+            }
+        }
+    }
+}

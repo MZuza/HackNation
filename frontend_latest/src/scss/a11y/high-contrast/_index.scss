@@ -1,0 +1,54 @@
+
+/* HIGH CONTRAST - black & white
+********************************/
+
+body.black-white {
+
+    $hcPrimary: $color-white;
+    $hcSecondary: $color-black;
+
+    color: $hcPrimary;
+    background-color: $hcSecondary;
+
+    // styles base on the above settings
+    @import "./high-contrast-common";
+
+}
+
+
+
+/* HIGH CONTRAST - black & yellow
+********************************/
+
+body.black-yellow {
+
+    $hcPrimary: $color-yellow;
+    $hcSecondary: $color-black;
+
+    color: $hcPrimary;
+    background-color: $hcSecondary;
+
+
+    // styles base on the above settings
+    @import "./high-contrast-common";
+
+}
+
+
+
+/* HIGH CONTRAST - yellow & black
+********************************/
+
+body.yellow-black {
+
+    $hcPrimary: $color-black;
+    $hcSecondary: $color-yellow;
+
+    color: $hcPrimary;
+    background-color: $hcSecondary;
+
+
+    // styles base on the above settings
+    @import "./high-contrast-common";
+
+}

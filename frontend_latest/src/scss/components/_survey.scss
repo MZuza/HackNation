@@ -1,0 +1,25 @@
+.survey-form {
+    line-height: 1.2;
+
+    &__question {
+        font-size: inherit;
+    }
+
+    &__question-description {
+        & > * {
+            margin: 0;
+        }
+    }
+
+    :not(:checked) + &__answer {
+        & > .survey-form__answer-label {
+            cursor: pointer;
+        }
+    }
+
+    :checked + &__answer {
+        .survey-form__answer-label {
+            font-weight: bold;
+        }
+    }
+}

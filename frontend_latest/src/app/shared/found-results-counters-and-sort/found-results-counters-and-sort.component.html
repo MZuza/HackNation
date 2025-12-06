@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-between flex-wrap align-items-center">
+  <!-- counters -->
+  <div class="pt-2">
+    <strong class="pr-2" id="search-counters-label" tabindex="-1">{{ 'Found.Self' | translate }}:</strong>
+
+    <!-- one counter -->
+    <ng-container *ngIf="counters.length === 1"> {{ counters[0].label }} ({{ counters[0].count }}) </ng-container>
+
+    <!-- many counters -->
+    <ul
+      class="list-inline d-inline-flex align-items-center flex-wrap m-0"
+      *ngIf="counters.length > 1"
+      aria-labelledby="search-counters-label"
+      [appInfoTooltip]="tooltipText"
+      [tooltipTitle]="tooltipTitle"
+    >
+      <ng-container *ngFor="let counter of counters; let isLastCounter = last">
+        <li class="list-inline-item">
+          <!-- outer route -->
+          <a *ngIf="counter.url" [routerLink]="counter.url" [queryParams]="counter.param">{{ counter.label }} ({{ counter.count }})</a>
+
+          <!-- inner route -->
+          <button
+            type="button"
+            class="btn btn-link p-0"
+            *ngIf="!counter.url && selectedModel !== counter.value"
+            (click)="updateParams({ 'model[terms]': counter.value }, true)"
+          >
+            <svg class="icon" style="stroke: none" *ngIf="counter.value !== 'dataset,resource'">
+              <use [attr.href]="'assets/icomoon/SVG/' + counter.value + '.svg#' + counter.value"></use>
+            </svg>
+            {{ counter.label }} ({{ counter.count }})
+            <span class="visually-hidden">
+              {{ 'Search.AutoContentReload' | translate }}
+            </span>
+          </button>
+
+          <!-- selected counter -->
+          <span class="" *ngIf="!counter.url && selectedModel === counter.value">
+            <img
+              *ngIf="counter.value !== 'dataset,resource'"
+              [src]="'assets/icomoon/SVG/' + counter.value + 'Black.svg'"
+              alt=""
+              style="vertical-align: top"
+            />
+            {{ counter.label }} ({{ counter.count }})</span
+          >
+
+          <!-- comma separator -->
+          <ng-container *ngIf="!isLastCounter">,</ng-container>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+
+  <!-- sort order -->
+  <div class="d-md-inline-flex align-items-center pt-2">
+    <span class="dropdown-label pr-2" id="sortby-label">
+      {{ 'Sort.By' | translate }}:
+      <span class="visually-hidden"> ({{ 'Search.AutoContentReload' | translate }}) </span>
+    </span>
+
+    <select class="form-select sort-order" (change)="updateParams({ sort: getValue($event) })" aria-labelledby="sortby-label">
+      <option [ngValue]="null" *ngIf="!isSortValid">
+        {{ 'Action.Choose' | translate }}
+      </option>
+      <option *ngFor="let item of sortOptions" [value]="item.value" [selected]="selected === item.value">
+        {{ item.label }}
+      </option>
+    </select>
+  </div>
+</div>
+
+<hr class="horizontal-line" />

@@ -1,0 +1,37 @@
+<app-schedule-tab>
+    <ng-container *ngIf="isReady">
+        <!-- message: remove-->
+        <p class="alert alert-success" @toggleVertically *ngIf="isRemoveSuccessMessageVisible">
+            Harmonogram został przeniesiony do archiwum
+
+        </p>
+        <app-schedule-table
+                (deleteItem)="deleteItem($event)"
+                [columns]="columns"
+                [config]="config"
+                [dataSource]="dataSource"
+                (scheduleSettingsUpdated)="updateScheduleAfterSettingsChanged($event)">
+            <!--  Table Header -->
+            <div class="schedule-header font-weight-bold" *ngIf="dataSource">
+                <p *ngIf="!isSchedulesView && !isAdmin" class="d-inline-block mt-2">Okres: {{dataSource.periodName}}</p>
+                <ng-container *ngIf="isRepresentativeView">
+                    <h2 *hasPermission="[Role.ADMIN]"
+                        class="heading heading--sm mt-4">Harmonogram przypisany do: {{dataSource.representativeEmail}}
+                    </h2></ng-container>
+            </div>
+        </app-schedule-table>
+    </ng-container>
+</app-schedule-tab>
+
+<!-- delete confirmation modal -->
+<app-confirmation-modal
+        *ngIf="isDeleteConfirmationModalVisible"
+        [isOutsideTable]="true"
+        [message]="'Czy na pewno chcesz przenieść zgłoszenie do archiwum?'"
+        (closeDialog)="closeDialog($event)"
+        (selectedItemId)="movesScheduleToArchive()"></app-confirmation-modal>
+
+<!-- link column -->
+<ng-template #linkTemplateRef let-column>
+    <a class="font-weight-bold" [href]="column.data.link">{{column.data.link}}</a>
+</ng-template>

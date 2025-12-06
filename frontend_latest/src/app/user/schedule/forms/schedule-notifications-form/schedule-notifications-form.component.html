@@ -1,0 +1,99 @@
+<form class="bg-custom custom-form p-4" [formGroup]="notificationForm" (ngSubmit)="onFormSubmit()" *ngIf="!notificationSentMessage?.length">
+  <!-- api notifications  -->
+  <app-notifications aria-live="polite"></app-notifications>
+
+  <!-- message -->
+  <div
+    class="form-group"
+    [ngClass]="{ 'form-group-invalid': notificationForm.controls.message.invalid && notificationForm.controls.message.touched }"
+  >
+    <label for="message">
+      {{ 'Hod.NotificationContent' | translate }}
+      <small class="font-weight-normal"> ({{ 'Hod.MaxCharacters' | translate: { param: maxNotificationLength } }}): </small>
+    </label>
+
+    <input
+      type="text"
+      class="form-control"
+      id="message"
+      autocomplete="off"
+      placeholder=""
+      formControlName="message"
+      [attr.aria-describedby]="'message_invalid_error'"
+      [attr.aria-invalid]="notificationForm.controls.message.invalid && notificationForm.controls.message.touched"
+      (keydown.enter)="$event.preventDefault()"
+    />
+
+    <!-- message errors -->
+    <ng-container *ngIf="notificationForm.controls.message.invalid && notificationForm.controls.message.touched">
+      <!-- empty or minlength error -->
+      <small
+        class="form-text text-danger"
+        role="alert"
+        id="message_invalid_error"
+        *ngIf="notificationForm.controls.message.errors?.required || notificationForm.controls.message.errors?.minlength"
+        @toggleVertically
+      >
+        Pole "Treść powiadomienia" nie może być puste
+      </small>
+
+      <!-- max length error -->
+      <small
+        class="form-text text-danger"
+        role="alert"
+        id="notification_invalid_error"
+        *ngIf="notificationForm.controls.message.errors['maxlength']"
+        @toggleVertically
+      >
+        {{ 'Hod.MaxLengthError' | translate }}
+        {{ notificationForm.controls.message.errors.maxlength['actualLength'] - maxNotificationLength }}
+      </small>
+    </ng-container>
+  </div>
+
+  <!-- recipient type -->
+  <div class="form-group">
+    <span class="d-block font-weight-bold small"> {{ 'Hod.SendTo' | translate }}: </span>
+
+    <ul class="list-unstyled d-sm-block m-0 p-0" *ngIf="recipientTypes">
+      <li class="d-inline-flex flex-row align-items-center mr-4" *ngFor="let type of recipientTypes">
+        <input
+          type="radio"
+          formControlName="type"
+          name="type"
+          id="type-radio-{{ type.value }}"
+          [value]="type.value"
+          (keyup.enter)="$event.preventDefault()"
+        />
+
+        <label
+          class="font-weight-bold small pl-1 clickable"
+          for="type-radio-{{ type.value }}"
+          [ngClass]="{ 'text-primary': notificationForm.controls.type.value !== type.value }"
+        >
+          {{ type.name }}
+        </label>
+      </li>
+    </ul>
+  </div>
+
+  <!-- fake submit -->
+  <button
+    type="button"
+    class="btn btn-sm btn-secondary"
+    aria-describedby="backend_notifications message_invalid_error"
+    *ngIf="notificationForm.invalid"
+  >
+    {{ 'Hod.SendNotification' | translate }}
+  </button>
+
+  <!-- submit -->
+  <button type="submit" class="btn btn-sm btn-primary" *ngIf="notificationForm.valid">{{ 'Hod.SendNotification' | translate }}</button>
+</form>
+
+<div class="alert alert-success" role="alert" aria-live="polite" *ngIf="notificationSentMessage?.length">
+  <p class="p-0">
+    {{ notificationSentMessage }}
+  </p>
+  <button class="btn btn-link btn-sm p-0" (click)="onToggleForm()">{{ 'Hod.BackToForm' | translate }}</button>
+</div>

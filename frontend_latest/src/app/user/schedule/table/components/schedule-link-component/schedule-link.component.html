@@ -1,0 +1,8 @@
+<a [class]="'btn btn-link pt-0 pb-0 pl-1 pr-1 ' + (className ? className: '')" [routerLink]="url">
+   <svg [attr.aria-labelledby]="'icon-' + iconName + '-' + generatedId" class="icon" role="img">
+        <title [id]="'icon-' + iconName + '-' + generatedId">
+            {{ titleTranslationKey | translate }}
+        </title>
+        <use [attr.xlink:href]="'/assets/icomoon/sprite/sprite.svg#icon-' + iconName"></use>
+    </svg>
+</a>

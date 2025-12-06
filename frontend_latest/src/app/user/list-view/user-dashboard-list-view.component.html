@@ -1,0 +1,58 @@
+<ng-content select="list-header"></ng-content>
+
+<!-- state / filter -->
+<div *ngIf="config.filterConfig">
+  <span class="font-weight-bold"> {{ config.filterConfig.title | translate }}: </span>
+  <ul class="list-inline">
+    <li class="list-inline-item pr-4" *ngFor="let type of filterType.getTypes()">
+      <label for="{{ type.value }}">
+        <input
+          type="checkbox"
+          id="{{ type.value }}"
+          (click)="onCheck(type.value)"
+          (keyup.enter)="onCheck(type.value)"
+          [checked]="isChecked(type.value)"
+        />
+
+        <span class="dashboard-filtered-list-point dashboard-filtered-list-point--{{ type.value }} clickable">
+          {{ type.description | translate }}
+        </span>
+      </label>
+    </li>
+  </ul>
+</div>
+
+<p *ngIf="config.foundedItemsCountHeaderTitle" class="font-weight-bold">
+  {{ 'Lod.Found' | translate }}:
+  {{ config.foundedItemsCountHeaderTitle | translate }}
+  ({{ count }})
+</p>
+
+<!-- ITEMS -->
+<ng-container #listContainer></ng-container>
+
+<!-- NO ITEMS -->
+<div class="container pb-3" *ngIf="items?.length === 0">
+  <p class="alert alert-info">
+    {{ 'MyDashboard.NoDataToDisplay' | translate }}
+  </p>
+</div>
+
+<!-- PAGING -->
+<footer class="pt-5" *ngIf="config.isPagingVisible && items?.length">
+  <div class="d-flex justify-content-between align-items-center">
+    <!-- results per page -->
+    <app-items-per-page [selected]="params?.per_page" (selectedChange)="updateParams({ per_page: $event })"> </app-items-per-page>
+
+    <!-- pagination -->
+    <app-pagination
+      *ngIf="config.isPaginationVisible"
+      [itemsPerPage]="params.per_page"
+      [totalItems]="count"
+      [(page)]="params.page"
+      (numPages)="numPages = $event"
+      (pageChange)="updateParams({ page: $event })"
+    >
+    </app-pagination>
+  </div>
+</footer>

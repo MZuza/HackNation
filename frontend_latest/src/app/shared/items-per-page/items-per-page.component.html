@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-start align-items-center">
+  <span class="dropdown-label pr-2 d-none d-md-inline" id="items-per-page-label-{{ uniqueId }}">
+    {{ 'Pagination.ItemsPerPage' | translate }}:
+  </span>
+
+  <select
+    class="form-select p-1"
+    (change)="onChange(Number(getSelectValue($event)))"
+    attr.aria-labelledby="items-per-page-label-{{ uniqueId }}"
+    style="width: 50px; background-position: right 0.25rem center"
+  >
+    <option [ngValue]="null" *ngIf="!isNumberValid">
+      {{ selected }}
+    </option>
+
+    <option *ngFor="let item of options" [value]="item" [selected]="selected === item">
+      {{ item }}
+    </option>
+  </select>
+</div>

@@ -1,0 +1,122 @@
+<ng-container *ngIf="isReady">
+    <ng-container *hasPermission="PermissionPerRoles.PREVIEW_UNPUBLISHED_APPLICATION">
+        <app-schedule-settings-form *ngIf="config.isSettingsForm && dataSource"
+                                    [schedule]="dataSource"
+                                    (scheduleSettingsUpdated)="onScheduleSettingsUpdated($event)"></app-schedule-settings-form>
+    </ng-container>
+
+    <!-- header content -->
+    <ng-content select=".schedule-header"></ng-content>
+
+    <!-- notifications -->
+    <div class="mb-3">
+        <app-notifications-front></app-notifications-front>
+    </div>
+
+    <!-- table -->
+    <div class="scrollable-table-wrapper mb-3">
+        <table class="datagrid">
+            <thead>
+                <tr>
+                    <ng-container *ngFor="let column of columns">
+                        <th class="datagrid__heading align-middle" *hasPermission="column.permittedRoles" scope="col">
+                            {{ column.label }}
+                        </th>
+                    </ng-container>
+                    <th class="datagrid__heading align-middle" *ngIf="config.actions.length > 0" scope="col">
+                        <span class="visually-hidden">
+                            Dostępne akcje (Widok szczegółów, edycja, usuwanie) w zależności od kontekstu
+                        </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="datagrid__row"
+                    (mouseenter)="hoveredRowIndex = rowIndex"
+                    (mouseleave)="onMouseLeave()"
+                    [ngClass]="hoveredRowIndex === rowIndex ? 'hovered' : '' "
+                    *ngFor="let data of dataSource?.data; let rowIndex = index">
+                    
+                    <ng-container *ngFor="let column of columns">
+                        <td class="datagrid__cell {{ column.additionalClass }}" *hasPermission="column.permittedRoles">
+                            <ng-container
+                                    *ngTemplateOutlet="column.customTemplate ? column.customTemplate : columnTextDisplayRef;
+                                    context: {
+                                    $implicit: column.customTemplate ?
+                                    {columnID: column.id, data: data } :
+                                    data[column.id]
+                                    }"></ng-container>
+                        </td>
+                    </ng-container>
+
+                    <td class="datagrid__cell text-center text-nowrap" *ngIf="config.actions.length > 0">
+                        <!-- TODO extract to separate components -->
+                        <ng-container *ngFor="let action of config.actions">
+                            <app-schedule-button
+                                    (buttonClicked)="showDeleteConfirmation(data.id)"
+                                    *ngIf="action.type === 'button'"
+                                    [className]="action.className"
+                                    [iconName]="action.iconName"
+                                    [titleTranslationKey]="action.titleTranslationKey"
+                            ></app-schedule-button>
+                            <app-schedule-link
+                                    *ngIf="action.type === 'link'"
+                                    [className]="action.className"
+                                    [iconName]="action.iconName"
+                                    [titleTranslationKey]="action.titleTranslationKey"
+                                    [url]="action.baseUrl + '/' + data.id">
+                            </app-schedule-link>
+                        </ng-container>
+                        <app-confirmation-modal
+                                (closeDialog)="closeDialog()"
+                                (selectedItemId)="deleteItem($event)"
+                                *ngIf="itemToDelete === data.id"
+                                [itemId]="data.id"></app-confirmation-modal>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- table footer -->
+    <div class="d-flex flex-column flex-md-row justify-content-end align-items-center">
+        <a *ngIf="config.leftButton && config.leftButton.url" [routerLink]="config.leftButton.url"
+            class="btn btn-primary mr-auto">
+            {{config.leftButton.label}}
+        </a>
+        <button (click)="config.leftButton.onClick()" *ngIf="config.leftButton && config.leftButton.onClick"
+            class="btn btn-primary mr-auto">
+            {{config.leftButton.label}}
+        </button>
+
+        <!-- export - full -->
+        <app-schedule-table-export *ngIf="config.isFullExport"
+            class=" mr-md-3"
+            [exportableId]="config.exportSource === 'schedules' ? dataSource?.id: dataSource?.userScheduleId"
+            [exportSource]="config.exportSource"
+            [isFullExport]="true">
+        </app-schedule-table-export>
+
+        <!-- export -->
+        <app-schedule-table-export *ngIf="config.isPartialExport"
+            [exportableId]="config.exportSource === 'schedules' ? dataSource?.id: dataSource?.userScheduleId"
+            [exportSource]="config.exportSource"
+            [isFullExport]="false">
+        </app-schedule-table-export>
+    </div>
+
+    <!-- dynamic footer -->
+    <div class="mt-3">
+        <ng-content select=".schedule-footer"></ng-content>
+    </div>
+
+</ng-container>
+<!-- confirmation modal template -->
+<ng-template #confirmationModalRef>
+    <app-confirmation-modal></app-confirmation-modal>
+</ng-template>
+
+<!-- column display text template -->
+<ng-template #columnTextDisplayRef let-data>
+    {{data}}
+</ng-template>

@@ -1,0 +1,68 @@
+<!-- SEARCH and SUGGESTIONS -->
+<header class="vertical-spacing">
+  <div class="container pb-3">
+    <h1 class="heading">
+      {{ 'Articles.News' | translate }}
+    </h1>
+
+    <app-search-suggest
+      tooltipText="{{ 'Tour.Tooltip.Article.Search.text' | translate }}"
+      [placeholderTranslationKey]="'Articles.SearchFor'"
+      [searchQuery]="params.q"
+      [apiModels]="[apiModel.NEWS]"
+      [maxResultsPerModel]="3"
+      [useTriggers]="true"
+      (searchTrigger)="updateParams({ q: $event.q, sort: 'relevance' }, true)"
+      (clearTrigger)="updateParams({ q: '', sort: '-date' }, true)"
+    >
+    </app-search-suggest>
+  </div>
+</header>
+
+<div class="container">
+  <section class="results-section">
+    <div class="w-100">
+      <app-found-results-counters-and-sort
+        *ngIf="count && items?.length"
+        [selected]="params?.sort"
+        (update)="updateParams($event)"
+        [counters]="[{ label: 'Articles.News' | translate, count: count }]"
+        [sortOptions]="[
+          { label: 'Sort.Default' | translate, value: 'relevance' },
+          { label: 'Attribute.NameAsc' | translate, value: 'title' },
+          { label: 'Attribute.NameDesc' | translate, value: '-title' },
+          { label: 'Attribute.AvailabilityDate' | translate, value: '-date' },
+          { label: 'Attribute.Popularity' | translate, value: '-views_count' }
+        ]"
+      >
+      </app-found-results-counters-and-sort>
+
+      <!-- api notifications -->
+      <app-notifications></app-notifications>
+
+      <!-- no results found -->
+      <app-no-results-found [q]="params.q" *ngIf="params.q && !items?.length"></app-no-results-found>
+
+      <!-- RESULTS LIST -->
+      <app-article-results [items]="items"></app-article-results>
+
+      <!-- RESULTS FOOTER -->
+      <footer class="results-footer pt-5" *ngIf="items && items.length">
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- results per page -->
+          <app-items-per-page [selected]="params?.per_page" (selectedChange)="updateParams({ per_page: $event })"> </app-items-per-page>
+
+          <!-- pagination -->
+          <app-pagination
+            [itemsPerPage]="params.per_page"
+            [totalItems]="count"
+            [(page)]="params.page"
+            (numPages)="numPages = $event"
+            (pageChange)="updateParams({ page: $event })"
+          >
+          </app-pagination>
+        </div>
+      </footer>
+    </div>
+  </section>
+</div>

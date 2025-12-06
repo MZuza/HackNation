@@ -1,0 +1,516 @@
+<!-- DETAILS: HEADER -->
+<header class="data-item-view__header vertical-spacing" *ngIf="dataset?.attributes">
+  <div class="container">
+    <h1 class="heading" *ngIf="dataset.attributes.title" [innerHtml]="dataset.attributes.title | sanitizeHtml">
+    </h1>
+
+    <!-- metadata -->
+    <app-dataset-metadata
+      class="d-block pb-3"
+      [selfLink]="dataset.links.self"
+      [datasetId]="dataset.id"
+      [islistView]="false"
+      @toggleVertically
+    >
+    </app-dataset-metadata>
+
+    <!-- keywords and notes -->
+    <collapsible-text *ngIf="dataset.attributes.notes" [tags]="keywords" [text]="dataset.attributes.notes" [isCollapsedDown]="true">
+    </collapsible-text>
+
+    <!-- logo -->
+    <div class="pt-2" *ngIf="dataset.attributes.image_url">
+      <img
+        class="img-fluid"
+        style="max-height: 150px"
+        ngSrc="{{ dataset.attributes.image_url }}"
+        alt="{{ dataset.attributes.image_alt || 'Logo - ' + dataset.attributes.title }}"
+      />
+    </div>
+
+    <!-- regions -->
+    <div *ngIf="regionsList.length > 0 && isNotRegionPoland">
+      <hr />
+      <strong
+        appInfoTooltip="{{ 'Tour.Tooltip.Filters.Attribute.Region.text' | translate }}"
+        tooltipTitle="{{ 'Tour.Tooltip.Filters.Attribute.Region.title' | translate }}"
+        >{{ 'Attribute.Region' | translate }}:
+      </strong>
+      <button
+        class="btn btn-link py-0"
+        [attr.aria-controls]="isExpanded ? 'regions-container' : null"
+        [attr.aria-pressed]="isExpanded"
+        (click)="isExpanded = !isExpanded"
+      >
+        {{ (isExpanded ? 'Action.Collapse' : 'Action.Expand') | translate }}
+      </button>
+      <div *ngIf="isExpanded" @toggleVertically class="pt-3" id="regions-container">
+        <ul class="list-unstyled">
+          <li *ngFor="let region of regionsList" class="region-list-item d-inline-flex">
+            <span>{{ region.hierarchy_label }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!--Supporting documents-->
+    <div *ngIf="dataset.attributes.supplements.length > 0">
+      <hr />
+      <strong
+        appInfoTooltip="{{ 'Tour.Tooltip.DatasetDetails.Supplements.text' | translate }}"
+        tooltipTitle="{{ 'Tour.Tooltip.DatasetDetails.Supplements.title' | translate }}"
+        >{{ 'Attribute.Supplements' | translate }}:
+      </strong>
+      <button
+        class="btn btn-link py-0"
+        [attr.aria-controls]="isSupplementExpanded ? 'supplements-container' : null"
+        [attr.aria-pressed]="isSupplementExpanded"
+        (click)="isSupplementExpanded = !isSupplementExpanded"
+      >
+        {{ (isSupplementExpanded ? 'Action.Collapse' : 'Action.Expand') | translate }}
+      </button>
+      <div *ngIf="isSupplementExpanded" @toggleVertically class="pt-3" id="supplements-container">
+        <ul class="list-unstyled">
+          <li *ngFor="let supplement of dataset.attributes.supplements" class="d-inline-flex mr-5">
+            <span class="visually-hidden">{{ 'Action.Download' | translate }}</span>
+            <a href="{{ supplement.file_url }}">{{ supplement.name }} ({{ supplement.file_size }}) ({{ supplement.language }}) >></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- DETAILS: BODY -->
+<div class="item-view__body vertical-spacing" *ngIf="dataset?.attributes">
+  <div class="container">
+    <div class="collapsible-sidebar-view" [ngClass]="{ 'collapsible-sidebar-view--sidebar-visible': sidebarVisible }">
+      <!-- 1/2 COLUMN: SIDEBAR -->
+      <aside class="collapsible-sidebar-view__sidebar" id="sidebar" appFixedSidebar>
+        <!-- DATASET ATTRIBUTES -->
+        <ul class="vertical-list">
+          <!-- harvester source -->
+          <li
+            class="vertical-list__item vertical-list__item-framed"
+            *ngIf="dataset?.attributes.source?.type === 'ckan' && dataset?.attributes.source.title && dataset?.attributes.source.url"
+          >
+            <span class="vertical-list__item-label"> {{ 'Attribute.HarvestedSource' | translate }}: </span>
+            <a
+              class="vertical-list__item vertical-list__link"
+              [href]="dataset?.attributes.source?.url"
+              target="_blank"
+              [innerHtml]="dataset?.attributes.source.title | sanitizeHtml"
+            >
+              <span aria-hidden="true">>></span>
+              <span class="visually-hidden">
+                {{ 'SkipTo.NewWindow' | translate }}
+              </span>
+            </a>
+          </li>
+
+          <!-- source -->
+          <li class="vertical-list__item" *ngIf="dataset?.attributes.url">
+            <span class="vertical-list__item-label"> {{ 'Attribute.Source' | translate }}: </span>
+            <a [href]="dataset?.attributes.url" [innerHtml]="dataset?.attributes.url | sanitizeHtml" target="_blank">
+              {{ 'Action.GoToSource' | translate }}
+
+              <span class="visually-hidden">
+                {{ 'SkipTo.NewWindow' | translate }}
+              </span>
+            </a>
+          </li>
+
+          <!-- institution -->
+          <li class="vertical-list__item" *ngIf="institution">
+            <span class="vertical-list__item-label"> {{ 'Institutions.Single' | translate }}: </span>
+            <a [routerLink]="['/!institution' | localize, institution.id + ',' + institution.attributes.slug]" [innerHtml]="institution.attributes.title | sanitizeHtml">
+              {{ institution.attributes.title }}
+            </a>
+          </li>
+
+          <!-- category -->
+          <ng-container>
+            <li class="vertical-list__item" *ngIf="dataset?.attributes?.categories && !!dataset?.attributes?.categories.length">
+              <span class="vertical-list__item-label"> {{ 'Attribute.Category' | translate }}: </span>
+              <ul class="list-unstyled">
+                <li *ngFor="let category of dataset?.attributes?.categories">
+                  {{ category.title }}
+                </li>
+              </ul>
+            </li>
+          </ng-container>
+
+          <!-- dynamic data -->
+          <li class="vertical-list__item" *ngIf="dataset?.attributes?.has_dynamic_data">
+            <span class="vertical-list__item-label"> {{ 'Attribute.DynamicData' | translate }}: </span>
+            <img src="assets/icomoon/SVG/ic-dane-dynamiczne.svg" alt="" class="mr-1" />{{ 'Yes' | translate }}
+          </li>
+
+          <!-- update frequency -->
+          <li class="vertical-list__item" *ngIf="dataset?.attributes?.update_frequency">
+            <span class="vertical-list__item-label"> {{ 'Attribute.UpdateFrequency' | translate }}: </span>
+            {{ dataset.attributes?.update_frequency }}
+          </li>
+
+          <!-- high value data -->
+          <li class="vertical-list__item" *ngIf="dataset?.attributes?.has_high_value_data">
+            <span class="vertical-list__item-label"> {{ 'Attribute.HighValueData' | translate }}: </span>
+            <img src="assets/icomoon/SVG/high-value-data.svg" alt="ikona_dane_wysokiej_wartosci" class="mr-1" />{{ 'Yes' | translate }}
+          </li>
+
+          <!-- high value data from ec -->
+          <li class="vertical-list__item" *ngIf="dataset?.attributes?.has_high_value_data_from_ec_list">
+            <span class="vertical-list__item-label"> {{ 'Attribute.HighValueDataFromEC' | translate }}: </span>
+            <img src="assets/icomoon/SVG/high-value-data-from-ec.svg" alt="ikona_dane_wysokiej_wartosci_ke" class="mr-1" />{{ 'Yes' | translate }}
+          </li>
+
+          <!-- research data -->
+          <li class="vertical-list__item" *ngIf="dataset?.attributes?.has_research_data">
+            <span class="vertical-list__item-label"> {{ 'Attribute.ResearchData' | translate }}: </span>
+            <img src="assets/icomoon/SVG/ic-research-data.svg" alt="ikona_dane_badawcze" class="mr-1" />{{ 'Yes' | translate }}
+          </li>
+
+          <!-- protected data-->
+          <li class="vertical-list__item" *ngIf="dataset?.attributes?.contains_protected_data">
+            <span class="vertical-list__item-label"> {{ 'Attribute.ContainsProtectedData' | translate }}: </span>
+            <img src="assets/icomoon/SVG/key.svg" alt="ikona_dane_chronione" class="mr-1" />{{ 'Yes' | translate }}
+          </li>
+
+          <!-- available (created) -->
+          <li class="vertical-list__item" *ngIf="dataset?.attributes?.created">
+            <span class="vertical-list__item-label"> {{ 'Attribute.AvailabilityDate' | translate }}: </span>
+            <span class="text-data">
+              {{ dataset.attributes?.created | translateDateFormat | async }}
+            </span>
+          </li>
+
+          <!-- verified (updated) -->
+          <li class="vertical-list__item" *ngIf="dataset?.attributes?.verified">
+            <span class="vertical-list__item-label"> {{ 'Attribute.UpdateDate' | translate }}: </span>
+            <span class="text-data">
+              {{ dataset.attributes?.verified | translateDateFormat | async }}
+            </span>
+          </li>
+
+          <!-- views count -->
+          <li class="vertical-list__item">
+            <span class="vertical-list__item-label"> {{ 'Attribute.ViewsCount' | translate }}: </span>
+            <span class="text-data">
+              {{ dataset?.attributes?.views_count }}
+            </span>
+          </li>
+
+          <!-- downloads count -->
+          <li class="vertical-list__item">
+            <span class="vertical-list__item-label"> {{ 'Attribute.DownloadCount' | translate }}: </span>
+            <span class="text-data">
+              {{ dataset?.attributes?.downloads_count }}
+            </span>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- 2/2 COLUMN: RESOURCE LIST and HISTORY -->
+      <div class="collapsible-sidebar-view__main">
+        <!-- api notifications -->
+        <app-notifications></app-notifications>
+
+        <!-- ACTIONS BAR -->
+        <div class="item-view__actions d-flex">
+          <!-- hide/show sidebar -->
+          <button type="button" class="btn btn-outline-primary btn-sm d-none d-xl-inline" (click)="sidebarVisible = !sidebarVisible">
+            <svg class="icon icon-magnifying-glass" *ngIf="sidebarVisible">
+              <use href="/assets/icomoon/sprite/sprite.svg#icon-arrow-left2"></use>
+            </svg>
+
+            {{ (sidebarVisible ? 'Action.Hide' : 'Action.Show') | translate }}
+            {{ 'Attribute.Details' | translate | lowercase }}
+            <span class="visually-hidden">
+              {{ dataset.attributes.title }}
+            </span>
+
+            <svg class="icon icon-magnifying-glass" *ngIf="!sidebarVisible">
+              <use href="/assets/icomoon/sprite/sprite.svg#icon-arrow-right2"></use>
+            </svg>
+          </button>
+
+          <!-- observe -->
+          <app-subscribe-button
+            tooltipText="{{ 'Tour.Tooltip.DatasetDetails.Follow.text' | translate }}"
+            tooltipTitle="{{ 'Tour.Tooltip.DatasetDetails.Follow.title' | translate }}"
+            [item]="dataset"
+          ></app-subscribe-button>
+
+          <!-- feedback -->
+          <button class="btn btn-danger btn-sm ml-auto" (click)="openFeedbackModal(modalTemplate)">
+            {{ 'Datasets.SendFeedback' | translate }}
+            <span class="visually-hidden">
+              {{ dataset.attributes.title }}
+            </span>
+            <svg class="icon icon-chevrons-right" role="img" aria-hidden="true">
+              <use href="/assets/icomoon/sprite/sprite.svg#icon-chevrons-right"></use>
+            </svg>
+          </button>
+        </div>
+
+        <!-- TABS: ANCHORS -->
+        <div class="tabs">
+          <ul class="tab-list row no-gutters" role="tablist">
+            <!-- Activities -->
+            <li class="tab-list__item col-md-4" role="presentation">
+              <a
+                class="tab-list__link tab-list__link--active"
+                role="tab"
+                id="tab1"
+                appInfoTooltip="{{ 'Tour.Tooltip.DatasetDetails.Data.text' | translate }}"
+                tooltipTitle="{{ 'Tour.Tooltip.DatasetDetails.Data.title' | translate }}"
+                withoutMargin
+                [routerLink]="[]"
+                [attr.aria-selected]="activeTabIndex === 1"
+                [ngClass]="{ 'tab-list__link--active': activeTabIndex === 1 }"
+                (click)="activeTabIndex = 1"
+              >
+                {{ 'Resources.Self' | translate }}
+              </a>
+            </li>
+
+            <!-- Restrictions -->
+            <li class="tab-list__item col-md-4" role="presentation">
+              <a
+                class="tab-list__link"
+                role="tab"
+                id="tab2"
+                appInfoTooltip="{{ 'Tour.Tooltip.DatasetDetails.Conditions.text' | translate }}"
+                tooltipTitle="{{ 'Tour.Tooltip.DatasetDetails.Conditions.title' | translate }}"
+                withoutMargin
+                [routerLink]="[]"
+                [attr.aria-selected]="activeTabIndex === 2"
+                [ngClass]="{ 'tab-list__link--active': activeTabIndex === 2 }"
+                (click)="activeTabIndex = 2"
+              >
+                {{ 'DatasetRestrictions.Self' | translate }}
+              </a>
+            </li>
+
+            <!-- SearchHistory -->
+            <li class="tab-list__item col-md-4" role="presentation">
+              <a
+                class="tab-list__link"
+                role="tab"
+                id="tab3"
+                appInfoTooltip="{{ 'Tour.Tooltip.DatasetDetails.History.text' | translate }}"
+                tooltipTitle="{{ 'Tour.Tooltip.DatasetDetails.History.title' | translate }}"
+                withoutMargin
+                [routerLink]="[]"
+                [attr.aria-selected]="activeTabIndex === 3"
+                [ngClass]="{ 'tab-list__link--active': activeTabIndex === 3 }"
+                (click)="activeTabIndex = 3"
+              >
+                {{ 'Datasets.History' | translate }}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- TABS: CONTENT -->
+        <div class="tabs-content">
+          <!-- RESOURCE LIST -->
+          <div role="tabpanel" aria-labelledby="tab1" *ngIf="activeTabIndex === 1">
+            <div class="results-section">
+              <!-- download all button -->
+              <a
+                *ngIf="isExistsZipFileForDownload"
+                appTooltip="{{ 'Tour.Tooltip.DatasetDetails.DownloadAll.text' | translate }}"
+                type="button"
+                class="btn btn-primary"
+                [href]="dataset.attributes.archived_resources_files_url"
+              >
+                {{ 'Action.DownloadAll' | translate }} >>
+              </a>
+
+              <!-- sort order -->
+              <div class="d-flex justify-content-end align-items-baseline pb-2" *ngIf="resources && resources.length">
+                <div class="d-md-inline-flex align-items-center">
+                  <span class="dropdown-label pr-2" id="sortby-label"> {{ 'Sort.By' | translate }}: </span>
+
+                  <select
+                    class="form-select sort-order"
+                    (change)="updateParams({ sort: getValue($event) }, 'resources')"
+                    aria-labelledby="sortby-label"
+                  >
+                    <option [ngValue]="null" *ngIf="!isSortValid">
+                      {{ 'Action.Choose' | translate }}
+                    </option>
+                    <option *ngFor="let item of sortOptions" [value]="item.value" [selected]="params?.sort === item.value">
+                      {{ item.labelTranslationKey | translate }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- no resources -->
+              <p class="m-0" *ngIf="resources && !resources.length">
+                {{ 'Datasets.NoResources' | translate }}
+              </p>
+
+              <!-- resource list -->
+              <app-resource-list
+                [isSortParamsCreated]="params?.sort.indexOf('created') !== -1"
+                [isSortParamsDataDate]="params?.sort.indexOf('data_date') !== -1"
+                [items]="resources"
+                (download)="downloadResource($event)"
+              >
+              </app-resource-list>
+
+              <!-- RESOURCES FOOTER -->
+              <footer class="results-footer pt-5" *ngIf="resources && resources.length" id="resource-pagination">
+                <div class="d-flex justify-content-between align-items-center">
+                  <!-- results per page -->
+                  <app-items-per-page [selected]="params?.per_page" (selectedChange)="updateParams({ per_page: $event }, 'resources')">
+                  </app-items-per-page>
+
+                  <!-- pagination -->
+                  <app-pagination
+                    [itemsPerPage]="params.per_page"
+                    [totalItems]="resourcesCount"
+                    [page]="params.page"
+                    (pageChange)="updateParams({ page: $event }, 'resources')"
+                  >
+                  </app-pagination>
+                </div>
+              </footer>
+            </div>
+          </div>
+
+          <!--  RESTRICTIONS -->
+          <div role="tabpanel" aria-labelledby="tab2" *ngIf="activeTabIndex === 2">
+            <app-dataset-restrictions [dataset]="dataset"></app-dataset-restrictions>
+          </div>
+
+          <!-- DATASET HISTORY -->
+          <div role="tabpanel" aria-labelledby="tab3" *ngIf="activeTabIndex === 3">
+            <div class="item-view__activity">
+              <!-- TEMP for TESTING PURPOSES ONLY -->
+              <ul class="activity">
+                <li class="activity__item new-package" *ngFor="let item of history">
+                  <app-history-entry [item]="item"></app-history-entry>
+                </li>
+              </ul>
+
+              <p *ngIf="history.length < historyTotal" class="mt-3">
+                <a [routerLink]="['.']" (click)="loadHistory(historyPageNumber + 1)"> {{ 'Action.LoadMore' | translate }}... </a>
+              </p>
+              <!-- /TEMP for TESTING PURPOSES ONLY -->
+            </div>
+          </div>
+        </div>
+
+        <!-- current page api -->
+        <div class="mt-3">
+          <app-api-source-link [apiUrl]="selfApi"></app-api-source-link>
+        </div>
+
+        <!-- RELATED SHOWCASES -->
+        <section class="results-section vertical-spacing" *ngIf="items && items.length">
+          <div class="container">
+            <header class="results-header">
+              <div
+                class="heading heading--sm heading--separator"
+                appInfoTooltip="{{ 'Tour.Tooltip.Dataset.RelatedShowcases.text' | translate }}"
+              >
+                {{ 'Datasets.RelatedShowcases' | translate }}
+                <small>({{ showcasesCount || 0 }})</small>
+              </div>
+              <!-- sort order -->
+              <div class="d-md-inline-flex align-items-center pt-2 pb-2 pb-md-0">
+                <span class="dropdown-label pr-2" id="sortby-showcases-label">
+                  {{ 'Sort.By' | translate }}:
+                  <span class="visually-hidden"> ({{ 'Search.AutoContentReload' | translate }}) </span>
+                </span>
+
+                <select
+                  class="form-select sort-order"
+                  (change)="updateParams({ sort: getValue($event) }, 'showcases')"
+                  aria-labelledby="sortby-showcases-label"
+                >
+                  <option [ngValue]="null" *ngIf="!isSortValid">
+                    {{ 'Action.Choose' | translate }}
+                  </option>
+                  <option *ngFor="let item of sortOptions" [value]="item.value" [selected]="params?.sort === item.value">
+                    {{ item.labelTranslationKey | translate }}
+                  </option>
+                </select>
+              </div>
+            </header>
+
+            <!-- RESULT LIST -->
+            <app-dataset-item-results [items]="items"></app-dataset-item-results>
+
+            <!-- RESULTS FOOTER -->
+            <footer class="results-footer" *ngIf="items && items.length">
+              <div class="d-flex justify-content-between align-items-center">
+                <!-- results per page -->
+                <app-items-per-page
+                  [selected]="paramsShowcases?.per_page"
+                  (selectedChange)="updateParams({ per_page: $event }, 'showcases')"
+                >
+                </app-items-per-page>
+
+                <!-- pagination -->
+                <app-pagination
+                  [itemsPerPage]="paramsShowcases.per_page"
+                  [totalItems]="showcasesCount"
+                  [(page)]="paramsShowcases.page"
+                  (pageChange)="updateParams({ page: $event }, 'showcases')"
+                >
+                </app-pagination>
+              </div>
+            </footer>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEEDBACK MODAL TEMPLATE -->
+<ng-template #feedbackModalTemplate>
+  <div app-focus-trap>
+    <!-- FEEDBACK MODAL HEADER -->
+    <div class="modal-header">
+      <h1 class="modal-title pull-left">
+        {{ 'Datasets.SendFeedback' | translate }}
+        <span class="visually-hidden">
+          {{ dataset.attributes.title }}
+        </span>
+      </h1>
+
+      <!-- close modal -->
+      <button type="button" id="header-close" class="btn-close pull-right focus-trap-first" (click)="feedbackModalRef.hide()">
+        <span class="visually-hidden">
+          {{ 'Action.Close' | translate }}
+          {{ 'Modal' | translate | lowercase }}
+          "{{ 'Datasets.SendFeedback' | translate }}"
+        </span>
+      </button>
+    </div>
+
+    <!-- FEEDBACK MODAL BODY -->
+    <div class="modal-body">
+      <app-feedback-form [id]="dataset.id"></app-feedback-form>
+    </div>
+
+    <!-- feedback modal footer -->
+    <div class="modal-footer">
+      <div class="text-right">
+        <button type="button" id="footer-close" class="btn btn-outline-primary focus-trap-last" (click)="onFeedbackModalClose()">
+          {{ 'Action.Close' | translate }}
+          <span class="visually-hidden">
+            {{ 'Modal' | translate | lowercase }}
+            "{{ 'Datasets.SendFeedback' | translate }}"
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

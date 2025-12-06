@@ -1,0 +1,26 @@
+.tabpanel {
+    border-color: currentColor;
+
+    &__tab {
+        &-text {
+            border: 0;
+        }
+
+        &.active {
+            background-color: $hcPrimary;
+            color: $hcSecondary;
+    
+            .icon > * {
+                fill: $hcSecondary;
+            }
+    
+            .tabpanel__tab-text {
+                border: 0;
+            }
+    
+            &::after {
+                content: none;
+            }
+        }
+    }
+}

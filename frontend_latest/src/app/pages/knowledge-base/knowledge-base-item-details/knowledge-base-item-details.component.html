@@ -1,0 +1,20 @@
+<!-- DETAILS: BACK TO LIST -->
+<div class="mb-2">
+  <a [routerLink]="parentUrlPath" class="btn btn-link"> < {{ 'KnowledgeBase.BackToList' | translate }} </a>
+</div>
+
+<!-- DETAILS: HEADER -->
+<header class="item-view__header vertical-spacing" *ngIf="pageData">
+  <div class="container">
+    <h2 class="heading heading--md">
+      {{ pageData.title }}
+    </h2>
+  </div>
+</header>
+
+<!-- DETAILS: BODY -->
+<div class="item-view__body vertical-spacing">
+  <div *ngFor="let section of pageData.body">
+    <cms-block2 class="w-100" [oneWidget]="section"></cms-block2>
+  </div>
+</div>

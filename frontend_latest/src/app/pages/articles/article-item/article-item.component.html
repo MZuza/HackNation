@@ -1,0 +1,47 @@
+<article class="item-view">
+  <!-- DETAILS: HEADER -->
+  <header class="item-view__header vertical-spacing">
+    <div class="container">
+      <h1 class="heading">
+        {{ article?.attributes.title }}
+      </h1>
+
+      <!-- created -->
+      <p class="item-view__attribute">
+        <strong>{{ 'Attribute.AvailabilityDate' | translate }}</strong
+        >:
+        {{ article?.attributes.created | translateDateFormat | async }}
+      </p>
+
+      <!-- modified -->
+      <p class="item-view__attribute">
+        <strong>{{ 'Attribute.ModificationDate' | translate }}</strong
+        >:
+        {{ article?.attributes.modify | translateDateFormat | async }}
+      </p>
+
+      <!-- author -->
+      <p class="item-view__attribute" *ngIf="article?.attributes.author">
+        <strong>{{ 'Attribute.Author' | translate }}</strong
+        >:
+        {{ article?.attributes.author }}
+      </p>
+
+      <!-- keywords -->
+      <p class="item-view__attribute" *ngIf="article?.attributes.keywords?.length">
+        <app-keywords [tags]="article?.attributes.keywords"></app-keywords>
+      </p>
+    </div>
+  </header>
+
+  <!-- DETAILS: BODY -->
+  <div class="item-view__body vertical-spacing">
+    <div class="container">
+      <!-- api notifications -->
+      <app-notifications></app-notifications>
+
+      <!-- notes -->
+      <div [innerHTML]="article?.attributes.notes | sanitizeHtml"></div>
+    </div>
+  </div>
+</article>

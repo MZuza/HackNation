@@ -1,0 +1,32 @@
+mark {
+    background-color: $hcPrimary;
+    color: $hcSecondary;
+}
+
+.triangle {
+
+    &--up {
+        border-bottom-color: $hcPrimary;
+    }
+
+    &--down {
+        border-top-color: $hcPrimary;
+    }
+}
+
+.disabled {
+    color: currentColor;
+}
+
+
+.bg-custom,
+.bg-custom-light {
+    background-color: $hcSecondary;
+}
+
+// temp
+.forum {
+    &__type {
+        display: none;
+    }
+}

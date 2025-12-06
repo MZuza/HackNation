@@ -1,0 +1,28 @@
+<section class="home-section vertical-spacing" id="categories">
+  <h2
+    class="heading heading--md heading--centered heading--separator"
+    appInfoTooltip="{{ 'Tour.Tooltip.HomePage.DataCategories.text' | translate }}"
+    tooltipTitle="{{ 'Tour.Tooltip.HomePage.DataCategories.title' | translate }}"
+  >
+    {{ 'Home.Categories.Title' | translate }}
+  </h2>
+
+  <div class="container" *ngIf="items">
+    <!-- categories grid -->
+    <ul class="category-list row">
+      <li class="category-list__item col-12 col-sm-6 col-lg-4 col-xl-3" *ngFor="let item of items">
+        <a class="category-list__item-wrapper" role="button" [routerLink]="['/!dataset' | localize]" [queryParams]="getQueryParam(item.id)">
+          <div class="category-list__item-content">
+            <div *ngIf="item.title === 'Ukraina' || item.title === 'Ukraine'" class="category-list__item-content-flag">
+              <img ngSrc="assets/flaga-ukrainy.png" width="40" alt="" height="40"/>
+            </div>
+            <span class="category-list__item-heading heading heading--sm">
+              {{ item.title }}
+            </span>
+            <span class="category-list__item-info"> {{ 'Datasets.Count' | translate }}: {{ item.count }} </span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>

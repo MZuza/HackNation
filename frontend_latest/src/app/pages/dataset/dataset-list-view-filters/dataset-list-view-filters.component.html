@@ -1,0 +1,280 @@
+<section class="aggregation-filters p-3">
+  <h2
+    class="heading heading--xs"
+    appInfoTooltip="{{ 'Tour.Tooltip.Filters.Self.text' | translate }}"
+    tooltipTitle="{{ 'Tour.Tooltip.Filters.Self.title' | translate }}"
+  >
+    {{ 'Filters.Self' | translate }}
+  </h2>
+
+  <!-- Categories -->
+  <app-expandable-multiselect
+    id="dataset-category-filter"
+    [titleTranslationKey]="'Attribute.CategoryLong'"
+    [titleTooltipTranslationKey]="'Attribute.CategoryTooltip'"
+    [options]="filtersOptions && filtersOptions[OptionsNames.CATEGORIES]"
+    [selectedIds]="selectedData[FiltersNames.CATEGORIES]"
+    [enableApply]="availabilityFilterMap[FiltersNames.CATEGORIES]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'category-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.CATEGORIES, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'category'"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Institutions -->
+  <app-expandable-multiselect
+    id="dataset-institution-filter"
+    [titleTranslationKey]="'Attribute.InstitutionLong'"
+    [titleTooltipTranslationKey]="'Attribute.InstitutionTooltip'"
+    [options]="filtersOptions && filtersOptions[OptionsNames.INSTITUTION]"
+    [selectedIds]="selectedData[FiltersNames.INSTITUTION]"
+    [enableApply]="availabilityFilterMap[FiltersNames.INSTITUTION]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'institution-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.INSTITUTION, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'institution'"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Region -->
+  <app-expandable-multiselect
+    id="dataset-location-filter"
+    [isGeodataSearch]="true"
+    [titleTranslationKey]="'Attribute.Region'"
+    [titleTooltipTranslationKey]="'Attribute.CategoryTooltip'"
+    [selectedIds]="selectedData[FiltersNames.REGIONS]"
+    [displayShowMore]="false"
+    [placeholderTranslationKey]="'Action.EnterRegion'"
+    [maxLength]="maxLength"
+    [ariaLabel]="'region-filter-label'"
+    [enableApply]="availabilityFilterMap[FiltersNames.REGIONS]"
+    [showHideMapButton]="showHideMapButton && selectedData[FiltersNames.REGIONS]"
+    (applyFilter)="applyFilter()"
+    (selectedChange)="onSelectedChange(FiltersNames.REGIONS, $event)"
+    [initialValue]="initialValue"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Format -->
+  <app-expandable-multiselect
+    id="dataset-format-filter"
+    [titleTranslationKey]="'Attribute.FormatLong'"
+    [options]="filtersOptions && filtersOptions[OptionsNames.FORMAT]"
+    [titleTooltipTranslationKey]="'Attribute.FormatTooltip'"
+    [selectedIds]="selectedData[FiltersNames.FORMAT]"
+    [enableApply]="availabilityFilterMap[FiltersNames.FORMAT]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'format-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.FORMAT, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'format'"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Openness score -->
+  <app-expandable-multiselect
+    id="dataset-openness-filter"
+    [titleTranslationKey]="'Attribute.OpennessScore'"
+    [titleTooltipTranslationKey]="'Attribute.OpennessScore'"
+    [showSearchInput]="false"
+    [displayShowMore]="false"
+    [options]="filtersOptions && filtersOptions[OptionsNames.OPENNESS_SCORE]"
+    [selectedIds]="selectedData[FiltersNames.OPENNESS_SCORE]"
+    [enableApply]="availabilityFilterMap[FiltersNames.OPENNESS_SCORE]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'openness-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.OPENNESS_SCORE, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'openness'"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Visualization type -->
+  <app-expandable-multiselect
+    id="dataset-visualization-types-filter"
+    [titleTranslationKey]="'Attribute.VisualizationType'"
+    [titleTooltipTranslationKey]="'Attribute.VisualizationType'"
+    [showSearchInput]="false"
+    [displayShowMore]="false"
+    [options]="filtersOptions && filtersOptions[OptionsNames.VISUALIZATION_TYPE]"
+    [selectedIds]="selectedData[FiltersNames.VISUALIZATION_TYPE]"
+    [enableApply]="availabilityFilterMap[FiltersNames.VISUALIZATION_TYPE]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'visualization-types-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.VISUALIZATION_TYPE, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'visualization'"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Licenses -->
+  <app-expandable-multiselect
+    id="dataset-licenses-filter"
+    [titleTranslationKey]="'Attribute.LicenseLong'"
+    [titleTooltipTranslationKey]="'Attribute.LicenseTooltip'"
+    [options]="filtersOptions && filtersOptions[OptionsNames.LICENSES]"
+    [selectedIds]="selectedData[FiltersNames.LICENSES]"
+    [enableApply]="availabilityFilterMap[FiltersNames.LICENSES]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'licenses-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.LICENSES, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'licenses'"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Update frequency -->
+  <app-expandable-multiselect
+    id="dataset-update-frequency-filter"
+    [titleTranslationKey]="'Attribute.UpdateFrequency'"
+    [titleTooltipTranslationKey]="'Attribute.UpdateFrequency'"
+    [options]="filtersOptions && filtersOptions[OptionsNames.UPDATE_FREQUENCY]"
+    [selectedIds]="selectedData[FiltersNames.UPDATE_FREQUENCY]"
+    [enableApply]="availabilityFilterMap[FiltersNames.UPDATE_FREQUENCY]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'update-frequency-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.UPDATE_FREQUENCY, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'update'"
+    [sortOptions]="true"
+    [sortingOrder]="updateFrequencySortingOrder"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Resource type -->
+  <app-expandable-multiselect
+    id="dataset-resource-type-filter"
+    [titleTranslationKey]="'Attribute.ResourceType'"
+    [titleTooltipTranslationKey]="'Attribute.ResourceType'"
+    [showSearchInput]="false"
+    [options]="filtersOptions && filtersOptions[OptionsNames.TYPES]"
+    [selectedIds]="selectedData[FiltersNames.TYPES]"
+    [enableApply]="availabilityFilterMap[FiltersNames.TYPES]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'types-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.TYPES, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'resource'"
+  >
+  </app-expandable-multiselect>
+
+  <!--High value data-->
+  <app-expandable-multiselect
+    id="dataset-high-value-data-filter"
+    [titleTranslationKey]="'Attribute.HighValueData'"
+    [showSearchInput]="false"
+    [options]="filtersOptions && filtersOptions[OptionsNames.HIGH_VALUE_DATA]"
+    [selectedIds]="selectedData[FiltersNames.HIGH_VALUE_DATA]"
+    [enableApply]="availabilityFilterMap[FiltersNames.HIGH_VALUE_DATA]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'high-value-data-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.HIGH_VALUE_DATA, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'high'"
+  >
+  </app-expandable-multiselect>
+
+  <!--high value data from EC-->
+  <app-expandable-multiselect
+    id="dataset-high-value-data-from-ec-filter"
+    [titleTranslationKey]="'Attribute.HighValueDataFromEC'"
+    [showSearchInput]="false"
+    [options]="filtersOptions && filtersOptions[OptionsNames.HIGH_VALUE_DATA_FROM_EC]"
+    [selectedIds]="selectedData[FiltersNames.HIGH_VALUE_DATA_FROM_EC]"
+    [enableApply]="availabilityFilterMap[FiltersNames.HIGH_VALUE_DATA_FROM_EC]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'high-value-data-from-ec-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.HIGH_VALUE_DATA_FROM_EC, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'high'"
+  >
+  </app-expandable-multiselect>
+
+
+  <!--dynamic data-->
+  <app-expandable-multiselect
+    id="dataset-dynamic-data-filter"
+    [titleTranslationKey]="'Attribute.DynamicData'"
+    [titleTooltipTranslationKey]="'Attribute.DynamicData'"
+    [showSearchInput]="false"
+    [options]="filtersOptions && filtersOptions[OptionsNames.DYNAMIC_DATA]"
+    [selectedIds]="selectedData[FiltersNames.DYNAMIC_DATA]"
+    [enableApply]="availabilityFilterMap[FiltersNames.DYNAMIC_DATA]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'dynamic-data-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.DYNAMIC_DATA, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'dynamic'"
+  >
+  </app-expandable-multiselect>
+
+  <!--research data-->
+  <app-expandable-multiselect
+    id="dataset-research-data-filter"
+    [titleTranslationKey]="'Attribute.ResearchData'"
+    [titleTooltipTranslationKey]="'Attribute.ResearchData'"
+    [showSearchInput]="false"
+    [options]="filtersOptions && filtersOptions[OptionsNames.RESEARCH_DATA]"
+    [selectedIds]="selectedData[FiltersNames.RESEARCH_DATA]"
+    [enableApply]="availabilityFilterMap[FiltersNames.RESEARCH_DATA]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'research-data-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.RESEARCH_DATA, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'research'"
+  >
+  </app-expandable-multiselect>
+
+  <!--protected dga data-->
+  <app-expandable-multiselect
+    id="dataset-protected-data-dga-filter"
+    [titleTranslationKey]="'Attribute.ProtectedData'"
+    [titleTooltipTranslationKey]="'Attribute.ProtectedData'"
+    [showSearchInput]="false"
+    [options]="filtersOptions && filtersOptions[OptionsNames.PROTECTED_DATA]"
+    [selectedIds]="selectedData[FiltersNames.PROTECTED_DATA]"
+    [enableApply]="availabilityFilterMap[FiltersNames.PROTECTED_DATA]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'protected-dga-data-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.PROTECTED_DATA, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'protected'"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Language -->
+  <app-expandable-multiselect
+    id="dataset-language-filter"
+    [titleTranslationKey]="'Attribute.Language'"
+    [titleTooltipTranslationKey]="'Attribute.Language'"
+    [showSearchInput]="false"
+    [options]="filtersOptions && filtersOptions[OptionsNames.LANGUAGE]"
+    [selectedIds]="selectedData[FiltersNames.LANGUAGE]"
+    [enableApply]="availabilityFilterMap[FiltersNames.LANGUAGE]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'language-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.LANGUAGE, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'language'"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Upload date range -->
+  <app-date-range-picker
+    id="dataset-daterange"
+    [startDate]="selectedData[FiltersNames.DATE_FROM]"
+    [endDate]="selectedData[FiltersNames.DATE_TO]"
+    [enableApply]="availabilityFilterMap[FiltersNames.DATE_FROM] || availabilityFilterMap[FiltersNames.DATE_TO]"
+    (datesChanged)="
+      onDaterangeChange([
+        { name: FiltersNames.DATE_FROM, value: $event.startDate },
+        { name: FiltersNames.DATE_TO, value: $event.endDate }
+      ])
+    "
+    (applyFilterChanged)="applyFilter()"
+  >
+  </app-date-range-picker>
+</section>

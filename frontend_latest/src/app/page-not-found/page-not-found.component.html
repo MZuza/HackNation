@@ -1,0 +1,23 @@
+<section class="page-not-found" *ngIf="missingLang; else showError">
+  <div class="container">
+    <h1 class="heading">
+      {{ 'Errors.Redirect' | translate }}
+    </h1>
+    <p>
+      {{ 'Errors.PleaseWait' | translate }}
+    </p>
+  </div>
+</section>
+
+<ng-template #showError>
+  <section class="page-not-found">
+    <div class="container">
+      <h1 class="heading">
+        {{ 'Errors.PageNotFound' | translate }}
+      </h1>
+      <p>
+        {{ 'Errors.404' | translate }}
+      </p>
+    </div>
+  </section>
+</ng-template>

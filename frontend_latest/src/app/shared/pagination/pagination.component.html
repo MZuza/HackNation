@@ -1,0 +1,58 @@
+<nav [attr.aria-label]="'Pagination.Self' | translate">
+  <div class="pager">
+    <ul class="pagination d-flex flex-wrap">
+      <!-- back -1 -->
+      <li class="page-item" [ngClass]="{ disabled: page <= 1 }">
+        <a
+          [routerLink]="[]"
+          class="page-link page-link--as-icon"
+          (click)="changePage(page - 1)"
+          [attr.tabindex]="page <= 1 ? -1 : null"
+          [attr.aria-hidden]="page <= 1 ? true : null"
+        >
+          <span aria-hidden="true"> &lsaquo; </span>
+          <span class="visually-hidden">
+            {{ 'Pagination.Prev' | translate }}
+          </span>
+        </a>
+      </li>
+
+      <!-- page(s) -->
+      <li class="page-item" [ngClass]="{ active: page === pageNumber }" *ngFor="let pageNumber of pageNumbersToShow">
+        <!-- number -->
+        <a
+          *ngIf="pageNumber"
+          [routerLink]="[]"
+          class="page-link"
+          (click)="changePage(pageNumber)"
+          [attr.aria-current]="page === pageNumber ? true : null"
+        >
+          <span class="visually-hidden">
+            {{ 'Pagination.Page' | translate }}
+          </span>
+          {{ pageNumber }}
+          <span class="visually-hidden" *ngIf="pageNumber === totalPages"> , {{ 'Pagination.Last' | translate }} </span>
+        </a>
+
+        <!-- ellipsis -->
+        <span *ngIf="!pageNumber" class="page-link page-item--ellipsis" aria-hidden="true">...</span>
+      </li>
+
+      <!-- next +1 -->
+      <li class="page-item" [ngClass]="{ disabled: page >= totalPages }">
+        <a
+          [routerLink]="[]"
+          class="page-link page-link--as-icon"
+          (click)="changePage(page + 1)"
+          [attr.tabindex]="page >= totalPages ? -1 : null"
+          [attr.aria-hidden]="page >= totalPages ? true : null"
+        >
+          <span aria-hidden="true"> &rsaquo; </span>
+          <span class="visually-hidden">
+            {{ 'Pagination.Next' | translate }}
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

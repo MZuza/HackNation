@@ -1,0 +1,63 @@
+<footer class="page-footer" id="main-footer" tabindex="-1">
+  <!-- navigation -->
+  <cms-landing-page [widgetFooterSubject]="cmsFooterNavigationPage"></cms-landing-page>
+
+  <!-- LOGOs -->
+  <div class="external-logos">
+    <cms-block2
+      class="pt-3 pb-3 external-logos--cms-block external-logos--cms-block__elements-{{(cmsFooterLogoSection | async)?.length}}"
+      [widgetsSubject]="cmsFooterLogoSection"
+      [isFooterLogos]="true"
+      [isFullWidth]="true"
+    ></cms-block2>
+  </div>
+
+  <!-- Modal RODO  -->
+  <ng-template #rodoModalTemplate>
+    <app-rodo-modal (isModalClosed)="rodoModalClose()"></app-rodo-modal>
+  </ng-template>
+
+  <!-- Modal write us  -->
+  <ng-template #writeUsModalTemplate>
+    <div app-focus-trap>
+      <!-- modal header -->
+      <div class="modal-header">
+        <h1 class="modal-title pull-left">
+          {{ 'Menu.Contact' | translate }}
+        </h1>
+        <button type="button" id="header-close" class="btn-close" (click)="onWriteUsModalClose()">
+          <span class="visually-hidden">
+            {{ 'Action.Close' | translate }}
+            {{ 'Modal' | translate | lowercase }}
+            "{{ 'Menu.Contact' | translate }}"
+          </span>
+        </button>
+      </div>
+
+      <!-- modal body -->
+      <div class="modal-body">
+        <p>
+          {{ 'WriteUs.Suggestions' | translate }}
+        </p>
+        <a [href]="'mailto:' + appConfig.contactEmail + '?subject=[' + appConfig.domain + '] Kontakt ze strony'">
+          {{ appConfig.contactEmail }}
+        </a>
+      </div>
+
+      <!-- modal footer -->
+      <div class="modal-footer">
+        <div class="form-group text-right">
+          <button type="button" id="footer-close" class="btn btn-outline-primary focus-trap-last" (click)="onWriteUsModalClose()">
+            {{ 'Action.Close' | translate }}
+            <span class="visually-hidden">
+              {{ 'Modal' | translate | lowercase }}
+              "{{ 'Menu.Contact' | translate }}"
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <div hidden>version: {{ currentVersion }}</div>
+</footer>

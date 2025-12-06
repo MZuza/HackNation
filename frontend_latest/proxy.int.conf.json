@@ -1,0 +1,32 @@
+{
+  "/api/**": {
+        "target": "https://api.int.dane.gov.pl/1.4/",
+        "secure": false,
+        "pathRewrite": {
+            "^/api": ""
+        },
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/media": {
+        "target": "https://int.dane.gov.pl/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/flags": {
+        "target": "https://dane.gov.pl/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/cms": {
+        "target": "https://cms.int.dane.gov.pl/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/cms": ""
+        }
+    }
+}

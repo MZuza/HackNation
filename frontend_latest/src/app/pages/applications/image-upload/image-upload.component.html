@@ -1,0 +1,72 @@
+<!-- image -->
+<div class="form-group clearfix">
+  <label class="d-block">
+    {{ labelTranslationKey | translate }}
+    <small *ngIf="labelTranslationKeyHint">{{ labelTranslationKeyHint | translate }}</small>
+    <small class="d-block">
+      {{ 'File.Size' | translate }}: {{ maxHeight }}px x {{ maxWidth }}px, {{ 'File.AcceptedTypes' | translate }}: jpg, gif, png
+    </small>
+  </label>
+
+  <!-- IMAGE PREVIEW -->
+  <div class="mb-2" *ngIf="uploadedImagePreview" @toggleVertically>
+    <div class="row mt-1">
+      <div class="col-6">
+        <img src="{{ uploadedImagePreview }}" alt="{{ uploadedFile.name }}" style="max-width: 100%; max-height: 200px" />
+      </div>
+      <div class="col-6">
+        <!-- name -->
+        <p>
+          <span class="d-block">
+            <span class="visually-hidden">
+              {{ 'Attribute.Name' | translate }}
+            </span>
+            {{ uploadedFile.name }}
+          </span>
+        </p>
+
+        <!-- size -->
+        <p>
+          <span class="visually-hidden">
+            {{ 'File.Size' | translate }}
+          </span>
+          <app-file-size [fileSize]="uploadedFile.size"></app-file-size>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- not accepted image type message -->
+  <div *ngIf="control.errors && control.errors['invalidImageType']" @toggleVertically>
+    <p class="alert alert-danger" role="alert" aria-live="polite">
+      {{ 'Validation.NotAcceptedFileType' | translate }}
+    </p>
+  </div>
+
+  <!-- remove image -->
+  <button class="btn btn-sm btn-outline-danger float-none" (click)="onImageRemove()" *ngIf="uploadedFile">
+    {{ 'Action.Remove' | translate }}
+    {{ 'Attribute.Image' | translate | lowercase }}
+    <span class="visually-hidden">
+      {{ uploadedFile.name }}
+    </span>
+  </button>
+
+  <!-- UPLOAD/REUPLOAD IMAGE -->
+  <button type="button" class="btn btn-sm btn-outline-primary float-none" (click)="imageInput.click()">
+    <!-- add -->
+    <ng-container *ngIf="!uploadedImagePreview">
+      {{ 'Action.Add' | translate }}
+    </ng-container>
+
+    <!-- change -->
+    <ng-container *ngIf="uploadedImagePreview">
+      {{ 'Action.Change' | translate }}
+    </ng-container>
+
+    {{ 'Attribute.Image' | translate | lowercase }}
+  </button>
+
+  <!-- hidden image uplaod -->
+  <input type="file" name="image" id="image-{{ uniqueId }}" accept="image/*" class="d-none" aria-hidden="true" #imageInput />
+</div>

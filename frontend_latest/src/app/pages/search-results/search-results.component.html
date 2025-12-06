@@ -1,0 +1,118 @@
+<header class="vertical-spacing bg-custom">
+  <div class="container pb-3">
+    <div class="row">
+      <div class="col-12 pb-3">
+        <h1 class="heading">
+          {{ 'Search.Results' | translate }}
+        </h1>
+
+        <!-- SEARCH and SUGGESTIONS -->
+        <app-search-suggest
+          tooltipText="{{ 'Tour.Tooltip.SearchResults.SearchBar.text' | translate }}"
+          [searchQuery]="basicParams.q"
+          [apiModels]="[
+            apiModel.SHOWCASE,
+            apiModel.NEWS,
+            apiModel.DATASET,
+            apiModel.INSTITUTION,
+            apiModel.KNOWLEDGE_BASE,
+            apiModel.RESOURCE
+          ]"
+        >
+        </app-search-suggest>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container vertical-spacing">
+  <h2 class="visually-hidden">
+    {{ 'Search.Results' | translate }}
+  </h2>
+
+  <!-- api notifications -->
+  <app-notifications></app-notifications>
+
+  <!-- AGGREGATIONS and SORT -->
+  <app-found-results-counters-and-sort
+    *ngIf="counters && results?.length"
+    [selected]="basicParams?.sort"
+    tooltipText="{{ 'Tour.Tooltip.Dataset.Found.text' | translate }}"
+    tooltipTitle="{{ 'Tour.Tooltip.Dataset.Found.title' | translate }}"
+    (update)="updateParams($event)"
+    [counters]="[
+      {
+        label: 'Datasets.Self' | translate,
+        count: counters.datasets,
+        url: '../' + routerEndpoints.DATASETS,
+        param: { q: basicParams.q }
+      },
+      {
+        label: 'Resources.Self' | translate,
+        count: counters.resources,
+        url: '../' + routerEndpoints.DATASETS,
+        param: { q: basicParams.q }
+      },
+      {
+        label: 'Institutions.Self' | translate,
+        count: counters.institutions,
+        url: '../' + routerEndpoints.PROVIDERS,
+        param: { q: basicParams.q }
+      },
+      {
+        label: 'ApplicationForm.Self' | translate,
+        count: counters.showcases,
+        url: '../' + routerEndpoints.SHOWCASE,
+        param: { q: basicParams.q }
+      },
+      {
+        label: 'KnowledgeBase.Self' | translate,
+        count: counters.knowledge_base,
+        url: '../' + routerEndpoints.KNOWLEDGE_BASE + '/' + routerEndpoints.USEFUL_MATERIALS,
+        param: { q: basicParams.q }
+      },
+      {
+        label: 'KnowledgeBase.News' | translate,
+        count: counters.news,
+        url: '../' + routerEndpoints.NEWS,
+        param: { q: basicParams.q }
+      }
+    ]"
+    [sortOptions]="[
+      { label: 'Sort.Default' | translate, value: 'relevance' },
+      { label: 'Attribute.NameAsc' | translate, value: 'title' },
+      { label: 'Attribute.NameDesc' | translate, value: '-title' },
+      { label: 'Attribute.Date' | translate, value: '-date' }
+    ]"
+  >
+  </app-found-results-counters-and-sort>
+
+  <!-- RESULTS SECTION -->
+  <div class="results-section">
+    <app-loader *ngIf="!results"></app-loader>
+
+    <!-- RESULTS LIST -->
+    <app-search-results-view [items]="results" *ngIf="results?.length"></app-search-results-view>
+
+    <!-- no results found -->
+    <app-no-results-found [q]="basicParams.q" *ngIf="basicParams.q && results && !results.length"></app-no-results-found>
+
+    <!-- RESULTS FOOTER -->
+    <footer class="results-footer pt-5" *ngIf="results?.length">
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- results per page -->
+        <app-items-per-page [selected]="basicParams?.per_page" (selectedChange)="updateParams({ per_page: $event })"> </app-items-per-page>
+
+        <!-- pagination -->
+        <app-pagination
+          [itemsPerPage]="basicParams.per_page"
+          [totalItems]="totalCount"
+          [(page)]="basicParams.page"
+          (numPages)="numPages = $event"
+          (pageChange)="updateParams({ page: $event })"
+        >
+        </app-pagination>
+      </div>
+    </footer>
+  </div>
+</div>

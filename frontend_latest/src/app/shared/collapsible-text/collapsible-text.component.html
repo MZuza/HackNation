@@ -1,0 +1,60 @@
+<ng-container *ngIf="!isCollapsedDown; else collapsedDown">
+  <div *ngIf="text">
+    <!--description-->
+    <div
+      id="text-{{ generatedId }}"
+      aria-live="polite"
+      [innerHTML]="(isCollapsed ? (text | truncateText: maxTextLength) : text) | sanitizeHtml"
+    ></div>
+
+    <!--keywords-->
+    <p class="mt-4" *ngIf="tags && (text.length <= maxTextLength || !isCollapsed)">
+      <strong>{{ 'Attribute.Tags' | translate }}</strong
+      >:
+      <span [innerHtml]="tags | sanitizeHtml"></span>
+    </p>
+
+    <!--collapse / expand button-->
+    <button
+      *ngIf="text.length > maxTextLength"
+      (click)="isCollapsed = !isCollapsed"
+      attr.aria-controls="{{ 'text-' + generatedId }}"
+      [attr.aria-pressed]="!isCollapsed"
+      class="btn btn-link pl-0"
+      type="button"
+    >
+      {{ (isCollapsed ? 'Action.ExpandDescription' : 'Action.CollapseDescription') | translate }}
+    </button>
+  </div>
+</ng-container>
+
+<ng-template #collapsedDown>
+  <!--description-->
+  <div *ngIf="text">
+    <ng-container *ngIf="text.length >= maxTextLength; else shortNotes">
+      <strong>{{ 'Attribute.Description' | translate }}</strong>
+      <button
+        class="btn btn-link py-0"
+        [attr.aria-controls]="isCollapsedNotes ? 'notes-container' : null"
+        [attr.aria-pressed]="isCollapsedNotes"
+        (click)="isCollapsedNotes = !isCollapsedNotes"
+      >
+        {{ (isCollapsedNotes ? 'Action.Collapse' : 'Action.Expand') | translate }}
+      </button>
+      <div *ngIf="isCollapsedNotes" @toggleVertically class="pt-3" id="notes-container">
+        <div [innerHTML]="text | sanitizeHtml"></div>
+      </div>
+    </ng-container>
+
+    <ng-template #shortNotes>
+      <div [innerHTML]="text | sanitizeHtml"></div>
+    </ng-template>
+  </div>
+
+  <!--keywords-->
+  <p class="mt-4" *ngIf="tags && tags.length <= maxTextLength">
+    <strong>{{ 'Attribute.Tags' | translate }}</strong
+    >:
+    <span [innerHtml]="tags | sanitizeHtml">{{ tags }}</span>
+  </p>
+</ng-template>

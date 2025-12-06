@@ -1,0 +1,56 @@
+<div class="py-3" *ngIf="tableData?.length">
+  <!-- toggle table -->
+  <button
+    class="btn btn-sm btn-outline-primary mb-3"
+    (click)="isTableVisible = !isTableVisible"
+    [attr.aria-pressed]="isTableVisible"
+    aria-controls="chart-table"
+  >
+    {{ (isTableVisible ? 'Action.Hide' : 'Action.Show') | translate }}
+    {{ 'Chart.DataTable' | translate | lowercase }}
+  </button>
+
+  <!-- table -->
+  <div class="scrollable-table-wrapper" id="chart-table" *ngIf="isTableVisible" @toggleVertically>
+    <table
+      class="small table table-sm table-bordered mb-0 resource-chart-table"
+      [attr.summary]="resourceTitle + ' - ' + (summaryTranslationKey | translate)"
+    >
+      <thead class="bg-custom">
+        <tr>
+          <th class="text-center align-top resource-chart-table__heading" scope="col" rowspan="2">
+            {{ 'Chart.AxisY' | translate }}
+          </th>
+          <th class="text-center align-top resource-chart-table__heading" scope="colgroup" [attr.colspan]="shortLabels.length">
+            {{ 'Chart.AxisX' | translate }} - {{ mainTableHeader }}
+          </th>
+        </tr>
+        <tr>
+          <!-- short labels -->
+          <ng-container *ngIf="!fullLabels?.length">
+            <th scope="col" class="align-top resource-chart-table__heading" *ngFor="let label of shortLabels">
+              {{ label }}
+            </th>
+          </ng-container>
+
+          <!-- full labels -->
+          <ng-container *ngIf="fullLabels?.length">
+            <th scope="col" class="align-top resource-chart-table__heading" *ngFor="let label of fullLabels">
+              {{ label }}
+            </th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of tableData">
+          <th class="resource-chart-table__heading" scope="row">
+            {{ row.label }}
+          </th>
+          <td class="text-right align-middle resource-chart-table__cell" *ngFor="let cellValue of row.data">
+            {{ cellValue }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

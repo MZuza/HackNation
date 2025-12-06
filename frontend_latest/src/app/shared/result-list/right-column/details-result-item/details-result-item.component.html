@@ -1,0 +1,49 @@
+<div class="result-item-attributes">
+  <div
+    *ngIf="titleTranslationKey"
+    class="result-item-attributes__heading"
+    [ngClass]="isDatasetView ? 'result-item-attributes__custom-heading' : ''"
+  >
+    <svg *ngIf="isDatasetView" [class]="['result-item-icon', highContrastMode]"><use [attr.href]="'assets/icomoon/SVG/' + iconName + '.svg' + '#' + iconName"></use></svg>
+    <p class="result-item-attributes__text">{{ titleTranslationKey | translate }}</p>
+  </div>
+
+  <div class="result-item-attributes__list">
+    <div class="result-item-attributes__list-item" [ngClass]="{ 'pt-lg-3': i > 1 }" *ngFor="let details of detailsData; let i = index">
+      <div *ngIf="isShowcaseView" class="mb-5">
+        <p>
+          <img class="mr-2" [src]="'assets/icomoon/SVG/' + categoryIcon + '.svg'" alt="" />
+          <strong>{{ showcaseCategoryName }}</strong>
+        </p>
+      </div>
+      <div *ngIf="isSearchShowcaseView && details.isDate">
+        <p>
+          <img class="mr-2" [src]="'assets/icomoon/SVG/' + categoryIcon + '.svg'" alt="" />
+          <strong>{{ showcaseCategoryName }}</strong>
+        </p>
+      </div>
+
+      <!-- title -->
+      <strong>{{ details.titleTranslationKey | translate }}: </strong>
+
+      <!-- attribute -->
+      <span [ngClass]="{ 'd-lg-block': !showEachDetailInRow }">
+        <!-- date -->
+        <ng-container *ngIf="details.isDate">
+          {{ details.data | translateDateFormat: details.dateFormat | async }}
+        </ng-container>
+
+        <!-- not a date -->
+        <ng-container *ngIf="!details.isDate">
+          {{ details.data }}
+        </ng-container>
+      </span>
+
+      <!-- language for resources only -->
+      <div class="mt-2" *ngIf="iconName === 'resource'">
+        <strong>{{ 'Attribute.Language' | translate }}: </strong>
+        <span>{{ 'TypesFilters.' + details.language | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div>

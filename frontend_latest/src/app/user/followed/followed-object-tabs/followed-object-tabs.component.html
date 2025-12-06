@@ -1,0 +1,39 @@
+<div role="tabpanel" [attr.aria-labelledby]="labelledBy">
+  <!-- TABS - LEVEL 3 -->
+  <ul class="list-unstyled" role="tablist">
+    <!-- List -->
+    <li class="d-inline" role="presentation">
+      <a
+        class="btn btn-sm"
+        role="tab"
+        id="tabFollowedList"
+        [ngClass]="{ 'btn-primary': listActive.isActive ? true : false, 'btn-link': listActive.isActive ? false : true }"
+        [attr.aria-selected]="listActive.isActive ? true : null"
+        [routerLink]="['list']"
+        #listActive="routerLinkActive"
+        routerLinkActive=""
+      >
+        {{ 'User.FollowedDataset' | translate }}
+      </a>
+    </li>
+
+    <!-- Activity -->
+    <li class="d-inline" role="presentation">
+      <a
+        class="btn btn-sm"
+        role="tab"
+        id="tabFollowedActivity"
+        [ngClass]="{ 'btn-primary': activityActive.isActive ? true : false, 'btn-link': activityActive.isActive ? false : true }"
+        [attr.aria-selected]="activityActive.isActive ? true : null"
+        [routerLink]="['activity']"
+        #activityActive="routerLinkActive"
+        routerLinkActive=""
+      >
+        {{ 'User.FollowedDatasetActivity' | translate }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- TAB PANELS -->
+<router-outlet></router-outlet>

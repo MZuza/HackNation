@@ -1,0 +1,190 @@
+<!-- API notifications -->
+<app-notifications></app-notifications>
+
+<!-- no numeric columns -->
+<p class="alert alert-info" *ngIf="items && !numericColumnsExist">
+  {{ 'Resources.NoChartView' | translate }}
+</p>
+
+<!-- numeric columns exists in a table -->
+<ng-container *ngIf="items && numericColumnsExist">
+  <!-- chart selector -->
+  <app-resource-chart-selector
+    *ngIf="isNamedChartMode && (!isEditorPreview || (isEditorPreview && hasAccessToEditorPreview))"
+    [savedCharts]="savedCharts"
+    [isUserLoggedIn]="isUserLoggedIn"
+    [isEditorPreview]="isEditorPreview"
+    [isChartCreationBlockedForUser]="isChartCreationBlocked"
+    [selectedChartIndex]="selectedChartIndex"
+    (chartSelected)="onChartSelected($event)"
+    (chartRemoved)="deleteChart($event)"
+    (newChart)="onAddNewChart($event)"
+  >
+  </app-resource-chart-selector>
+
+  <!-- toggle chart form popup -->
+  <div
+    class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-2"
+    *ngIf="(!isEditorPreview && !this.isChartCreationBlocked) || (isEditorPreview && hasAccessToEditorPreview)"
+  >
+    <span class="font-weight-bold">
+      <!-- editor preview -->
+      <span class="text-danger" *ngIf="isEditorPreview">
+        {{ 'Chart.EditorPreview' | translate }}
+      </span>
+
+      <!-- chart current status -->
+      {{ chartStatusTranslationKey | translate }}
+    </span>
+
+    <div
+      appInfoTooltip="{{ 'Tour.Tooltip.DataResource.Parameters.text' | translate }}"
+      tooltipTitle="{{ 'Tour.Tooltip.DataResource.Parameters.title' | translate }}"
+    >
+      <!-- toggle form -->
+      <button
+        class="btn btn-primary btn-sm"
+        aria-controls="chart-params-popup"
+        [attr.aria-pressed]="isChartFormVisible"
+        [attr.aria-expanded]="isChartFormVisible"
+        (click)="isChartFormVisible = !isChartFormVisible"
+        *ngIf="isFormToggleActive"
+      >
+        {{ (isChartFormVisible ? 'Action.Hide' : 'Action.Show') | translate }}
+        {{ 'Chart.Params' | translate | lowercase }}
+      </button>
+
+      <!-- fake toggle form -->
+      <button
+        class="btn btn-secondary btn-sm"
+        aria-controls="chart-params-popup"
+        [attr.aria-pressed]="isChartFormVisible"
+        [attr.aria-expanded]="isChartFormVisible"
+        *ngIf="!isFormToggleActive"
+      >
+        {{ (isChartFormVisible ? 'Action.Hide' : 'Action.Show') | translate }}
+        {{ 'Chart.Params' | translate | lowercase }}
+      </button>
+    </div>
+  </div>
+
+  <!-- chart form popup -->
+  <div
+    id="chart-params-popup"
+    *ngIf="isChartFormVisible && ((!isEditorPreview && !this.isChartCreationBlocked) || (isEditorPreview && hasAccessToEditorPreview))"
+    @toggleVertically
+  >
+    <app-resource-chart-form
+      [isNamedChartMode]="isNamedChartMode"
+      [savedChartName]="savedCharts[selectedChartIndex]?.attributes.name || ''"
+      [savedChartId]="chartId"
+      [chartColumns]="columns"
+      [chartBlueprint]="chartBlueprint"
+      (chartBlueprintCreated)="onChartBlueprintCreated($event)"
+      (save)="saveChart()"
+      (delete)="deleteChart()"
+      (revoke)="onRevokeChart()"
+    >
+    </app-resource-chart-form>
+  </div>
+
+  <!-- unathorized access to editor preview -->
+  <p class="alert alert-danger mb-1" *ngIf="isEditorPreview && !hasAccessToEditorPreview">
+    {{ 'Chart.NoEditPermission' | translate }}
+  </p>
+
+  <!-- message: saved-->
+  <p class="alert alert-success" @toggleVertically *ngIf="isChartSaved">
+    {{ 'Chart.Saved' | translate }}
+    <ng-container *ngIf="!isUserLoggedIn">
+      {{ 'Chart.InMemory' | translate }}
+    </ng-container>
+  </p>
+
+  <!-- message: deleted -->
+  <p class="alert alert-success" @toggleVertically *ngIf="isChartDeleted">
+    {{ 'Chart.Deleted' | translate }}
+    <ng-container *ngIf="!isUserLoggedIn">
+      {{ 'Chart.FromMemory' | translate }}
+    </ng-container>
+  </p>
+
+  <!-- CHART PREVIEW -->
+  <div class="row" *appShellNoRender>
+    <div
+      class="col-12"
+      *ngIf="!isCircularChart && isChartPreviewAvailable && (!isEditorPreview || (isEditorPreview && hasAccessToEditorPreview))"
+    >
+      <!-- count limit info -->
+      <p class="alert alert-info mt-4" *ngIf="currentChartType && count > countLimit">
+        {{ 'Resources.VarChartRowsLimited' | translate: { param: countLimit, param1: count } }}
+      </p>
+
+      <!-- line -->
+      <app-resource-chart-line *ngIf="currentChartType === 'line'" [labels]="chartLabels" [datasets]="chartDatasets">
+      </app-resource-chart-line>
+
+      <!-- bar -->
+      <app-resource-chart-bar *ngIf="currentChartType === 'bar'" [labels]="chartLabels" [datasets]="chartDatasets">
+      </app-resource-chart-bar>
+
+      <!-- scatter -->
+      <app-resource-chart-scatter *ngIf="currentChartType === 'scatter'" [labels]="chartLabels" [datasets]="chartDatasets">
+      </app-resource-chart-scatter>
+
+      <!-- axis label -->
+      <p class="text-center mt-2">
+        {{ xAxisLabel }}
+      </p>
+    </div>
+
+    <!-- Circular - pie, donought, polarArea -->
+    <div
+      class="col-12"
+      *ngIf="isCircularChart && isChartPreviewAvailable && (!isEditorPreview || (isEditorPreview && hasAccessToEditorPreview))"
+    >
+      <app-resource-chart-circle [type]="currentChartType" [labels]="chartLabels" [fullLabels]="fullLabels" [datasets]="chartDatasets">
+      </app-resource-chart-circle>
+    </div>
+  </div>
+
+  <!-- chart related table -->
+  <app-resource-chart-table
+    *ngIf="isChartPreviewAvailable && (!isEditorPreview || (isEditorPreview && hasAccessToEditorPreview))"
+    [summaryTranslationKey]="chartStatusTranslationKey"
+    [chartLabels]="chartLabels"
+    [fullLabels]="fullLabels"
+    [chartDatasets]="chartDatasetsRepr"
+    [xAxisLabel]="xAxisLabel"
+  >
+  </app-resource-chart-table>
+
+  <!-- ITEMS PER PAGE and PAGINATION -->
+  <div
+    class="d-flex justify-content-between align-items-center"
+    id="resource-pagination"
+    *ngIf="!isCircularChart && chartBlueprint && isChartPreviewAvailable"
+  >
+    <!-- items per page -->
+    <app-items-per-page
+      [options]="isCircularChart ? itemsPerPageCircular : itemsPerPage"
+      [selected]="params?.per_page"
+      (selectedChange)="updateParams({ per_page: $event })"
+    >
+    </app-items-per-page>
+
+    <!-- pagination -->
+    <app-pagination
+      *ngIf="!isCircularChart"
+      [itemsPerPage]="params?.per_page"
+      [totalItems]="count >= countLimit ? countLimit : count"
+      [(page)]="params.page"
+      (numPages)="numPages = $event"
+      (pageChange)="updateParams({ page: $event })"
+    >
+    </app-pagination>
+  </div>
+</ng-container>
+
+<!-- no results found -->
+<app-no-results-found *ngIf="params?.q && count === 0"></app-no-results-found>

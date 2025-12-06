@@ -1,0 +1,12 @@
+{
+    "theme": "gitbook",
+    "name": "Otwarte Dane - Dokumentacja",
+    "tsconfig": "src/tsconfig.docs.json",
+    "toggleMenuItems": ["all"],
+    "output": "docs",
+    "disableSourceCode": false,
+    "disableDomTree": true,
+    "disableGraph": true,
+    "disableTemplateTab": false,
+    "hideGenerator": true
+}

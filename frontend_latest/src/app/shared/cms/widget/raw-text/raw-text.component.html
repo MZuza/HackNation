@@ -1,0 +1,50 @@
+<div
+  *ngIf="rawText.type === widgetType.TEXT"
+  class="text-justify raw-text-container position-relative"
+  [ngClass]="classes ? classes + ' ' + { container: !isFullWidth } : { container: !isFullWidth }"
+>
+  <div *ngFor="let el of rawTextObjects">
+    <div *ngIf="el.type === 0 && !rawText.settings?.url" [ngStyle]="style" [innerHTML]="el.text | sanitizeHtml" class="hc-Cms-Text"></div>
+
+    <a
+      *ngIf="el.type === 0 && rawText.settings?.url"
+      [ngStyle]="style"
+      [href]="rawText.settings.url"
+      target="_blank"
+      [innerHTML]="text | sanitizeHtml"
+      class="hc-Cms-Text"
+    >
+      <span class="visually-hidden">{{ 'Action.OpenInNewWindow' | translate }}</span>
+    </a>
+
+    <div *ngIf="el.type === 1">
+      <raw-text-embed-object [embedObject]="el"></raw-text-embed-object>
+    </div>
+  </div>
+  <!-- toggle navigation list on mobile -->
+  <div>
+    <button
+      type="button"
+      class="page-footer__heading-toggle"
+      *ngIf="isFooterNav"
+      [attr.aria-pressed]="isVisible"
+      (click)="toggleMenu()"
+    >
+      <span class="visually-hidden">
+        {{ (isVisible ? 'Action.Hide' : 'Action.Show') | translate }}
+        {{ strippedText }}
+      </span>
+
+      <span aria-hidden="true">
+        {{ isVisible ? '-' : '+' }}
+      </span>
+    </button>
+  </div>
+</div>
+
+<div
+  *ngIf="rawText.type === widgetType.RAW_TEXT"
+  class="text-justify"
+  [ngClass]="{ container: !isFullWidth }"
+  [innerHTML]="rawText.value | sanitizeHtml"
+></div>

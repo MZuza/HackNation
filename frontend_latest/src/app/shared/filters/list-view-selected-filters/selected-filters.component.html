@@ -1,0 +1,61 @@
+<ng-template [ngIf]="isDateType" [ngIfElse]="noDateTemplate">
+  <app-remove-button
+    *ngIf="items.startDate || items.endDate"
+    (removeSelectedFilter)="onRemoveSelectedFilter($event)"
+    [templateRef]="datesTemplate"
+    [item]="items"
+  ></app-remove-button>
+</ng-template>
+
+<ng-template #noDateTemplate>
+  <ng-container *ngIf="isRegionsData; else standardFilters">
+    <ng-container *ngFor="let region of regions | keyvalue">
+      <app-remove-button
+        (removeSelectedFilter)="onRemoveSelectedFilter($event)"
+        [templateRef]="customTemplate"
+        [item]="region"
+      ></app-remove-button>
+
+      <ng-template #customTemplate>
+        <span class="visually-hidden">{{ 'Filters.Remove' | translate }}</span>
+          <span>{{region.value.hierarchy_label ? region.value.hierarchy_label : region.value.title}}</span>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+  <ng-template #standardFilters>
+    <ng-container *ngFor="let item of items | keyvalue">
+      <app-remove-button
+        (removeSelectedFilter)="onRemoveSelectedFilter($event)"
+        [templateRef]="isStarsType ? starsTemplate : customTemplate"
+        [item]="item"
+      ></app-remove-button>
+
+      <ng-template #customTemplate>
+        <span class="visually-hidden">{{ 'Filters.Remove' | translate }}</span>
+        <span *ngIf="isCustomFilterName">{{ customFiltersName | translate }} - </span> {{ item.value.title }}
+      </ng-template>
+
+      <ng-template #starsTemplate>
+        <span class="visually-hidden">
+          {{ 'Filters.Remove' | translate }}
+        </span>
+        <span class="mr-2">
+          <app-star-rating [rating]="+item.key"></app-star-rating>
+        </span>
+      </ng-template>
+    </ng-container>
+  </ng-template>
+</ng-template>
+
+<ng-template #datesTemplate>
+  <ng-container *ngIf="items.startDate || items.endDate">
+    <span class="visually-hidden">
+      {{ 'Filters.Remove' | translate }}
+      ({{ 'Search.AutoContentReload' | translate }})
+    </span>
+
+    <span *ngIf="items.startDate">{{ items.startDate | translateDateFormat: 'D MMMM YYYY' | async }}</span>
+
+    <span *ngIf="items.endDate"> - {{ items.endDate | translateDateFormat: 'D MMMM YYYY' | async }}</span>
+  </ng-container>
+</ng-template>

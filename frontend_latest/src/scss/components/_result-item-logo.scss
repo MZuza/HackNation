@@ -1,0 +1,21 @@
+.result-item-logo {
+    display: block;
+    padding: 0;
+    height: 100%;
+
+    &__icon {
+        width: 120px;
+        min-width: 120px;
+        height: auto;
+        fill: $primary;
+
+        @include media-breakpoint-down(sm) {
+            float: none;
+            margin-bottom: 8px;
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        display: block;
+    }
+}

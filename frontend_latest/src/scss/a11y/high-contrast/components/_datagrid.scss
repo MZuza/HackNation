@@ -1,0 +1,25 @@
+/* Datagrid - table
+*********************/
+
+.datagrid {
+    border: 1px solid currentColor;
+
+    &__heading {
+        color: $hcSecondary;
+        border-color: currentColor;
+        background-color: $hcPrimary;
+    }
+
+    &__sort-column {
+        color: inherit;
+        font-weight: bold;
+
+        &::before,
+        &.ascending::before,
+        &.descending::before {  color: $hcSecondary; }
+    }
+
+    &__cell {
+        border-color: currentColor;
+    }
+}

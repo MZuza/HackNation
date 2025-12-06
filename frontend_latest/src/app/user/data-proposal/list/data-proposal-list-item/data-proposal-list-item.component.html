@@ -1,0 +1,27 @@
+<div class="border-custom p-3 p-md-4 mt-3">
+  <div class="row">
+    <div class="col-md-9 order-2 order-md-1">
+      <!-- title -->
+      <h2 class="heading heading--sm heading--primary-link">
+        <a class="heading__link" [routerLink]="['details', listItem.id]">{{ listItem.attributes.title }}</a>
+      </h2>
+
+      <!-- description -->
+      <p>
+        <collapsible-text *ngIf="listItem.attributes.notes" [text]="listItem.attributes.notes"> </collapsible-text>
+      </p>
+    </div>
+    <!-- TODO Extract styles-->
+    <div class="col-md-3 aod-course aod-course--planned order-2 order-md-1">
+      <ul class="list-unstyled">
+        <!-- start date-->
+        <li>
+          <span class="font-weight-bold"> {{ 'Ndp.AddDate' | translate }}: </span>
+          <span class="d-block">
+            {{ listItem.attributes.published_at | dateFormat }}
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

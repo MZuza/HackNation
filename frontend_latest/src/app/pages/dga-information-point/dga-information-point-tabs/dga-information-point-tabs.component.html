@@ -1,0 +1,33 @@
+<section class="vertical-spacing">
+  <div class="container">
+    <header>
+      <h1 class="heading heading--separator"> {{ 'DgaInformationPoint.Self' | translate }} </h1>
+    </header>
+
+    <div class="container cms-landing-page tabs-content">
+      <ng-container *ngIf="!detailView; else routerOutlet">
+        <ng-template [ngTemplateOutlet]="tabView"></ng-template>
+      </ng-container>
+    </div>
+  </div>
+</section>
+
+<ng-template #tabView>
+  <div class="row">
+    <ng-container *ngFor="let tab of tabs">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 cms-tiles dga-tiles" (click)="moveToPage(tab.meta.slug, tab.meta.type)">
+        <div class="col pl-1 pr-1 hover justify-content-center" id="{{tab.css_selector}}">
+          <div class="color-blue-light">
+            {{ tab.title }}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #routerOutlet>
+  <div class="dga-tab-content">
+    <router-outlet></router-outlet>
+  </div>
+</ng-template>

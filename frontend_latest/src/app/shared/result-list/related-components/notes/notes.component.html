@@ -1,0 +1,1 @@
+<div class="pb-2" *ngIf="notes" [innerHTML]="notes | stripHtmlTagsExceptHighlight | truncateText: 200 | sanitizeHtml"></div>

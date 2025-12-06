@@ -1,0 +1,8 @@
+<!-- more than 1 alert -->
+<ul class="list-group mb-2" *ngIf="alerts.length">
+  <li
+    class="list-group-item list-group-item-{{ alert.type }} text-left"
+    *ngFor="let alert of alerts"
+    [innerHTML]="alert.msg | sanitizeHtml"
+  ></li>
+</ul>

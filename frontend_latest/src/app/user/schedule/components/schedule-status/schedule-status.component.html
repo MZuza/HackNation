@@ -1,0 +1,16 @@
+<p class="font-weight-bold">Harmonogram oznaczony jako:
+    <!-- Status icon -->
+    <svg *ngIf="isCompleted" aria-labelledby="icon-success" class="icon text-success"
+         role="img">
+        <title id="icon-success">Zakończone sukcesem</title>
+        <use xlink:href="/assets/icomoon/sprite/sprite.svg#icon-success"></use>
+    </svg>
+    <svg *ngIf="!isCompleted" aria-labelledby="icon-in-progress" class="icon text-danger"
+         role="img">
+        <title id="icon-in-progress">W przygotowaniu</title>
+        <use xlink:href="/assets/icomoon/sprite/sprite.svg#icon-in-progress"></use>
+    </svg>
+    <!-- Status text -->
+    <span *ngIf="isCompleted" class="ml-2">gotowy</span>
+    <span *ngIf="!isCompleted" class="ml-2 text-danger">w przygotowaniu</span>
+</p>

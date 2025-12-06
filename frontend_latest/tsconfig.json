@@ -1,0 +1,42 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+      "baseUrl": "./",
+      "outDir": "./dist/out-tsc",
+      "sourceMap": true,
+      "declaration": false,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "target": "ES2022",
+      "paths": {
+        "@app/*": [
+          "src/app/*"
+        ],
+        "@env/*": [
+          "src/environments/*"
+        ],
+        "crypto": [
+          "node_modules/crypto-browserify"
+        ],
+        "stream": [
+          "node_modules/stream-browserify"
+        ]
+      },
+      "typeRoots": [
+        "node_modules/@types"
+      ],
+      "types": [
+        "jest",
+        "node"
+      ],
+      "lib": [
+        "es2018",
+        "dom"
+      ],
+      "useDefineForClassFields": false
+    }
+}

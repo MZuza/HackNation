@@ -1,0 +1,11 @@
+.tooltip {
+    // because $enable-rounded is set to false for the whole app
+    .tooltip-inner {
+        border-radius: 5px;
+        margin: 1px;
+    }
+
+    .arrow {
+        display: none;
+    }
+}

@@ -1,0 +1,16 @@
+<div class="mb-4">
+  <!-- toggle forms -->
+  <div class="btn-group mb-4" role="group">
+    <button
+      type="button"
+      class="btn btn-sm"
+      [ngClass]="!isSettingsActive ? 'btn-primary' : 'btn-outline-primary'"
+      (click)="isSettingsActive = !isSettingsActive"
+    >
+      {{ isSettingsActive ? ('Action.Show' | translate) : ('Action.Hide' | translate) }} {{ 'Hod.Notifications' | translate }}
+    </button>
+  </div>
+
+  <!-- notifications form -->
+  <app-schedule-notifications-form *ngIf="!isSettingsActive"></app-schedule-notifications-form>
+</div>

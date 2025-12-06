@@ -1,0 +1,5 @@
+<ul class="star-rating" aria-hidden="true">
+  <li class="star-rating__star" *ngFor="let i of ratesArr" [ngClass]="{ 'text-secondary': +rating < i }">
+    {{ +rating >= i ? '&#x2605; ' : '&#x2606; ' }}
+  </li>
+</ul>

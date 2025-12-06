@@ -1,0 +1,20 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../dist/out-tsc/app",
+        "baseUrl": "./",
+        "module": "es2015",
+        "types": [
+            "node"
+        ],
+        "moduleResolution": "node",
+        "sourceMap": true
+    },
+    "exclude": [
+        "app/app.server.module.ts",
+        "**/app-bootstrap.module.ts",
+        "**/*-routing.module.ts",
+        "test.ts",
+        "**/*.spec.ts"
+    ]
+}

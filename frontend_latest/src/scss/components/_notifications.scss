@@ -1,0 +1,15 @@
+.alert,
+.list-group-item {
+  border-left-width: 5px;
+  color: inherit;
+
+  &-danger {
+    border-color: map-get($theme-colors, 'danger');
+  }
+  &-info {
+    border-color: map-get($theme-colors, 'info');
+  }
+  &-warning {
+    border-color: map-get($theme-colors, 'warning');
+  }
+}

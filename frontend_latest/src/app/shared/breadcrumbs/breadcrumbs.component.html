@@ -1,0 +1,34 @@
+@if (displayBreadcrumbs) {
+  <div class="breadcrumbs-section" id="breadcrumbs">
+    <div class="container">
+
+      <!-- label -->
+      <strong id="breadcrumbs-label">{{ 'Breadcrumbs.YouAreHere' | translate }}:</strong>
+
+      <!-- list of breadcrumbs -->
+      <ol class="breadcrumbs" aria-labelledby="breadcrumbs-label">
+        @for (breadcrumb of breadcrumbs; track breadcrumb; let i = $index) {
+          @if (breadcrumb.label !== '') {
+            <li class="breadcrumbs__item">
+              <!-- breadcrumb as link -->
+              @if (!breadcrumb.lastChild && !(i+1 === breadcrumbs.length - 1 && breadcrumbs[i+1].label === '')) {
+                <a
+                  [routerLink]="breadcrumb.segments"
+                  [innerHtml]="breadcrumb.label.length > 32 ? (breadcrumb.label | slice:0:32) + '...' : breadcrumb.label | sanitizeHtml"
+                >
+                </a>
+              }
+              @if (breadcrumb.lastChild || (i+1 === breadcrumbs.length - 1 && breadcrumbs[i+1].label === '')) {
+                <span
+                  [innerHtml]="breadcrumb.label.length > 32 ? (breadcrumb.label | slice:0:32) + '...' : breadcrumb.label | sanitizeHtml"
+                ></span>
+              }
+              <!-- breadcrumb as text (last breadcrumb) -->
+            </li>
+          }
+        }
+      </ol>
+    </div>
+  </div>
+
+}

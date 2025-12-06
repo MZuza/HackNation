@@ -1,0 +1,41 @@
+<section class="home-section home-section--apps vertical-spacing" id="applications">
+  <div class="home-apps">
+    <h2
+      class="heading heading--md heading--centered heading--separator"
+      appInfoTooltip="{{ 'Tour.Tooltip.HomePage.Applications.text' | translate }}"
+      tooltipTitle="{{ 'Tour.Tooltip.HomePage.Applications.title' | translate }}"
+    >
+      {{ 'Menu.Showcases' | translate }} - {{ 'Applications.Self' | translate }}
+    </h2>
+
+    <div class="container" *ngIf="applications">
+      <!-- applications grid -->
+      <ul class="category-list row m-0 p-0">
+        <li class="category-list__item col-12 col-sm-6 col-md-6 col-xl-3" *ngFor="let application of applications">
+          <a
+            class="category-list__item-wrapper"
+            [routerLink]="['/!showcase' | localize, application?.id + ',' + application.attributes.slug]"
+          >
+            <div class="category-list__item-content">
+              <div class="category-list__image-wrapper">
+                <img
+                  *ngIf="application.attributes.image_thumb_url"
+                  class="category-list__item-image"
+                  src="{{ application.attributes.image_thumb_url }}"
+                  alt="{{ 'Applications.Logo' | translate }}"
+                />
+              </div>
+              <span
+                class="category-list__item-heading category-list__item-heading--dark"
+                [innerHtml]="application.attributes.title | sanitizeHtml"
+              >
+              </span>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <!-- view all (anchor) -->
+      <home-section-footer [routerURL]="'/!showcase'" [text]="'Applications.SeeAll'"></home-section-footer>
+    </div>
+  </div>
+</section>

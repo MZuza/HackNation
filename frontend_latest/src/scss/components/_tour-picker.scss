@@ -1,0 +1,12 @@
+.tour-picker-wrapper{
+  width: 100%;
+  height: 60px;
+  background: white;
+  border: 1px solid #eee;
+  position: fixed;
+  z-index: 9999;
+}
+
+.tour-picker-selected {
+  background-color: rgba(144, 198, 253, 0.8) !important;
+}

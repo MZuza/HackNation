@@ -1,0 +1,16 @@
+.tour-wrapper {
+
+  &.shepherd-has-title {
+    .shepherd-header {
+      background: $hcSecondary;
+    }
+  }
+
+  .shepherd-title {
+    color: $hcPrimary;
+  }
+
+  .tour-progress__bullet--active {
+    background: $hcPrimary;
+  }
+}

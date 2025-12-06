@@ -1,0 +1,25 @@
+<div class="container p-0">
+  <ng-container *ngIf="isPlayerSupported">
+    <div *ngIf="!!videoYoutubeUrl" class="embed-responsive embed-responsive-4by3 widget__item--middle" [ngStyle]="videoStyles">
+      <iframe
+        class="embed-responsive-item"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        [title]="video.settings?.video_caption ? video.settings.video_caption : 'video'"
+        [src]="videoYoutubeUrl"
+        allowfullscreen
+      >
+      </iframe>
+    </div>
+    <div [ngClass]="videoClass">
+      <video *ngIf="!!videoUrl" controls width="80%" poster="{{ poster }}">
+        <source src="{{ videoUrl }}" />
+      </video>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isPlayerSupported">
+    <span class="list-group-item list-group-item-danger">
+      {{ 'Cms.NotSupportedPlayer' | translate }}
+    </span>
+  </ng-container>
+</div>

@@ -1,0 +1,11 @@
+.cdk-overlay-container {
+  .app-tooltip {
+    border: 1px solid $hcPrimary;
+    background-color: $hcSecondary;
+
+    .app-tooltip-wrapper {
+      background-color: $hcSecondary;
+      color: $hcPrimary;
+    }
+  }
+}

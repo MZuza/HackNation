@@ -1,0 +1,15 @@
+<ng-container *ngIf="items">
+  <div *ngFor="let item of items; let index = index; trackBy: trackByFn">
+    <div [ngClass]="item.attributes.is_promoted ? 'result-item-promoted' : 'result-item'">
+      <!-- LEFT -->
+      <div class="result-item__left col-lg-8 col-xl-9 col-xxl-10 px-3">
+        <ng-template [ngTemplateOutlet]="leftTemplate" [ngTemplateOutletContext]="{ $implicit: item }"> </ng-template>
+      </div>
+
+      <!-- RIGHT -->
+      <div *ngIf="rightTemplate" class="result-item__right col-lg-4 col-xl-3 col-xxl-2 px-3">
+        <ng-template [ngTemplateOutlet]="rightTemplate" [ngTemplateOutletContext]="{ $implicit: item, index: index }"> </ng-template>
+      </div>
+    </div>
+  </div>
+</ng-container>

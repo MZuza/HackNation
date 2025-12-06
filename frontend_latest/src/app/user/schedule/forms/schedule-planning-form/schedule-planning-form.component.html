@@ -1,0 +1,608 @@
+<form class="custom-form" [formGroup]="planningForm" (ngSubmit)="onFormSubmit()">
+    <h2 class="heading heading--sm">
+        <span class="d-block pb-3" *ngIf="email && isAdminView" @toggleVertically>
+            Harmonogram przypisany do: {{ email }}
+        </span>
+        Szczegóły zgłoszenia
+    </h2>
+
+    <!-- api notifications -->
+    <app-notifications></app-notifications>
+
+    <!-- institution -->
+    <div class="form-group"
+        [ngClass]="{'form-group-invalid': planningForm.controls.institution.invalid && planningForm.controls.institution.touched}">
+        <label for="institution" class="font-weight-bold small">
+            Ministerstwo (Instytucja)
+            <span class="font-weight-normal">
+                (pole wymagane)
+            </span>
+        </label>
+
+        <div class="dropdown" *ngIf="institutions"
+            role="combobox"    
+            aria-haspopup="listbox"
+            [attr.aria-owns]="isInstitutionDropdownExpanded ? 'schedule-custom-dropdown-institution' : null"
+            [attr.aria-expanded]="isInstitutionDropdownExpanded"
+            aria-label="Ministerstwo (instytucja)">
+
+            <input type="text" *ngIf="!planningForm.controls.institution.disabled || !planningForm.controls.institution.value"
+                autocomplete="off"    
+                class="form-control" 
+                id="institution"
+                placeholder="Wpisz nazwę"
+                formControlName="institution"
+                aria-autocomplete="list"
+                [attr.aria-controls]="isInstitutionDropdownExpanded ? 'schedule-custom-dropdown-institution' : null"
+                appScheduleCustomDropdown
+                [dropdownId]="'schedule-custom-dropdown-institution'"
+                [dropdownItems]="institutions"
+                [dropdownItemsDisplayedProperty]="'title'"
+                (dropdownItemSelected)="onCustomDropdownItemSelected($event, 'institution')"
+                (isDropdownExpanded)="isInstitutionDropdownExpanded=$event"
+                (keydown.enter)="$event.preventDefault()">
+        </div>
+
+        <!-- selected value as text -->
+        <p class="bg-custom p-2 pl-3" *ngIf="planningForm.controls.institution.disabled && planningForm.controls.institution.value">
+            {{ planningForm.controls.institution.value }}
+        </p>
+        
+        <!-- required error -->
+        <small class="form-text text-danger" id="institution_required_error" role="alert" aria-live="polite"
+            *ngIf="planningForm.controls.institution.invalid && planningForm.controls.institution.touched"
+            @toggleVertically>
+            Pole "Ministerstwo (instytucja)" jest wymagane.
+        </small>
+    </div>
+
+    <!-- institution_unit -->
+    <div class="form-group">
+        <label for="institution_unit"
+            *ngIf="!planningForm.controls.institution_unit.disabled || (planningForm.controls.institution_unit.disabled && planningForm.controls.institution_unit.value)">
+            Jednostka podległa / nadzorowana
+        </label>
+
+        <div class="dropdown" *ngIf="institutions && !planningForm.controls.institution_unit.disabled"
+            role="combobox"    
+            aria-haspopup="listbox"
+            [attr.aria-owns]="isInstitutionUnitDropdownExpanded ? 'schedule-custom-dropdown-institution_unit' : null"
+            [attr.aria-expanded]="isInstitutionUnitDropdownExpanded"
+            aria-label="Jednostka podległa / nadzorowana">
+
+            <input type="text" *ngIf="!planningForm.controls.institution_unit.disabled || !planningForm.controls.institution_unit.value"
+                autocomplete="off"    
+                class="form-control" 
+                id="institution_unit"
+                placeholder="Wpisz nazwę"
+                formControlName="institution_unit"
+                aria-autocomplete="list"
+                [attr.aria-controls]="isInstitutionUnitDropdownExpanded ? 'schedule-custom-dropdown-institution_unit' : null"
+                appScheduleCustomDropdown
+                [dropdownId]="'schedule-custom-dropdown-institution_unit'"
+                [dropdownItems]="institutions"
+                [dropdownItemsDisplayedProperty]="'title'"
+                (dropdownItemSelected)="onCustomDropdownItemSelected($event, 'institution_unit')"
+                (isDropdownExpanded)="isInstitutionUnitDropdownExpanded=$event"
+                (keydown.enter)="$event.preventDefault()">
+        </div>
+
+        <!-- selected value as text -->
+        <p class="bg-custom p-2 pl-3" *ngIf="planningForm.controls.institution_unit.disabled && planningForm.controls.institution_unit.value">
+            {{ planningForm.controls.institution_unit.value }}
+        </p>
+    </div>
+
+    <!-- dataset_title -->
+    <div class="form-group" 
+        [ngClass]="{'form-group-invalid': planningForm.controls.dataset_title.invalid && planningForm.controls.dataset_title.touched}">
+        <label for="dataset_title">
+            Zasoby danych 
+            <span class="font-weight-normal">
+                (pole wymagane)
+            </span>
+        </label>
+
+        <input type="text"  *ngIf="!planningForm.controls.dataset_title.disabled"
+            autocomplete="off"
+            class="form-control" 
+            id="dataset_title"
+            placeholder="Wpisz tytuł"
+            formControlName="dataset_title"
+            [attr.aria-describedby]="'dataset_title_required_error'"
+            [attr.aria-invalid]="planningForm.controls.dataset_title.invalid && planningForm.controls.dataset_title.touched"
+            (keydown.enter)="$event.preventDefault()">
+
+            <!-- selected value as text -->
+            <p class="bg-custom p-2 pl-3" *ngIf="planningForm.controls.dataset_title.disabled && planningForm.controls.dataset_title.value">
+                {{ planningForm.controls.dataset_title.value }}
+            </p>
+
+        <!-- dataset_title - required error -->
+        <small class="form-text text-danger" id="dataset_title_required_error" role="alert" aria-live="polite"
+            *ngIf="planningForm.controls.dataset_title.invalid && planningForm.controls.dataset_title.touched"
+            @toggleVertically>
+            Pole "Zasoby danych" jest wymagane
+        </small>
+    </div>
+
+    <!-- format, is_new -->
+    <div class="row">
+        <div class="col-lg-6">
+
+            <!-- format -->
+            <div class="form-group" 
+                [ngClass]="{'form-group-invalid': planningForm.controls.format.invalid && planningForm.controls.format.touched}">
+                <label for="format" class="font-weight-bold small">
+                    Format danych
+                    <span class="font-weight-normal">
+                        (pole wymagane)
+                    </span>
+                </label>
+
+                <div class="dropdown" *ngIf="formats"
+                    role="combobox"    
+                    aria-haspopup="listbox"
+                    [attr.aria-owns]="isFormatDropdownExpanded ? 'schedule-custom-dropdown-format' : null"
+                    [attr.aria-expanded]="isFormatDropdownExpanded"
+                    aria-label="Format danych">
+
+                    <input type="text" *ngIf="!planningForm.controls.format.disabled || !planningForm.controls.format.value"
+                        autocomplete="off"    
+                        class="form-control" 
+                        id="format"
+                        placeholder="Wpisz nazwę"
+                        formControlName="format"
+                        aria-autocomplete="list"
+                        [attr.aria-controls]="isFormatDropdownExpanded ? 'schedule-custom-dropdown-format' : null"
+                        appScheduleCustomDropdown
+                        [dropdownId]="'schedule-custom-dropdown-format'"
+                        [dropdownItems]="formats"
+                        [dropdownItemsDisplayedProperty]="'title'"
+                        (dropdownItemSelected)="onCustomDropdownItemSelected($event, 'format')"
+                        (isDropdownExpanded)="isFormatDropdownExpanded=$event"
+                        (keydown.enter)="$event.preventDefault()"
+                        @toggleVertically>
+                </div>
+
+                <!-- selected value as text -->
+                <p class="bg-custom p-2 pl-3" *ngIf="planningForm.controls.format.disabled && planningForm.controls.format.value">
+                    {{ planningForm.controls.format.value }}
+                </p>
+
+                <!-- required error -->
+                <small class="form-text text-danger" id="format_required_error" role="alert" aria-live="polite"
+                    *ngIf="planningForm.controls.format.invalid && planningForm.controls.format.touched"
+                    @toggleVertically>
+                    Pole "Format danych" jest wymagane.
+                </small>
+            </div>            
+        </div>
+        <div class="col-lg-6">
+
+            <!-- is_new -->
+            <div class="form-group" 
+                [ngClass]="{'form-group-invalid': planningForm.controls.is_new.invalid && planningForm.controls.is_new.touched}">
+                <label for="is_new" class="font-weight-bold small">
+                    Nowy zasób
+                    <span class="font-weight-normal">
+                        (pole wymagane)
+                    </span>
+                </label>
+
+                <select class="form-select" *ngIf="!planningForm.controls.is_new.disabled"
+                    id="is_new" 
+                    formControlName="is_new" 
+                    (change)="checkIsNewValue()"
+                    [attr.aria-describedby]="'is_new_required_error'"
+                    [attr.aria-invalid]="planningForm.controls.is_new.invalid && planningForm.controls.is_new.touched">
+                    <option [ngValue]="null">
+                        Wybierz
+                    </option>
+                    <ng-container *ngFor="let item of yes_no">
+                        <option [ngValue]="item.value">
+                            {{ item.name }}
+                        </option>
+                    </ng-container>
+                </select>
+
+                <!-- selected value as text -->
+                <p class="bg-custom p-2 pl-3" *ngIf="planningForm.controls.is_new.disabled">
+                    <ng-container *ngFor="let item of yes_no">
+                        <ng-container *ngIf="item.value === planningForm.controls.is_new.value">
+                            {{ item.name }}
+                        </ng-container>
+                    </ng-container>
+                </p>
+
+                <!-- required error -->
+                <small class="form-text text-danger" id="is_new_required_error" role="alert" aria-live="polite"
+                    *ngIf="planningForm.controls.is_new.invalid && planningForm.controls.is_new.touched"
+                    @toggleVertically>
+                    Pole "Nowy zasób" jest wymagane.
+                </small>
+            </div>            
+        </div>
+    </div>
+
+    <!-- is_openness_score_increased, is_quality_improved -->
+    <div class="row" *ngIf="!planningForm.controls.is_new.disabled || (planningForm.controls.is_new.disabled && planningForm.controls.is_new.value === false)">
+        <div class="col-lg-6">
+
+            <!-- is_openness_score_increased -->
+            <div class="form-group"
+                [ngClass]="{'form-group-invalid': planningForm.controls.is_openness_score_increased.invalid && planningForm.controls.is_openness_score_increased.touched}">
+                <label [attr.for]="planningForm.controls.is_openness_score_increased.enabled ? 'is_openness_score_increased' : null" 
+                    class="font-weight-bold small">
+                    Wyższy poziom otwartości
+                    <span class="font-weight-normal" *ngIf="planningForm.controls.is_new.value === false">
+                        (pole wymagane)
+                    </span>
+                </label>
+
+                <select class="form-select" *ngIf="!planningForm.controls.is_openness_score_increased.disabled"
+                    id="is_openness_score_increased" 
+                    formControlName="is_openness_score_increased" 
+                    (change)="checkIsNewRelatedFieldsValidators()">
+                    <option [ngValue]="null">
+                        Wybierz 
+                    </option>
+                    <ng-container *ngFor="let item of yes_no">
+                        <option [ngValue]="item.value">
+                            {{ item.name }}
+                        </option>
+                    </ng-container>
+                </select>
+
+                <!-- selected value as text -->
+                <p class="bg-custom p-2 pl-3" *ngIf="planningForm.controls.is_openness_score_increased.disabled">
+                    <ng-container *ngFor="let item of yes_no">
+                        <ng-container *ngIf="item.value === planningForm.controls.is_openness_score_increased.value">
+                            {{ item.name }}
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="planningForm.controls.is_openness_score_increased.value === null">
+                        {{ 'Wybierz' }}
+                    </ng-container>
+                </p>
+    
+                <!-- is_openness_score_increased OR is_quality_improved invalid-->
+                <small class="form-text text-danger" id="is_openness_score_increased_error" role="alert" aria-live="polite"
+                    *ngIf="planningForm.controls.is_openness_score_increased.invalid && planningForm.controls.is_openness_score_increased.touched"
+                    @toggleVertically>
+                    Pole "Wyższy poziom otwartości" jest wymagane.
+                </small>
+            </div>            
+        </div>
+        <div class="col-lg-6">
+
+            <!-- is_quality_improved -->
+            <div class="form-group"
+                [ngClass]="{'form-group-invalid': planningForm.controls.is_quality_improved.invalid && planningForm.controls.is_quality_improved.touched}">
+                <label [attr.for]="planningForm.controls.is_quality_improved.enabled ? 'is_quality_improved' : null" 
+                    class="font-weight-bold small">
+                    Poprawiona jakość
+                    <span class="font-weight-normal" *ngIf="planningForm.controls.is_new.value === false">
+                        (pole wymagane)
+                    </span>
+                </label>
+
+                <select class="form-select" *ngIf="!planningForm.controls.is_quality_improved.disabled"
+                    id="is_quality_improved" 
+                    formControlName="is_quality_improved" 
+                    (change)="checkIsNewRelatedFieldsValidators()">
+                    <option [ngValue]="null">
+                        Wybierz 
+                    </option>
+                    <ng-container *ngFor="let item of yes_no">
+                        <option [ngValue]="item.value">
+                            {{ item.name }}
+                        </option>
+                    </ng-container>
+                </select>
+
+                <!-- selected value as text -->
+                <p class="bg-custom p-2 pl-3" *ngIf="planningForm.controls.is_quality_improved.disabled">
+                    <ng-container *ngFor="let item of yes_no">
+                        <ng-container *ngIf="item.value === planningForm.controls.is_quality_improved.value">
+                            {{ item.name }}
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="planningForm.controls.is_openness_score_increased.value === null">
+                        {{ 'Wybierz' }}
+                    </ng-container>
+                </p>
+    
+                <!-- is_openness_score_increased OR is_quality_improved invalid-->
+                <small class="form-text text-danger" id="is_quality_improved_error" role="alert" aria-live="polite"
+                    *ngIf="planningForm.controls.is_quality_improved.invalid && planningForm.controls.is_quality_improved.touched"
+                    @toggleVertically>
+                    Pole "Poprawiona jakość" jest wymagane.
+                </small>
+            </div>            
+        </div>
+    </div>
+
+    <!-- description -->
+    <div class="form-group" *ngIf="!planningForm.controls.description.disabled || (planningForm.controls.description.disabled && planningForm.controls.description.value)">
+        <label for="description"
+            *ngIf="!planningForm.controls.description.disabled || (planningForm.controls.description.disabled && planningForm.controls.description.value)">
+            Uwagi
+        </label>
+        <textarea class="form-control" id="description" rows="3" formControlName="description"
+            *ngIf="!planningForm.controls.description.disabled">
+        </textarea>
+
+        <!-- selected value as text -->
+        <p class="bg-custom p-2 pl-3" *ngIf="planningForm.controls.description.disabled && planningForm.controls.description.value">
+            {{ planningForm.controls.description.value }}
+        </p>
+    </div>
+
+    <!-- acceptance_group -->
+    <div formGroupName="acceptance_group" *ngIf="planningForm.get('acceptance_group')">
+    
+        <!-- acceptance -->
+        <ul class="list-unstyled m-0"
+            *ngIf="!planningForm.get('acceptance_group.is_accepted').disabled">
+            <li class="d-inline-flex flex-row align-items-center"
+                [ngClass]="{'pr-3': !isLastItem}"
+                *ngFor="let item of acceptance; let i = index; let isLastItem = last">
+    
+                <input type="radio" formControlName="is_accepted" name="is_accepted"
+                    id="is_accepted-radio-{{ i }}"
+                    [value]="item.value"
+                    (change)="updateAcceptanceValidators()"
+                    (keydown.enter)="$event.preventDefault()"/>
+    
+                <label class="pl-1 clickable" for="is_accepted-radio-{{ i }}">
+                    {{ item.name }}
+                </label>
+            </li>
+        </ul>
+
+        <!-- selected value as text -->
+        <p class="bg-custom p-2 pl-3" *ngIf="planningForm.get('acceptance_group.is_accepted').disabled">
+            <ng-container *ngFor="let item of acceptance">
+                <ng-container *ngIf="item.value === planningForm.get('acceptance_group.is_accepted').value">
+                    {{ item.name }}
+                </ng-container>
+            </ng-container>
+        </p>
+        
+        <!-- recommendation_notes -->
+        <div class="form-group"
+            [ngClass]="{'form-group-invalid': planningForm.get('acceptance_group.recommendation_notes').invalid && planningForm.get('acceptance_group.recommendation_notes').touched}">
+
+            <label for="recommendation_notes" 
+                *ngIf="!planningForm.get('acceptance_group.recommendation_notes').disabled || (planningForm.get('acceptance_group.recommendation_notes').disabled && planningForm.get('acceptance_group.recommendation_notes').value)">
+                Komentarz:
+                <small *ngIf="!planningForm.get('acceptance_group.recommendation_notes').disabled && planningForm.get('acceptance_group.is_accepted').value === acceptance[1].value" @toggleVertically>
+                    (pole wymagane)
+                </small>
+            </label>
+
+            <textarea class="form-control" id="recommendation_notes" rows="3" formControlName="recommendation_notes"
+                *ngIf="!planningForm.get('acceptance_group.recommendation_notes').disabled">
+            </textarea>
+            
+            <!-- recommendation_notes - required error -->
+            <small class="form-text text-danger" id="recommendation_notes_error" role="alert" aria-live="polite"
+                *ngIf="planningForm.get('acceptance_group.recommendation_notes').invalid && planningForm.get('acceptance_group.recommendation_notes').touched"
+                @toggleVertically>
+                Pole "Komentarz" jest wymagane
+            </small>
+
+            <!-- selected value as text -->
+            <p class="bg-custom p-2 pl-3" 
+                *ngIf="planningForm.get('acceptance_group.recommendation_notes').disabled && planningForm.get('acceptance_group.recommendation_notes').value">
+                {{ planningForm.get('acceptance_group.recommendation_notes').value }}
+            </p>
+        </div>
+    </div>
+
+    <!-- recommendation_group -->
+    <div formGroupName="recommendation_group" *ngIf="planningForm.get('recommendation_group')">
+        <hr>
+
+        <!-- recommendation -->
+        <ul class="list-unstyled m-0 pt-2" 
+            *ngIf="!planningForm.get('recommendation_group.recommendation_state').disabled">
+            <li class="d-inline-flex flex-row align-items-center"
+                [ngClass]="{'pr-3': !isLastItem}"
+                *ngFor="let item of recommendations; let i = index; let isLastItem = last">
+    
+                <input type="radio" 
+                    formControlName="recommendation_state" 
+                    name="recommendation_state"
+                    id="recommendation_state-radio-{{ i }}"
+                    [value]="item.value"
+                    (change)="updateRecommendationValidators()"
+                    (keydown.enter)="$event.preventDefault()"/>
+    
+                <label class="pl-1 clickable" for="recommendation_state-radio-{{ i }}">
+                    {{ item.name }}
+                </label>
+            </li>
+        </ul>
+
+        <!-- selected value as text -->
+        <p class="bg-custom p-2 pl-3" 
+            *ngIf="planningForm.get('recommendation_group.recommendation_state').disabled && planningForm.get('recommendation_group.recommendation_state').value">
+            <ng-container *ngFor="let item of recommendations">
+                <ng-container *ngIf="item.value === planningForm.get('recommendation_group.recommendation_state').value">
+                    {{ item.name }}
+                </ng-container>
+            </ng-container>
+        </p>
+    
+        
+        <!-- recommendation_notes -->
+        <div class="form-group"
+            [ngClass]="{'form-group-invalid': planningForm.get('recommendation_group.recommendation_notes').invalid && planningForm.get('recommendation_group.recommendation_notes').touched}">
+            
+            <label for="recommendation_notes"
+                *ngIf="!planningForm.get('recommendation_group.recommendation_notes').disabled || (planningForm.get('recommendation_group.recommendation_notes').disabled && planningForm.get('recommendation_group.recommendation_notes').value)">
+                Komentarz:
+                <small *ngIf="!planningForm.get('recommendation_group.recommendation_notes').disabled && planningForm.get('recommendation_group.recommendation_state').value === recommendations[1].value" @toggleVertically>
+                    (pole wymagane)
+                </small>
+            </label>
+            
+            <textarea class="form-control" id="recommendation_notes" rows="3" formControlName="recommendation_notes"
+                *ngIf="!planningForm.get('recommendation_group.recommendation_notes').disabled || !planningForm.get('recommendation_group.recommendation_notes').value">
+            </textarea>
+            
+            <!-- is_resource_added_notes - required error -->
+            <small class="form-text text-danger" id="recommendation_notes_error" role="alert" aria-live="polite"
+                *ngIf="planningForm.get('recommendation_group.recommendation_notes').invalid && planningForm.get('recommendation_group.recommendation_notes').touched"
+                @toggleVertically>
+                Pole "Komentarz" jest wymagane
+            </small>
+            
+            <!-- selected value as text -->
+            <p class="bg-custom p-2 pl-3" 
+                *ngIf="planningForm.get('recommendation_group.recommendation_notes').disabled && planningForm.get('recommendation_group.recommendation_notes').value">
+                {{ planningForm.get('recommendation_group.recommendation_notes').value }}
+            </p>
+        </div>
+    </div>
+
+    <!-- realization_group -->
+    <div formGroupName="realization_group" *ngIf="planningForm.get('realization_group')">
+        <hr>
+    
+        <!-- is_resource_added -->
+        <ul class="list-unstyled m-0"
+            *ngIf="!planningForm.get('realization_group.is_resource_added').disabled">
+            <li class="d-inline-flex flex-row align-items-center"
+                [ngClass]="{'pr-3': !isLastItem}"
+                *ngFor="let item of realization; let i = index; let isLastItem = last">
+    
+                <input type="radio" 
+                    formControlName="is_resource_added" 
+                    name="is_resource_added"
+                    id="is_resource_added-radio-{{ i }}"
+                    [value]="item.value"
+                    (change)="updateRealizationValidators()"
+                    (keydown.enter)="$event.preventDefault()"/>
+    
+                <label class="pl-1 clickable" for="is_resource_added-radio-{{ i }}">
+                    {{ item.name }}
+                </label>
+            </li>
+        </ul>
+
+        <!-- selected value as text -->
+        <p class="bg-custom p-2 pl-3" 
+            *ngIf="planningForm.get('realization_group.is_resource_added').disabled">
+            <ng-container *ngFor="let item of realization">
+                <ng-container *ngIf="item.value === planningForm.get('realization_group.is_resource_added').value">
+                    {{ item.name }}
+                </ng-container>
+            </ng-container>
+        </p>
+    
+        <!-- resource_link -->
+        <div class="form-group"
+            [ngClass]="{'form-group-invalid': planningForm.get('realization_group.resource_link').invalid && planningForm.get('realization_group.resource_link').touched}">
+            <label for="resource_link">
+                Link do zasobu
+                <small *ngIf="!planningForm.get('realization_group.resource_link').disabled && planningForm.get('realization_group.is_resource_added').value" @toggleVertically>
+                    (pole wymagane)
+                </small>
+            </label>
+    
+            <input type="text"
+                autocomplete="off"
+                class="form-control" 
+                id="resource_link"
+                placeholder=""
+                formControlName="resource_link"
+                name="resource_link"
+                [attr.aria-describedby]="'resource_link_invalid_error'"
+                [attr.aria-invalid]="planningForm.get('realization_group.resource_link').invalid && planningForm.get('realization_group.resource_link').touched"
+                (keydown.enter)="$event.preventDefault()"
+                *ngIf="!planningForm.get('realization_group.resource_link').disabled || !planningForm.get('realization_group.resource_link').value">
+
+                <!-- selected value as text -->
+                <p class="bg-custom p-2 pl-3" 
+                    *ngIf="planningForm.get('realization_group.resource_link').disabled && planningForm.get('realization_group.resource_link').value">
+                    {{ planningForm.get('realization_group.resource_link').value }}
+                </p>
+    
+            <!-- resource_link errors -->
+            <ng-container *ngIf="planningForm.get('realization_group.resource_link').invalid && planningForm.get('realization_group.resource_link').touched">
+    
+                <!-- required error -->
+                <small class="form-text text-danger" role="alert" id="resource_link_invalid_error"
+                    *ngIf="planningForm.get('realization_group.resource_link').errors?.required"
+                    @toggleVertically>
+                    Niepoprawny link
+                </small>
+    
+                <!-- invalid resource_link error -->
+                <small class="form-text text-danger" role="alert" id="resource_link_invalid_error"
+                    *ngIf="planningForm.get('realization_group.resource_link').errors?.pattern"
+                    @toggleVertically>
+                    Niepoprawny adres strony
+                </small>
+            </ng-container>
+        </div>
+    
+        <!-- is_resource_added_notes -->
+        <div class="form-group"
+            [ngClass]="{'form-group-invalid': planningForm.get('realization_group.is_resource_added_notes').invalid && planningForm.get('realization_group.is_resource_added_notes').touched}">
+
+            <label for="is_resource_added_notes"
+                *ngIf="!planningForm.get('realization_group.is_resource_added_notes').disabled || (planningForm.get('realization_group.is_resource_added_notes').disabled && planningForm.get('realization_group.is_resource_added_notes').value)">
+                Komentarz:
+                <small *ngIf="!planningForm.get('realization_group.is_resource_added_notes').disabled &&!planningForm.get('realization_group.is_resource_added').value" @toggleVertically>
+                    (pole wymagane)
+                </small>
+            </label>
+            <textarea class="form-control" id="is_resource_added_notes" rows="3" formControlName="is_resource_added_notes"                
+                *ngIf="!planningForm.get('realization_group.is_resource_added_notes').disabled">
+            </textarea>
+            
+            <!-- is_resource_added_notes - required error -->
+            <small class="form-text text-danger" id="is_resource_added_notes_error" role="alert" aria-live="polite"
+                *ngIf="planningForm.get('realization_group.is_resource_added_notes').invalid && planningForm.get('realization_group.is_resource_added_notes').touched"
+                @toggleVertically>
+                Pole "Komentarz" jest wymagane
+            </small>
+
+            <!-- selected value as text -->
+            <p class="bg-custom p-2 pl-3" 
+                *ngIf="planningForm.get('realization_group.is_resource_added_notes').disabled && planningForm.get('realization_group.is_resource_added_notes').value">
+                {{ planningForm.get('realization_group.is_resource_added_notes').value }}
+            </p>
+        </div>
+    </div>
+
+    <!-- submit form --> 
+    <div *ngIf="isSubmitShouldBeVisible">
+
+        <!-- fake submit -->
+        <button type="button" class="btn btn-secondary"
+            aria-describedby="backend_notifications institution_required_error dataset_title_required_error format_required_error is_new_required_error is_new_related_required_error"
+            *ngIf="!planningForm.valid">
+            Zapisz
+        </button>
+
+        <!-- submit -->
+        <button type="submit" class="btn btn-primary"
+            *ngIf="planningForm.valid">
+            Zapisz
+        </button>
+
+        <!-- cancel -->
+        <button class="btn btn-outline-danger ml-2" (click)="backToList()">
+            Anuluj
+        </button>
+    </div>
+</form>
+
+
+<!-- comments -->
+<app-schedule-comments [scheduleItemId]="planningFormBlueprint.id" *ngIf="planningFormBlueprint"></app-schedule-comments>

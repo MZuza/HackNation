@@ -1,0 +1,13 @@
+.search-history {
+    list-style: none;
+    padding: 0;
+
+    & >  * {
+        margin-top: 25px;
+    }
+
+    .btn {
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+}

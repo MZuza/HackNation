@@ -1,0 +1,60 @@
+.widget__item--middle {
+    height: auto;
+}
+
+.cta {
+    height: 400px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: none !important;
+}
+
+.cta_black-white,
+.cta_black-yellow {
+    background-color: black !important;
+}
+
+.cta_yellow-black {
+    background-color: yellow !important;
+}
+
+.cta__row-text--center {
+    text-align: center;
+}
+
+.cta__row {
+    position: relative;
+    width: 100%;
+    height: 70%;
+}
+
+.cta__column {
+    position: absolute;
+    width: 50%;
+}
+
+.cta__image {
+    height:  auto;
+    max-height: 325px;
+}
+
+.cta__text--small {
+    top: 20%
+}
+
+.cta__item {
+
+    &--right {
+        right: 0;
+    }
+
+   &--left {
+        left: 0;
+    }
+
+    &--center {
+        margin: 0;
+        width: 100%;
+        text-align: center;
+    }
+}

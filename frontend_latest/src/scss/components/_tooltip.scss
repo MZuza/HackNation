@@ -1,0 +1,26 @@
+.app-tooltip {
+  border-radius: 5px;
+  padding: .25rem .5rem;
+  color: #fff;
+  text-align: left;
+  background-color: #0f2648;
+  border: 1px solid #0865C9;
+  overflow: hidden;
+  z-index: 99999;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+body .cdk-overlay-container {
+  z-index: 99999;
+}
+
+.app-tooltip-wrapper {
+  padding: 0;
+  max-width: 300px;
+}
+
+.tooltip-with-title {
+  padding: $spacer * .5;
+}

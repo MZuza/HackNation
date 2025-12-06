@@ -1,0 +1,35 @@
+<a
+  *ngIf="fileUrl"
+  [ngClass]="customCssClass"
+  [routerLink]="[]"
+  queryParamsHandling="preserve"
+  [title]="opennessScore ? 'Pobierz plik ' + (format ? (format | uppercase) : ('Action.Download' | translate)) : ''"
+  [appTooltip]="opennessScore ? 'Poziom otwartości pliku: ' : ''"
+  [levelDataOpennessTooltip]="opennessScore ? +opennessScore : null"
+>
+  <!-- title (filename) -->
+  <span class="visually-hidden">{{ title }}</span>
+
+  <!-- download prefix text -->
+  <span *ngIf="showDownloadText">{{ 'Action.Download' | translate }}{{ ' ' }}</span>
+
+  <!-- format -->
+  <ng-container *ngIf="format">
+    {{ format ? (format | uppercase) : ('Action.Download' | translate) }}
+  </ng-container>
+
+  <!-- file size -->
+  <ng-container *ngIf="fileSize !== null">
+    (<app-file-size [fileSize]="fileSize"></app-file-size>)
+
+    <!-- link -->
+    <span aria-hidden="true" *ngIf="!showDownloadText">>></span>
+
+    <!-- btn -->
+    <ng-container *ngIf="showDownloadText">
+      <svg class="icon icon-chevrons-right" role="img" aria-hidden="true">
+        <use href="/assets/icomoon/sprite/sprite.svg#icon-chevrons-right"></use>
+      </svg>
+    </ng-container>
+  </ng-container>
+</a>

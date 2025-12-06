@@ -1,0 +1,15 @@
+
+
+
+.heading {
+    &--separator {
+        &::after {
+            background-color: $hcPrimary;
+        }
+    }
+
+    :hover {
+        border-color: inherit;
+        color: inherit;
+    }
+}

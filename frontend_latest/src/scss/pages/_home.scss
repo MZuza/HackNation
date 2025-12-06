@@ -1,0 +1,259 @@
+/**********************
+    HOME
+**********************/
+
+.home-section {
+  background-color: $color-grey-light-1;
+
+  &-footer {
+    padding-top: 1.5rem;
+    text-align: right;
+
+    &__all {
+      position: relative;
+      text-decoration: underline;
+    }
+  }
+
+  // HERO
+  /********************/
+  &--hero {
+    background-color: transparent;
+    padding-top: 50px;
+    padding-bottom: 25px;
+    text-align: center;
+
+    h1,
+    h2 {
+      color: $color-white;
+      margin-bottom: 0.7rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+    }
+  }
+
+  // SEARCH
+  /********************/
+  &--search {
+    background-color: transparent;
+    padding-top: 0;
+    padding-bottom: 100px;
+
+    .input--search {
+      border-color: $color-white;
+    }
+
+    .btn--search {
+      border: 0;
+      background-color: $color-white;
+      transition: none;
+
+      .icon {
+        height: 24px;
+        width: 24px;
+        fill: $color-blue-light;
+      }
+    }
+
+    // < MD
+    @include media-breakpoint-down(md) {
+      padding-bottom: 75px;
+    }
+
+    // < SM
+    @include media-breakpoint-down(sm) {
+      padding-bottom: 50px;
+    }
+  }
+
+  // HOME: DATA IN NUMBERS
+  /********************/
+  &--stats {
+    background-color: $color-blue-light;
+    color: $color-white;
+
+    .stats {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 0;
+
+      &__item {
+        text-align: center;
+        line-height: 1.2;
+
+        &-figure {
+          font-size: $heading-lg-size;
+          font-weight: bold;
+          display: block;
+        }
+
+        &-text {
+          margin: 0;
+        }
+
+        // < SM
+        @include media-breakpoint-down(sm) {
+          &:not(:first-child) {
+            margin-top: $vertical-spacing;
+          }
+        }
+      }
+    }
+  }
+
+  // HOME: APPS
+  /********************/
+  &--apps {
+    background: $color-grey-light-6;
+
+    .home-apps {
+      &__img {
+        position: absolute;
+        max-height: 90%;
+        bottom: 0;
+        right: 10%;
+      }
+
+      &__header {
+        font-weight: 700;
+        color: $color-heading;
+      }
+
+      &__description {
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+
+      .category-list {
+        min-height: 200px;
+
+        &__item-content {
+          vertical-align: inherit;
+          padding: 0;
+        }
+
+        &__image-wrapper {
+          height: 120px;
+          margin: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        &__item-image {
+          max-height: 100%;
+        }
+
+        &__item-heading {
+          text-align: center;
+          font-size: 1rem;
+          font-weight: bold;
+          padding: 0 15px 0 15px;
+          max-height: 3.7rem;
+          margin-bottom: 15px;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+        }
+      }
+
+      // < LG
+      @include media-breakpoint-down(lg) {
+        &__description {
+          max-width: 100%;
+        }
+      }
+
+      // XS
+      @include media-breakpoint-down(sm) {
+        &__image-wrapper {
+          height: 120px;
+          margin: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          @include visually-hidden;
+        }
+
+        &__header {
+          text-align: center;
+        }
+
+        &__description {
+          max-width: 100%;
+          padding: 0 15px 0 15px;
+        }
+      }
+    }
+  }
+
+  // HOME: NEWS
+  /********************/
+  &--news {
+    .home-news {
+      list-style: none;
+      padding: 0;
+
+      &__item {
+        &:not(:first-child)::after {
+          background: linear-gradient(to top, $color-white, $color-grey-light-5, $color-white);
+          width: 1px;
+          height: 100%;
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+
+      // < LG
+      @include media-breakpoint-down(lg) {
+        &__item {
+          &:not(:first-child) {
+            .home-news__item-heading {
+              border-top: 1px solid $color-grey-light-2;
+              padding-top: 15px;
+              margin-top: 15px;
+            }
+
+            &::after {
+              background: none;
+            }
+          }
+        }
+
+        &__footer {
+          margin-top: 15px;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+// gov.pl related home components
+.bg-gov {
+  &--special-alert {
+    background-color: $color-special-alert;
+    color: $color-black;
+  }
+
+  &--primary {
+    background-color: $color-gov-primary;
+    color: $color-white;
+  }
+
+  :link,
+  :visited {
+    color: inherit;
+  }
+}

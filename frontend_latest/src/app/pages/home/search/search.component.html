@@ -1,0 +1,36 @@
+
+<section class="home-section home-section--search" id="search">
+    <h2 class="visually-hidden">
+        {{ 'Home.Search.Title' | translate }}
+    </h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                    <div class="input-group" role="search">
+
+                        <!-- search field -->
+                        <input type="text" class="form-control input--search"
+                            placeholder="{{ 'Datasets.SearchFor' | translate }}..."
+                            [attr.aria-label]="'Datasets.SearchFor' | translate"
+                            [maxLength]="maxLength"
+                            ngModel name="query">
+
+                        <!-- perform search -->
+                        <span class="input-group-append">
+                            <button class="btn btn--search" type="submit">
+                                <svg class="icon icon-magnifying-glass" role="img" aria-hidden="true">
+                                    <use href="/assets/icomoon/sprite/sprite.svg#icon-magnifying-glass"></use>
+                                </svg>
+                                <span class="visually-hidden">
+                                    {{ 'Action.Search' | translate }}
+                                </span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

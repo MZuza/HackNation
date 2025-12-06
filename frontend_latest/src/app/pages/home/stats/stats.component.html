@@ -1,0 +1,37 @@
+
+<section class="home-section home-section--stats" id="stats">
+    <div class="container vertical-spacing" *ngIf="stats">
+        
+        <h2 class="visually-hidden">
+            {{ 'Home.Stats.Title' | translate }}
+        </h2>
+
+        <ul class="row stats">
+
+            <!-- institutions -->
+            <li class="col-sm-4 stats__item">
+                <span class="stats__item-figure">
+                    {{ stats?.institution?.count }}
+                </span>
+                {{ 'Home.Stats.Institutions' | translate }}
+            </li>
+
+            <!-- resources -->
+            <li class="col-sm-4 stats__item">
+                <span class="stats__item-figure">
+                    {{ stats?.resource?.count }}
+                </span>
+                {{ 'Home.Stats.Resources' | translate }}
+            </li>
+
+            <!-- api number -->
+            <li class="col-sm-4 stats__item">
+                <span class="stats__item-figure">
+                    {{ stats?.api?.doc_count }}
+                </span>
+                {{ 'Home.Stats.ApiNumber' | translate }}
+            </li>
+        </ul>
+    </div>
+</section>
+

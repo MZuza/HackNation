@@ -1,0 +1,64 @@
+@mixin control-label {
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+/*
+    Provides show/hide animation with transition instead of display block/none - from hidden to visible state
+*/
+@mixin visibility {
+  transition: all 0.5s ease;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+@mixin visibility-animated {
+  @include visibility;
+  overflow: hidden;
+
+  &.visibility-animated {
+    max-height: 500px;
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@mixin visibility-animated-custom {
+  @include visibility;
+
+  &.visibility-animated {
+    max-height: 500px;
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@mixin hover() {
+  &:hover { @content; }
+}
+
+@mixin hover-focus() {
+  &:hover,
+  &:focus {
+    @content;
+  }
+}
+
+@mixin plain-hover-focus() {
+  &,
+  &:hover,
+  &:focus {
+    @content;
+  }
+}
+
+@mixin hover-focus-active() {
+  &:hover,
+  &:focus,
+  &:active {
+    @content;
+  }
+}

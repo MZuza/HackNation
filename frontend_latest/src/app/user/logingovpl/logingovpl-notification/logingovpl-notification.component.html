@@ -1,0 +1,72 @@
+<div class="container " *ngIf="logingovplQueryCode">
+  <div class="row" [ngSwitch]="logingovplQueryCode">
+    <div class="col-12 p-md-0">
+      <div [class]="styleClass">
+        <ng-container *ngSwitchCase="LogingovplErrorEnum.LINK_ERROR">
+          <ng-container *ngTemplateOutlet="linkError"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="LogingovplErrorEnum.LINK_SUCCESS">
+          <ng-container *ngTemplateOutlet="linkSuccess"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="LogingovplErrorEnum.UNLINK_ERROR">
+          <ng-container *ngTemplateOutlet="unlinkError"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="LogingovplErrorEnum.UNLINK_SUCCESS">
+          <ng-container *ngTemplateOutlet="unlinkSuccess"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="LogingovplErrorEnum.SWITCH_ERROR">
+          <ng-container *ngTemplateOutlet="switchError"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="LogingovplErrorEnum.LOGIN_ERROR">
+          <ng-container *ngTemplateOutlet="loginError"></ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #linkError>
+  <div [ngClass]="['dashboard-info-container', 'dashboard-info-error', contrastMode]">
+    <div class="font-weight-bold mb-1">
+      {{ 'MyDashboard.Announcements.LinkErrorLine1' | translate }}
+    </div>
+    <div>
+      {{ 'MyDashboard.Announcements.LinkErrorLine2' | translate }}
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #linkSuccess>
+  <div [ngClass]="['dashboard-info-container', 'dashboard-info-success', contrastMode]">
+    {{ 'MyDashboard.Announcements.LinkSuccess' | translate }}
+  </div>
+</ng-template>
+
+<ng-template #unlinkSuccess>
+  <div [ngClass]="['dashboard-info-container', 'dashboard-info-success', contrastMode]">
+    {{ 'MyDashboard.Announcements.UnlinkSuccess' | translate }}
+  </div>
+</ng-template>
+
+<ng-template #unlinkError>
+  <div [ngClass]="['dashboard-info-container', 'dashboard-info-error', contrastMode]">
+    {{ 'MyDashboard.Announcements.UnlinkError' | translate }}
+  </div>
+</ng-template>
+
+<ng-template #switchError>
+  <div [ngClass]="['dashboard-info-container', 'dashboard-info-error', contrastMode]">
+    {{ 'MyDashboard.Announcements.SwitchError' | translate }}
+  </div>
+</ng-template>
+
+<ng-template #loginError>
+  <div [ngClass]="['dashboard-info-container', 'dashboard-info-error', contrastMode]">
+    <div class="font-weight-bold mb-1" innerHTML="{{ 'MyDashboard.Announcements.LoginErrorHeader' | translate }}">
+    </div>
+    <div innerHTML="{{ 'MyDashboard.Announcements.LoginErrorLine1' | translate }}">
+    </div>
+    <div innerHTML="{{ 'MyDashboard.Announcements.LoginErrorLine2' | translate }}">
+    </div>
+  </div>
+</ng-template>

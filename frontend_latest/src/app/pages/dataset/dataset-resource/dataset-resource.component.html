@@ -1,0 +1,487 @@
+<!-- RESOURCE DETAILS -->
+<section class="item-view__body vertical-spacing">
+  <div class="container">
+    <h1 class="heading heading--md" [innerHtml]="resource?.attributes?.title | sanitizeHtml">
+    </h1>
+
+    <!-- description -->
+    <collapsible-text *ngIf="resource?.attributes?.description" [text]="resource.attributes.description" [isCollapsedDown]="true">
+    </collapsible-text>
+
+    <!-- OPENNESS SCORE and DATEs -->
+    <ul class="list-unstyled">
+      <li>
+        <strong> {{ 'Attribute.OpennessScore' | translate }}: </strong>
+
+        <!-- star rating -->
+        <app-star-rating [rating]="+resource?.attributes?.openness_score"></app-star-rating>
+
+        <span class="visually-hidden">
+          {{ resource?.attributes?.openness_score }}
+        </span>
+      </li>
+
+      <!--dynamic data-->
+      <li *ngIf="resource?.attributes?.has_dynamic_data">
+        <strong> {{ 'Attribute.DynamicData' | translate }}: </strong>
+        <img ngSrc="assets/icomoon/SVG/ic-dane-dynamiczne.svg" alt="" class="mr-1" height="24" width="24"/>{{ 'Yes' | translate }}
+      </li>
+
+      <!--high value data-->
+      <li *ngIf="resource?.attributes?.has_high_value_data">
+        <strong> {{ 'Attribute.HighValueData' | translate }}: </strong>
+        <img ngSrc="assets/icomoon/SVG/high-value-data.svg" alt="" class="mr-1" height="20" width="20"/>{{ 'Yes' | translate }}
+      </li>
+
+      <!--high value data-->
+      <li *ngIf="resource?.attributes?.has_high_value_data_from_ec_list">
+        <strong> {{ 'Attribute.HighValueDataFromEC' | translate }}: </strong>
+        <img src="assets/icomoon/SVG/high-value-data-from-ec.svg" alt="" class="mr-1" />{{ 'Yes' | translate }}
+      </li>
+
+      <!--high value data-->
+      <li *ngIf="resource?.attributes?.has_high_value_data_from_ec_list">
+        <strong> {{ 'Attribute.HighValueDataFromEC' | translate }}: </strong>
+        <img src="assets/icomoon/SVG/high-value-data-from-ec.svg" alt="" class="mr-1" />{{ 'Yes' | translate }}
+      </li>
+
+      <!--research data-->
+      <li *ngIf="resource?.attributes?.has_research_data">
+        <strong> {{ 'Attribute.ResearchData' | translate }}: </strong>
+        <img ngSrc="assets/icomoon/SVG/ic-research-data.svg" alt="" class="mr-1" height="24" width="24"/>{{ 'Yes' | translate }}
+      </li>
+
+      <!--protected dga data-->
+      <li *ngIf="resource?.attributes?.contains_protected_data">
+        <strong> {{ 'Attribute.ContainsProtectedData' | translate }}: </strong>
+        <img ngSrc="assets/icomoon/SVG/key.svg" alt="" class="mr-1" height="20" width="20"/>{{ 'Yes' | translate }}
+      </li>
+
+      <!-- dates info -->
+      <li>
+        <strong> {{ 'Attribute.AvailabilityDate' | translate }}: </strong>
+        {{ resource?.attributes?.created | translateDateFormat | async }}
+      </li>
+      <!-- additional dates info for harvested resources -->
+      <ng-container *ngIf="relatedDataset?.attributes.source?.type === 'ckan'">
+        <li *ngIf="relatedDataset.attributes.source?.update_frequency">
+          <strong> {{ 'Attribute.HarvesterUpdateFrequency' | translate }}: </strong>
+          {{ relatedDataset.attributes.source?.update_frequency }}
+        </li>
+        <li *ngIf="relatedDataset.attributes.source?.last_import_timestamp">
+          <strong> {{ 'Attribute.LastImportDate' | translate }}: </strong>
+          {{ relatedDataset.attributes.source?.last_import_timestamp | translateDateFormat | async }}
+        </li>
+      </ng-container>
+
+      <!-- visible only for non harvested dataset -->
+      <li *ngIf="relatedDataset?.attributes.source?.type !== 'ckan'">
+        <strong> {{ 'Attribute.DataDate' | translate }}: </strong>
+        {{ resource?.attributes?.data_date | translateDateFormat: 'D MMMM YYYY' | async }}
+      </li>
+
+      <li *ngIf="resource?.attributes?.media_type">
+        <strong> {{ 'Attribute.ResourceType' | translate }}: </strong>
+        {{ 'TypesFilters.' + (resource.attributes.media_type | titlecase) | translate | lowercase }}
+      </li>
+
+      <li *ngIf="resource?.attributes?.language">
+        <strong> {{ 'Attribute.Language' | translate }}: </strong>
+        {{ 'TypesFilters.' + resource.attributes.language | translate | lowercase }}
+      </li>
+
+      <!-- special_signs -->
+      <li *ngIf="resource?.attributes?.special_signs?.length">
+        <strong> {{ 'Resources.SpecialSigns' | translate }}: </strong>
+
+        <!-- toggle special_signs -->
+        <button
+          class="btn btn-link py-0"
+          [attr.aria-controls]="isSpecialSignsExpanded ? 'special-signs-container' : null"
+          [attr.aria-pressed]="isSpecialSignsExpanded"
+          (click)="isSpecialSignsExpanded = !isSpecialSignsExpanded"
+        >
+          {{ (isSpecialSignsExpanded ? 'Action.Collapse' : 'Action.Expand') | translate }}
+          <span class="visually-hidden">
+            {{ 'Resources.SpecialSigns' | translate }}
+          </span>
+        </button>
+
+        <!-- special_signs list -->
+        <div *ngIf="isSpecialSignsExpanded" @toggleVertically id="special-signs-container">
+          <ul class="list-unstyled">
+            <li *ngFor="let item of resource?.attributes?.special_signs">
+              {{ item.symbol }}
+              ({{ item.name }})
+              <span class="d-inline-block px-1">-</span>
+              {{ item.description }}
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+
+    <!-- related dataset's restrictions -->
+    <div>
+      <hr />
+      <strong> {{ 'DatasetRestrictions.Self' | translate }}: </strong>
+      <app-dataset-restrictions [dataset]="relatedDataset" [isCollapsible]="true" [isForDataset]="false"></app-dataset-restrictions>
+    </div>
+
+    <!-- regions -->
+    <div *ngIf="regionsList.length > 0 && isNotRegionPoland">
+      <hr />
+      <strong
+        appInfoTooltip="{{ 'Tour.Tooltip.Filters.Attribute.Region.text' | translate }}"
+        tooltipTitle="{{ 'Tour.Tooltip.Filters.Attribute.Region.title' | translate }}"
+        >{{ 'Attribute.Region' | translate }}:
+      </strong>
+      <button
+        class="btn btn-link py-0"
+        [attr.aria-controls]="isRegionsExpanded ? 'regions-container' : null"
+        [attr.aria-pressed]="isRegionsExpanded"
+        (click)="isRegionsExpanded = !isRegionsExpanded"
+      >
+        {{ (isRegionsExpanded ? 'Action.Collapse' : 'Action.Expand') | translate }}
+      </button>
+      <div *ngIf="isRegionsExpanded" @toggleVertically class="pt-3" id="regions-container">
+        <ul class="list-unstyled">
+          <li *ngFor="let region of regionsList; let last = last" class="region-list-item d-inline-flex">
+            <span>{{ region.hierarchy_label }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!--Supporting documents-->
+    <div *ngIf="resource.attributes.supplements.length > 0">
+      <hr />
+      <strong
+        appInfoTooltip="{{ 'Tour.Tooltip.DatasetItem.Supplements.text' | translate }}"
+        tooltipTitle="{{ 'Tour.Tooltip.DatasetItem.Supplements.title' | translate }}"
+        >{{ 'Attribute.Supplements' | translate }}:
+      </strong>
+      <button
+        class="btn btn-link py-0"
+        [attr.aria-controls]="isSupplementExpanded ? 'supplements-container' : null"
+        [attr.aria-pressed]="isSupplementExpanded"
+        (click)="isSupplementExpanded = !isSupplementExpanded"
+      >
+        {{ (isSupplementExpanded ? 'Action.Collapse' : 'Action.Expand') | translate }}
+      </button>
+      <div *ngIf="isSupplementExpanded" @toggleVertically class="pt-3" id="supplements-container">
+        <ul class="list-unstyled">
+          <li *ngFor="let supplement of resource.attributes.supplements" class="d-inline-flex mr-5">
+            <span class="visually-hidden">{{ 'Action.Download' | translate }}</span>
+            <a href="{{ supplement.file_url }}">{{ supplement.name }} ({{ supplement.file_size }}) ({{ supplement.language }}) >></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+
+    <!-- api notofications -->
+    <app-notifications></app-notifications>
+  </div>
+
+  <!-- RESOURCE ACTIONS -->
+  <div class="item-view__actions">
+    <div class="container">
+      <div class="d-flex flex-column flex-lg-row align-items-start">
+        <div class="d-flex flex-column">
+          <div class="d-flex align-items-center flex-wrap">
+            <!-- see api -->
+            <a
+              class="btn btn-primary btn-sm pr-1"
+              target="_blank"
+              href="{{ resource?.attributes?.link }}"
+              *ngIf="resource?.attributes?.media_type === 'api' && resource?.attributes?.link"
+            >
+              {{ 'Action.GoTo' | translate | uppercase }} API
+              <span class="visually-hidden">
+                {{ 'SkipTo.NewWindow' | translate }}
+              </span>
+            </a>
+
+            <!-- see website -->
+            <a
+              class="btn btn-primary btn-sm pr-1"
+              target="_blank"
+              href="{{ resource?.attributes?.link }}"
+              *ngIf="resource?.attributes?.media_type === 'website' && resource?.attributes?.link"
+            >
+              {{ 'Action.GoToSource' | translate | uppercase }}
+
+              <span class="visually-hidden">
+                {{ 'SkipTo.NewWindow' | translate }}
+              </span>
+            </a>
+
+            <!-- download file -->
+            <ng-container *ngIf="resource?.attributes?.media_type === 'file'">
+              <div class="d-flex" *ngIf="downloadFilesList.length > 0; else noFiles">
+                <span class="font-weight-bold" style="min-width: 85px"> {{ 'Action.Download' | translate }}: </span>
+                <!-- download file -->
+                <div *ngFor="let dataFiles of downloadFilesList">
+                  <app-download-link
+                    [fileSize]="dataFiles.file_size"
+                    [fileUrl]="dataFiles.download_url"
+                    [format]="dataFiles.format"
+                    [title]="resource.attributes.title"
+                    [customCssClass]="'btn btn-primary btn-sm mb-1 mr-1'"
+                    [opennessScore]="dataFiles.openness_score"
+                    (click)="downloadResource(resource.attributes.title, dataFiles.download_url)"
+                  >
+                  </app-download-link>
+                </div>
+              </div>
+
+              <ng-template #noFiles>
+                <a class="btn btn-primary btn-sm pr-1" target="_blank" href="{{ resource?.attributes?.link }}">
+                  {{ 'Action.GoToSource' | translate | uppercase }}
+
+                  <span class="visually-hidden">
+                    {{ 'SkipTo.NewWindow' | translate }}
+                  </span>
+                </a>
+              </ng-template>
+            </ng-container>
+          </div>
+
+          <!-- See tabular data JSON -->
+          <div class="d-flex align-items-center" *ngIf="hasTabularData">
+            <span class="font-weight-bold" style="min-width: 85px"> {{ 'Action.See' | translate }}: </span>
+
+            <a class="btn btn-outline-primary btn-sm" target="_blank" [href]="selfApi + '/data'">
+              JSON
+              <span class="visually-hidden">
+                {{ 'SkipTo.NewWindow' | translate }}
+              </span>
+              <svg class="icon icon-chevrons-right" role="img" aria-hidden="true">
+                <use href="/assets/icomoon/sprite/sprite.svg#icon-chevrons-right"></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- other actions -->
+        <span class="d-flex flex-column flex-lg-row align-items-start mt-1 mt-lg-0 ml-0 ml-lg-1 ml-lg-auto">
+          <!-- feedback -->
+          <button class="btn btn-danger btn-sm mb-1 mb-lg-0 ml-0 ml-lg-1" (click)="openFeedbackModal(modalTemplate)">
+            {{ 'Resources.SendFeedback' | translate }}
+            <span class="visually-hidden">
+              {{ resource.attributes.title }}
+            </span>
+            <svg class="icon icon-chevrons-right" role="img" aria-hidden="true">
+              <use href="/assets/icomoon/sprite/sprite.svg#icon-chevrons-right"></use>
+            </svg>
+          </button>
+
+          <!-- //TODO embed on your page -->
+          <button class="btn btn-primary btn-sm mb-1 mb-lg-0 ml-0 ml-lg-1" (click)="openModal(embedModalTemplate)" *ngIf="hasTabularData">
+            {{ 'Embed.Self' | translate | uppercase }}
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEPARATED SEARCH and FILTERS -->
+  <div class="container mb-5" *ngIf="resource.attributes.visualization_types?.length && (hasTabularData || hasChart || hasGeoData)">
+    <app-resource-filters></app-resource-filters>
+  </div>
+
+  <!-- No Table -->
+  <div class="container pb-3" *ngIf="!resource.attributes.visualization_types?.length">
+    <p class="alert alert-info">
+      {{ 'Resources.NoTableView' | translate }}
+    </p>
+  </div>
+
+  <!-- TABS -->
+  <div class="container" *ngIf="this.resource.attributes?.visualization_types?.length">
+    <div class="tabs">
+      <ul class="tab-list row no-gutters" role="tablist">
+        <!-- Table View -->
+        <li class="tab-list__item col-12 col-md-4" role="presentation">
+          <a
+            class="tab-list__link"
+            role="tab"
+            id="tab1"
+            appInfoTooltip="{{ 'Tour.Tooltip.DataResource.Table.text' | translate }}"
+            tooltipTitle="{{ 'Tour.Tooltip.DataResource.Table.title' | translate }}"
+            withoutMargin
+            [routerLink]="['table']"
+            #tabLinkTableView="routerLinkActive"
+            [attr.aria-selected]="tabLinkTableView.isActive ? true : null"
+            routerLinkActive="tab-list__link--active"
+          >
+            {{ 'Resources.TableView' | translate }}
+          </a>
+        </li>
+
+        <!-- Chart View -->
+        <li class="tab-list__item col-12 col-md-4" role="presentation" *ngIf="hasChart && !isChartTabHidden">
+          <a
+            class="tab-list__link"
+            role="tab"
+            id="tab2"
+            appInfoTooltip="{{ 'Tour.Tooltip.DataResource.Chart.text' | translate }}"
+            tooltipTitle="{{ 'Tour.Tooltip.DataResource.Chart.title' | translate }}"
+            withoutMargin
+            [routerLink]="['chart']"
+            #tabLinkChartView="routerLinkActive"
+            [attr.aria-selected]="tabLinkChartView.isActive ? true : null"
+            routerLinkActive="tab-list__link--active"
+          >
+            {{ 'Resources.ChartView' | translate }}
+          </a>
+        </li>
+
+        <!-- Map View -->
+        <li class="tab-list__item col-12 col-md-4" role="presentation" *ngIf="hasGeoData">
+          <a
+            class="tab-list__link"
+            role="tab"
+            id="tab3"
+            appInfoTooltip="{{ 'Tour.Tooltip.DataResource.Map.text' | translate }}"
+            tooltipTitle="{{ 'Tour.Tooltip.DataResource.Map.title' | translate }}"
+            withoutMargin
+            [routerLink]="['map']"
+            #tabLinkMapView="routerLinkActive"
+            [attr.aria-selected]="tabLinkMapView.isActive ? true : null"
+            routerLinkActive="tab-list__link--active"
+          >
+            {{ 'Resources.MapView' | translate }}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tabs-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <!-- current page api -->
+  <div class="container">
+    <div class="mt-3">
+      <app-api-source-link [apiUrl]="selfApi"></app-api-source-link>
+    </div>
+  </div>
+
+  <!-- Related resources -->
+  <div class="container mt-3">
+    <header class="results-header" *ngIf="relatedResources.length > 0">
+      <div class="heading heading--sm heading--separator">
+        {{ 'Resources.RelatedResources' | translate }}
+      </div>
+    </header>
+    <div class="results-section">
+      <app-dataset-results [items]="relatedResources"></app-dataset-results>
+    </div>
+  </div>
+</section>
+
+<!-- Embed on your page Modal -->
+<ng-template #embedModalTemplate>
+  <div class="modal-header">
+    <h2 class="modal-title pull-left">
+      {{ 'Embed.Self' | translate }}
+    </h2>
+    <button type="button" class="btn-close pull-right" (click)="modal.hide()">
+      <span class="visually-hidden">
+        {{ 'Action.Close' | translate }}
+      </span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <p role="alert">
+      {{ 'Embed.Description' | translate }}
+    </p>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label class="control-label" for="width">
+            {{ 'Embed.Width' | translate }}
+          </label>
+          <input id="width" type="text" name="width" class="form-control" [(ngModel)]="frameWidth" />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label class="control-label" for="height">
+            {{ 'Embed.Height' | translate }}
+          </label>
+          <input id="height" type="text" name="height" class="form-control" [(ngModel)]="frameHeight" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <label class="control-label" for="code">
+          {{ 'Embed.Code' | translate }}
+        </label>
+        <textarea id="code" name="code" rows="3" (focus)="selectTarget($event)" (click)="selectTarget($event)" class="form-control">
+&lt;iframe width=&quot;{{ frameWidth }}&quot; height=&quot;{{ frameHeight }}&quot; src=&quot;{{
+            frameUrl
+          }}&quot; frameBorder=&quot;0&quot;&gt;&lt;/iframe&gt;</textarea
+        >
+      </div>
+    </div>
+
+    <p class="text-right m-0 pt-2">
+      <a target="_blank" [routerLink]="['/' | localize, 'embed', 'resource', resource?.id]">
+        <span class="visually-hidden">
+          {{ resource?.attributes?.title }}
+        </span>
+        {{ 'Action.OpenInNewWindow' | translate }}
+      </a>
+    </p>
+  </div>
+</ng-template>
+
+<!-- FEEDBACK MODAL TEMPLATE -->
+<ng-template #feedbackModalTemplate>
+  <div app-focus-trap>
+    <!-- FEEDBACK MODAL HEADER -->
+    <div class="modal-header">
+      <h1 class="modal-title pull-left">
+        {{ 'Resources.SendFeedback' | translate }}
+        <span class="visually-hidden">
+          {{ resource.attributes.title }}
+        </span>
+      </h1>
+
+      <!-- close modal -->
+      <button type="button" id="header-close" class="btn-close pull-right focus-trap-first" (click)="feedbackModalRef.hide()">
+        <span class="visually-hidden">
+          {{ 'Action.Close' | translate }}
+          {{ 'Modal' | translate | lowercase }}
+          "{{ 'Resources.SendFeedback' | translate }}"
+        </span>
+      </button>
+    </div>
+
+    <!-- FEEDBACK MODAL BODY -->
+    <div class="modal-body">
+      <app-feedback-form [model]="apiModel.RESOURCE" [id]="resource.id"></app-feedback-form>
+    </div>
+
+    <!-- feedback modal footer -->
+    <div class="modal-footer">
+      <div class="text-right">
+        <button type="button" id="footer-close" class="btn btn-outline-primary focus-trap-last" (click)="onFeedbackModalClose()">
+          {{ 'Action.Close' | translate }}
+          <span class="visually-hidden">
+            {{ 'Modal' | translate | lowercase }}
+            "{{ 'Resources.SendFeedback' | translate }}"
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,67 @@
+
+.resource-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    &__heading {
+        font-weight: bold;
+        margin-bottom: 30px;
+        word-wrap: break-word;
+        color: $color-heading;
+
+        .icon {
+            height: 1rem;
+            width: 1rem;
+            fill: currentColor;
+            vertical-align: middle;
+        }
+    }
+
+
+    &__item {
+        padding-top: calc($vertical-spacing/2);
+        padding-bottom: calc($vertical-spacing/2);
+
+        &:not(:last-child) {
+            border-bottom: 1px solid $color-grey-light-2;
+        }
+
+        &-heading {
+            font-weight: bold;
+            word-break: break-word;
+            color: $color-heading;
+        }
+
+        &-action {
+            margin-left: 15px;
+        }
+
+        &-attributes {
+            display: flex;
+            justify-content: space-between;
+
+            @include media-breakpoint-down(lg) {
+                flex-direction: column;
+            }
+        }
+
+        &-data,
+        &-links { // see, download resource
+            display: flex;
+            justify-content: space-between;
+
+            :first-child {
+                margin-right: 1rem;
+            }
+
+            @include media-breakpoint-down(xl) {
+                flex-direction: column;
+
+                :first-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}

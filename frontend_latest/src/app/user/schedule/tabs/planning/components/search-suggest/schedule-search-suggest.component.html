@@ -1,0 +1,53 @@
+<div [attr.aria-expanded]="isListBoxExpanded"
+     aria-haspopup="listbox"
+     [attr.aria-owns]="isListBoxExpanded ? 'search-suggest-listbox-' + generatedId : null"
+     class="search-suggest__combobox"
+     role="combobox">
+    <p class="mb-0">{{searchText}}</p>
+    <button #buttonRef
+            (keydown.enter)="onSearch()"
+            (click)="onSearch()"
+            class="btn btn-link font-weight-bold p-0">Sprawdź
+    </button>
+    
+    <!-- suggestion list -->
+    <ng-template #templatePortalContent>
+        <ul #q (keydown)="onKeydown($event)" *ngIf="apiModels?.length"
+            cdkTrapFocus
+            class="search-suggest__listbox--schedule search-suggest__listbox m-0"
+            id="search-suggest-listbox-{{generatedId}}"
+            role="listbox"
+            tabindex="0">
+
+            <!-- suggestion list item -->
+            <li (click)="onActiveSuggestionClick()" (mouseenter)="activeSuggestionIndex = i"
+                (mouseleave)="activeSuggestionIndex = notSelectedSuggestionIndex"
+                *ngFor="let option of listBoxOptions; let i = index;"
+                [attr.aria-selected]="i === activeSuggestionIndex"
+                [ngClass]="{'active': i === activeSuggestionIndex}"
+                class="search-suggest__listbox-item"
+                id="search-suggest-listbox-item-{{i}}"
+                role="option">
+
+                <!-- title -->
+                <span class="search-suggest__listbox-title">
+                <span class="visually-hidden">
+                    {{ 'GoTo' | translate }}
+                </span>
+                    {{ option.title }}
+            </span>
+            </li>
+
+            <!-- suggestion empty list item -->
+            <li *ngIf="listBoxOptions.length === 0"
+                class="search-suggest__listbox-item"
+                role="option">
+
+                <!-- title -->
+                <span class="search-suggest__listbox-title">
+                Brak wyników
+            </span>
+            </li>
+        </ul>
+    </ng-template>
+</div>

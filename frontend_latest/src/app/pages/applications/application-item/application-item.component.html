@@ -1,0 +1,287 @@
+<article class="item-view">
+  <!-- DETAILS: HEADER -->
+  <header class="item-view__header vertical-spacing">
+    <div class="container">
+      <h1 class="heading">
+        {{ application?.attributes.title }}
+      </h1>
+
+      <!-- category -->
+      <p>
+        <strong class="mr-2">{{ 'Attribute.Category' | translate }}:</strong>
+        <img class="mr-2" [src]="'assets/icomoon/SVG/' + categoryIcon + '.svg'" alt="" />
+        {{ categoryName }}
+      </p>
+
+      <button class="btn btn-link btn-sm pl-0 font-weight-bold" (click)="toggleDetails = !toggleDetails">
+        {{ toggleDetails ? ('Applications.HideDetails' | translate) : ('Applications.ShowDetails' | translate) }}
+      </button>
+
+      <!-- Show/Hide details -->
+      <div *ngIf="toggleDetails" @toggleVertically>
+        <!-- created -->
+        <p class="item-view__attribute">
+          <strong>{{ 'Attribute.AvailabilityDate' | translate }}</strong
+          >:
+          {{ application?.attributes.created | translateDateFormat | async }}
+        </p>
+
+        <!-- modified -->
+        <p class="item-view__attribute">
+          <strong>{{ 'Attribute.ModificationDate' | translate }}</strong
+          >:
+          {{ application?.attributes.modified | translateDateFormat | async }}
+        </p>
+
+        <!-- author -->
+        <p class="item-view__attribute" *ngIf="application?.attributes.author">
+          <strong>{{ 'Attribute.Author' | translate }}</strong
+          >:
+          {{ application?.attributes.author }}
+        </p>
+        <!-- Licence type name -->
+        <p class="item-view__attribute" *ngIf="application?.attributes.license_type_name">
+          <strong>{{ 'Attribute.LicenceType' | translate }}</strong
+          >:
+          {{ application?.attributes.license_type_name }}
+        </p>
+      </div>
+
+      <hr />
+
+      <p class="font-weight-bold">{{ 'Attribute.UsefulLinks' | translate }}:</p>
+      <!-- application link -->
+      <div
+        class="d-flex"
+        appInfoTooltip="{{
+          'Tour.Tooltip.InnovationDetails.Link.text' | translate: { param1: categoryNameForTooltip, param2: categoryNameForTooltipPlural }
+        }}"
+        tooltipTitle="{{
+          application.attributes.category === 'app'
+            ? ('Tour.Tooltip.InnovationDetails.Link.title' | translate)
+            : ('Tour.Tooltip.InnovationDetails.LinkNoApp.title' | translate)
+        }}"
+        withoutMargin
+      >
+        <p class="item-view__attribute">
+          <span class="font-weight-bold">{{ 'Attribute.Page' | translate }}:</span>
+          <a class="with-chevron" href="{{ application.attributes.url }}" target="_blank" *ngIf="application?.attributes.url">
+            {{ application.attributes.category === 'app' ? ('Applications.Link' | translate) : ('Applications.LinkNoApp' | translate) }}
+
+            <span class="visually-hidden">
+              {{ application?.attributes.title }}
+              {{ 'SkipTo.NewWindow' | translate }}
+            </span>
+            <svg class="icon icon-chevrons-right" role="img" aria-hidden="true">
+              <use href="/assets/icomoon/sprite/sprite.svg#icon-chevrons-right"></use>
+            </svg>
+          </a>
+        </p>
+        <div class="ml-3"></div>
+      </div>
+
+      <!-- mobile application -->
+      <div class="d-flex mt-2" *ngIf="application?.attributes.is_mobile_app">
+        <p class="item-view__attribute item-view__attribute-app">
+          <span class="font-weight-bold mr-1">{{ 'ApplicationForm.MobileType' | translate }}:</span>
+          <a
+            class="btn btn-outline-primary btn-sm pr-3 pl-3 mr-3"
+            href="{{ application.attributes.mobile_apple_url }}"
+            target="_blank"
+            *ngIf="application?.attributes.mobile_apple_url"
+          >
+            <img class="mr-2" src="assets/icomoon/SVG/ic-apple.svg" alt="" />
+            <span class="mr-1">{{ 'Attribute.GoTo' | translate }}</span>
+            <span>{{ 'Attribute.AppStore' | translate }}</span>
+
+            <span class="visually-hidden">
+              {{ application?.attributes.title }}
+              {{ 'SkipTo.NewWindow' | translate }}
+            </span>
+          </a>
+          <a
+            class="btn btn-outline-primary btn-sm pr-3 pl-3"
+            href="{{ application.attributes.mobile_google_url }}"
+            target="_blank"
+            *ngIf="application?.attributes.mobile_google_url"
+          >
+            <img class="mr-2" src="assets/icomoon/SVG/ic-android.svg" alt="" />
+            <span class="mr-1">{{ 'Attribute.GoTo' | translate }}</span>
+            <span>{{ 'Attribute.GooglePlay' | translate }}</span>
+
+            <span class="visually-hidden">
+              {{ application?.attributes.title }}
+              {{ 'SkipTo.NewWindow' | translate }}
+            </span>
+          </a>
+        </p>
+      </div>
+
+      <!-- desktop application -->
+      <div class="d-flex mt-2" *ngIf="application?.attributes.is_desktop_app">
+        <p class="item-view__attribute item-view__attribute-app">
+          <span class="font-weight-bold mr-1">{{ 'ApplicationForm.DesktopType' | translate }}:</span>
+          <a
+            class="btn btn-outline-primary btn-sm pr-3 pl-3 mr-3"
+            href="{{ application.attributes.desktop_macos_url }}"
+            target="_blank"
+            *ngIf="application?.attributes.desktop_macos_url"
+          >
+            <img class="mr-2" src="assets/icomoon/SVG/ic-apple.svg" alt="" />
+            <span class="mr-1">{{ 'Attribute.GoTo' | translate }}</span>
+            <span>{{ 'Attribute.IosStore' | translate }}</span>
+
+            <span class="visually-hidden">
+              {{ application?.attributes.title }}
+              {{ 'SkipTo.NewWindow' | translate }}
+            </span>
+          </a>
+          <a
+            class="btn btn-outline-primary btn-sm pr-3 pl-3 mr-3"
+            href="{{ application.attributes.desktop_linux_url }}"
+            target="_blank"
+            *ngIf="application?.attributes.desktop_linux_url"
+          >
+            <img class="mr-2" src="assets/icomoon/SVG/ic-linux.svg" alt="" />
+            <span class="mr-1">{{ 'Attribute.GoTo' | translate }}</span>
+            <span>{{ 'Attribute.LinuxStore' | translate }}</span>
+
+            <span class="visually-hidden">
+              {{ application?.attributes.title }}
+              {{ 'SkipTo.NewWindow' | translate }}
+            </span>
+          </a>
+          <a
+            class="btn btn-outline-primary btn-sm pr-3 pl-3"
+            href="{{ application.attributes.desktop_windows_url }}"
+            target="_blank"
+            *ngIf="application?.attributes.desktop_windows_url"
+          >
+            <img class="mr-2" src="assets/icomoon/SVG/ic-windows.svg" alt="" />
+            <span class="mr-1">{{ 'Attribute.GoTo' | translate }}</span>
+            <span>{{ 'Attribute.WindowsStore' | translate }}</span>
+
+            <span class="visually-hidden">
+              {{ application?.attributes.title }}
+              {{ 'SkipTo.NewWindow' | translate }}
+            </span>
+          </a>
+        </p>
+      </div>
+      <hr />
+
+      <!-- keywords -->
+      <p class="item-view__attribute" *ngIf="application?.attributes.keywords?.length">
+        <app-keywords [tags]="application?.attributes.keywords"></app-keywords>
+      </p>
+    </div>
+  </header>
+
+  <!-- DETAILS: BODY -->
+  <section class="item-view__body vertical-spacing">
+    <div class="container clearfix">
+      <!-- api notifications -->
+      <app-notifications></app-notifications>
+
+      <h2 class="heading heading--md">
+        {{ 'Applications.Description' | translate }}
+      </h2>
+
+      <div class="d-flex item-view__body-content">
+        <!-- illustrative graphics -->
+        <div *ngIf="application?.attributes.illustrative_graphics_url" class="mr-4 mw-50">
+          <img
+            src="{{ application?.attributes.illustrative_graphics_url }}"
+            alt="{{ application?.attributes.illustrative_graphics_alt ? application?.attributes.illustrative_graphics_alt : '' }}"
+          />
+        </div>
+
+        <!-- notes -->
+        <div
+          [innerHTML]="application?.attributes.notes | sanitizeHtml"
+          [ngClass]="application?.attributes.illustrative_graphics_url ? 'mw-50' : 'mw-100'"
+        ></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED DATASETS -->
+  <section class="results-section vertical-spacing" *ngIf="items && items.length">
+    <div class="container">
+      <header class="results-header">
+        <div
+          class="heading heading--sm heading--separator"
+          appInfoTooltip="{{
+            'Tour.Tooltip.InnovationDetails.RelatedDatasets.text' | translate: { param: categoryNameForTooltipPluralDataset }
+          }}"
+          tooltipTitle="{{ 'Tour.Tooltip.InnovationDetails.RelatedDatasets.title' | translate }}"
+        >
+          {{ 'Institutions.RelatedDatasets' | translate }}
+          <small>({{ count || 0 }})</small>
+        </div>
+        <!-- sort order -->
+        <div class="d-md-inline-flex align-items-center pt-2 pb-2 pb-md-0">
+          <span class="dropdown-label pr-2" id="sortby-label">
+            {{ 'Sort.By' | translate }}:
+            <span class="visually-hidden"> ({{ 'Search.AutoContentReload' | translate }}) </span>
+          </span>
+
+          <select class="form-select sort-order" (change)="updateParams({ sort: getValue($event) })" aria-labelledby="sortby-label">
+            <option [ngValue]="null" *ngIf="!isSortValid">
+              {{ 'Action.Choose' | translate }}
+            </option>
+            <option *ngFor="let item of sortOptions" [value]="item.value" [selected]="params?.sort === item.value">
+              {{ item.labelTranslationKey | translate }}
+            </option>
+          </select>
+        </div>
+      </header>
+
+      <!-- RESULT LIST -->
+      <app-application-item-results [items]="items"></app-application-item-results>
+
+      <!-- RESULTS FOOTER -->
+      <footer class="results-footer" *ngIf="items && items.length">
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- results per page -->
+          <app-items-per-page [selected]="params?.per_page" (selectedChange)="updateParams({ per_page: $event })"> </app-items-per-page>
+
+          <!-- pagination -->
+          <app-pagination
+            [itemsPerPage]="params.per_page"
+            [totalItems]="count"
+            [(page)]="params.page"
+            (pageChange)="updateParams({ page: $event })"
+          >
+          </app-pagination>
+        </div>
+      </footer>
+
+      <!-- EXTERNAL DATASETS LIST-->
+      <section *ngIf="externalDatasets.length > 0">
+        <div class="mb-2">
+          <strong>{{ 'Institutions.ExternalDatasets' | translate }}</strong>
+        </div>
+        <div *ngFor="let external of externalDatasets">
+          <div class="result-item row">
+            <div class="result-item__left col-lg-8 col-xl-9 col-xxl-10 px-3">
+              <h2 class="heading heading--primary-link heading--sm highlight">
+                <a target="_blank" href="{{ external.url }}"
+                  >{{ external.title }}
+                  <span class="visually-hidden">
+                    {{ 'SkipTo.NewWindow' | translate }}
+                  </span></a
+                >
+              </h2>
+            </div>
+            <div class="result-item__right col-lg-4 col-xl-3 col-xxl-2 px-3">
+              <div class="result-item-promoted__left--promoted-tex-pill">
+                <span class="bg-custom">{{ 'Attribute.ExternalDatasets' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</article>

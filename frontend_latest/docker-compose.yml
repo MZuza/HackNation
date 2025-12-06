@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    ports:
+      - 80:80
+  ssr:
+    build:
+      context: .
+      dockerfile: docker/ssr/Dockerfile
+    ports:
+      - 4000:4000

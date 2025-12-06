@@ -1,0 +1,132 @@
+<ng-container *ngIf="item">
+  <div *ngIf="item.attributes.is_promoted" class="result-item-promoted__left--promoted-tex-pill">
+    <span class="bg-custom">{{ 'Attribute.PromotedData' | translate }}</span>
+  </div>
+  <h2 class="heading heading--primary-link heading--sm highlight result-item-heading">
+    <a
+      [routerLink]="[detailsUrl]"
+      [queryParams]="queryParams ? queryParams : ''"
+      [innerHTML]="
+        item.attributes.abbreviation
+          ? (item.attributes.title + ' (' + item.attributes.abbreviation + ')' | stripHtmlTagsExceptHighlight | sanitizeHtml)
+          : (item.attributes.title | stripHtmlTagsExceptHighlight | sanitizeHtml)
+      "
+    >
+    </a>
+    <svg
+      class="ml-2 result-list-svg"
+      *ngIf="item.attributes.has_high_value_data"
+      appTooltip="{{ 'Tour.Tooltip.DatasetItem.HighValueData.text' | translate }}"
+      title="{{ 'Tour.Tooltip.DatasetItem.HighValueData.title' | translate }}"
+      alt="duza_wartosc_dane"
+      tabindex="0"
+    >
+      <use href="assets/icomoon/SVG/high-value-data.svg#high-value-data"></use>
+    </svg>
+    <svg
+      *ngIf="item.attributes.has_high_value_data_from_ec_list"
+      class="ml-2 result-list-svg"
+      appTooltip="{{ 'Tour.Tooltip.DatasetItem.HighValueDataFromEC.text' | translate }}"
+      title="{{ 'Tour.Tooltip.DatasetItem.HighValueDataFromEC.title' | translate }}"
+      alt="duza_wartosc_dane_ke"
+      tabindex="0"
+    >
+      <use href="assets/icomoon/SVG/high-value-data-from-ec.svg#high-value-data-from-ec"></use>
+    </svg>
+    <svg
+      *ngIf="item.attributes.has_dynamic_data"
+      class="ml-2 result-list-svg result-list-svg__large result-list-svg__dynamic-data"
+      appTooltip="{{ 'Tour.Tooltip.DatasetItem.DynamicData.text' | translate }}"
+      title="{{ 'Tour.Tooltip.DatasetItem.DynamicData.title' | translate }}"
+      alt="dynamiczne_dane"
+      tabindex="0"
+      >
+      <use href="assets/icomoon/SVG/ic-dane-dynamiczne.svg#ic-dane-dynamiczne"></use>
+    </svg>
+    <svg
+      *ngIf="item.attributes.has_research_data"
+      class="ml-2 result-list-svg result-list-svg__large"
+      appTooltip="{{ 'Tour.Tooltip.DatasetItem.ResearchData.text' | translate }}"
+      title="{{ 'Tour.Tooltip.DatasetItem.ResearchData.title' | translate }}"
+      alt="dane_badawcze"
+      tabindex="0"
+    >
+      <use href="assets/icomoon/SVG/ic-research-data.svg#ic-research-data"></use>
+    </svg>
+    <svg
+      *ngIf="item.attributes.contains_protected_data"
+      class="ml-2 result-list-svg"
+      appTooltip="{{ 'Tour.Tooltip.DatasetItem.ProtectedData.text' | translate }}"
+      title="{{ 'Tour.Tooltip.DatasetItem.ProtectedData.title' | translate }}"
+      alt="chronione_dane"
+      tabindex="0"
+    >
+      <use href="assets/icomoon/SVG/key.svg#key"></use>
+    </svg>
+  </h2>
+
+  <!-- notes -->
+  <app-notes *ngIf="showNotes" [notes]="item.attributes.notes"></app-notes>
+
+  <!-- institution (short) -->
+  <ng-container *ngIf="!fromDatasetEndpoint">
+    <div *ngIf="item?.institution?.title">
+      <strong class="pr-1">{{ 'Attribute.InstitutionLong' | translate }}:</strong>
+      <a
+        [routerLink]="['/' | localize, '!institution', item.institution?.id + ',' + item.institution?.slug]"
+        [innerHTML]="item.institution?.title | stripHtmlTagsExceptHighlight | sanitizeHtml"
+      >
+      </a>
+    </div>
+  </ng-container>
+
+  <!-- institution (full name) -->
+  <ng-container *ngIf="fromDatasetEndpoint">
+    <div *ngIf="item.attributes.model === apiModel.DATASET && item?.institution?.title">
+      <strong class="pr-1">{{ 'Attribute.InstitutionLong' | translate }}:</strong>
+      <a
+        [routerLink]="['/' | localize, 'institution', item.institution?.id + ',' + item.institution?.slug]"
+        [innerHTML]="item.institution?.title | stripHtmlTagsExceptHighlight | sanitizeHtml"
+      >
+      </a>
+    </div>
+  </ng-container>
+
+  <!-- datasource -->
+  <div *ngIf="item.attributes.source?.type === 'ckan'" class="pt-1">
+    <strong class="pr-1">{{ 'Attribute.DataSource' | translate }}:</strong>
+    <a href="{{ item.attributes.source?.url }}" target="_blank">
+      <span [innerHTML]="item.attributes.source?.title | stripHtmlTagsExceptHighlight | sanitizeHtml"></span>
+      <span aria-hidden="true">>></span>
+      <span class="visually-hidden">
+        {{ 'SkipTo.NewWindow' | translate }}
+      </span>
+    </a>
+  </div>
+
+  <!-- sources - only one when type is 'ckan' -->
+  <div *ngIf="item.attributes.sources?.length && item.attributes.sources[0].source_type === 'ckan'">
+    <strong> {{ 'Attribute.DataSource' | translate }}: </strong>
+    <a href="{{ item.attributes.sources[0].url }}" target="_blank">
+      {{ item.attributes.sources[0].title | stripHtmlTagsExceptHighlight }}
+
+      <span aria-hidden="true">>></span>
+      <span class="visually-hidden">
+        {{ 'SkipTo.NewWindow' | translate }}
+      </span>
+    </a>
+  </div>
+
+  <!-- applied filters -->
+  <div *ngIf="appliedFiltersNames.length" class="pt-1">
+    <strong class="pr-1">{{ 'Filters.AppliedFilters' | translate }}:</strong>
+    <span *ngFor="let filterName of appliedFiltersNames; let i = index">
+      {{ filterName | translate | lowercase }}<span *ngIf="i < appliedFiltersNames.length - 1">, </span>
+    </span>
+  </div>
+
+  <!-- keywords -->
+  <div *ngIf="item.attributes.keywords?.length">
+    <app-keywords [tags]="item.attributes.keywords"></app-keywords>
+  </div>
+</ng-container>

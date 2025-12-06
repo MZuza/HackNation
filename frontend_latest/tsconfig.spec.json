@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "module": "CommonJs",
+    "types": ["jest"]
+  },
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
+}
+
+//{
+//    "extends": "./tsconfig.json",
+//    "compilerOptions": {
+//        "outDir": "../out-tsc/spec",
+//        "module": "commonjs",
+//        "allowJs": true,
+//        "types": ["jest", "node"],
+//        "esModuleInterop": true,
+//        "emitDecoratorMetadata": true
+//    },
+//    "files": [
+//      "src/polyfills.ts"
+//    ],
+//    "include": [
+//        "**/*.spec.ts",
+//        "**/*.d.ts"
+//    ],
+//    "exclude": [
+//        "**/tests/service.spec.ts"
+//    ]
+//}

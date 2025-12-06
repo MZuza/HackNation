@@ -1,0 +1,104 @@
+<!-- BODY -->
+<div class="vertical-spacing">
+  <div class="container">
+    <div class="collapsible-sidebar-view" [ngClass]="{ 'collapsible-sidebar-view--sidebar-visible': sidebarVisible }">
+      <!-- 1/2 COLUMN: SIDEBAR -->
+      <aside class="collapsible-sidebar-view__sidebar" id="sidebar" appFixedSidebar>
+        <!-- vertical menu -->
+        <ul class="vertical-menu">
+          <li class="vertical-menu__item" routerLinkActive="active">
+            <a [routerLink]="['/', '!user', '!dashboard', '!desktop'] | localize">
+              <svg class="icon icon-mydashboard" aria-hidden="true">
+                <use href="/assets/icomoon/sprite/sprite.svg#icon-mydashboard"></use></svg
+              >{{ 'MyDashboard.Self' | translate }}
+            </a>
+          </li>
+          <li class="vertical-menu__item" routerLinkActive="active">
+            <a [routerLink]="['/', '!user', '!dashboard', '!my'] | localize">
+              <svg class="icon icon-followed-objects" aria-hidden="true">
+                <use href="/assets/icomoon/sprite/sprite.svg#icon-followed-objects"></use></svg
+              >{{ 'MyDashboard.FollowedObjects' | translate }}
+            </a>
+          </li>
+          <li class="vertical-menu__item" routerLinkActive="active">
+            <a [routerLink]="['/' | localize, 'user', 'dashboard', 'stats']">
+              <svg class="icon icon-new-data-proposal" aria-hidden="true">
+                <use href="/assets/icomoon/sprite/sprite.svg#icon-stats"></use></svg
+              >{{ 'MyDashboard.Stats' | translate }}
+            </a>
+          </li>
+          <li class="vertical-menu__item" routerLinkActive="active">
+            <a [routerLink]="['/', '!user', '!dashboard', '!lab'] | localize">
+              <svg class="icon icon-lab-od" aria-hidden="true">
+                <use href="/assets/icomoon/sprite/sprite.svg#icon-lab-od"></use></svg
+              >{{ 'MyDashboard.LodMenu' | translate }}
+            </a>
+          </li>
+          <li *hasPermission="PermissionPerRoles.BROWSE_AOD" class="vertical-menu__item" routerLinkActive="active">
+            <a [routerLink]="['/', '!user', '!dashboard', '!academy'] | localize">
+              <svg class="icon icon-academy-od" aria-hidden="true">
+                <use href="/assets/icomoon/sprite/sprite.svg#icon-academy-od"></use></svg
+              >{{ 'MyDashboard.AodMenu' | translate }}
+            </a>
+          </li>
+          <li *hasPermission="PermissionPerRoles.BROWSE_NEW_DATA_PROPOSAL" class="vertical-menu__item" routerLinkActive="active">
+            <a [routerLink]="['/', '!user', '!dashboard', '!data-proposal'] | localize">
+              <svg class="icon icon-new-data-proposal" aria-hidden="true">
+                <use href="/assets/icomoon/sprite/sprite.svg#icon-new-data-proposal"></use></svg
+              >{{ 'MyDashboard.NewDataProposal' | translate }}
+            </a>
+          </li>
+          <li *hasPermission="PermissionPerRoles.BROWSE_MEETINGS" class="vertical-menu__item" routerLinkActive="active">
+            <a [routerLink]="['/', '!user', '!dashboard', '!meetings'] | localize">
+              <svg class="icon icon-meetings" aria-hidden="true">
+                <use href="/assets/icomoon/sprite/sprite.svg#icon-meetings"></use></svg
+              >{{ 'MyDashboard.ProxiesMeetings' | translate }}
+            </a>
+          </li>
+
+          <!-- schedule -->
+          <li class="vertical-menu__item" routerLinkActive="active" *hasPermission="PermissionPerRoles.SCHEDULE.HAS_ACCESS">
+            <a [routerLink]="['/', '!user', '!dashboard', '!schedule'] | localize">
+              <svg class="icon icon-meetings" aria-hidden="true">
+                <use href="/assets/icomoon/sprite/sprite.svg#icon-schedule"></use></svg
+              >{{ 'MyDashboard.HodMenu' | translate }}
+            </a>
+          </li>
+
+          <!-- forum -->
+          <li class="vertical-menu__item" *hasPermission="PermissionPerRoles.BROWSE_FORUM">
+            <a href="{{ forumUrl }}/session/sso" target="_blank">
+              <svg class="icon icon-forum" aria-hidden="true">
+                <use href="/assets/icomoon/sprite/sprite.svg#icon-forum"></use></svg
+              >{{ 'MyDashboard.Forum' | translate }}
+              <span class="visually-hidden">
+                {{ 'SkipTo.NewWindow' | translate }}
+              </span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- 2/2 COLUMN: BOXES -->
+      <div class="collapsible-sidebar-view__main">
+        <div class="mb-4">
+          <!-- hide/show sidebar -->
+          <button type="button" class="btn btn-outline-primary btn-sm d-none d-xl-inline" (click)="sidebarVisible = !sidebarVisible">
+            <svg class="icon icon-magnifying-glass" *ngIf="sidebarVisible">
+              <use href="/assets/icomoon/sprite/sprite.svg#icon-arrow-left2"></use>
+            </svg>
+
+            {{ (sidebarVisible ? 'Action.Hide' : 'Action.Show') | translate }}
+            {{ 'Menu.Self' | translate | lowercase }}
+
+            <svg class="icon icon-magnifying-glass" *ngIf="!sidebarVisible">
+              <use href="/assets/icomoon/sprite/sprite.svg#icon-arrow-right2"></use>
+            </svg>
+          </button>
+        </div>
+
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

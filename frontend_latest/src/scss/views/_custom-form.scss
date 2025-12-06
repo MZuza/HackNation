@@ -1,0 +1,68 @@
+.custom-form {
+  label:not(.not-bold-label) {
+    @include control-label;
+    margin: 0;
+
+    .icon {
+      width: 32px;
+      height: 32px;
+      fill: $color-blue-light;
+    }
+  }
+
+  input[type='radio'] {
+    & + label {
+      cursor: pointer;
+      font-weight: normal;
+    }
+
+    &:checked + label {
+      cursor: text;
+      font-weight: bold;
+    }
+  }
+
+  .chart-type-radio {
+    opacity: 0;
+    width: 0;
+
+    @mixin label-hover() {
+      background-color: $color-white;
+      border: 1px solid $color-blue-light;
+      padding: 15px;
+    }
+
+    &:focus + label {
+      @include label-hover;
+    }
+
+    &:checked + label {
+      background-color: $color-white;
+      border: 2px solid $color-blue-light;
+      padding: 14px;
+    }
+
+    & + label {
+      display: inline-block;
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1px solid transparent;
+
+      &:hover {
+        @include label-hover;
+      }
+    }
+  }
+
+  .form-group-invalid {
+    label {
+      color: #a91e2c;
+    }
+    .ng-invalid.ng-touched,
+    .input-invalid-empty-text {
+      border-color: #a91e2c;
+    }
+  }
+}

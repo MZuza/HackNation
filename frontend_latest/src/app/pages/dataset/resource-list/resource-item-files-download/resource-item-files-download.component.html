@@ -1,0 +1,63 @@
+<div class="d-flex flex-lg-column small">
+  <div class="font-weight-bold">
+    {{ (item?.attributes?.media_type === 'file' && downloadFilesList.length > 0 ? 'Action.Download' : 'Action.Go') | translate }}:
+  </div>
+
+  <ng-container *ngIf="item.attributes.media_type === 'file'">
+    <div *ngIf="downloadFilesList.length > 0; else noFiles">
+      <!-- download file -->
+      <div *ngFor="let dataFiles of downloadFilesList">
+        <app-download-link
+          [customCssClass]="'underline ml-3 ml-lg-0'"
+          [fileSize]="dataFiles.file_size"
+          [fileUrl]="dataFiles.download_url"
+          [format]="dataFiles.format"
+          [title]="item.attributes.title"
+          (click)="onDownload(item.attributes.title, dataFiles.download_url)"
+        >
+        </app-download-link>
+      </div>
+    </div>
+
+    <ng-template #noFiles>
+      <a class="underline ml-3 ml-lg-0" target="_blank" href="{{ item.attributes.link }}">
+        źródło <span aria-hidden="true">>></span>
+        <span class="visually-hidden">
+          {{ item?.attributes?.title }}
+          {{ 'SkipTo.NewWindow' | translate }}
+        </span>
+      </a>
+    </ng-template>
+  </ng-container>
+
+  <!-- resource api -->
+  <a
+    *ngIf="item.attributes.media_type === 'api' && item.attributes.link"
+    class="underline ml-3 ml-lg-0"
+    target="_blank"
+    href="{{ item.attributes.link }}"
+  >
+    API <span aria-hidden="true">>></span>
+
+    <span class="visually-hidden">
+      {{ item?.attributes?.title }}
+      {{ 'SkipTo.NewWindow' | translate }}
+    </span>
+  </a>
+
+  <!-- resource website -->
+  <a
+    *ngIf="item.attributes.media_type === 'website' && item.attributes.link"
+    class="underline ml-3 ml-lg-0"
+    target="_blank"
+    href="{{ item.attributes.link }}"
+  >
+    {{ 'TypesFilters.Website' | translate }}
+
+    <span aria-hidden="true">>></span>
+    <span class="visually-hidden">
+      {{ item?.attributes?.title }}
+      {{ 'SkipTo.NewWindow' | translate }}
+    </span>
+  </a>
+</div>

@@ -1,0 +1,100 @@
+$prev-icon-black: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+$prev-icon-yellow: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='yellow' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+$prev-icon-white: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+
+$next-icon-black: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+$next-icon-yellow: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='yellow' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+$next-icon-white: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+
+.carousel {
+
+    .black-white,
+    .yellow-black,
+    .black-yellow,
+    .carousel-indicators > li.active{
+        background-color: $hcSecondary;
+        border: 2px solid $hcPrimary;
+    }
+
+    .carousel-indicators,
+    .carousel-indicators > li:before,
+    .carousel-indicators > li:after {
+        background-color: transparent;
+    }
+
+    .carousel-indicators > li {
+        background-color: $hcPrimary;
+        border: 2px solid $hcSecondary;
+    }
+
+    /**
+     * all controls
+     */
+    a.carousel-control-prev:hover,
+    a.carousel-control-next:hover {
+        background-color: $hcPrimary;
+    }
+
+    a.carousel-control-prev:focus,
+    a.carousel-control-next:focus {
+        outline: 2px dotted $hcPrimary;
+    }
+
+    /**
+     * prev control
+     */
+    .prev-icon {
+        &--black-white {
+            background-image: $prev-icon-white
+        }
+
+        &--yellow-black {
+            background-image: $prev-icon-black;
+        }
+
+        &--black-yellow {
+            background-image: $prev-icon-yellow;
+        }
+    }
+
+    a.black-white.carousel-control-prev:hover > .prev-icon--black-white {
+        background-image: $prev-icon-black;
+    }
+
+    a.yellow-black.carousel-control-prev:hover > .prev-icon--yellow-black {
+        background-image: $prev-icon-yellow;
+    }
+
+    a.black-yellow.carousel-control-prev:hover > .prev-icon--black-yellow {
+        background-image: $prev-icon-black;
+    }
+
+    /**
+     * next control
+     */
+    .next-icon {
+        &--black-white {
+            background-image: $next-icon-white;
+        }
+
+        &--yellow-black {
+            background-image: $next-icon-black;
+        }
+
+        &--black-yellow {
+            background-image: $next-icon-yellow;
+        }
+    }
+
+    a.black-white.carousel-control-next:hover > .next-icon--black-white {
+        background-image: $next-icon-black;
+    }
+
+    a.yellow-black.carousel-control-next:hover > .next-icon--yellow-black {
+        background-image: $next-icon-yellow;
+    }
+
+    a.black-yellow.carousel-control-next:hover > .next-icon--black-yellow {
+        background-image: $next-icon-black;
+    }
+}

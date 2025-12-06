@@ -1,0 +1,115 @@
+@media screen and (min-width: 350px) {
+  .institution-delivery-address {
+    .copy-button {
+      position: absolute;
+    }
+  }
+}
+
+@media screen and (min-width: 420px){
+  .institution-clipboard-text {
+    width: max-content;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .institution-clipboard-text {
+    width: 85vw;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .font-size-125, .font-size-150, .font-size-200 {
+    .institution-clipboard-text {
+      left: -40px;
+    }
+  }
+}
+.institution-delivery-address {
+  position: relative;
+  .copy-button {
+    padding: 0 2px;
+    bottom: 1px;
+  }
+  &__adr {
+    white-space: nowrap;
+  }
+  .icon-copy {
+    padding-top: 5px;
+    padding-left: 1px;
+    fill: $color-blue-light;
+  }
+}
+.institution-clipboard-button-img {
+  min-height: 24px;
+  min-width: 24px;
+}
+
+.institution-clipboard-text {
+  border: 1px solid #517f2c;
+  border-radius: 5px;
+  position: absolute;
+  right: 0;
+  align-content: center;
+  background-color: white;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: row;
+  .institution-clipboard-copied-icon {
+    margin-right: 3px;
+    height: 32px;
+    width: 32px;
+    align-self: center;
+  }
+  .institution-clipboard-confirm-icon {
+    fill: #517f2c;
+  }
+  .institution-clipboard-copied-text {
+    align-content: center;
+  }
+  &.black-white, &.black-yellow, &.yellow-black {
+    color: currentColor;
+    border-color: currentColor;
+  }
+  &.black-white, &.black-yellow {
+    background-color: black;
+  }
+  &.yellow-black {
+    background-color: $color-yellow;
+  }
+}
+.btn .icon-copy {
+  stroke: none;
+}
+
+.font-size-200, .font-size-150 {
+  .institution-contact-info-container {
+    margin-top: 10px;
+    min-width: min-content;
+    width: 100%;
+  }
+}
+
+.font-size-125 {
+  .icon-copy {
+    scale: 125%;
+    margin-left: 3px;
+    margin-bottom: 2px;
+  }
+}
+
+.font-size-150 {
+  .icon-copy {
+    scale: 150%;
+    margin-left: 6px;
+    margin-bottom: 4px;
+  }
+}
+
+.font-size-200 {
+  .icon-copy {
+    scale: 200%;
+    margin-left: 12px;
+    margin-bottom: 6px;
+  }
+}

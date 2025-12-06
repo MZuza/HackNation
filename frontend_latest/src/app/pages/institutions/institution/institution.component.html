@@ -1,0 +1,100 @@
+<!-- SEARCH and SUGGESTIONS -->
+<header class="vertical-spacing">
+  <div class="container pb-3">
+    <h1 class="heading">
+      {{ 'Institutions.Self' | translate }}
+    </h1>
+
+    <app-search-suggest
+      tooltipText="{{ 'Tour.Tooltip.Institutions.Search.text' | translate }}"
+      [placeholderTranslationKey]="'Institutions.SearchFor'"
+      [searchQuery]="params.q"
+      [apiModels]="[apiModel.INSTITUTION]"
+      [maxResultsPerModel]="3"
+      [useTriggers]="true"
+      (searchTrigger)="performSearch({ q: $event.q, sort: 'relevance' })"
+      (clearTrigger)="updateParams({ q: '', sort: 'title' })"
+    >
+    </app-search-suggest>
+  </div>
+</header>
+
+<div class="container pb-0 pb-lg-4">
+  <div class="row no-gutters">
+    <aside class="col-lg-4 col-xl-3 bg-custom">
+      <!-- aggregation filters -->
+      <app-institution-list-view-filters
+        [filtersOptions]="filters"
+        [maxLength]="maxLength"
+        [originalSelectedData]="backupSelectedFilters"
+        [data]="selectedFilters"
+        (applyFilters)="updateParams($event, null, true)"
+      >
+      </app-institution-list-view-filters>
+    </aside>
+
+    <div class="col-lg-8 col-xl-9">
+      <div class="ml-0 ml-lg-4">
+        <!-- SEARCH RESULTS -->
+        <div class="results-section">
+          <!-- SELECTED FILTERS -->
+          <app-institution-selected-filters
+            [selectedIds]="backupSelectedFilters"
+            [selectedFiltersCount]="selectedFiltersCount"
+            (clearAllFilters)="clearSelectedFilters()"
+            (clearSingleFilter)="clearSelectedFilter($event)"
+          >
+          </app-institution-selected-filters>
+
+          <!-- counters and sort -->
+          <app-found-results-counters-and-sort
+            *ngIf="count && items?.length"
+            [selected]="params?.sort"
+            (update)="updateParams($event)"
+            [counters]="[{ label: 'Institutions.Self' | translate, count: count }]"
+            [sortOptions]="[
+              { label: 'Sort.Default' | translate, value: 'relevance' },
+              { label: 'Attribute.NameAsc' | translate, value: 'title' },
+              { label: 'Attribute.NameDesc' | translate, value: '-title' }
+            ]"
+          >
+          </app-found-results-counters-and-sort>
+
+          <!-- api notifications -->
+          <app-notifications></app-notifications>
+
+          <!-- RESULTS LIST -->
+          <app-institution-results [items]="items"></app-institution-results>
+
+          <!-- no results found -->
+          <app-no-results-found [q]="params?.q" *ngIf="items && !items.length"></app-no-results-found>
+
+          <!-- RESULTS FOOTER -->
+          <footer class="results-footer pt-5" *ngIf="items && items.length">
+            <div class="d-flex justify-content-between align-items-center">
+              <!-- results per page -->
+              <app-items-per-page [selected]="params?.per_page" (selectedChange)="updateParams({ per_page: $event })"> </app-items-per-page>
+
+              <!-- pagination -->
+              <app-pagination
+                [itemsPerPage]="params.per_page"
+                [totalItems]="count"
+                [(page)]="params.page"
+                (numPages)="numPages = $event"
+                (pageChange)="updateParams({ page: $event })"
+              >
+              </app-pagination>
+            </div>
+
+            <div class="row m-0 pt-4 results-action">
+              <!-- current page api -->
+              <div class="col-sm-12 pl-0 pr-0 col-md-4 results-action__left--xs" *ngIf="items && items.length">
+                <app-api-source-link [apiUrl]="selfApi"></app-api-source-link>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<h2 class="heading heading--sm mt-5">
+    Komentarze
+</h2>
+
+<!-- comment list -->
+<app-schedule-comments-list
+    class="d-block mb-5"
+    [scheduleItemId]="scheduleItemId"
+    [comments]="comments">
+</app-schedule-comments-list>
+
+<!-- add new comment -->
+<app-schedule-comments-form
+    [scheduleItemId]="scheduleItemId" 
+    (entrySaved)="getComments()">
+</app-schedule-comments-form>
