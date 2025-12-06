@@ -48,16 +48,8 @@
     </a>
 
     <span class="govpl__eu-logo-wrapper logo-eu">
-      <img
-        class="govpl__eu-logo contrast-normal"
-        src="assets/eu-logo/eu-center-pl.svg"
-        alt="Logotyp Unii Europejskiej"
-      />
-      <img
-        class="govpl__eu-logo contrast-black-white"
-        src="assets/eu-logo/eu-center-pl-black-white.svg"
-        alt="Logotyp Unii Europejskiej"
-      />
+      <img class="govpl__eu-logo contrast-normal" src="assets/eu-logo/eu-center-pl.svg" alt="Logotyp Unii Europejskiej" />
+      <img class="govpl__eu-logo contrast-black-white" src="assets/eu-logo/eu-center-pl-black-white.svg" alt="Logotyp Unii Europejskiej" />
       <img
         class="govpl__eu-logo contrast-black-yellow"
         src="assets/eu-logo/eu-center-pl-black-yellow.svg"
@@ -238,11 +230,16 @@
 
             <!-- user list-->
             <ng-container *ngIf="user$ | async; let user">
-              <div [ngClass]="[highContrastMode, 'user-related__email-container']" appClickOutside (clickOutside)="clickedOutside()" (click)="checkIfLinkedAccounts(user?.attributes.connected_gov_users)" >
+              <div
+                [ngClass]="[highContrastMode, 'user-related__email-container']"
+                appClickOutside
+                (clickOutside)="clickedOutside()"
+                (click)="checkIfLinkedAccounts(user?.attributes.connected_gov_users)"
+              >
                 <div class="user-related__email" (click)="toggleList()">
-                  <ng-container *ngIf="checkIfLinkedAccounts(user?.attributes.connected_gov_users) else emailWithoutLink">
+                  <ng-container *ngIf="checkIfLinkedAccounts(user?.attributes.connected_gov_users); else emailWithoutLink">
                     <a [routerLink]="[]">{{ user?.attributes.email }}</a>
-                    <ng-container *ngIf="isListOpen else listClosed">
+                    <ng-container *ngIf="isListOpen; else listClosed">
                       <svg class="icon user-related__email-toggle">
                         <use href="/assets/icomoon/SVG/up.svg#up"></use>
                       </svg>
@@ -258,9 +255,7 @@
                   </ng-template>
                 </div>
                 <div [ngClass]="[highContrastMode, 'user-related__email-list']" *ngIf="isListOpen">
-                  <div [ngClass]="[highContrastMode, 'user-related__email-list-switch']">
-                    Przełącz konto
-                  </div>
+                  <div [ngClass]="[highContrastMode, 'user-related__email-list-switch']">Przełącz konto</div>
                   <div [ngClass]="[highContrastMode, 'user-related__email-list-user']">
                     <a [routerLink]="[]">
                       {{ user?.attributes.email }}
@@ -427,21 +422,21 @@
               </a>
             </li>
 
-          <!-- dga information point -->
-          <li class="nav-item" role="presentation">
-            <a
-              class="nav-link"
-              role="menuitem"
-              [routerLink]="['/!' + routerEndpoints.DGA] | localize"
-              routerLinkActive="active"
-              #menuLinkDGAInformationPoint="routerLinkActive"
-              [attr.aria-current]="menuLinkDGAInformationPoint.isActive ? true : null"
-            >
-              {{ 'Menu.DGAInformationPoint' | translate }}
-            </a>
-          </li>
+            <!-- dga information point -->
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                role="menuitem"
+                [routerLink]="['/!' + routerEndpoints.DGA] | localize"
+                routerLinkActive="active"
+                #menuLinkDGAInformationPoint="routerLinkActive"
+                [attr.aria-current]="menuLinkDGAInformationPoint.isActive ? true : null"
+              >
+                {{ 'Menu.DGAInformationPoint' | translate }}
+              </a>
+            </li>
 
-          <!--  broken links        -->
+            <!--  broken links        -->
             <li class="nav-item expanded-section" role="presentation">
               <a
                 class="nav-link"
@@ -451,12 +446,12 @@
                 #menuBrokenLinks="routerLinkActive"
                 [attr.aria-current]="menuBrokenLinks.isActive ? true : null"
               >
-                {{"BrokenLinks.Self" | translate}}
+                {{ 'BrokenLinks.Self' | translate }}
               </a>
             </li>
-          <!--   dropdown more         -->
-          <li class="nav-item expandable-menu" role="presentation">
-            <div class="dropdown">
+            <!--   dropdown more         -->
+            <li class="nav-item expandable-menu" role="presentation">
+              <div class="dropdown">
                 <a
                   class="nav-link dropdown-button"
                   [ngClass]="isMorePagesActive()"
@@ -465,45 +460,54 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  {{'Menu.More' | translate}}
+                  {{ 'Menu.More' | translate }}
                   <svg class="icon dropdown-menu-toggle">
                     <use href="/assets/icomoon/SVG/up.svg#up"></use>
                   </svg>
                 </a>
-            <ul [ngClass]="[highContrastMode,'dropdown-menu','dropdown-menu-end','pt-2','pb-2']" aria-labelledby="dropdownMenuLink" style="width: max-content">
-              <li>
-                <a
-                  class="dropdown-item"
-                  role="menuitem"
-                  [routerLink]="['/!article' | localize]"
-                  routerLinkActive="active"
-                  #menuLinkArticles="routerLinkActive"
-                  [attr.aria-current]="menuLinkArticles.isActive ? true : null"
+                <ul
+                  [ngClass]="[highContrastMode, 'dropdown-menu', 'dropdown-menu-end', 'pt-2', 'pb-2']"
+                  aria-labelledby="dropdownMenuLink"
+                  style="width: max-content"
                 >
-                  {{ 'Menu.News' | translate }}
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  role="menuitem"
-                  [routerLink]="['/!brokenlinks' | localize]"
-                  routerLinkActive="active"
-                  #menuBrokenLinks="routerLinkActive"
-                  [attr.aria-current]="menuBrokenLinks.isActive ? true : null"
-                >
-                  {{ 'BrokenLinks.Self' | translate}}
-                </a>
-              </li>
-            </ul>
-            </div>
-          </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      role="menuitem"
+                      [routerLink]="['/!article' | localize]"
+                      routerLinkActive="active"
+                      #menuLinkArticles="routerLinkActive"
+                      [attr.aria-current]="menuLinkArticles.isActive ? true : null"
+                    >
+                      {{ 'Menu.News' | translate }}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      role="menuitem"
+                      [routerLink]="['/!brokenlinks' | localize]"
+                      routerLinkActive="active"
+                      #menuBrokenLinks="routerLinkActive"
+                      [attr.aria-current]="menuBrokenLinks.isActive ? true : null"
+                    >
+                      {{ 'BrokenLinks.Self' | translate }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </nav>
       </div>
     </div>
   </div>
 
-  <!-- BREADCRUMBS -->
-  <app-breadcrumbs></app-breadcrumbs>
+  <!-- FORMULARZ -->
+  <div class="container main-content" id="main-content">
+    <div style="padding: 20px">
+      <h2>Formularz zgłoszeniowy</h2>
+      <app-form></app-form>
+    </div>
+  </div>
 </header>
