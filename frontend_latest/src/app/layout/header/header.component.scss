@@ -1,20 +1,22 @@
-@import "src/scss/base/_variables.scss";
-@import "node_modules/bootstrap/scss/mixins/_breakpoints.scss";
+@import 'src/scss/base/_variables.scss';
+@import 'node_modules/bootstrap/scss/mixins/_breakpoints.scss';
 
 .logo-eu {
   img {
-    display: none
+    display: none;
   }
 
   .contrast-normal {
-    display: block
+    display: block;
   }
 }
 
-.black-yellow, .black-white, .yellow-black {
+.black-yellow,
+.black-white,
+.yellow-black {
   .logo-eu {
     img {
-      display: none
+      display: none;
     }
   }
 }
@@ -22,7 +24,7 @@
 .black-yellow {
   .logo-eu {
     img.contrast-black-yellow {
-      display: block
+      display: block;
     }
   }
 }
@@ -30,7 +32,7 @@
 .black-white {
   .logo-eu {
     img.contrast-black-white {
-      display: block
+      display: block;
     }
   }
 }
@@ -38,20 +40,20 @@
 .yellow-black {
   .logo-eu {
     img.contrast-yellow-black {
-      display: block
+      display: block;
     }
   }
 }
 
 .expandable-menu {
   @include media-breakpoint-down(lg) {
-    display: none
+    display: none;
   }
 }
 
 .expanded-section {
   @include media-breakpoint-up(lg) {
-    display: none
+    display: none;
   }
 }
 
@@ -131,4 +133,17 @@
 
 .dropdown-button {
   display: inline-flex !important;
+}
+
+.add-item-wrapper {
+  background-color: white;
+  padding: 20px;
+  border-top: 1px solid #ccc;
+  position: relative;
+  z-index: 1000;
+}
+
+.step-container {
+  text-align: center;
+  margin: 20px 0;
 }

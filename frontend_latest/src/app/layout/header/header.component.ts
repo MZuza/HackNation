@@ -27,6 +27,8 @@ import { ClickOutsideDirective } from '@app/shared/directives/click-outside.dire
 import { TooltipDirective } from '@app/shared/tooltip/tooltip.directive';
 import { FormComponent } from '@app/form/form.component';
 
+type FormStep = 'init' | 'login' | 'form';
+
 /**
  * Header Component
  */
@@ -91,6 +93,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isListOpen = false;
   highContrastMode: HighContrastModeEnum;
   destroy$: Subject<boolean> = new Subject();
+
+  currentStep: FormStep = 'init';
 
   /**
    * @ignore
@@ -249,6 +253,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       return '';
     }
+  }
+
+  showLoginPrompt(): void {
+    this.currentStep = 'login';
+  }
+
+  performLogin(): void {
+    this.currentStep = 'form';
+  }
+
+  resetForm(): void {
+    this.currentStep = 'init';
   }
 
   ngOnDestroy(): void {

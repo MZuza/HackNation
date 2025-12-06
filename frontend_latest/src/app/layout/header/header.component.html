@@ -503,11 +503,37 @@
     </div>
   </div>
 
-  <!-- FORMULARZ -->
   <div class="container main-content" id="main-content">
-    <div style="padding: 20px">
-      <h2>Formularz zgłoszeniowy</h2>
-      <app-form></app-form>
+    <div class="add-item-wrapper">
+      <div *ngIf="currentStep === 'init'" class="step-container text-center">
+        <h2>Zgłoś znaleziony przedmiot</h2>
+        <p>Pomóż właścicielowi odzyskać zgubę dodając ogłoszenie do bazy.</p>
+        <button class="btn btn-primary btn-lg" (click)="showLoginPrompt()">Dodaj przedmiot</button>
+      </div>
+
+      <div *ngIf="currentStep === 'login'" class="step-container login-mockup">
+        <h2>Wymagane logowanie</h2>
+        <p>Aby dodać ogłoszenie, musisz być zalogowany w systemie.</p>
+
+        <div class="login-box">
+          <div class="fake-input">Użytkownik</div>
+          <div class="fake-input">Hasło</div>
+
+          <div class="actions">
+            <button class="btn btn-secondary" (click)="resetForm()">Anuluj</button>
+            <button class="btn btn-primary" (click)="performLogin()">Zaloguj</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 'form'">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Formularz zgłoszeniowy</h2>
+          <button class="btn btn-outline-secondary btn-sm" (click)="resetForm()">Wróć</button>
+        </div>
+
+        <app-form></app-form>
+      </div>
     </div>
   </div>
 </header>
