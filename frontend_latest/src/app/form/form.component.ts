@@ -15,19 +15,17 @@ import { TranslateModule } from '@ngx-translate/core';
 export class FormComponent implements OnInit {
   itemForm!: FormGroup;
   categories = [
-    { id: 1, name: 'Category.PublicAdministration' },
-    { id: 2, name: 'Category.BusinessAndEconomy' },
-    { id: 3, name: 'Category.BudgetAndPublicFinance' },
-    { id: 136, name: 'Category.Security' },
-    { id: 135, name: 'Category.Culture' },
-    { id: 4, name: 'Category.ScienceAndEducation' },
-    { id: 5, name: 'Category.WorkAndSocialAssistance' },
-    { id: 138, name: 'Category.RegionsAndCities' },
-    { id: 6, name: 'Category.Agriculture' },
-    { id: 7, name: 'Category.Society' },
-    { id: 8, name: 'Category.SportAndTourism' },
-    { id: 9, name: 'Category.Environment' },
-    { id: 137, name: 'Category.Health' },
+    { id: 'electronics', name: 'Elektronika (telefony, laptopy, etc.)' },
+    { id: 'documents', name: 'Dokumenty i portfele' },
+    { id: 'keys', name: 'Klucze' },
+    { id: 'clothing', name: 'Ubrania i akcesoria' },
+    { id: 'bags', name: 'Torby, plecaki, walizki' },
+    { id: 'jewelry', name: 'Biżuteria i zegarki' },
+    { id: 'pets', name: 'Zwierzęta' },
+    { id: 'books', name: 'Książki i materiały biurowe' },
+    { id: 'cards', name: 'Karty (płatnicze, miejskie, etc.)' },
+    { id: 'toys', name: 'Zabawki i artykuły dziecięce' },
+    { id: 'other', name: 'Inne' },
   ];
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
