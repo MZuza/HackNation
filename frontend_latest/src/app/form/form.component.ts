@@ -27,6 +27,8 @@ export class FormComponent implements OnInit {
     { id: 'toys', name: 'Zabawki i artykuły dziecięce' },
     { id: 'other', name: 'Inne' },
   ];
+  submitMessage: any;
+  isSubmitting: any;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
@@ -45,6 +47,9 @@ export class FormComponent implements OnInit {
   onSubmit(): void {
     if (this.itemForm.valid) {
       const foundItem: FoundItem = this.itemForm.value;
+
+      this.downloadAsXml(foundItem);
+
       // Endpoint na backendzie, który przyjmuje dane i tworzy plik XML
       const apiUrl = '/api/found-items';
 
@@ -56,5 +61,26 @@ export class FormComponent implements OnInit {
         error: err => console.error('Wystąpił błąd podczas wysyłania danych:', err),
       });
     }
+  }
+
+  private downloadAsXml(item: FoundItem): void {
+    const xmlContent = `
+      <FoundItem>
+        <County>${item.county}</County>
+        <Municipality>${item.municipality}</Municipality>
+        <Name>${item.name}</Name>
+        <Category>${item.category}</Category>
+        <FoundDate>${item.foundDate}</FoundDate>
+        <PlaceDescription>${item.placeDescription}</PlaceDescription>
+        <ContactOffice>${item.contactOffice}</ContactOffice>
+      </FoundItem>
+    `;
+    const blob = new Blob([xmlContent], { type: 'application/xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'found_item.xml';
+    a.click();
+    URL.revokeObjectURL(url);
   }
 }
