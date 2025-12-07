@@ -94,6 +94,7 @@
     "unique-selector": "^0.5.0",
     "vanilla-text-mask": "^5.1.1",
     "winston": "^3.17.0",
+    "xml-js": "^1.6.11",
     "zone.js": "0.14.10"
   },
   "devDependencies": {

@@ -10,7 +10,7 @@ name = "pypi"
 
 [packages]
 # Base dependencies:
-virtualenv = "==20.17.1"
+virtualenv = "<20.25.0"
 setuptools = "<58"
 flatdict = "==4.0.1"
 dpath = "==2.2.0"

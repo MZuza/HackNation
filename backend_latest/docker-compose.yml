@@ -116,7 +116,7 @@ services:
 
   mcod-discourse:
     container_name: mcod-discourse
-    image: 'docker.io/bitnami/discourse:2-debian-10'
+    image: 'docker.io/bitnami/discourse:3.3.3-debian-12-r0'
     ports:
       - "3000:3000"
     depends_on:
@@ -144,7 +144,7 @@ services:
 
   mcod-discourse-sidekiq:
     container_name: mcod-discourse-sidekiq
-    image: 'docker.io/bitnami/discourse:2-debian-10'
+    image: 'docker.io/bitnami/discourse:3.3.3-debian-12-r0'
     ports:
       - "3001:3000"
     depends_on:

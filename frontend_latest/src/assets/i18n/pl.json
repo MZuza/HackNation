@@ -1370,5 +1370,22 @@
     "ButtonNext": "Dalej",
     "ButtonClose": "Zakończ",
     "ButtonBack": "Cofnij"
+  },
+  "FoundItemForm": {
+    "Title": "Zgłoś znaleziony przedmiot",
+    "County": "Powiat",
+    "Municipality": "Gmina",
+    "ItemName": "Nazwa przedmiotu",
+    "Category": "Kategoria",
+    "FoundDate": "Data znalezienia",
+    "PlaceDescription": "Opis miejsca znalezienia",
+    "ContactOffice": "Urząd przechowujący",
+    "Submit": "Zgłoś",
+    "Submitting": "Wysyłanie...",
+    "SuccessMessage": "Przedmiot został pomyślnie zgłoszony!",
+    "ErrorMessage": "Nie udało się zgłosić przedmiotu. Spróbuj ponownie.",
+    "InvalidFormMessage": "Formularz jest nieprawidłowy. Proszę wypełnić wszystkie wymagane pola.",
+    "ChooseCategory": "Wybierz kategorię...",
+    "ItemNamePlaceholder": "np. czarny portfel, klucze do samochodu"
   }
 }
