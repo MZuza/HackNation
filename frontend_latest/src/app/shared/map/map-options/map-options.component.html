@@ -1,0 +1,83 @@
+<div class="mapOptions">
+  <div>
+    <p class="localizationBelt p-3">{{ 'Map.Show' | translate }}</p>
+
+    <div class="m-4">
+      <div class="form-check mb-3">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="mapOptionsRadio"
+          id="allPointsRadio"
+          (change)="toggleCustomLocalization()"
+          checked
+        />
+        <label class="form-check-label clickable" for="allPointsRadio">
+          {{ 'Map.AllPoints' | translate }}
+        </label>
+      </div>
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="radio" name="mapOptionsRadio" id="addressesRadio" (change)="toggleCustomLocalization()" />
+        <label class="form-check-label clickable" for="addressesRadio">
+          {{ 'Map.UserLocation' | translate }}
+        </label>
+      </div>
+
+      <ng-container class="form-group mt-4" *ngIf="isAddressFormVisible">
+        <form (ngSubmit)="onSubmit()">
+          <div class="col">
+            <input
+              id="searchAddressInput"
+              type="text"
+              class="form-control"
+              placeholder="{{ 'Map.AddressInput' | translate }}"
+              minlength="3"
+              required=""
+              #addressText
+              (keyup)="resetErrorFields()"
+              [value]="userSettings?.address ? userSettings.address : ''"
+              [attr.aria-label]="'Map.AddressInput' | translate"
+              aria-describedby="searching-description"
+            />
+            <!-- clear search field -->
+            <button type="button" class="btn clearBtn" *ngIf="addressText.value.length > 0" (click)="clearAddress()">
+              <span class="visually-hidden">
+                {{ 'Search.ClearInput' | translate }}
+              </span>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div *ngIf="inputError" class="validation mt-1" id="searchAddressInputValidation">
+            {{ 'Map.AddressLengthErrorMessage' | translate }}
+          </div>
+
+          <app-slider [savedRadius]="actualRange" (newRadiusValue)="onSlidersPositionChange($event)"></app-slider>
+
+          <div *ngIf="!(hasFoundAddress | async)" class="alert alert-danger">
+            {{ 'Map.NotFoundLocation' | translate }}
+          </div>
+
+          <button class="btn btn-primary" type="submit">{{ 'Filters.ApplyOne' | translate }}</button>
+        </form>
+      </ng-container>
+    </div>
+  </div>
+
+  <ng-container *ngIf="labelsList && (hasFoundAddress | async)">
+    <div>
+      <p class="resultBelt p-3 mb-0">{{ 'Map.PointsFound' | translate }} {{ labelsList.length }}</p>
+      <div class="points pt-1" [ngClass]="{ pointsSmall: isAddressFormVisible, pointsLarge: !isAddressFormVisible }">
+        <p
+          tabindex="0"
+          *ngFor="let element of labelsList; let i = index"
+          id="{{ element.id }}"
+          (click)="markObject(element)"
+          [ngClass]="element.id === selectedListItem.id ? 'points__selected' : 'points__unselected'"
+        >
+          {{ element.label ? element.label : ('Map.Point' | translate) }}
+        </p>
+      </div>
+    </div>
+  </ng-container>
+</div>

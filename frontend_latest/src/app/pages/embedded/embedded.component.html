@@ -1,0 +1,69 @@
+<div class="embed-view">
+
+    <!-- SEPARATED SEARCH and FILTERS -->
+    <div class="container mb-5" *ngIf="hasTabularData || hasChart || hasGeoData">
+        <app-resource-filters></app-resource-filters>
+    </div>
+
+
+    <!-- TABS -->
+    <div class="container" >
+        <div class="tabs">
+            <ul class="tab-list row no-gutters" role="tablist">
+
+                <!-- Table View -->
+                <li class="tab-list__item col-12 col-md-4" role="presentation">
+                    <a class="tab-list__link" role="tab" id="tab1"
+                        [routerLink]="['table']"
+                        #tabLinkTableView="routerLinkActive"
+                        [attr.aria-selected]="tabLinkTableView.isActive ? true : null"
+                        routerLinkActive="tab-list__link--active">
+                        {{ 'Resources.TableView' | translate }}
+                    </a>
+                </li>
+
+                <!-- Chart View -->        
+                <li class="tab-list__item col-12 col-md-4" role="presentation" *ngIf="hasChart">
+                    <a class="tab-list__link" role="tab" id="tab2"
+                        [routerLink]="['chart']"
+                        #tabLinkChartView="routerLinkActive"
+                        [attr.aria-selected]="tabLinkChartView.isActive ? true : null"
+                        routerLinkActive="tab-list__link--active">
+                        {{ 'Resources.ChartView' | translate }}
+                    </a>
+                </li>
+
+                <!-- Map View -->
+                <ng-container>
+                    <li class="tab-list__item col-12 col-md-4" role="presentation" *ngIf="hasGeoData">
+                        <a class="tab-list__link" role="tab" id="tab3"
+                            [routerLink]="['map']"
+                            #tabLinkMapView = "routerLinkActive"
+                            [attr.aria-selected]="tabLinkMapView.isActive ? true : null"
+                            routerLinkActive="tab-list__link--active">
+                            {{ 'Resources.MapView' | translate }}
+                        </a>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+
+
+        <div class="tabs-content">
+            <router-outlet></router-outlet>
+        </div>
+
+        <!-- origin -->
+        <div class="container">  
+            <p class="small mt-2 ml-3">
+                {{ 'Embed.OriginText' | translate }} 
+                <a [routerLink]="['/']" target="_blank">
+                    dane.gov.pl
+                    <span class="visually-hidden">
+                        {{ "SkipTo.NewWindow" | translate }}
+                    </span>
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,153 @@
+<div class="pb-5">
+    <fieldset [formGroup]="form">
+        <div class="row">
+
+            <!-- question -->
+            <div class="col-lg-6">
+                <legend class="survey-form__question">
+                    <label>
+                        <strong *ngIf="formset.title">
+                            {{formset.title}}
+                        </strong>
+
+                        <small *ngIf="formset.description"
+                            class="survey-form__question-description d-block pt-2"
+                            [innerHTML]="formset.description | sanitizeHtml">
+                        </small>
+
+                        <small *ngIf="formset.required" class="d-block pt-2" 
+                            [ngClass]="{'text-danger font-weight-bold': formset.required && form.get(formset.name).invalid && !form.get(formset.name).pristine}">
+                            ({{ 'Validation.RequiredField' | translate | lowercase }})
+                        </small>
+
+                        <!-- error message - required -->
+                        <span class="visually-hidden" *ngIf="formset.required && form.get(formset.name).invalid && !form.get(formset.name).pristine"  role="alert" aria-live="polite">
+                            {{ 'Validation.RequiredField' | translate }} - {{formset.title}}
+                        </span>
+                    </label>
+                </legend>
+            </div>
+
+            <!-- answers -->
+            <div class="col-lg-6">
+                <ng-container *ngFor="let answer of formset.answerOptions; index as i;">
+
+                    <div [ngSwitch]="answer.htmlElementName">
+
+                        <!-- case: input -->
+                        <ng-container *ngSwitchCase="'input'">
+
+                            <!-- radio -->
+                            <div *ngIf="answer.htmlElementType === 'radio'" class="d-flex flex-row align-items-baseline pb-2">
+                                <input type="radio"
+                                    class="mr-2"
+                                    [id]="answer.id"
+                                    [name]="formset.name"
+                                    [value]="answer.value.value ? answer.value.value : answer.value.input_default_value"
+                                    (change) = "radioChanged(answer.id, formset.name)"
+                                    [checked]="answer.value.checked"
+                                    [attr.aria-label]="formset.title +' '+ answer.value.label">
+                                
+                                <div class="d-flex flex-column w-100">
+                                    <label [for]="answer.id"  class="survey-form__answer m-0">
+                                        <span class="survey-form__answer-label">
+                                            {{answer.value.label}}
+                                        </span>
+                                    </label>
+
+                                    <!-- additional inputs only one possible-->
+                                    <textarea *ngIf="answer.hasMultilineInput"
+                                        [id]="formset.name + answer.id"
+                                        (keyup)="checkControl(answer.id, formset.name)"
+                                        [value]="''"
+                                        [placeholder]="answer.value.input_placeholder ? answer.value.input_placeholder : ''"
+                                        class="form-control"
+                                        rows="3"
+                                        [attr.aria-label]="answer.value.label">
+                                    </textarea>
+
+                                    <input *ngIf="answer.hasTextInput" class="form-control"
+                                        type="text"
+                                        [id]="formset.name + answer.id"
+                                        (keyup)="checkControl(answer.id, formset.name)"
+                                        [value]="''"
+                                        [placeholder]="answer.value.input_placeholder ? answer.value.input_placeholder : ''"
+                                        [attr.aria-label]="answer.value.label">
+
+                                    <label *ngIf="answer.value.input_label" [for]="formset.name + answer.id">
+                                        {{answer.value.input_label}}
+
+                                        <span class="d-block small" *ngIf="answer.value.help_text">
+                                            {{answer.value.help_text}}
+                                        </span>
+                                    </label>                                
+                                </div>
+                            </div>
+
+                            <!-- checkbox -->
+                            <div *ngIf="answer.htmlElementType === 'checkbox'" class="d-flex flex-row align-items-baseline pb-2">
+                                <input type="checkbox"
+                                    class="mr-2"    
+                                    [id]="answer.id"
+                                    [formControl]="form.controls[formset.name].controls[i]"
+                                    [checked]="answer.value.checked"
+                                    [name]="formset.name"
+                                    [value]="answer.value.value"
+                                    [attr.aria-label]="formset.title +' '+ answer.value.label">
+
+                                <div class="d-flex flex-column w-100">
+                                    <label [for]="answer.id" class="survey-form__answer m-0">
+                                        <span class="survey-form__answer-label">
+                                            {{answer.value.label}}
+                                        </span>
+                                    </label>
+                                    
+                                    <!--  additional inputs only one possible-->
+                                    <input *ngIf="answer.hasTextInput" class="form-control"
+                                        type="text"
+                                        [formControl]="form.controls[formset.name].controls[i]"
+                                        [id]="answer.id + ':' + i"
+                                        (keyup)="checkControl(answer.id)"
+                                        [value]="answer.value.input_default_value ? answer.value.input_default_value : ''"
+                                        [placeholder]="answer.value.input_placeholder ? answer.value.input_placeholder : ''"
+                                        [attr.aria-label]="answer.value.label">
+
+                                    <textarea *ngIf="answer.hasMultilineInput"
+                                        [formControl]="form.controls[formset.name].controls[i]"
+                                        [id]="answer.id + ':' + i"
+                                        (keyup)="checkControl(answer.id)"
+                                        [value]="answer.value.input_default_value ? answer.value.input_default_value : ''"
+                                        [placeholder]="answer.value.input_placeholder ? answer.value.input_placeholder : ''"
+                                        class="form-control"
+                                        rows="3"
+                                        [attr.aria-label]="answer.value.label">
+                                    </textarea>
+
+                                    <label *ngIf="answer.value.input_label" [for]="answer.id + answer.value.label">
+                                        {{answer.value.input_label}}
+
+                                        <span class="d-block small" *ngIf="answer.value.help_text">
+                                            {{answer.value.help_text}}
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- text input -->
+                            <div *ngIf="answer.htmlElementType === 'text'">
+                                <input [formControlName]="formset.name" class="form-control" [id]="answer.id"  [placeholder]="answer.value.placeholder ? answer.value.placeholder : '' ">
+                            </div>
+                        </ng-container>
+
+                        <!-- case: textarea -->
+                        <textarea rows="5" class="form-control" *ngSwitchCase="'textarea'"
+                            [formControlName]="formset.name" 
+                            [placeholder]="answer.value.placeholder ? answer.value.placeholder : '' "
+                            [attr.aria-label]="formset.title">
+                        </textarea>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </fieldset>
+</div>

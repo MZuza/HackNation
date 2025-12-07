@@ -1,0 +1,90 @@
+<div class="row">
+  <div
+    class="col-md-9 dashboard-filtered-list-item
+     dashboard-filtered-list-item--{{ course.attributes.state }} order-1 order-md-2"
+  >
+    <!-- state -->
+    <div class="dashboard-filtered-list-item__state">
+      {{ 'Aod.' + (course.attributes.state | titlecase) | translate }}
+    </div>
+
+    <!-- title -->
+    <h2 class="heading heading--sm">
+      {{ course.attributes.title }}
+    </h2>
+
+    <!-- participants number -->
+    <p>
+      <span class="font-weight-bold"> {{ 'Aod.NumberParticipants' | translate }}: </span>
+      {{ course.attributes.participants_number }}
+    </p>
+
+    <!-- venue -->
+    <p>
+      <span class="font-weight-bold"> {{ 'Aod.CourseLocation' | translate }}: </span>
+      {{ course.attributes.venue }}
+    </p>
+
+    <!-- notes -->
+    <div [ngClass]="{ 'mb-3': schedulesByType }">
+      <span class="font-weight-bold d-block"> {{ 'Aod.Description' | translate }}: </span>
+      <collapsible-text *ngIf="course.attributes.notes" [text]="course.attributes.notes"> </collapsible-text>
+    </div>
+
+    <p *ngIf="schedulesByType">{{ 'Aod.CourseSchedule' | translate }}</p>
+
+    <!-- types / modules -->
+    <div class="mb-3" *ngIf="schedulesByType">
+      <span class="font-weight-bold pr-3">{{ 'Aod.ModuleType' | translate }}:</span>
+
+      <ul class="list-inline d-inline">
+        <li class="list-inline-item pr-3" *ngFor="let scheduleType of schedulesByType | keyvalueOrder">
+          <span class="aod-point aod-point--{{ scheduleType.key }}">
+            {{ scheduleType.value }}
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SCHEDULE / CALENDAR -->
+    <ng-container *ngFor="let scheduleByMonth of schedulesByMonth | keyvalueOrder; let isLastItem = last">
+      <app-academy-schedule [scheduleByMonth]="scheduleByMonth" [ngClass]="{ 'mr-2': !isLastItem }"> </app-academy-schedule>
+    </ng-container>
+  </div>
+  <div class="col-md-3 order-2 order-md-1">
+    <!-- COURSE ASIDE -->
+    <ul class="list-unstyled">
+      <!-- start date-->
+      <li class="">
+        <span class=""> {{ 'Aod.StartDate' | translate }} </span>
+        <span class="d-block font-weight-bold">
+          {{ course.attributes.start }}
+        </span>
+      </li>
+
+      <!-- end date-->
+      <li class="pt-4">
+        <span class=""> {{ 'Aod.EndDate' | translate }} </span>
+        <span class="d-block font-weight-bold">
+          {{ course.attributes.end }}
+        </span>
+      </li>
+
+      <!-- download 1 -->
+      <li class="pt-4" *ngIf="course.attributes.file_url">
+        <a class="btn btn-primary btn-sm btn--multiline" target="_blank" [href]="course.attributes.file_url">
+          <span> {{ 'Aod.DownloadSchedule' | translate }} ({{ course.attributes.file_type }}) <span aria-hidden="true">>></span> </span>
+        </a>
+      </li>
+
+      <!-- download 2 -->
+      <li class="pt-4" *ngIf="course.attributes.materials_file_url">
+        <a class="btn btn-primary btn-sm btn--multiline" target="_blank" [href]="course.attributes.materials_file_url">
+          <span>
+            {{ 'Aod.DownloadMaterials' | translate }} ({{ course.attributes.materials_file_type }}) <span aria-hidden="true">>></span>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

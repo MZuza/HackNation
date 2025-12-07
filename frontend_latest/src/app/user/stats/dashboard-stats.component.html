@@ -1,0 +1,13 @@
+<h1 class="visually-hidden">
+    {{ 'MyDashboard.Stats' | translate }}
+</h1>
+<div class="row">
+    <div class="col">
+        <h1 class="heading"> {{ 'MyDashboard.Stats' | translate }}
+        </h1>
+        <app-loader *ngIf="frameContentHeight === '0'"></app-loader>
+        <div class="ratio" [style.height]="frameContentHeight">
+            <iframe #statsIframeRef [src]="statsURL"></iframe>
+        </div>
+    </div>
+</div>

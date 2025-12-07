@@ -1,0 +1,539 @@
+<header class="page-header">
+  <!-- SKIP LINKS: ACCESSIBILITY -->
+  <div class="skip-menu">
+    <ul class="skip-menu__list">
+      <li>
+        <a class="skip-menu__link" href="#" (click)="skipTo('main-menu', $event)">
+          {{ 'SkipTo.Menu' | translate }}
+        </a>
+      </li>
+      <li>
+        <a class="skip-menu__link" href="#" (click)="skipTo('main-content', $event)">
+          {{ 'SkipTo.Content' | translate }}
+        </a>
+      </li>
+      <li>
+        <a class="skip-menu__link" href="#" (click)="skipTo('main-footer', $event)">
+          {{ 'SkipTo.Footer' | translate }}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- GOV.PL BAR -->
+  <div class="govpl">
+    <a class="govpl__logo" href="https://www.gov.pl/" aria-label="Strona główna gov.pl" target="_blank">
+      gov.pl
+      <span class="visually-hidden">
+        {{ 'SkipTo.NewWindow' | translate }}
+      </span>
+    </a>
+
+    <span class="govpl__text">Serwis Rzeczypospolitej Polskiej</span>
+
+    <a
+      class="btn btn-primary govpl__panel-login"
+      target="_blank"
+      href="https://www.gov.pl/web/gov/klauzula-przetwarzania-danych-osobowych-udostepnionych-droga-elektroniczna"
+    >
+      <span class="visually-hidden">Logowanie do panelu</span>
+      <!-- icon -->
+      <svg class="icon icon-gov-user" aria-hidden="true" role="img">
+        <use href="/assets/icomoon/sprite/sprite.svg#icon-gov-user"></use>
+      </svg>
+      Mój Gov
+      <span class="visually-hidden">
+        {{ 'SkipTo.NewWindow' | translate }}
+      </span>
+    </a>
+
+    <span class="govpl__eu-logo-wrapper logo-eu">
+      <img class="govpl__eu-logo contrast-normal" src="assets/eu-logo/eu-center-pl.svg" alt="Logotyp Unii Europejskiej" />
+      <img class="govpl__eu-logo contrast-black-white" src="assets/eu-logo/eu-center-pl-black-white.svg" alt="Logotyp Unii Europejskiej" />
+      <img
+        class="govpl__eu-logo contrast-black-yellow"
+        src="assets/eu-logo/eu-center-pl-black-yellow.svg"
+        alt="Logotyp Unii Europejskiej"
+      />
+      <img
+        class="govpl__eu-logo contrast-yellow-black"
+        src="assets/eu-logo/eu-center-pl-yellow-black.svg"
+        alt="Logotyp Unii Europejskiej"
+      />
+    </span>
+  </div>
+
+  <!-- CMS - Special Alert  -->
+  <cms-block2 [oneWidget]="singleCmsWidget" [isFullWidth]="true" *ngIf="singleCmsWidget"></cms-block2>
+
+  <!-- GOV - TOP BAR -->
+  <div class="gov-top-bar-wrapper">
+    <div class="container">
+      <div class="top-bar">
+        <div class="a11y-wrapper">
+          <div class="a11y-buttons">
+            <!-- HIGH CONTRAST -->
+            <ul class="a11y-buttons__group">
+              <!-- default -->
+              <li class="a11y-buttons__item">
+                <button class="btn btn--hc btn--hc-default" (click)="disableHighContrast()">
+                  <span aria-hidden="true">A</span>
+                  <span class="visually-hidden">{{ 'HighContrast.Default' | translate }}</span>
+                </button>
+              </li>
+
+              <!-- black background, white text-->
+              <li class="a11y-buttons__item">
+                <button class="btn btn--hc btn--hc-bw" (click)="useHighContrast('black-white')">
+                  <span aria-hidden="true">A</span>
+                  <span class="visually-hidden">{{ 'HighContrast.BW' | translate }}</span>
+                </button>
+              </li>
+
+              <!-- black background, yellow text -->
+              <li class="a11y-buttons__item">
+                <button class="btn btn--hc btn--hc-by" (click)="useHighContrast('black-yellow')">
+                  <span aria-hidden="true">A</span>
+                  <span class="visually-hidden">{{ 'HighContrast.BY' | translate }}</span>
+                </button>
+              </li>
+
+              <!-- yellow background, black text -->
+              <li class="a11y-buttons__item">
+                <button class="btn btn--hc btn--hc-yb" (click)="useHighContrast('yellow-black')">
+                  <span aria-hidden="true">A</span>
+                  <span class="visually-hidden">{{ 'HighContrast.YB' | translate }}</span>
+                </button>
+              </li>
+            </ul>
+
+            <!-- FONT SIZE INCREASE/DECREASE -->
+            <ul class="a11y-buttons__group">
+              <!-- default -->
+              <li class="a11y-buttons__item">
+                <button class="btn btn--font btn--font-0" (click)="useFontSize(100)">
+                  <span aria-hidden="true"> A </span>
+                  <span class="visually-hidden">{{ 'Font.Default' | translate }}</span>
+                </button>
+              </li>
+
+              <!-- 125% -->
+              <li class="a11y-buttons__item">
+                <button class="btn btn--font btn--font-1" (click)="useFontSize(125)">
+                  <span aria-hidden="true"> A<span class="plus">+</span> </span>
+                  <span class="visually-hidden">{{ ('Font.Increased' | translate) + ' - 125%' }}</span>
+                </button>
+              </li>
+
+              <!-- 150% -->
+              <li class="a11y-buttons__item">
+                <button class="btn btn--font btn--font-2" (click)="useFontSize(150)">
+                  <span aria-hidden="true"> A<span class="plus">++</span> </span>
+                  <span class="visually-hidden">{{ ('Font.Increased' | translate) + ' - 150%' }}</span>
+                </button>
+              </li>
+
+              <!-- 200% -->
+              <li class="a11y-buttons__item">
+                <button class="btn btn--font btn--font-3" (click)="useFontSize(200)">
+                  <span aria-hidden="true"> A<span class="plus">+++</span> </span>
+                  <span class="visually-hidden">{{ ('Font.Increased' | translate) + ' - 200%' }}</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- LANGUAGE CHANGE -->
+        <div class="language-switcher">
+          <!-- LANGUAGES TO CHOOSE FROM -->
+          <ul class="language-switcher__languages">
+            <!-- polish -->
+            <li class="language-switcher__language">
+              <button
+                class="btn"
+                (click)="useLanguage('pl')"
+                [ngClass]="{ active: currentLang === 'pl' }"
+                [attr.aria-current]="currentLang === 'pl'"
+              >
+                <span aria-hidden="true">PL</span>
+                <span class="visually-hidden" lang="pl">
+                  {{ currentLang === 'pl' ? 'polski' : 'Zmień język na polski' }}
+                </span>
+              </button>
+            </li>
+
+            <!-- english -->
+            <li class="language-switcher__language">
+              <button
+                class="btn"
+                (click)="useLanguage('en')"
+                [ngClass]="{ active: currentLang === 'en' }"
+                [attr.aria-current]="currentLang === 'en'"
+              >
+                <span aria-hidden="true">EN</span>
+                <span class="visually-hidden" lang="en">
+                  {{ currentLang === 'en' ? 'english' : 'Change language to english' }}
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <span class="language-divider"></span>
+
+        <!-- USER RELATED: REGISTER, LOGIN, LANGAUGE -->
+        <div class="user-related">
+          <!-- NOT LOGGED IN USER -->
+          <div class="user-related__auth" *ngIf="!loggedIn">
+            <!-- register -->
+            <a
+              class="user-related__auth-link"
+              [routerLink]="['/!user', '!register'] | localize"
+              routerLinkActive="active"
+              #registerLink="routerLinkActive"
+              [attr.aria-current]="registerLink.isActive ? true : null"
+            >
+              {{ 'Action.Register' | translate }}
+            </a>
+            /
+            <!-- log in -->
+            <a
+              class="user-related__auth-link"
+              [routerLink]="['/!user', '!login'] | localize"
+              routerLinkActive="active"
+              #loginLink="routerLinkActive"
+              [attr.aria-current]="loginLink.isActive ? true : null"
+            >
+              {{ 'Action.Login' | translate }}
+            </a>
+          </div>
+
+          <!-- LOGGED IN USER -->
+          <div class="user-related__auth user-related__auth-logged" *ngIf="loggedIn">
+            <!-- observed objects activity notifications -->
+            <app-activity-notifications></app-activity-notifications>
+            <!-- my dashboard -->
+            <a
+              class="btn btn-primary btn-sm ml-1"
+              appTooltip="{{ 'Tour.Tooltip.Header.MyDashboard.text' | translate }}"
+              title="{{ 'Tour.Tooltip.Header.MyDashboard.title' | translate }}"
+              placement="bottom"
+              [routerLink]="['/!user', '!dashboard'] | localize"
+              role="button"
+            >
+              <span class="visually-hidden">
+                {{ 'GoTo' | translate }}
+              </span>
+              {{ 'MyDashboard.Self' | translate }}
+            </a>
+
+            <!-- user list-->
+            <ng-container *ngIf="user$ | async; let user">
+              <div
+                [ngClass]="[highContrastMode, 'user-related__email-container']"
+                appClickOutside
+                (clickOutside)="clickedOutside()"
+                (click)="checkIfLinkedAccounts(user?.attributes.connected_gov_users)"
+              >
+                <div class="user-related__email" (click)="toggleList()">
+                  <ng-container *ngIf="checkIfLinkedAccounts(user?.attributes.connected_gov_users); else emailWithoutLink">
+                    <a [routerLink]="[]">{{ user?.attributes.email }}</a>
+                    <ng-container *ngIf="isListOpen; else listClosed">
+                      <svg class="icon user-related__email-toggle">
+                        <use href="/assets/icomoon/SVG/up.svg#up"></use>
+                      </svg>
+                    </ng-container>
+                    <ng-template #listClosed>
+                      <svg class="icon user-related__email-toggle">
+                        <use href="/assets/icomoon/SVG/down.svg#down"></use>
+                      </svg>
+                    </ng-template>
+                  </ng-container>
+                  <ng-template #emailWithoutLink>
+                    <div>{{ user?.attributes.email }}</div>
+                  </ng-template>
+                </div>
+                <div [ngClass]="[highContrastMode, 'user-related__email-list']" *ngIf="isListOpen">
+                  <div [ngClass]="[highContrastMode, 'user-related__email-list-switch']">Przełącz konto</div>
+                  <div [ngClass]="[highContrastMode, 'user-related__email-list-user']">
+                    <a [routerLink]="[]">
+                      {{ user?.attributes.email }}
+                    </a>
+                    <svg class="icon user-related__email-icon-check">
+                      <use href="/assets/icomoon/SVG/check.svg#check"></use>
+                    </svg>
+                  </div>
+                  <ng-container *ngFor="let userEmail of user?.attributes.connected_gov_users">
+                    <div [ngClass]="[highContrastMode, 'user-related__email-list-user']">
+                      <a [routerLink]="[]" (click)="switchAccount(userEmail)">
+                        {{ userEmail }}
+                      </a>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+
+            <!-- logout -->
+            <a class="user-related__auth-link" [routerLink]="['.']" (click)="logout()"
+              >{{ 'Action.Logout' | translate }}
+
+              <span class="user-related__email" *ngIf="user$ | async; let user">
+                <ng-container *ngIf="user?.attributes.connected_gov_users === []">
+                  {{ user?.attributes.email }}
+                </ng-container>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOV - APP LOGO and MAIN NAVIGATION -->
+  <div class="gov-nav-section">
+    <div class="container">
+      <div class="navbar navbar-expand-lg" id="main-menu" tabindex="-1">
+        <!-- app logo -->
+        <a class="navbar-brand" [routerLink]="['/'] | localize">
+          <svg
+            class="brand-img brand-img--dark"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 150 50"
+            preserveAspectRatio="xMinYMid meet"
+            aria-labelledby="logo-header-title"
+          >
+            <title id="logo-header-title">Otwarte Dane</title>
+            <text class="brand-img__text" x="0" y="0">
+              <tspan x="75" y="25">OTWARTE</tspan>
+              <tspan x="75" y="45">DANE</tspan>
+            </text>
+            <g class="brand-img__do">
+              <path d="M62.6,5.3H70L58.9,46h-7.4C51.5,46,62.6,5.3,62.6,5.3z" />
+              <path
+                d="M25.7-0.2C25.7-0.2,25.6-0.2,25.7-0.2c-13.8,0-25,11.2-25,25s11.2,25,25,25s25-11.2,25-25l0,0
+                                C50.6,10.9,39.5-0.2,25.7-0.2L25.7-0.2L25.7-0.2z M28.4,40.5H13.6V10.9h14.8c0.1,0,0.3,0,0.5,0c8.2,0,14.8,6.6,14.8,14.8
+                                s-6.6,14.8-14.8,14.8C28.7,40.5,28.6,40.5,28.4,40.5L28.4,40.5L28.4,40.5z"
+              />
+            </g>
+          </svg>
+        </a>
+
+        <!-- Toggle navigation (for mobile) -->
+        <button
+          type="button"
+          class="navbar-toggler collapsed border-0"
+          aria-controls="main-menu"
+          [attr.aria-pressed]="!isMenuCollapsed"
+          (click)="isMenuCollapsed = !isMenuCollapsed"
+        >
+          {{ (isMenuCollapsed ? 'Menu.Open' : 'Menu.Close') | translate | uppercase }}
+        </button>
+
+        <!-- MAIN NAVIGATION -->
+        <nav class="collapse navbar-collapse" [ngClass]="{ show: !isMenuCollapsed }">
+          <ul class="navbar-nav" role="menu">
+            <!-- home -->
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                role="menuitem"
+                [routerLink]="['/'] | localize"
+                routerLinkActive="active"
+                #menuLinkHome="routerLinkActive"
+                [attr.aria-current]="menuLinkHome.isActive ? true : null"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                {{ 'Menu.Home' | translate }}
+              </a>
+            </li>
+
+            <!-- datasets -->
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                role="menuitem"
+                [routerLink]="['/!dataset'] | localize"
+                routerLinkActive="active"
+                #menuLinkDatasets="routerLinkActive"
+                [attr.aria-current]="menuLinkDatasets.isActive ? true : null"
+              >
+                {{ 'Menu.Datasets' | translate }}
+              </a>
+            </li>
+
+            <!-- institutions -->
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                role="menuitem"
+                [routerLink]="['/!institution' | localize]"
+                routerLinkActive="active"
+                #menuLinkInstitutions="routerLinkActive"
+                [attr.aria-current]="menuLinkInstitutions.isActive ? true : null"
+              >
+                {{ 'Menu.Institutions' | translate }}
+              </a>
+            </li>
+
+            <!-- PoCoTo -->
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                role="menuitem"
+                [routerLink]="['/!showcase' | localize]"
+                routerLinkActive="active"
+                #menuLinkApplications="routerLinkActive"
+                [attr.aria-current]="menuLinkApplications.isActive ? true : null"
+              >
+                {{ 'Menu.Showcases' | translate }}
+              </a>
+            </li>
+
+            <!-- news (articles) -->
+            <!-- news is a subset of knowledge base in the admin panel -->
+
+            <li class="nav-item expanded-section" role="presentation">
+              <a
+                class="nav-link"
+                role="menuitem"
+                [routerLink]="['/!article' | localize]"
+                routerLinkActive="active"
+                #menuLinkArticles="routerLinkActive"
+                [attr.aria-current]="menuLinkArticles.isActive ? true : null"
+              >
+                {{ 'Menu.News' | translate }}
+              </a>
+            </li>
+
+            <!-- knowledge base (useful materials) -->
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                role="menuitem"
+                [routerLink]="['/!' + routerEndpoints.KNOWLEDGE_BASE + '/!' + routerEndpoints.USEFUL_MATERIALS] | localize"
+                routerLinkActive="active"
+                #menuLinkKnowledgeBase="routerLinkActive"
+                [attr.aria-current]="menuLinkKnowledgeBase.isActive ? true : null"
+              >
+                {{ 'Menu.KnowledgeBase' | translate }}
+              </a>
+            </li>
+
+            <!-- dga information point -->
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                role="menuitem"
+                [routerLink]="['/!' + routerEndpoints.DGA] | localize"
+                routerLinkActive="active"
+                #menuLinkDGAInformationPoint="routerLinkActive"
+                [attr.aria-current]="menuLinkDGAInformationPoint.isActive ? true : null"
+              >
+                {{ 'Menu.DGAInformationPoint' | translate }}
+              </a>
+            </li>
+
+            <!--  broken links        -->
+            <li class="nav-item expanded-section" role="presentation">
+              <a
+                class="nav-link"
+                role="menuitem"
+                [routerLink]="['/!brokenlinks' | localize]"
+                routerLinkActive="active"
+                #menuBrokenLinks="routerLinkActive"
+                [attr.aria-current]="menuBrokenLinks.isActive ? true : null"
+              >
+                {{ 'BrokenLinks.Self' | translate }}
+              </a>
+            </li>
+            <!--   dropdown more         -->
+            <li class="nav-item expandable-menu" role="presentation">
+              <div class="dropdown">
+                <a
+                  class="nav-link dropdown-button"
+                  [ngClass]="isMorePagesActive()"
+                  type="button"
+                  id="dropdownMenuLink"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {{ 'Menu.More' | translate }}
+                  <svg class="icon dropdown-menu-toggle">
+                    <use href="/assets/icomoon/SVG/up.svg#up"></use>
+                  </svg>
+                </a>
+                <ul
+                  [ngClass]="[highContrastMode, 'dropdown-menu', 'dropdown-menu-end', 'pt-2', 'pb-2']"
+                  aria-labelledby="dropdownMenuLink"
+                  style="width: max-content"
+                >
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      role="menuitem"
+                      [routerLink]="['/!article' | localize]"
+                      routerLinkActive="active"
+                      #menuLinkArticles="routerLinkActive"
+                      [attr.aria-current]="menuLinkArticles.isActive ? true : null"
+                    >
+                      {{ 'Menu.News' | translate }}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      role="menuitem"
+                      [routerLink]="['/!brokenlinks' | localize]"
+                      routerLinkActive="active"
+                      #menuBrokenLinks="routerLinkActive"
+                      [attr.aria-current]="menuBrokenLinks.isActive ? true : null"
+                    >
+                      {{ 'BrokenLinks.Self' | translate }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="container main-content" id="main-content">
+    <div class="add-item-wrapper">
+      <div *ngIf="currentStep === 'init'" class="step-container text-center">
+        <h2>Zgłoś znaleziony przedmiot</h2>
+        <p>Pomóż właścicielowi odzyskać zgubę dodając ogłoszenie do bazy.</p>
+        <button class="btn btn-primary btn-lg" (click)="showLoginPrompt()">Dodaj przedmiot</button>
+      </div>
+
+      <div *ngIf="currentStep === 'login'" class="step-container login-mockup">
+        <div class="login-form-container">
+          <h3>Wymagane logowanie</h3>
+          <p>Aby dodać zgłoszenie, musisz być zalogowany w systemie.</p>
+
+          <input type="text" class="login-input" placeholder="Użytkownik" />
+          <input type="password" class="login-input" placeholder="Hasło" />
+
+          <div class="login-buttons">
+            <button class="btn-cancel" (click)="resetForm()">Anuluj</button>
+            <button class="btn-login" (click)="performLogin()">Zaloguj</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 'form'">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Formularz zgłoszeniowy</h2>
+          <button class="btn btn-outline-secondary btn-sm" (click)="resetForm()">Wróć</button>
+        </div>
+
+        <app-form></app-form>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,10 @@
+<a *ngIf="isFileReport; else articleReport" [href]="report.download_url" class="btn btn-primary btn-sm btn--multiline" target="_blank">
+  {{ 'Lod.DownloadReport' | translate }} {{ showFilesCount ? report.count : '' }}
+</a>
+
+<ng-template #articleReport>
+  <a [href]="report.link">
+    {{ 'Lod.GoToReport' | translate }}
+    <span aria-hidden="true">>></span>
+  </a>
+</ng-template>

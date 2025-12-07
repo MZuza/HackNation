@@ -1,0 +1,127 @@
+<ng-container *ngIf="item">
+  <!-- heading -->
+  <h2 class="heading heading--primary-link heading--sm highlight">
+    <a
+      *ngIf="urlNavigation"
+      [routerLink]="[urlNavigation, item.id + (item.attributes.slug ? ',' + item.attributes.slug : '')]"
+      [innerHTML]="item.attributes.title | stripHtmlTagsExceptHighlight | sanitizeHtml"
+    >
+    </a>
+    <!-- high value data icon -->
+    <img
+      *ngIf="item.attributes.has_high_value_data"
+      class="ml-2"
+      ngSrc="assets/icomoon/SVG/high-value-data.svg"
+      appTooltip="{{ 'Tour.Tooltip.DatasetItem.HighValueData.text' | translate }}"
+      title="{{ 'Tour.Tooltip.DatasetItem.HighValueData.title' | translate }}"
+      alt="ikona_dane_wysokiej_wartosci"
+      tabindex="0"
+      height="20" width="20"/>
+    <!-- high value data from EC icon -->
+    <img
+      *ngIf="item.attributes.has_high_value_data_from_ec_list"
+      class="ml-2"
+      src="assets/icomoon/SVG/high-value-data-from-ec.svg"
+      appTooltip="{{ 'Tour.Tooltip.DatasetItem.HighValueDataFromEC.text' | translate }}"
+      title="{{ 'Tour.Tooltip.DatasetItem.HighValueDataFromEC.title' | translate }}"
+      alt="ikona_dane_wysokiej_wartosci_ke"
+      tabindex="0"
+    />
+    <!-- high value data from EC icon -->
+    <img
+      *ngIf="item.attributes.has_high_value_data_from_ec_list"
+      class="ml-2"
+      src="assets/icomoon/SVG/high-value-data-from-ec.svg"
+      appTooltip="{{ 'Tour.Tooltip.DatasetItem.HighValueDataFromEC.text' | translate }}"
+      title="{{ 'Tour.Tooltip.DatasetItem.HighValueDataFromEC.title' | translate }}"
+      alt="ikona_dane_wysokiej_wartosci_ke"
+      tabindex="0"
+    />
+    <!-- dynamic data icon-->
+    <img
+      *ngIf="item.attributes.has_dynamic_data"
+      class="ml-2"
+      ngSrc="assets/icomoon/SVG/ic-dane-dynamiczne.svg"
+      appTooltip="{{ 'Tour.Tooltip.DatasetItem.DynamicData.text' | translate }}"
+      title="{{ 'Tour.Tooltip.DatasetItem.DynamicData.title' | translate }}"
+      alt="ikona_dane_dynamiczne"
+      tabindex="0"
+      height="24" width="24"/>
+    <!-- research data icon-->
+    <img
+      *ngIf="item.attributes.has_research_data"
+      class="ml-2"
+      ngSrc="assets/icomoon/SVG/ic-research-data.svg"
+      appTooltip="{{ 'Tour.Tooltip.DatasetItem.ResearchData.text' | translate }}"
+      title="{{ 'Tour.Tooltip.DatasetItem.ResearchData.title' | translate }}"
+      alt="ikona_dane_badawcze"
+      tabindex="0"
+      height="24" width="24"/>
+    <img
+      *ngIf="item.attributes.contains_protected_data"
+      class="ml-2"
+      ngSrc="assets/icomoon/SVG/key.svg"
+      appTooltip="{{ 'Tour.Tooltip.DatasetItem.ProtectedData.text' | translate }}"
+      title="{{ 'Tour.Tooltip.DatasetItem.ProtectedData.title' | translate }}"
+      alt="ikona_dane_chronione"
+      tabindex="0"
+      height="20" width="20"/>
+  </h2>
+
+  <!-- availability (created) date-->
+  <span *ngIf="item.attributes?.created && isSortParamsCreated">
+    <strong class="pr-1"> {{ 'Attribute.AvailabilityDate' | translate }}:</strong>
+    {{ item.attributes.created | translateDateFormat | async }}
+  </span>
+
+  <!-- data date -->
+  <span *ngIf="item.attributes?.data_date && isSortParamsDataDate">
+    <strong class="pr-1"> {{ 'Attribute.DataDate' | translate }}:</strong>
+    {{ item.attributes.data_date | translateDateFormat: 'D MMMM YYYY' | async }}
+  </span>
+
+  <ng-container>
+    <!-- icons -->
+    <span class="visualization-types">
+      <!-- icon database -->
+      <svg
+        *ngIf="item.attributes.visualization_types.includes('database')"
+        class="icon ml-2"
+        [appTooltip]="'Resources.Single' | translate"
+        [placement]="'bottom'"
+      >
+        <use href="/assets/icomoon/sprite/sprite.svg#icon-database"></use>
+      </svg>
+
+      <!-- icon chart -->
+      <svg
+        *ngIf="item.attributes.visualization_types.includes('chart')"
+        class="icon ml-2"
+        [appTooltip]="'Resources.ChartView' | translate"
+        [placement]="'bottom'"
+      >
+        <use href="/assets/icomoon/sprite/sprite.svg#icon-chart"></use>
+      </svg>
+
+      <!-- icon map -->
+      <svg
+        *ngIf="item.attributes.visualization_types.includes('map')"
+        class="icon ml-2"
+        [appTooltip]="'Resources.MapView' | translate"
+        [placement]="'bottom'"
+      >
+        <use href="/assets/icomoon/sprite/sprite.svg#icon-map"></use>
+      </svg>
+
+      <!-- icon table -->
+      <svg
+        *ngIf="item.attributes.visualization_types.includes('table')"
+        class="icon ml-2"
+        [appTooltip]="'Resources.TableView' | translate"
+        [placement]="'bottom'"
+      >
+        <use href="/assets/icomoon/sprite/sprite.svg#icon-table"></use>
+      </svg>
+    </span>
+  </ng-container>
+</ng-container>

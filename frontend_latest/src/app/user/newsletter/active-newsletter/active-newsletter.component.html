@@ -1,0 +1,26 @@
+<div class="container vertical-spacing">
+
+    <header class="vertical-spacing">
+        <div class="container">
+            <h1 class="heading heading--separator">
+                {{ 'Newsletter.Self' | translate }}
+            </h1>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+        <div id="success" *ngIf="successMessage">
+            <h4> {{ successMessage }}</h4>
+        </div>
+
+        <div id="error" *ngIf="errorMessage">
+            <div class="row">
+                <h4 class="mr-3 text-nowrap"> {{ errorMessage }}</h4>
+                <link-button [labelTranslateKey]="'Newsletter.Subscribe'"
+                             [routerLink]="['/!newsletter'] | localize"></link-button>
+            </div>
+
+        </div>
+
+    </div>
+</div>

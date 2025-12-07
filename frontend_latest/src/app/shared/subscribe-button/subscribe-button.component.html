@@ -1,0 +1,19 @@
+<div class="d-flex align-items-center h-100" [appTooltip]="tooltipText" [title]="tooltipTitle">
+  <!-- add subscription -->
+  <button class="btn btn-sm" [ngClass]="bootstrapClass" *ngIf="!subscriptionId" (click)="addSubscription()">
+    {{ 'Action.Observe' | translate }}
+
+    <span class="visually-hidden">
+      {{ item?.attributes?.title }}
+    </span>
+  </button>
+
+  <!-- remove subscription -->
+  <button class="btn btn-danger btn-sm" *ngIf="subscriptionId" (click)="removeSubscription()">
+    {{ 'Action.StopObserve' | translate }}
+
+    <span class="visually-hidden">
+      {{ item?.attributes?.title }}
+    </span>
+  </button>
+</div>

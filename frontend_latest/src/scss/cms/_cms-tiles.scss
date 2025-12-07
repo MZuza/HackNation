@@ -1,0 +1,31 @@
+.cms-tiles {
+    p {
+        margin: 0;
+    }
+
+    .col {
+        min-height: 120px;
+        position: relative;
+        padding-right: 10px;
+        padding-left: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #eee;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+
+        :link,
+        :visited {
+            display: inline-block;
+        }
+
+        &:hover {
+            border-color: $primary;
+            background-color: $color-hover;
+    
+            .heading-title {
+                cursor: pointer;
+            }
+        }
+    }
+}

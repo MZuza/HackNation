@@ -1,0 +1,44 @@
+.cdk-overlay-container {
+  background: transparent;
+
+  //Overriding default high contrast behavior for Angular Material Library divs
+  div {
+    background: transparent;
+  }
+
+  .mat-datepicker-content {
+    color: $hcPrimary;
+    background: $hcSecondary;
+
+    .mat-calendar-table-header {
+      color: $hcPrimary;
+    }
+
+    .mat-calendar-arrow {
+      border-top-color: $hcPrimary;
+    }
+
+    .mat-datepicker-toggle, .mat-calendar-next-button, .mat-calendar-previous-button {
+      color: $hcPrimary;
+    }
+
+    .mat-calendar-body-selected {
+      background-color: $hcPrimary;
+      color: $hcSecondary;
+    }
+
+    .mat-calendar-body-disabled > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+      color: $color-grey-dark;
+    }
+
+    .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+      border-color: $hcPrimary;
+    }
+
+    .mat-calendar-table-header-divider {
+      &::after {
+        background-color: $hcPrimary;
+      }
+    }
+  }
+}

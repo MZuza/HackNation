@@ -1,0 +1,33 @@
+<div id="{{'cta_' + generatedId}}" 
+    class="container cta" 
+    [style]="{'background-color': cta.value.background.color}"
+    [ngStyle]="cta.value.background.image && {'background-image': 'url(\'' + cta.value.background.image.download_url + '\')'}">
+
+    <!-- header -->
+    <h2 class="pt-3 text-{{cta.value.header.align}}">
+        {{cta.value.header.text}}
+    </h2>
+
+    <!-- image & text -->
+    <div class="cta__row text-center">
+        <div [ngClass]="'cta__item--' + cta.value.image.position" class="cta__column" *ngIf="cta.value.image.image">
+            <img class="rounded mx-auto d-block mw-100 cta__image" 
+                [src]="cta.value.image.image.download_url | sanitizeUrl"
+                [alt]="cta.value.text.text">
+        </div>
+        <div [ngClass]="'cta__item--' + cta.value.text.align" class="cta__column cta__text--small">
+            <span>{{cta.value.text.text}}</span>
+        </div>
+    </div>
+
+    <!-- button -->
+    <div class="cta__row">
+        <div [ngClass]="'cta__item--' + cta.value.button.position" class="cta__column pb-3">
+            <a class="btn {{ cta.value.button.style }} {{ cta.value.button.size }}"
+                href="{{ cta.value.button.action_url }}"
+                target="{{ cta.value.button.target }}">
+                {{ cta.value.button.text }}
+            </a>
+        </div>
+    </div>
+</div>

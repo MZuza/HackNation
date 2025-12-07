@@ -1,0 +1,128 @@
+.dashboard-info {
+  &-container {
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+  &-error {
+    border: 1px solid #DC3545;
+    background-color: #F5C6CB;
+  }
+  &-success {
+    border: 1px solid #C3E6CB;
+    background-color: #D4EDDA;
+    font-weight: bold;
+  }
+}
+
+.dashboard-add-login-via-wk {
+  white-space: pre-wrap;
+}
+
+.dashboard-filtered-list {
+
+  &-point {
+    position: relative;
+    display: inline-block;
+    margin-left: 1rem;
+
+    &::before {
+      position: absolute;
+      content: "";
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      left: -0.75rem;
+    }
+
+    &--planned {
+      &::before {
+        background-color: map-get($theme-colors, "primary");
+      }
+    }
+
+    &--current {
+      &::before {
+        background-color: map-get($theme-colors, "danger");
+      }
+    }
+
+    &--finished {
+      &::before {
+        background-color: map-get($theme-colors, "success");
+      }
+    }
+
+    &--law {
+      &::before {
+        background-color: color("cyan");
+      }
+    }
+
+    &--technical {
+      &::before {
+        background-color: color("orange");
+      }
+    }
+
+    &--extra {
+      &::before {
+        background-color: color("teal");
+      }
+    }
+
+    &--exam {
+      &::before {
+        background-color: color("purple");
+      }
+    }
+
+    &--general {
+      &::before {
+        background-color: color("pink");
+      }
+    }
+
+    &--law_technical {
+      &::before {
+        background-color: $color-text;
+      }
+    }
+  }
+
+  &-item {
+    border-left: 4px solid $color-white;
+
+    & > &__state {
+      float: right;
+      padding: 0.125rem 0.5rem;
+      text-align: right;
+      color: $color-white;
+    }
+
+    &--planned {
+      border-color: map-get($theme-colors, "primary");
+
+      .dashboard-filtered-list-item__state {
+        background-color: map-get($theme-colors, "primary");
+      }
+    }
+
+    &--current {
+      border-color: map-get($theme-colors, "danger");
+
+      .dashboard-filtered-list-item__state {
+        background-color: map-get($theme-colors, "danger");
+      }
+    }
+
+    &--finished {
+      border-color: map-get($theme-colors, "success");
+
+      .dashboard-filtered-list-item__state {
+        background-color: map-get($theme-colors, "success");
+      }
+    }
+  }
+}

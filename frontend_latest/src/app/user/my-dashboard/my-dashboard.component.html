@@ -1,0 +1,429 @@
+<h1 class="visually-hidden">
+  {{ 'MyDashboard.Self' | translate }}
+</h1>
+
+<ng-container *ngIf="dashboardData$ | async as dashboardData; else loaderRef">
+  <app-logingovpl-notification [contrastMode]="highContrastMode"></app-logingovpl-notification>
+
+  <!-- USER INFO -->
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="bg-custom p-4 h-100">
+        <h2 class="heading heading--sm heading--separator">
+          {{ 'MyDashboard.MyAccount' | translate }}
+        </h2>
+
+        <!-- admin panel link -->
+        <a
+          *hasPermission="PermissionPerRoles.GO_TO_ADMIN_PANEL"
+          class="btn btn-primary btn-sm mr-1"
+          href="{{ adminPanelUrl }}"
+          target="_blank"
+        >
+          <span class="visually-hidden">
+            {{ 'GoTo' | translate }}
+          </span>
+          {{ 'MyDashboard.AdminPanel' | translate }}
+
+          <span class="visually-hidden">
+            {{ 'SkipTo.NewWindow' | translate }}
+          </span>
+        </a>
+
+        <!-- password change redirection -->
+        <a [routerLink]="['/', '!user', '!dashboard', '!change-password'] | localize"
+           class="btn btn-outline-primary btn-sm">
+          {{ 'User.ChangePassword' | translate }}
+        </a>
+
+        <!-- my account info -->
+        <div class="mt-4 mb-2">
+          {{ 'MyDashboard.MyAccountId' | translate }}:
+          <span class="d-block font-weight-bold">
+            {{ dashboardData.user.attributes.email }}
+          </span>
+        </div>
+
+        {{ 'MyDashboard.MyAccountActiveFrom' | translate }}:
+        <span class="d-block font-weight-bold">
+          {{ dashboardData.user.attributes.created | translateDateFormat: 'D MMMM YYYY' | async }}
+        </span>
+
+        <hr/>
+        <ng-container *ngIf="!dashboardData.user.attributes.is_gov_linked else accountLinked">
+          <div class="dashboard-add-login-via-wk">{{ 'MyDashboard.AddLoginViaWK' | translate }}</div>
+          <a class="btn btn-primary btn-sm mt-2 pl-3 pr-3" (click)="linkAccountToWK()"
+             [routerLink]="[]">{{ 'MyDashboard.AddLoginViaWKButton' | translate }}</a>
+        </ng-container>
+      </div>
+    </div>
+    <div class="col-lg-6 mt-4 mt-lg-0">
+      <!-- FOLLOWED OBJECTS -->
+      <div class="bg-custom p-4 h-100">
+        <h2 class="heading heading--sm heading--separator">
+          {{ 'MyDashboard.FollowedObjects' | translate }}
+        </h2>
+
+        <a [routerLink]="['/', '!user', '!dashboard', '!my', '!followed'] | localize" class="btn btn-sm btn-primary">
+          {{ 'Action.See' | translate }}
+          {{ 'Attribute.Details' | translate | lowercase }}
+        </a>
+
+        <div class="row no-gutters mt-4">
+          <div class="col-md-6">
+            <!-- DATASETS -->
+            <div class="row">
+              <div class="col-2 col-md-3">
+                <span class="icon-rounded-wrapper">
+                  <svg aria-labelledby="icon-followed-datasets-title" class="icon icon-followed-datasets" role="img">
+                    <title id="icon-followed-datasets-title">
+                      {{ 'Datasets.Self' | translate }}
+                    </title>
+                    <use href="/assets/icomoon/sprite/sprite.svg#icon-followed-datasets"></use>
+                  </svg>
+                </span>
+              </div>
+              <div class="col">
+                {{ 'Datasets.Self' | translate }}
+                <span class="d-block font-weight-bold h4">
+                  {{ dashboardData.data.subscriptions.datasets }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <!-- QUERIES -->
+            <div class="row">
+              <div class="col-2 col-md-3">
+                <span class="icon-rounded-wrapper">
+                  <svg aria-labelledby="icon-followed-queries-title" class="icon icon-followed-queries" role="img">
+                    <title id="icon-followed-queries-title">
+                      {{ 'Search.Results' | translate }}
+                    </title>
+                    <use href="/assets/icomoon/sprite/sprite.svg#icon-followed-queries"></use>
+                  </svg>
+                </span>
+              </div>
+              <div class="col">
+                {{ 'Search.Results' | translate }}
+                <span class="d-block font-weight-bold h4">
+                  {{ dashboardData.data.subscriptions.queries }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div *ngIf="dashboardData.data.fav_charts['slot-1'].name || dashboardData.data.fav_charts['slot-2'].name"
+         class="col-lg-12 mt-4">
+      <div class="bg-custom p-4 h-100">
+        <h2 class="heading heading--sm heading--separator">
+          {{ 'MyDashboard.Stats' | translate }}
+        </h2>
+        <div class="row">
+          <div *ngIf="dashboardData.data.fav_charts['slot-1'].name" class="col-lg-6">
+            <h3 class="heading heading--xs heading--separator">
+              {{ dashboardData.data.fav_charts['slot-1'].name }}
+            </h3>
+            <img
+              class="img-fluid"
+              [src]="dashboardData.data.fav_charts['slot-1'].thumb_url"
+              alt="{{ dashboardData.data.fav_charts['slot-1'].name }} - {{ 'MyDashboard.Chart' | translate }}"
+            />
+          </div>
+
+          <div *ngIf="dashboardData.data.fav_charts['slot-2'].name" class="col-lg-6 mt-lg-0 mt-4">
+            <h3 class="heading heading--xs heading--separator">
+              {{ dashboardData.data.fav_charts['slot-2'].name }}
+            </h3>
+            <img
+              class="img-fluid"
+              [src]="dashboardData.data.fav_charts['slot-2'].thumb_url"
+              alt="{{ dashboardData.data.fav_charts['slot-2'].name }} - {{ 'MyDashboard.Chart' | translate }}"
+            />
+          </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-center">
+          <a [routerLink]="['/' | localize, 'user', 'dashboard', 'stats']" class="btn btn-sm btn-primary">
+            {{ 'Action.See' | translate }}
+            {{ 'MyDashboard.AllStats' | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAB & ACADEMY -->
+    <div class="col-lg-6">
+      <div class="d-flex flex-column h-100">
+        <!-- LAB -->
+        <div class="mt-4 h-100">
+          <!-- LAB -->
+          <div class="bg-custom-dark p-4 h-100">
+            <h2 class="heading heading--sm heading--separator">
+              <span class="text-white">
+                {{ 'MyDashboard.Lod' | translate }}
+              </span>
+            </h2>
+
+            <a [routerLink]="['/', '!user', '!dashboard', '!lab'] | localize" class="btn btn-sm btn-primary">
+              {{ 'Action.See' | translate }}
+              {{ 'MyDashboard.Reports' | translate | lowercase }}
+            </a>
+
+            <div class="row mt-4">
+              <div class="col-6 text-white">
+                {{ 'MyDashboard.Analyzes' | translate }}
+                <span class="d-block font-weight-bold h4">
+                  {{ dashboardData.data.lab.analyses }}
+                </span>
+              </div>
+              <div class="col-6 text-white">
+                {{ 'MyDashboard.Research' | translate }}
+                <span class="d-block font-weight-bold h4">
+                  {{ dashboardData.data.lab.researches }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADACEMY -->
+        <div *hasPermission="PermissionPerRoles.BROWSE_AOD" class="mt-4 h-100">
+          <!-- ACADEMY -->
+          <div class="bg-custom-dark p-4 h-100">
+            <h2 class="heading heading--sm heading--separator">
+              <span class="text-white">{{ 'MyDashboard.Aod' | translate }}</span>
+            </h2>
+
+            <a [routerLink]="['/', '!user', '!dashboard', '!academy', '!courses'] | localize"
+               class="btn btn-sm btn-primary">
+              {{ 'MyDashboard.SeeCourses' | translate }}
+            </a>
+
+            <div class="row mt-4">
+              <div class="col-4 text-white">
+                {{ 'MyDashboard.Planned' | translate }}
+                <span class="d-block font-weight-bold h4">
+                  {{ dashboardData.data.academy.planned }}
+                </span>
+              </div>
+              <div class="col-4 text-white">
+                {{ 'MyDashboard.InProgress' | translate }}
+                <span class="d-block font-weight-bold h4">
+                  {{ dashboardData.data.academy.current }}
+                </span>
+              </div>
+              <div class="col-4 text-white">
+                {{ 'MyDashboard.Realized' | translate }}
+                <span class="d-block font-weight-bold h4">
+                  {{ dashboardData.data.academy.finished }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORUM -->
+    <div class="col-lg-6 mt-4" *hasPermission="PermissionPerRoles.BROWSE_FORUM">
+      <div class="bg-custom p-4 h-100">
+        <div class="d-flex justify-content-between">
+          <h2 class="heading heading--sm heading--separator">{{ 'MyDashboard.Forum' | translate }}</h2>
+          <!-- notifications (bell) -->
+          <app-schedule-notification-popup [isSchedulePopup]="false" [forumUsername]="forumUsername"
+                                           *ngIf="forumUsername">
+          </app-schedule-notification-popup>
+        </div>
+
+        <!-- latest topics -->
+        <div *ngFor="let item of forumLatestTopicsWithCategories">
+          <a href="{{ forumUrl }}/session/sso?return_path=/t/{{ item.slug }}/{{ item.id }}" target="_blank">
+            {{ item.title }}
+            <span class="visually-hidden">
+              {{ 'SkipTo.NewWindow' | translate }}
+            </span>
+          </a>
+
+          <ul class="list-inline small my-2">
+            <li class="list-inline-item pr-3">{{ 'MyDashboard.Responses' | translate }} {{ item.posts_count || 0 }}</li>
+            <li class="list-inline-item pr-3">{{ 'MyDashboard.Views' | translate }} {{ item.views }}</li>
+            <li class="list-inline-item">{{ 'MyDashboard.Activity' | translate }} {{ item.last_posted_at | timespan }}
+            </li>
+          </ul>
+
+          <!-- category -->
+          <span class="d-flex justify-content-between">
+            <span class="small">
+              <span class="forum__type pr-2" style="background-color: #{{ item.category.color }}"></span>
+              <span class="visually-hidden">{{ 'MyDashboard.Category' | translate }} </span>
+              {{ item.category.name }}
+            </span>
+          </span>
+
+          <hr/>
+        </div>
+
+        <!-- actions -->
+        <a class="btn btn-primary btn-sm mr-2" href="{{ forumUrl }}/session/sso" target="_blank">
+          {{ 'MyDashboard.GoToForum' | translate }}
+          <span class="visually-hidden">
+            {{ 'SkipTo.NewWindow' | translate }}
+          </span>
+        </a>
+        <span class="small">
+          {{ 'MyDashboard.GoToForumText' | translate }}
+          <a [routerLink]="['../', 'forum-regulations']"> {{ 'MyDashboard.GoToForumRegulations' | translate }} </a>
+        </span>
+      </div>
+    </div>
+
+    <!--  NEW DATA PROPOSAL  -->
+    <div *hasPermission="PermissionPerRoles.BROWSE_NEW_DATA_PROPOSAL" class="col-lg-6 mt-4 align-self-start">
+      <div class="bg-custom p-4 h-100">
+        <h2 class="heading heading--sm heading--separator">{{ 'MyDashboard.NewDataProposal' | translate }}</h2>
+
+        <a [routerLink]="['/', '!user', '!dashboard', '!data-proposal'] | localize" class="btn btn-sm btn-primary">
+          {{ 'MyDashboard.SeeData' | translate }}
+        </a>
+
+        <div class="row mt-4">
+          <div class="col-6">
+            {{ 'MyDashboard.Active' | translate }}
+            <span class="d-block font-weight-bold h4">
+              {{ dashboardData.data.suggestions.active }}
+            </span>
+          </div>
+          <div class="col-6">
+            {{ 'MyDashboard.Inactive' | translate }}
+            <span class="d-block font-weight-bold h4">
+              {{ dashboardData.data.suggestions.inactive }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  MEETINGS  -->
+    <div *hasPermission="PermissionPerRoles.BROWSE_MEETINGS" class="col-lg-6 mt-4">
+      <div class="bg-custom p-4 h-100">
+        <h2 class="heading heading--sm heading--separator">{{ 'MyDashboard.ProxiesMeetings' | translate }}</h2>
+
+        <a [routerLink]="['/', '!user', '!dashboard', '!meetings'] | localize" class="btn btn-sm btn-primary">
+          {{ 'MyDashboard.ViewDetails' | translate }}
+        </a>
+
+        <div class="row mt-4">
+          <div class="col-6">
+            {{ 'MyDashboard.Planned' | translate }}
+            <span class="d-block font-weight-bold h4">
+              {{ dashboardData.data.meetings.planned }}
+            </span>
+          </div>
+          <div class="col-6">
+            {{ 'MyDashboard.Completed' | translate }}
+            <span class="d-block font-weight-bold h4">
+              {{ dashboardData.data.meetings.finished }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  SCHEDULE  -->
+    <div class="col-lg-6 mt-4" *hasPermission="PermissionPerRoles.SCHEDULE.HAS_ACCESS">
+      <div class="bg-custom p-4 h-100">
+        <div class="d-flex justify-content-between">
+          <h2 class="heading heading--sm heading--separator">{{ 'MyDashboard.Hod' | translate }}</h2>
+
+          <!-- notifications (bell) -->
+          <app-schedule-notification-popup
+            [notifications]="dashboardData.data.schedules?.notifications"
+            *hasPermission="PermissionPerRoles.SCHEDULE.DASHBOARD_BROWSE_NOTIFICATIONS"
+          >
+          </app-schedule-notification-popup>
+        </div>
+
+        <a [routerLink]="['/', '!user', '!dashboard', '!schedule'] | localize" class="btn btn-sm btn-primary">
+          {{ 'MyDashboard.ViewDetails' | translate }}
+        </a>
+
+        <div class="row mt-4 no-gutters" *hasPermission="PermissionPerRoles.SCHEDULE.DASHBOARD_BROWSE_ALL_SCHEDULES">
+          <div class="col-4">
+            {{ 'MyDashboard.Started' | translate }}
+            <span class="d-block font-weight-bold h4">
+              {{ dashboardData.data.schedules?.started }}
+            </span>
+          </div>
+          <div class="col-4">
+            {{ 'MyDashboard.Ready' | translate }}
+            <span class="d-block font-weight-bold h4">
+              {{ dashboardData.data.schedules?.ready }}
+            </span>
+          </div>
+          <div class="col-4">
+            {{ 'MyDashboard.Recommendations' | translate }}
+            <span class="d-block font-weight-bold h4">
+              {{ dashboardData.data.schedules?.recommended }}
+            </span>
+          </div>
+        </div>
+
+        <ng-container *ngIf="!isAdmin">
+          <div class="row mt-4" *hasPermission="PermissionPerRoles.SCHEDULE.PLANNING_BROWSE_CURRENT">
+            <div class="col-6">
+              {{ 'MyDashboard.Notifications' | translate }}
+              <span class="d-block font-weight-bold h4">
+                {{ dashboardData.data.schedules?.schedule_items }}
+              </span>
+            </div>
+            <div class="col-6">
+              {{ 'MyDashboard.StatusOfWorks' | translate }}
+
+              <!-- ready -->
+              <span class="d-block font-weight-bold h4 text-success"
+                    *ngIf="dashboardData.data.schedules?.state === 'gotowy'">
+                <!-- icon -->
+                <!-- //TODO: jednakowe style dla .icon 24px -->
+                <svg class="icon" aria-hidden="true" style="width: 24px; height: 24px; fill: currentColor">
+                  <use href="/assets/icomoon/sprite/sprite.svg#icon-success"></use>
+                </svg>
+
+                {{ dashboardData.data.schedules?.state }}
+              </span>
+
+              <!-- in progress -->
+              <span class="d-block font-weight-bold h4 text-danger"
+                    *ngIf="dashboardData.data.schedules?.state !== 'gotowy'">
+                <!-- icon -->
+                <!-- //TODO: jednakowe style dla .icon 24px -->
+                <svg class="icon" aria-hidden="true" style="width: 24px; height: 24px; fill: currentColor">
+                  <use href="/assets/icomoon/sprite/sprite.svg#icon-in-progress"></use>
+                </svg>
+
+                {{ dashboardData.data.schedules?.state }}
+              </span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- LOADER -->
+<ng-template #loaderRef>
+  <app-loader></app-loader>
+</ng-template>
+
+<ng-template #accountLinked>
+  <div class="dashboard-add-login-via-wk">{{ 'MyDashboard.LoginAdded' | translate }}</div>
+  <a class="btn btn-outline-primary btn-sm mt-2 pl-3 pr-3" (click)="openDialog()"
+     [routerLink]="[]">{{ 'MyDashboard.RemoveLoginViaWK' | translate }}</a>
+</ng-template>
+
+

@@ -1,0 +1,61 @@
+<form class="custom-form" [formGroup]="commentForm" (ngSubmit)="onFormSubmit()">
+
+    <!-- comment -->
+    <div class="form-group mb-2" 
+        [ngClass]="{'form-group-invalid': commentForm.controls.comment.invalid && commentForm.controls.comment.touched}">
+        
+        <label for="comment" class="visually-hidden" [ngClass]="{'visually-hidden': isEditMode}">
+            {{ isEditMode ? 'Edycja komentarza' : 'Dodaj nowy komentarz' }}
+        </label>
+
+        <!-- comment textarea -->
+        <textarea class="form-control" name="comment" id="comment" rows="3"
+            #commentField
+            placeholder="komentarz"
+            formControlName="comment"
+            [attr.aria-describedby]="'comment_error'"
+            [attr.aria-invalid]="commentForm.controls.comment.invalid && commentForm.controls.comment.touched">
+        </textarea>
+        
+        <!-- comment error -->
+        <div role="alert" aria-live="polite" id="comment_error" @toggleVertically
+            *ngIf="commentForm.controls.comment.invalid && commentForm.controls.comment.touched">
+
+            <!-- required and minLength error -->
+            <small class="form-text text-danger" 
+                *ngIf="commentForm.controls.comment.errors?.required || commentForm.controls.comment.errors?.minlength">
+                Wymagana, minimalna liczba znaków: {{ this.minCommentLength }}
+            </small>
+            
+            <!-- max length error -->
+            <small class="form-text text-danger" *ngIf="commentForm.controls.comment.errors?.maxlength">
+                Maksymalna liczba znaków została przekroczona o
+                {{ commentForm.controls.comment.errors.maxlength['actualLength'] - maxCommentLength }}
+            </small>
+        </div>
+    </div>
+
+    <!-- submit form -->
+    <div>
+
+        <!-- fake submit -->
+        <button type="button" class="btn btn-sm btn-secondary"
+            aria-describedby="comment_error"
+            *ngIf="commentForm.invalid">
+            {{ isEditMode ? 'Zapisz zmiany' : 'Dodaj komentarz' }}
+        </button>
+
+        <!-- submit -->
+        <button type="submit" class="btn btn-sm btn-primary"
+            *ngIf="commentForm.valid">
+            {{ isEditMode ? 'Zapisz zmiany' : 'Dodaj komentarz' }}
+        </button>
+        
+        <!-- cancel (edit mode) -->
+        <button type="button" class="btn btn-sm btn-outline-primary ml-2"
+            (click)="onEditCancel()"
+            *ngIf="isEditMode">
+            Anuluj
+        </button>
+    </div>
+</form>

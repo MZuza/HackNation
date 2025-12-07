@@ -1,0 +1,12 @@
+<div class="d-flex justify-content-end flex-wrap align-items-baseline">
+  <p class="pr-2 m-0 font-weight-bold">{{ titleTranslationKey | translate }}</p>
+  <a
+    class="btn btn-primary new-data-link"
+    appTooltip="{{ 'Tour.Tooltip.' + buttonTranslationKey + '.text' | translate }}"
+    title="{{ 'Tour.Tooltip.' + buttonTranslationKey + '.title' | translate }}"
+    placement="left"
+    [routerLink]="[routerLink]"
+  >
+    {{ buttonTranslationKey | translate }}
+  </a>
+</div>

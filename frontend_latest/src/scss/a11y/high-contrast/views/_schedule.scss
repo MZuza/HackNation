@@ -1,0 +1,16 @@
+.delete-confirmation-modal {
+    border-color: $hcPrimary;
+
+}
+
+.schedule-comment-item {
+
+    &:not(:last-child) {
+        border-bottom-color: $hcPrimary;
+    }
+    
+    &__initial-letter {
+        border-color: $hcPrimary;
+        color: $hcPrimary;
+    }
+}

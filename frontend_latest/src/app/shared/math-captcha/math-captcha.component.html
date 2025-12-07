@@ -1,0 +1,52 @@
+<!-- captcha -->
+<div class="form-group captcha" [ngClass]="{ 'form-group-invalid': control.invalid && control.touched }">
+  <label for="captcha">
+    <span class="font-weight-normal d-block">
+      {{ 'Captcha.Description' | translate }}
+      <small class="visually-hidden">({{ 'Validation.RequiredField' | translate | lowercase }})</small>
+    </span>
+
+    <span class="font-weight-bold d-inline-block">
+      {{ 'Captcha.Label' | translate }}:
+      <span class="captcha__equation"> {{ equationLabel }} = </span>
+      <input
+        type="text"
+        class="form-control d-inline-block"
+        id="captcha"
+        style="width: 45px"
+        autocomplete="off"
+        [formControl]="control"
+        [attr.aria-describedby]="'captcha_required_error captcha_number_error'"
+        [attr.aria-invalid]="control.invalid"
+        (keydown.enter)="$event.preventDefault()"
+      />
+    </span>
+  </label>
+
+  <!-- captcha validation errors -->
+  <ng-container *ngIf="control.invalid && control.touched && control.errors">
+    <!-- required error -->
+    <small
+      class="form-text text-danger"
+      role="alert"
+      aria-live="polite"
+      id="captcha_required_error"
+      *ngIf="control.errors['required'] && (!control.dirty || (control.dirty && !control.value))"
+      @toggleVertically
+    >
+      {{ 'Validation.VarRequired' | translate: { param: 'Captcha.Label' | translate } }}
+    </small>
+
+    <!-- invalid number error -->
+    <small
+      class="form-text text-danger"
+      role="alert"
+      aria-live="polite"
+      id="captcha_number_error"
+      *ngIf="control.errors['invalidNumber'] && control.dirty && control.value"
+      @toggleVertically
+    >
+      {{ 'Validation.InvalidNumber' | translate }}
+    </small>
+  </ng-container>
+</div>

@@ -1,0 +1,51 @@
+.carousel > .slide {
+    height: 70%;
+}
+
+.carousel {
+    background-color: $color-white;
+
+    a.right {
+        margin-right: 15px;
+    }
+
+    a.left {
+        margin-left: 15px;
+    }
+
+    a.carousel-control-prev,
+    a.carousel-control-next {
+        opacity: 1;
+        background-color: $color-blue-dark;
+        border: 2px solid $color-white;;
+        transition: background-color 0.2s;
+    }
+
+    a.carousel-control-prev:hover,
+    a.carousel-control-next:hover,
+    .carousel-indicators > li.active {
+        background-color: $color-blue-light;
+    }
+
+    a.carousel-control-prev:focus,
+    a.carousel-control-next:focus {
+        outline: $outline;
+    }
+
+    .carousel-control {
+        position: absolute;
+        background-color: $color-blue-dark;
+        top:50%;
+        transform: translateY(-50%);
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+    }
+
+    .carousel-indicators > li {
+        background-color: $color-blue-dark;
+        border-radius: 4px;
+        border: 2px solid $color-white;
+        padding: 4px;
+    }
+}

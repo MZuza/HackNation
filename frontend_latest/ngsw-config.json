@@ -1,0 +1,73 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "navigationUrls": [
+    "/pl/**",
+    "/en/**",
+    "!/**/*.*",
+    "!/**/*__*",
+    "!/**/*__*/**",
+    "!/pn-apps/stats",
+    "!/pn-apps/stats/",
+    "!/pn-apps/stats/**"
+
+  ],
+  "assetGroups": [
+    {
+      "name": "frontend",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": [
+        "**/1.4/applications/**",
+        "**/1.4/applications",
+        "**/1.4/articles/**",
+        "**/1.4/articles",
+        "**/1.4/institutions",
+        "**/1.4/institutions/**",
+        "**/1.4/datasets/**",
+        "**/1.4/datasets",
+        "**/1.4/resources",
+        "**/1.4/resources/**",
+        "**/1.4/histories/",
+        "**/1.4/histories/**",
+        "**/1.4/search/**",
+        "**/1.4/search",
+        "**/1.4/stats",
+        "**/1.4/guides",
+        "**/1.4/guides/**",
+        "**/api/**",
+        "/**/api/client/**"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "timeout": "5s",
+        "maxSize": 100,
+        "maxAge": "1d"
+      }
+    }
+  ]
+}

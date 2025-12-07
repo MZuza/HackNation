@@ -1,0 +1,84 @@
+&#stats {
+  .bk-root {
+    .canvas-container {
+      background: unset;
+
+      div {
+        &:not(.bk-toolbar-button) {
+          background: unset;
+        }
+      }
+
+      .bk {
+        &.bk-tooltip {
+          background: #333;
+          color: #fff;
+        }
+      }
+    }
+
+
+    .bk-btn {
+
+      &.bk-btn-default {
+        color: $hcPrimary;
+        background-color: $hcSecondary;
+        border-color: $hcPrimary;
+
+        &.bk-active {
+          background-color: $hcPrimary;
+          color: $hcSecondary;
+          border-color: $hcPrimary;
+        }
+      }
+    }
+
+    .table {
+      color: $hcPrimary;
+
+      tbody, thead {
+        th {
+          border: 1px solid $hcPrimary;
+        }
+
+        td {
+          border-top: 1px solid $hcPrimary;
+          border-bottom: 1px solid $hcPrimary;
+
+          &:last-child {
+            border-left: 1px solid $hcPrimary;
+            border-right: 1px solid $hcPrimary;
+          }
+        }
+      }
+
+      &.table-hover {
+        tr:hover {
+          color: $hcPrimary;
+        }
+      }
+    }
+
+    .bootstrap-select > .dropdown-toggle {
+      &.bs-placeholder {
+        color: $hcPrimary;
+      }
+    }
+
+    .dropdown-menu {
+      &.inner {
+        background: $hcPrimary;;
+      }
+    }
+
+    .dropdown-item {
+      color: $hcPrimary;
+
+      &:hover {
+        a {
+          color: $hcSecondary;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,280 @@
+<!-- SEARCH and FILTERS -->
+<div class="search pt-5 pb-2" id="search">
+  <div class="container">
+    <!-- SEARCH -->
+    <form (ngSubmit)="generateQuery(f.value.searchInput)" #f="ngForm">
+      <div class="row">
+        <div class="col position-relative">
+          <!-- search input-->
+          <input
+            class="form-control form-control-lg search__input"
+            type="text"
+            placeholder="{{ 'Action.SearchFor' | translate }}..."
+            [attr.aria-label]="'Action.SearchFor' | translate"
+            [ngModel]="searchQuery"
+            name="searchInput"
+          />
+
+          <!-- clear search field -->
+          <button type="button" class="btn search__clear" (click)="generateQuery('')" *ngIf="searchQuery?.length">
+            <span class="visually-hidden">
+              {{ 'Search.ClearInput' | translate }}
+            </span>
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+          <!-- info tooltip -->
+          <span
+            class="search__info"
+            appInfoTooltip="{{ 'Tour.Tooltip.DataResource.Search.text' | translate }}"
+            tooltipTitle="{{ 'Tour.Tooltip.DataResource.Search.title' | translate }}"
+            withoutMargin
+          >
+          </span>
+        </div>
+
+        <!-- perform search -->
+        <div class="col-sm col-sm-auto">
+          <button class="btn btn-primary btn-lg search__button" type="submit">
+            {{ 'Action.Search' | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- toggle filters -->
+    <div
+      appInfoTooltip="{{ 'Tour.Tooltip.DataResource.Filters.text' | translate }}"
+      tooltipTitle="{{ 'Tour.Tooltip.DataResource.Filters.title' | translate }}"
+    >
+      <button
+        class="btn btn-link"
+        type="button"
+        [attr.aria-controls]="areFiltersVisible ? 'filters' : null"
+        [attr.aria-pressed]="areFiltersVisible"
+        (click)="areFiltersVisible = !areFiltersVisible"
+      >
+        <span class="font-weight-bold">
+          {{ (areFiltersVisible ? 'Filters.HideFilters' : 'Filters.ShowFilters') | translate }}
+        </span>
+        <ng-container *ngIf="selectedFilters.length">
+          ({{ 'Filters.VarSelected' | translate: { param: selectedFilters.length } | lowercase }})
+        </ng-container>
+      </button>
+    </div>
+
+    <!-- FILTERS -->
+    <div
+      id="resource-filters"
+      [attr.aria-expanded]="!areFiltersVisible"
+      [attr.aria-hidden]="areFiltersVisible"
+      *ngIf="areFiltersVisible"
+      @toggleVertically
+    >
+      <form (ngSubmit)="onApplyFilter(filtersForm)" #filtersForm="ngForm">
+        <!-- column (dropdown) -->
+        <div class="form-group">
+          <label for="column" class="font-weight-bold" style="font-size: 85%">
+            {{ 'ResourceFilter.Column' | translate }}
+          </label>
+          <select
+            class="form-select"
+            [ngModel]="null"
+            id="column"
+            name="column"
+            #column="ngModel"
+            required
+            (change)="onFilterColumnChange(column.value)"
+          >
+            <option [ngValue]="null" disabled>
+              {{ 'Filters.Choose' | translate }}
+            </option>
+            <option *ngFor="let column of columns" [ngValue]="column">
+              {{ column.description }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mt-md-4">
+          <!-- data type -->
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="datatype" class="font-weight-bold" style="font-size: 85%">
+                {{ 'ResourceFilter.DataTypeLabel' | translate }}:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="datatype"
+                readonly
+                aria-readonly="true"
+                value="{{
+                  filtersForm.value['column'] ? ('ResourceFilter.DataType.' + filtersForm.value['column']['type'] | translate) : ''
+                }}"
+              />
+            </div>
+          </div>
+
+          <!-- operator -->
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="operator" class="font-weight-bold" style="font-size: 85%">
+                {{ 'ResourceFilter.Operator' | translate }}
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                *ngIf="!filtersForm.value['column']"
+                id="operator"
+                readonly
+                aria-readonly="true"
+                value=""
+              />
+
+              <select
+                class="form-select"
+                *ngIf="filtersForm.value['column']"
+                id="operator"
+                name="operator"
+                #operator="ngModel"
+                required
+                [ngModel]="null"
+                (change)="onFilterOperatorChange(operator.value)"
+              >
+                <option [value]="null" disabled>
+                  {{ 'Filters.ChooseOperation' | translate }}
+                </option>
+                <option *ngFor="let op of tempOperators" [value]="op">
+                  {{ 'ResourceFilter.Operators.' + currentFilter.typeTranslationKey + '.' + op | translate }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- filter value -->
+          <div
+            class="col-12 {{
+              filtersForm.value['column'] && !isDateTimeType(filtersForm.value['column']['type']) ? 'col-md-6' : 'col-md-3'
+            }}"
+          >
+            <div class="form-group">
+              <label for="phrase" class="font-weight-bold" style="font-size: 85%">
+                {{ 'ResourceFilter.Phrase' | translate }}
+              </label>
+
+              <!-- fake input -->
+              <input type="text" class="form-control" id="phrase" readonly *ngIf="!filtersForm.value['column']" />
+
+              <!-- datepicker -->
+              <app-datepicker
+                *ngIf="filtersForm.value['column'] && isDateType(filtersForm.value['column']['type'])"
+                [isSmall]="false"
+                [placeholderTranslationKey]="''"
+                ngModel
+                name="phrase"
+                [isDisabled]="!isPhraseFieldAccessible"
+                [isReadonly]="!isPhraseFieldAccessible"
+                [isRequired]="isPhraseFieldAccessible"
+                label="{{ 'Attribute.Date' | translate }} {{ 'Attribute.From' | translate | lowercase }}"
+              >
+              </app-datepicker>
+
+              <!-- number, text -->
+              <input
+                class="form-control"
+                *ngIf="filtersForm.value['column'] && !isDateType(filtersForm.value['column']['type'])"
+                autocomplete="off"
+                type="{{ isNumberType(filtersForm.value['column']['type']) ? 'number' : 'text' }}"
+                id="phrase"
+                ngModel
+                name="phrase"
+                #phrase="ngModel"
+                placeholder="{{ 'Filters.Value' | translate }}..."
+                [readonly]="!isPhraseFieldAccessible"
+                [required]="isPhraseFieldAccessible"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-md-3" *ngIf="filtersForm.value['column'] && isDateTimeType(filtersForm.value['column']['type'])">
+            <div class="form-group">
+              <timepicker
+                ngModel
+                name="phraseTime"
+                #phraseTime="ngModel"
+                [required]="isPhraseFieldAccessible"
+                [disabled]="!isPhraseFieldAccessible"
+                [readonlyInput]="!isPhraseFieldAccessible"
+                [showMeridian]="false"
+                [minuteStep]="1"
+              >
+              </timepicker>
+            </div>
+          </div>
+
+          <!-- submit -->
+          <div class="col-12">
+            <button class="btn btn-outline-primary" type="submit">
+              {{ 'Filters.ApplyOne' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- SELECTED FILTERS -->
+      <ng-container *ngIf="selectedFilters.length">
+        <h2 class="heading heading--sm mt-4">
+          {{ 'Filters.VarSelected' | translate: { param: selectedFilters.length } }}
+        </h2>
+
+        <div class="row mt-2" *ngFor="let filter of selectedFilters; let i = index" @toggleVertically>
+          <div class="col-12 col-md-6">
+            {{ filter.column.description }}
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="d-flex justify-content-between align-items-top">
+              <!-- dates -->
+              <span>
+                {{ 'ResourceFilter.DataType.' + filter.column.type | translate }}
+                {{ 'ResourceFilter.Operators.' + filter.typeTranslationKey + '.' + filter.operator | translate }}
+
+                <ng-container *ngIf="filter.column.type === 'date' && filter.phrase">
+                  {{ filter.phrase | translateDateFormat: 'D MMMM YYYY' | async }}
+                </ng-container>
+
+                <ng-container *ngIf="filter.column.type === 'datetime' && filter.phrase">
+                  {{ joinDateWithTime(filter.phrase, filter.phraseTime) | translateDateFormat | async }}
+                </ng-container>
+                <ng-container *ngIf="filter.column.type !== 'date' && filter.column.type !== 'datetime'">
+                  {{ filter.phrase }}
+                </ng-container>
+              </span>
+
+              <button class="btn btn--remove" (click)="onRemoveFilterByIndex(i)">
+                {{ 'Filters.Remove' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- actions -->
+        <div class="row mt-2">
+          <div class="col-12">
+            <!-- clear selected filters -->
+            <button type="button" class="btn btn-sm btn-danger" (click)="onClearSelectedFilters()">
+              {{ 'Filters.RemoveSelected' | translate }}
+              ({{ selectedFilters.length }})
+            </button>
+
+            <!-- restore initial view -->
+            <button type="button" class="btn btn-sm btn-outline-primary ml-1" (click)="onRestoreInitialView()">
+              {{ 'Filters.RestoreInitialView' | translate }}
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

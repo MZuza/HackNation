@@ -1,0 +1,28 @@
+.aod {
+    &-course {
+        &--planned, 
+        &--current,
+        &--finished {
+            border: 0;
+
+            .aod-course__state {
+                background: $hcPrimary;
+                color: $hcSecondary;
+            }
+        }
+    }
+
+    &-point {
+        &::before {
+            background: $hcSecondary;
+        }
+    }
+
+    &-circle {
+        color: $hcPrimary;
+    
+        &::before {
+            border: 0;
+        }
+    }
+}

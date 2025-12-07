@@ -1,0 +1,14 @@
+<button type="button" 
+    (click)="expandOptionsList()" 
+    [attr.aria-controls]="isExpanded ? 'filters' : null" 
+    [attr.aria-pressed]="isExpanded"
+    class="btn btn-link btn-sm pl-0">
+    <span class="visually-hidden">
+        {{ 'Filters.Self' | translate }}:
+        {{ srTranslationKey | translate }}.
+    </span>
+    {{ (isExpanded ? 'Action.Hide' : 'Action.Show') | translate }}
+
+    <span class="triangle triangle--up" *ngIf="isExpanded"></span>
+    <span class="triangle triangle--down" *ngIf="!isExpanded"></span>
+</button>

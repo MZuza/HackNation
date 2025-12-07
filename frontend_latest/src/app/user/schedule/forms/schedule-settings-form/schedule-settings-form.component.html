@@ -1,0 +1,122 @@
+<form class="bg-custom custom-form p-4" [formGroup]="settingsForm" (ngSubmit)="onFormSubmit()" *ngIf="!this.isFormSubmitted">
+  <!-- api notifications  -->
+  <app-notifications aria-live="polite"></app-notifications>
+
+  <div class="d-flex flex-column flex-lg-row">
+    <!-- Period Name -->
+    <div class="form-group mr-lg-4">
+      <label for="period-name" class="font-weight-bold"> {{ 'Hod.Period' | translate }}: </label>
+      <input
+        type="text"
+        id="period-name"
+        style="width: 150px"
+        formControlName="period_name"
+        class="form-control schedule-settings-input"
+        [appTooltip]="settingsForm.controls.period_name.value.length > 18 ? settingsForm.controls.period_name.value : ''"
+        [readOnly]="isOnlyLinkEditable"
+      />
+    </div>
+
+    <!-- end date -->
+    <div class="form-group mr-lg-4" *ngIf="!isOnlyLinkEditable || (isOnlyLinkEditable && !!settingsForm.controls.end_date.value)">
+      <label *ngIf="isOnlyLinkEditable" for="end_date" class="font-weight-bold"> {{ 'Hod.EndDate' | translate }}: </label>
+
+      <!-- input with datepicker -->
+      <div class="input-group" [ngClass]="{ 'd-none': isOnlyLinkEditable }">
+        <app-datepicker
+          [isReadonly]="isOnlyLinkEditable"
+          formControlName="end_date"
+          [isSmall]="false"
+          [width]="150"
+          [isLabelVisible]="true"
+          [placeholderTranslationKey]="''"
+          [label]="('Hod.EndDate' | translate) + ':'"
+        ></app-datepicker>
+      </div>
+
+      <!-- disabled input, keyboard accessible, without datepicker -->
+      <input
+        type="text"
+        *ngIf="isOnlyLinkEditable"
+        style="width: 150px"
+        id="end_date"
+        formControlName="end_date"
+        class="form-control schedule-settings-input"
+        title="To pole nie jest dostępne do edycji"
+        readonly
+      />
+    </div>
+
+    <!-- new end date -->
+    <div class="form-group" *ngIf="!isOnlyLinkEditable || (isOnlyLinkEditable && !!settingsForm.controls.new_end_date.value)">
+      <label *ngIf="isOnlyLinkEditable" for="end_date" class="font-weight-bold"> {{ 'Hod.NewEndDate' | translate }}: </label>
+      <!-- input with datepicker -->
+      <app-datepicker
+        [ngClass]="{ 'd-none': !isNewEndDateEnabled || isOnlyLinkEditable }"
+        [isReadonly]="isOnlyLinkEditable"
+        formControlName="new_end_date"
+        [width]="150"
+        [isSmall]="false"
+        [isLabelVisible]="true"
+        [label]="('Hod.NewEndDate' | translate) + ':'"
+        [placeholderTranslationKey]="''"
+      ></app-datepicker>
+
+      <!-- disabled input, keyboard accessible, wihtout datepicker -->
+      <input
+        type="text"
+        *ngIf="!isNewEndDateEnabled || isOnlyLinkEditable"
+        style="width: 150px"
+        formControlName="new_end_date"
+        class="form-control"
+        [class.schedule-settings-input]="isOnlyLinkEditable"
+        [title]="
+          !isOnlyLinkEditable || !isNewEndDateEnabled ? 'Data zakończenia nie została wprowadzona' : 'To pole nie jest dostępne do edycji'
+        "
+        readonly
+      />
+    </div>
+  </div>
+
+  <!-- link -->
+  <div class="form-group" [ngClass]="{ 'form-group-invalid': settingsForm.controls.link.invalid && settingsForm.controls.link.touched }">
+    <label for="link"> {{ 'Hod.ScheduleLink' | translate }}: </label>
+
+    <input
+      type="text"
+      class="form-control"
+      id="link"
+      autocomplete="off"
+      formControlName="link"
+      [attr.aria-describedby]="'link_invalid_error'"
+      [attr.aria-invalid]="settingsForm.controls.link.invalid && settingsForm.controls.link.touched"
+      (keydown.enter)="$event.preventDefault()"
+    />
+
+    <!-- link errors -->
+    <ng-container *ngIf="settingsForm.controls.link.invalid && settingsForm.controls.link.touched">
+      <!-- invalid link error -->
+      <small
+        class="form-text text-danger"
+        role="alert"
+        id="link_invalid_error"
+        *ngIf="settingsForm.get('link').errors['pattern']"
+        @toggleVertically
+      >
+        {{ 'Hod.InvalidPageAddress' | translate }}
+      </small>
+    </ng-container>
+  </div>
+  <!-- fake submit -->
+  <button type="button" class="btn btn-secondary" aria-describedby="backend_notifications link_invalid_error" *ngIf="!settingsForm.valid">
+    {{ 'Action.Save' | translate }}
+  </button>
+  <!-- submit -->
+  <button type="submit" class="btn btn-primary" *ngIf="settingsForm.valid">{{ 'Action.Save' | translate }}</button>
+</form>
+
+<!-- form submitted message -->
+<div class="alert alert-success" role="alert" aria-live="polite" *ngIf="this.isFormSubmitted">
+  <p class="p-0">{{ 'Hod.SavedChanges' | translate }}</p>
+  <button class="btn btn-link btn-sm p-0" (click)="onToggleForm()">{{ 'Hod.BackToForm' | translate }}</button>
+</div>

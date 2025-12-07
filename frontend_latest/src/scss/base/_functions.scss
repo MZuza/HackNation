@@ -1,0 +1,6 @@
+/**
+ * get bootstrap breakpoint width based on resolution
+ */
+@function get-width-breakpoints($key: "md") {
+    @return map-get($container-max-widths, $key);
+}

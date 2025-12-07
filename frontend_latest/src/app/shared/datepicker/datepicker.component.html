@@ -1,0 +1,39 @@
+<div class="datepicker-wrapper">
+    <div class="form-group">
+        <label [class.visually-hidden]="!isLabelVisible" class="font-weight-bold" for="{{generatedId}}">
+            {{label}}
+        </label>
+        <div class="datepicker"
+             [ngStyle]="{'width.px': width}">
+            <input
+                    (dateChange)="change($event)"
+                    [formControl]="dateFormCtrl"
+                    [matDatepicker]="picker"
+                    [max]="maxDateValue"
+                    [min]="minDateValue"
+                    [readonly]="isReadonly"
+                    [required]="isRequired"
+                    [class.form-control-sm]="isSmall"
+                    autocomplete="off"
+                    class="form-control datepicker__input"
+                    id="{{generatedId}}"
+                    [name]="name ? name : null"
+                    placeholder="{{'Calendar.DataPickerMask' | translate}}"
+                    type="text"
+                    appMaskDate
+            >
+            <mat-datepicker #picker></mat-datepicker>
+            <button *ngIf="isPanelVisible"
+                    (click)="picker.open()"
+                    [attr.aria-label]="'Calendar.OpenCalendarLabel' | translate"
+                    aria-haspopup="dialog"
+                    type="button"
+                    class="btn btn-icon">
+                <svg aria-hidden="true" class="icon datepicker__calendar-icon" role="img">
+                    <use href="/assets/icomoon/sprite/sprite.svg#calendar"></use>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+

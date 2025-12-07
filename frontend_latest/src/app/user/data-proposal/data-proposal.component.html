@@ -1,0 +1,46 @@
+<h1 class="heading">
+  {{ 'Ndp.Self' | translate }}
+</h1>
+
+<!-- TABS: ANCHORS -->
+<div class="tabs">
+  <ul class="tab-list row no-gutters" role="tablist">
+    <!-- Active -->
+    <li class="tab-list__item col-md-6" role="presentation">
+      <a
+        class="tab-list__link"
+        role="tab"
+        id="tabActiveDataProposal"
+        [routerLink]="['active']"
+        routerLinkActive="tab-list__link--active"
+        #activeActive="routerLinkActive"
+        [attr.aria-selected]="activeActive.isActive ? true : null"
+      >
+        {{ 'Ndp.Active' | translate }}
+      </a>
+    </li>
+
+    <!-- Inactive -->
+    <li *hasPermission="PermissionPerRoles.BROWSE_INACTIVE_DATA_PROPOSAL" class="tab-list__item col-md-6" role="presentation">
+      <a
+        class="tab-list__link"
+        role="tab"
+        id="tabInactiveDataProposal"
+        [routerLink]="['inactive']"
+        routerLinkActive="tab-list__link--active"
+        #inactiveActive="routerLinkActive"
+        [attr.aria-selected]="inactiveActive.isActive ? true : null"
+      >
+        {{ 'Ndp.Inactive' | translate }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div
+  class="tabs-content"
+  role="tabpanel"
+  attr.aria-labelledby="{{ activeActive.isActive ? 'tabActiveDataProposal' : 'tabInactiveDataProposal' }}"
+>
+  <router-outlet></router-outlet>
+</div>

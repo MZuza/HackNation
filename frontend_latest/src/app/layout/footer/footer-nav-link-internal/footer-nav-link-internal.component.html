@@ -1,0 +1,25 @@
+<!-- internal route -->
+<a
+  role="menuitem"
+  *ngIf="link"
+  [routerLink]="[link] | localize"
+  routerLinkActive="active"
+  #footerNavLinkActive="routerLinkActive"
+  [attr.aria-current]="footerNavLinkActive.isActive ? true : null"
+  [routerLinkActiveOptions]="{ exact: true }"
+>
+  {{ labelTranslationKey | translate }}
+</a>
+
+<!-- external route -->
+<a
+  role="menuitem"
+  *ngIf="href"
+  [href]="href"
+  routerLinkActive="active"
+  #footerNavLinkActive="routerLinkActive"
+  [attr.aria-current]="footerNavLinkActive.isActive ? true : null"
+  [routerLinkActiveOptions]="{ exact: true }"
+>
+  {{ labelTranslationKey | translate }}
+</a>

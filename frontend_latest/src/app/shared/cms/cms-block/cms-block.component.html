@@ -1,0 +1,41 @@
+
+<ng-container *ngIf="widgets?.length">
+
+    <!-- carousel -->
+    <ng-container *ngIf="showCarousel">
+        <carousel interval="5000" class="carousel" [noPause]="false">
+            <slide *ngFor="let widget of widgets" class="slide">
+                <ng-container *ngTemplateOutlet="oneElement; context: {widget : widget}"></ng-container>
+            </slide>
+        </carousel>
+    </ng-container>
+
+    <!-- not carousel -->
+    <div *ngIf="!showCarousel">
+        <div *ngFor="let widget of widgets">
+            <ng-container *ngTemplateOutlet="oneElement; context: {widget : widget}"></ng-container>
+        </div>
+    </div>
+</ng-container>
+
+
+<ng-template #oneElement let-widget='widget'>
+    <div>
+        <!-- banner, image, svg -->
+        <cms-image [banner]="widget" (imageHasLoaded)="this.contentHasLoaded = $event"
+            *ngIf="widget.type === widgetType.BANNER || widget.type === widgetType.IMAGE || widget.type === widgetType.SVG">
+        </cms-image>
+
+        <cms-raw-text [rawText]="widget" (rawTextHasLoaded)="this.contentHasLoaded = $event"
+                      *ngIf="widget.type === widgetType.RAW_TEXT || widget.type === widgetType.TEXT"></cms-raw-text>
+
+        <cms-video [video]="widget" *ngIf="widget.type === widgetType.VIDEO"></cms-video>
+
+        <cms-call-to-action [cta]="widget" (ctaHasLoaded)="this.contentHasLoaded = $event"
+                            *ngIf="widget.type === widgetType.CTA"></cms-call-to-action>
+
+        <cms-heading [heading]="widget" *ngIf="widget.type === widgetType.HEADING"></cms-heading>
+
+    </div>
+</ng-template>
+

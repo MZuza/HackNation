@@ -1,0 +1,73 @@
+<header class="vertical-spacing">
+  <div class="container">
+    <h1 class="heading">
+      {{ 'DataProposal.Self' | translate }}
+    </h1>
+
+    <!-- introduction -->
+    <p class="pb-0">
+      {{ 'DataProposal.Info' | translate }}
+    </p>
+  </div>
+</header>
+
+<div class="container results-section" *ngIf="items">
+  <!-- api notifications -->
+  <app-notifications></app-notifications>
+
+  <!-- no results found -->
+  <app-no-results-found *ngIf="!items?.length"></app-no-results-found>
+
+  <!-- RESULT LIST -->
+  <app-result-list [items]="items">
+    <!-- LEFT -->
+    <ng-template let-item>
+      <!-- title -->
+      <h3 class="heading heading--sm heading--primary-link">
+        <a class="heading__link" [routerLink]="[item.id]">
+          {{ item.attributes.title }}
+        </a>
+      </h3>
+
+      <!-- notes -->
+      <div [innerHTML]="item.attributes.notes | sanitizeHtml"></div>
+    </ng-template>
+
+    <!-- RIGHT -->
+    <ng-template let-item let-index="index">
+      <!-- add date -->
+      <div class="small mt-2 mt-sm-0 mt-lg-2 ml-0 ml-sm-2 ml-lg-0">
+        <span class="d-inline d-lg-block font-weight-bold"> {{ 'Attribute.AddDate' | translate }}: </span>
+
+        {{ item.attributes.published_at | translateDateFormat | async }}
+      </div>
+    </ng-template>
+  </app-result-list>
+
+  <!-- RESULTS FOOTER -->
+  <footer class="results-footer pt-5" *ngIf="items?.length">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <!-- results per page -->
+      <app-items-per-page [selected]="params?.per_page" (selectedChange)="updateParams({ per_page: $event })"> </app-items-per-page>
+
+      <!-- pagination -->
+      <app-pagination
+        [itemsPerPage]="params.per_page"
+        [totalItems]="count"
+        [(page)]="params.page"
+        (numPages)="numPages = $event"
+        (pageChange)="updateParams({ page: $event })"
+      >
+      </app-pagination>
+    </div>
+
+    <!--suggest data -->
+    <app-new-data-contact
+      class="w-100"
+      [titleTranslationKey]="'LookingForDifferentData'"
+      [routerLink]="'../'"
+      [buttonTranslationKey]="'WriteUs.Self'"
+    >
+    </app-new-data-contact>
+  </footer>
+</div>

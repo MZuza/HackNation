@@ -1,0 +1,19 @@
+
+.tags {
+    &__label {
+        display: inline-block;
+    }
+
+    &__list {
+        display: inline;
+        list-style: none;
+        padding: 0;
+        margin: 0 0 0 5px;
+    }
+
+    &__item {
+        display: inline-block;
+        margin: 0 5px 5px 0;
+        white-space: normal;
+    }
+}

@@ -1,0 +1,11 @@
+<div class="tour-progress-wrapper pb-3">
+  <ol class="tour-progress">
+    <li *ngFor="let step of steps; let i = index">
+      <button
+        [class.tour-progress__bullet--active]="step"
+        class="btn btn-link p-0 tour-progress__bullet"
+        (click)="changeStep.next(i)"
+      ></button>
+    </li>
+  </ol>
+</div>

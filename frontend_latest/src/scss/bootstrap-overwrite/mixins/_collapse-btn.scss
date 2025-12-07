@@ -1,0 +1,12 @@
+@mixin collapse-btn($grid) {
+    display: none;
+    color: inherit;
+
+    @include media-breakpoint-down($grid) {
+        display: inline;
+    }
+
+    &:hover, &:focus {
+        text-decoration: none;
+    }
+}

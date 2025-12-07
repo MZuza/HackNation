@@ -1,0 +1,83 @@
+.govpl {
+    background-color: $color-white;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+
+    @include media-breakpoint-down(xl)
+    {
+        justify-content: space-between;
+    }
+
+    &__logo {
+        background-image: url("https://www.gov.pl/img/Herb_Polski.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        color: $color-black;
+        text-decoration: none;
+        margin-left: 1rem;
+        padding-left: 3rem;
+        font-weight: bold;
+        font-size: 1.6rem;
+        height: 3rem;
+        line-height: 2;
+
+      &:hover {
+        text-decoration: underline;
+        color: #05407f;
+      }
+        
+        @include media-breakpoint-down(xl)
+        {
+            height: 2rem;
+            line-height: 1.5;
+            font-size: 1.25rem;
+            margin-left: 0.5rem;
+            padding-left: 2rem;
+        }
+    }
+
+    &__text {
+        margin-left: 2rem;
+        padding-left: 2rem;
+        border-left: 2px solid map-get($theme-colors, danger);
+        line-height: 3.5;
+        
+        @include media-breakpoint-down(xl)
+        {
+            display: none;
+        }
+    }
+
+    &__panel-login {
+        border-radius: 5px;
+        margin-left: auto;
+        padding: 0.5rem 1rem;
+        background-color: $color-gov-primary;
+
+        .icon {
+            height: 1.25rem; 
+            width: 1.25rem;
+        }
+
+        @include media-breakpoint-down(xl)
+        {
+            display: none;
+        }
+    }
+
+    &__eu-logo-wrapper {
+        border-left: 2px solid $color-grey-light-6;
+        margin-left: 2rem;
+        padding-left: 1.25rem;
+    }
+
+    &__eu-logo {
+        width: 4.875rem;
+        
+        @include media-breakpoint-down(xl)
+        {
+            width: 3rem;
+        }
+    }
+}

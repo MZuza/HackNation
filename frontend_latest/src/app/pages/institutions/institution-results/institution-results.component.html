@@ -1,0 +1,23 @@
+<app-result-list [items]="items">
+
+    <!-- LEFT -->
+    <ng-template let-item>
+        <app-default-result-item 
+            [showNotes]="false" 
+            [item]="item"
+            [detailsUrl]="item.id +','+ item.attributes.slug">
+        </app-default-result-item>
+    </ng-template>
+
+    <!-- RIGHT -->
+    <ng-template let-item>
+        <app-details-result-item 
+            [showEachDetailInRow]="true" 
+            [detailsData]="[
+                { titleTranslationKey : 'Datasets.Self', data: item.attributes.datasets_count },
+                { titleTranslationKey : 'Resources.Self', data: item.attributes.resources_count }
+            ]">
+        </app-details-result-item>
+    </ng-template>
+
+</app-result-list>

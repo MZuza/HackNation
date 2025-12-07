@@ -1,0 +1,6 @@
+<button type="button" class="btn btn-sm btn--multiline btn--remove"
+        (click)="onRemoveSelectedFilter(item.key)" (keyup.enter)="onRemoveSelectedFilter(item.key)">
+
+    <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{$implicit: item}"></ng-template>
+
+</button>

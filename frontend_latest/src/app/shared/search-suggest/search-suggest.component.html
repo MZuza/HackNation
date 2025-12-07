@@ -1,0 +1,246 @@
+<div class="position-relative search-suggest-wrapper">
+  <div class="d-flex search-suggest-tooltip-wrapper align-items-center" *ngIf="isGeodataSearch; else generalSearch">
+    <div
+      class="search-suggest__combobox flex-grow-1"
+      role="combobox"
+      aria-haspopup="listbox"
+      [attr.aria-owns]="isListBoxExpanded ? 'search-suggest-listbox' : null"
+      [attr.aria-expanded]="isListBoxExpanded"
+      [attr.aria-label]="placeholderTranslationKey | translate"
+    >
+      <!-- search input -->
+      <input
+        id="regions-search-input"
+        type="text"
+        class="form-control form-control-sm search-suggest__region-input"
+        autocomplete="off"
+        placeholder="{{ placeholderTranslationKey | translate }}..."
+        [minlength]="minChars"
+        [maxlength]="maxChars"
+        ngModel
+        name="q"
+        #q="ngModel"
+        [ngModel]="initialValue ? initialValue : searchText" (ngModelChange)="initialValue ? initialValue : searchText = $event"
+        (keydown)="onKeydown($event)"
+        (focusin)="onFocusIn()"
+        aria-autocomplete="list"
+        [attr.aria-controls]="isListBoxExpanded ? 'search-suggest-listbox' : null"
+        [attr.aria-activedescendant]="
+          activeSuggestionIndex !== notSelectedSuggestionIndex ? 'search-suggest-listbox-item-' + activeSuggestionIndex : null
+        "
+        [attr.aria-invalid]="!q.valid && q.touched"
+      />
+
+      <!-- suggestion list -->
+      <ul
+        class="search-suggest__listbox"
+        id="search-suggest-listbox"
+        role="listbox"
+        tabindex="-1"
+        [hidden]="!isListBoxExpanded || !listBoxOptions.length"
+        *ngIf="apiModels?.length"
+      >
+        <!-- suggestion list item -->
+        <li
+          class="search-suggest__listbox-region-item"
+          role="option"
+          id="search-suggest-listbox-item-{{ i }}"
+          [attr.aria-selected]="i === activeSuggestionIndex"
+          [ngClass]="{ active: i === activeSuggestionIndex }"
+          (mouseenter)="activeSuggestionIndex = i"
+          (mouseleave)="activeSuggestionIndex = notSelectedSuggestionIndex"
+          (click)="onSuggestionSearchClick()"
+          *ngFor="let option of listBoxOptions; let i = index"
+        >
+          <!-- title -->
+          <span class="search-suggest__listbox-title" [innerHtml]="option.title | sanitizeHtml">
+            <span class="visually-hidden" >
+              {{ 'GoTo' | translate }}
+            </span>
+          </span>
+
+          <!-- area -->
+          <span>
+            <span class="visually-hidden">
+              {{ 'Attribute.Category' | translate }}
+            </span>
+            <small>
+              {{ option.hierarchy_label }}
+            </small>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <ng-template #generalSearch>
+    <form class="search-suggest flex-grow-1" (ngSubmit)="onSearch(searchForm)" #searchForm="ngForm" autocomplete="off" role="search">
+      <div
+        class="d-flex search-suggest-tooltip-wrapper align-items-center"
+        appInfoTooltip="{{ tooltipText ? tooltipText : ('Tour.Tooltip.HomePage.SearchBar.text' | translate) }}"
+        tooltipTitle="{{ 'Tour.Tooltip.HomePage.SearchBar.title' | translate }}"
+        [appInfoTooltipIconColor]="tooltipColor"
+        withoutMargin
+      >
+        <div
+          class="search-suggest__combobox flex-grow-1"
+          role="combobox"
+          appInfoTooltip="{{ tooltipText ? tooltipText : ('Tour.Tooltip.HomePage.SearchBar.text' | translate) }}"
+          tooltipTitle="{{ 'Tour.Tooltip.HomePage.SearchBar.title' | translate }}"
+          withoutMargin
+          [appInfoTooltipIconColor]="tooltipColor"
+          aria-haspopup="listbox"
+          [attr.aria-owns]="isListBoxExpanded ? 'search-suggest-listbox' : null"
+          [attr.aria-expanded]="isListBoxExpanded"
+          [attr.aria-label]="placeholderTranslationKey | translate"
+        >
+          <!-- search input -->
+          <input
+            type="text"
+            class="form-control form-control-lg search-suggest__input"
+            autocomplete="off"
+            placeholder="{{ placeholderTranslationKey | translate }}..."
+            [minlength]="minChars"
+            [maxlength]="maxChars"
+            ngModel
+            name="q"
+            #q="ngModel"
+            [(ngModel)]="searchText"
+            (keydown)="onKeydown($event)"
+            (focusin)="onFocusIn()"
+            aria-autocomplete="list"
+            [attr.aria-controls]="isListBoxExpanded ? 'search-suggest-listbox' : null"
+            [attr.aria-activedescendant]="
+              activeSuggestionIndex !== notSelectedSuggestionIndex ? 'search-suggest-listbox-item-' + activeSuggestionIndex : null
+            "
+            [attr.aria-invalid]="!q.valid && q.touched"
+          />
+          <!-- clear search input -->
+          <button type="button" class="btn search-suggest__clear-button" (click)="onClear()" *ngIf="searchText?.length">
+            <span class="visually-hidden">
+              {{ ('Search.ClearInput' | translate) + '-' + ('Search.AutoContentReload' | translate) }}
+            </span>
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+          <!-- perform search -->
+          <button type="submit" class="btn search-suggest__search-button">
+            <svg class="icon icon-magnifying-glass" role="img" aria-hidden="true">
+              <use xlink:href="/assets/icomoon/sprite/sprite.svg#icon-magnifying-glass"></use>
+            </svg>
+            <span class="visually-hidden">
+              {{ ('Action.Search' | translate) + '-' + ('Search.AutoContentReload' | translate) }}
+            </span>
+          </button>
+
+          <!-- button for screen readers only, move to search results -->
+          <button type="button" class="btn visually-hidden" (click)="emitMoveToSearchResult()">
+            {{ 'Datasets.MoveToSearchResultText' | translate }}
+          </button>
+
+          <!-- suggestion list -->
+          <ul
+            class="search-suggest__listbox"
+            id="search-suggest-listbox"
+            role="listbox"
+            tabindex="-1"
+            [hidden]="!isListBoxExpanded || !listBoxOptions.length"
+            *ngIf="apiModels?.length"
+          >
+            <!-- suggestion list item -->
+            <li
+              class="search-suggest__listbox-item"
+              role="option"
+              id="search-suggest-listbox-item-{{ i }}"
+              [attr.aria-selected]="i === activeSuggestionIndex"
+              [ngClass]="{ active: i === activeSuggestionIndex }"
+              (mouseenter)="activeSuggestionIndex = i"
+              (mouseleave)="activeSuggestionIndex = notSelectedSuggestionIndex"
+              (click)="onActiveSuggestionClick()"
+              *ngFor="let option of listBoxOptions; let i = index"
+            >
+              <!-- title -->
+              <span class="search-suggest__listbox-title" [innerHtml]="option.title | sanitizeHtml">
+                <span class="visually-hidden">
+                  {{ 'GoTo' | translate }}
+                </span>
+              </span>
+
+              <!-- area -->
+              <span class="search-suggest__listbox-area">
+                <span class="visually-hidden">
+                  {{ 'Attribute.Category' | translate }}
+                </span>
+                <small>
+                  {{ option.areaTranslationKey | translate }}
+                </small>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- query validation error -->
+      <div class="mt-1" *ngIf="isSearchQueryInvalid" @toggleVertically>
+        <p class="alert alert-danger m-0 p-2" role="alert" id="q_error" aria-live="polite">
+          {{ 'Validation.VarMinLength' | translate: { param: minChars } }}
+        </p>
+      </div>
+
+      <div class="d-flex align-items-center mt-3">
+        <!-- search query rules -->
+        <fieldset *ngIf="showAdvancedSettings">
+          <legend class="visually-hidden">
+            {{ 'Search.Advanced' | translate }}
+          </legend>
+          <ul class="list-unstyled d-sm-block m-0 p-0">
+            <li
+              class="d-inline-flex flex-row align-items-center py-2 py-sm-0"
+              *ngFor="let item of searchAdvancedSettings | keyvalueOrder; let i = index; let isLastItem = last"
+              [ngClass]="{ 'pr-3': !isLastItem }"
+            >
+              <input
+                type="radio"
+                name="search-suggest-radio-group"
+                id="search-suggest-radio-{{ i }}"
+                [value]="item.value"
+                [checked]="activeSetting === item.value"
+                (click)="activeSetting = item.value"
+                (keyup.enter)="activeSetting = item.value"
+              />
+
+              <label
+                class="font-weight-bold small m-0 pl-1"
+                for="search-suggest-radio-{{ i }}"
+                [ngClass]="{ 'text-primary': activeSetting !== item.value }"
+              >
+                {{ 'Search.' + (item.key | titlecase) | translate }}
+              </label>
+            </li>
+          </ul>
+        </fieldset>
+        <!-- sparql button -->
+        <a *ngIf="isSparqlSearchButtonVisible" class="btn btn-primary ml-auto" [routerLink]="['/!dataset', '!sparql'] | localize">
+          {{ 'Search.SparqlSearch' | translate }} >></a
+        >
+      </div>
+      <!-- API validation button -->
+      <div *ngIf="isApiValidationButtonVisible" class="mt-3">
+        <hr />
+        <a
+          class="btn btn-outline-primary"
+          [href]="apiValidationUrl"
+          target="_blank"
+          appTooltip="{{ 'Tour.Tooltip.ApiValidation.text' | translate }}"
+          title="{{ 'Tour.Tooltip.ApiValidation.title' | translate }}"
+        >
+          <span>{{ 'Tour.Tooltip.ApiValidation.title' | translate }} >></span>
+          <span class="visually-hidden">
+            {{ 'SkipTo.NewWindow' | translate }}
+          </span>
+        </a>
+        <hr />
+      </div>
+    </form>
+  </ng-template>
+</div>

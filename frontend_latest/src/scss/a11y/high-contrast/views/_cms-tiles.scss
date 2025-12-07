@@ -1,0 +1,22 @@
+.cms-tiles {
+
+    .col {
+        border-color: $hcPrimary;
+    }
+
+    .hover:hover {
+        color: currentColor;
+        border-color: $hcPrimary;
+        background-color: $hcPrimary;
+
+        .hc-Cms-Text {
+            background-color: $hcPrimary;
+            color: $hcSecondary;
+        }
+
+        p {
+          background-color: $hcPrimary;
+          color: $hcSecondary;
+        }
+    }
+}

@@ -1,0 +1,8 @@
+<div class="dropdown-item-search" >
+    <input type="text" class="form-control form-control-sm"
+           (input)="onSearchChanged($event)"
+           placeholder="{{ placeholderTranslationKey | translate }}..."
+           [attr.aria-label]="(placeholderTranslationKey | translate )"
+           [maxLength]="maxLength"/>
+</div>
+

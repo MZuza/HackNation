@@ -1,0 +1,56 @@
+<div *ngIf="data" class="row pt-3 pb-3">
+  <div class="col">
+    <ul class="list-unstyled">
+      <!-- title -->
+      <li>
+        <span class="font-weight-bold d-block"> Nazwa, rodzaj, dziedzina proponowanych danych: </span>
+        {{ data.attributes.title }}
+      </li>
+
+      <!-- description -->
+      <li class="pt-3">
+        <span class="font-weight-bold d-block"> Opis danych: </span>
+        {{ data.attributes.notes }}
+      </li>
+
+      <!-- institution name -->
+      <li class="pt-3">
+        <span class="font-weight-bold d-block"> Nazwa instytucji publicznej odpowiedzialnej za dane: </span>
+        {{ data.attributes.organization_name }}
+      </li>
+
+      <!-- institution name -->
+      <li class="pt-3">
+        <span class="font-weight-bold d-block"> URL do danych: </span>
+
+        <a [href]="data.attributes.data_link" target="_blank">
+          {{ data.attributes.data_link }}
+
+          <span class="visually-hidden">
+            {{ 'SkipTo.NewWindow' | translate }}
+          </span>
+        </a>
+      </li>
+
+      <!--potential data usage-->
+      <li class="pt-3">
+        <span class="font-weight-bold d-block"> Potencjalne możliwości wykorzystania danych: </span>
+        {{ data.attributes.potential_possibilities }}
+      </li>
+
+      <li class="pt-3">
+        <span class="font-weight-bold d-block"> Oceń propozycje: </span>
+        <app-feedback-component
+          class="d-block mt-1"
+          [plusesCount]="data.attributes.feedback_counters.plus"
+          [minusesCount]="data.attributes.feedback_counters.minus"
+          [isEditable]="isLikeEnabled"
+          (changeCount)="changeRating($event)"
+          [isMinusButtonSelected]="data.attributes.my_feedback === 'minus'"
+          [isPlusButtonSelected]="data.attributes.my_feedback === 'plus'"
+        >
+        </app-feedback-component>
+      </li>
+    </ul>
+  </div>
+</div>

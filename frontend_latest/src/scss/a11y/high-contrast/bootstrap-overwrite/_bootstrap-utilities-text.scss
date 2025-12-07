@@ -1,0 +1,6 @@
+
+@each $color, $value in $theme-colors {
+    @include text-emphasis-variant(".text-#{$color}", $hcPrimary);
+}
+
+.text-white {color: $hcPrimary};

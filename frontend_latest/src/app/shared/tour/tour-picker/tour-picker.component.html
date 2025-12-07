@@ -1,0 +1,40 @@
+<div *ngIf="isPickerVisible" class="tour-picker-wrapper py-2" #tourPickerWrapper>
+  <form>
+    <div class="container input-group">
+      <div class="input-group-prepend">
+        <button
+          class="btn"
+          (click)="toggleFinderMode()"
+          [appTooltip]="isInFinderMode ? '' : 'Rozpocznij wyszukiwanie elementów'"
+          [class.btn-outline-primary]="!isInFinderMode"
+          [class.btn-primary]="isInFinderMode"
+          type="button"
+        >
+          <fa-icon [icon]="faLocationArrow"></fa-icon>
+        </button>
+      </div>
+
+      <label for="tourPickerInput" class="visually-hidden">Selektor CSS</label>
+      <input
+        type="text"
+        #selectorInput
+        [(ngModel)]="cssSelector"
+        name="cssSelector"
+        class="form-control"
+        id="tourPickerInput"
+        placeholder="Naciśnij prawym klawiszem aby pobrać selektor CSS dla zaznaczonego elementu"
+      />
+
+      <div class="input-group-append">
+        <div [appTooltip]="!!!cssSelector?.length ? 'Pobierz element aby uaktywnić kopiowanie' : 'Skopiuj wybrany selector'">
+          <button class="btn btn-outline-primary" [disabled]="!!!cssSelector?.length" (click)="copyToClipboard()" type="button">
+            <fa-icon [icon]="faCopy"></fa-icon>
+          </button>
+        </div>
+        <button class="btn btn-outline-primary" [appTooltip]="'Zakończ wyszukiwanie elementów'" (click)="hidePicker()" type="button">
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

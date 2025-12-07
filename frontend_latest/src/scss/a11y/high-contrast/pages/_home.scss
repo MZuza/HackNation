@@ -1,0 +1,62 @@
+
+
+/* HOMEPAGE
+*********************/
+.home-section {
+
+    &:not(:first-child) {
+        border-bottom: 1px solid currentColor;
+    }
+
+
+    &-footer {
+        border-top: 0;
+    }
+
+
+    // Search
+    .input-group {
+        border: 1px solid currentColor;
+
+        .input--search {
+            border: 0;
+        }
+        .btn--search {
+            background-color: transparent;
+        }
+    }
+
+
+    &--apps {
+        .home-apps {
+            &__header {
+                color: currentColor;
+            }
+        }
+    }
+
+
+    &--news {
+        .home-news {
+            &__item {
+                .home-news__item-heading {
+                    border-color: currentColor;
+
+                    :link,
+                    :visited {
+                        color: currentColor;
+                    }
+                }
+                &::after {
+                    background: none;
+                }
+            }
+        }
+    }
+}
+
+.bg-gov,
+.bg-gov > * {
+    background-color: $hcPrimary;
+    color: $hcSecondary;
+}

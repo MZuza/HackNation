@@ -1,0 +1,109 @@
+<!-- toggle restriction and license details -->
+<button
+  class="btn btn-link py-0"
+  *ngIf="isCollapsible"
+  [attr.aria-controls]="isExpanded ? 'restriction-container' : null"
+  [attr.aria-pressed]="isExpanded"
+  (click)="isExpanded = !isExpanded"
+>
+  {{ (isExpanded ? 'Action.Collapse' : 'Action.Expand') | translate }}
+</button>
+
+<div *ngIf="isExpanded" @toggleVertically [@.disabled]="!isCollapsible" class="pt-3" id="restriction-container">
+  <!-- restrictions -->
+  <ng-container *ngIf="hasRestrictions">
+    <!-- harvested source -->
+    <ng-container *ngIf="dataset.attributes.source?.type === 'ckan'; else restrictionList">
+      <p
+        *ngIf="dataset.attributes.license_condition_db_or_copyrighted"
+        [innerHTML]="dataset.attributes.license_condition_db_or_copyrighted | sanitizeHtml"
+      ></p>
+    </ng-container>
+
+    <!-- restriction list -->
+    <ng-template #restrictionList>
+      <p>
+        <ng-container *ngIf="isForDataset">
+          {{ 'DatasetRestrictions.IntroDataset' | translate }}
+        </ng-container>
+        <ng-container *ngIf="!isForDataset">
+          {{ 'DatasetRestrictions.Intro' | translate }}
+        </ng-container>
+      </p>
+
+      <ul>
+        <li *ngIf="dataset.attributes?.license_condition_source">
+          {{ dataset.attributes?.current_condition_descriptions.license_condition_source }}
+        </li>
+        <li *ngIf="dataset.attributes?.license_condition_original">
+          {{ 'DatasetRestrictions.Original' | translate }}
+        </li>
+        <li *ngIf="dataset.attributes?.license_condition_modification">
+          {{ dataset.attributes?.current_condition_descriptions.license_condition_modification }}
+        </li>
+        <li *ngIf="dataset.attributes?.license_condition_responsibilities">
+          {{ dataset.attributes?.current_condition_descriptions.license_condition_responsibilities }}
+          <div [innerHTML]="dataset.attributes?.license_condition_responsibilities | sanitizeHtml"></div>
+        </li>
+        <li *ngIf="dataset.attributes?.license_condition_cc40_responsibilities">
+          {{ dataset.attributes?.current_condition_descriptions.license_condition_cc40_responsibilities }}
+        </li>
+
+        <li *ngIf="dataset.attributes?.license_condition_db_or_copyrighted">
+          {{ dataset.attributes?.current_condition_descriptions.license_condition_db_or_copyrighted }}
+          <div [innerHTML]="dataset.attributes?.license_condition_db_or_copyrighted | sanitizeHtml"></div>
+        </li>
+        <li *ngIf="dataset.attributes?.license_condition_personal_data">
+          {{ dataset.attributes?.current_condition_descriptions.license_condition_personal_data }}
+          <div [innerHTML]="dataset.attributes?.license_condition_personal_data | sanitizeHtml"></div>
+        </li>
+      </ul>
+    </ng-template>
+  </ng-container>
+
+  <!-- license details -->
+  <section class="mt-3" *ngIf="license">
+    <p class="heading--xs">
+      {{ 'DatasetRestrictions.LicenseType' | translate }}: <span class="font-weight-bold">{{ dataset.attributes.license_name }}</span>
+    </p>
+
+    <ul class="font-weight-bold" *ngIf="dataset.attributes?.current_condition_descriptions.license_condition_custom_description">
+      <li>{{ dataset.attributes?.current_condition_descriptions.license_condition_custom_description }}</li>
+    </ul>
+    <div
+      *ngIf="dataset.attributes?.license_condition_custom_description"
+      [innerHTML]="dataset.attributes?.license_condition_custom_description | sanitizeHtml"
+    ></div>
+
+    <p>
+      {{ 'DatasetRestrictions.LinkToLicense' | translate }}:
+      <a href="{{ license.link }}">{{ license.link }}</a>
+    </p>
+
+    <p class="font-weight-bold">
+      {{ 'DatasetRestrictions.LicenseSummaryLink' | translate }}
+      <br />
+      <a href="{{ license.secondLink }}">{{ license.secondLink }}</a>
+    </p>
+
+    <ng-container *ngIf="!!license.description; else licenseConditions">
+      <p>{{ license.description.name }}</p>
+      <p>{{ license.description.description }}</p>
+    </ng-container>
+  </section>
+</div>
+
+<ng-template #licenseConditions>
+  <p class="heading--xs">{{ 'DatasetRestrictions.Allowed' | translate }}:</p>
+  <ul class="list-unstyled">
+    <li *ngFor="let allowed of license.allowed" class="mb-2">
+      <span class="font-weight-bold">{{ allowed.name }}</span> - {{ allowed.description }}
+    </li>
+  </ul>
+  <p class="heading--xs font-weight-bolder">{{ 'DatasetRestrictions.Terms' | translate }}:</p>
+  <ul class="list-unstyled">
+    <li *ngFor="let condition of license.conditions" class="mb-2">
+      <span class="font-weight-bold">{{ condition.name }}</span> - {{ condition.description }}
+    </li>
+  </ul>
+</ng-template>

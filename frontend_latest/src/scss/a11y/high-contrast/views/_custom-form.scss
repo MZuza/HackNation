@@ -1,0 +1,18 @@
+.custom-form {
+
+    input[type="radio"] {
+
+        &:checked + label {
+            background-color: transparent;
+            border-color: currentColor;
+            padding: 14px;
+        }
+
+        & + label {
+            &:hover {
+                background-color: transparent;
+                border-color: currentColor;
+            }
+        }
+    }
+}

@@ -1,0 +1,113 @@
+<div class="activity-notifications" #activity_notifications>
+  <!-- popup trigger -->
+  <button
+    type="button"
+    class="btn btn-link p-0 mr-3"
+    [attr.aria-controls]="isPopupVisible ? 'activity-notifications-popup' : null"
+    [attr.aria-pressed]="isPopupVisible"
+    [attr.aria-expanded]="isPopupVisible"
+    aria-haspopup="true"
+    (click)="isPopupVisible = !isPopupVisible"
+    (keydown)="onPopupTriggerKeyDown($event)"
+  >
+    <!-- icon -->
+    <svg class="icon icon-bell" aria-hidden="true">
+      <use href="/assets/icomoon/sprite/sprite.svg#icon-bell"></use>
+    </svg>
+
+    <span class="visually-hidden">
+      {{ 'Action.Show' | translate }}
+      {{ 'Changes.Title' | translate | lowercase }}
+    </span>
+
+    <!-- total number -->
+    <span class="activity-notifications__total" *ngIf="totalCount > 0">
+      <span class="badge bg-danger rounded-pill">
+        {{ totalCount }}
+        <span class="visually-hidden">
+          {{ 'Changes.VarCount' | translate: { param: totalCount } }}
+        </span>
+      </span>
+    </span>
+  </button>
+
+  <!--  -->
+  <div class="activity-notifications__popup" id="activity-notifications-popup" *ngIf="isPopupVisible" @toggleVertically>
+    <!-- CHANGES AVAILABLE -->
+    <ng-container *ngIf="totalCount > 0">
+      <p>
+        <strong>
+          {{ 'Changes.Title' | translate }}
+        </strong>
+      </p>
+      <ul class="list-group">
+        <!-- datasets -->
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <ng-container *ngIf="!datasetsCount">
+            {{ 'Datasets.Self' | translate }}
+            <span class="badge badge-light" aria-hidden="true">
+              {{ datasetsCount }}
+            </span>
+            <span class="visually-hidden">
+              {{ 'Changes.None' | translate }}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="datasetsCount">
+            <a
+              [routerLink]="['/' | localize, 'user', 'dashboard', 'my', 'followed', 'dataset', 'activity']"
+              (click)="isPopupVisible = false"
+            >
+              {{ 'Datasets.Self' | translate }}
+            </a>
+            <span class="badge badge-danger">
+              <span class="visually-hidden">
+                {{ 'Changes.Number' | translate }}
+              </span>
+              {{ datasetsCount }}
+            </span>
+          </ng-container>
+        </li>
+
+        <!-- search results -->
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <ng-container *ngIf="!searchResultsCount">
+            {{ 'Search.Results' | translate }}
+            <span class="badge badge-light" aria-hidden="true">
+              {{ searchResultsCount }}
+            </span>
+            <span class="visually-hidden">
+              {{ 'Changes.None' | translate }}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="searchResultsCount">
+            <a [routerLink]="['/' | localize, 'user', 'dashboard', 'my', 'followed', 'query', 'activity']" (click)="isPopupVisible = false">
+              {{ 'Search.Results' | translate }}
+            </a>
+            <span class="badge badge-danger">
+              <span class="visually-hidden">
+                {{ 'Changes.Number' | translate }}
+              </span>
+              {{ searchResultsCount }}
+            </span>
+          </ng-container>
+        </li>
+      </ul>
+
+      <button class="btn btn-primary mt-2" style="white-space: pre-line" (click)="onMarkAllAsRead()" (blur)="onPopupBlur()">
+        {{ 'Changes.MarkAllNotifications' | translate }}
+      </button>
+    </ng-container>
+
+    <!-- NO CHANGES AVAILABLE -->
+    <ng-container *ngIf="!totalCount">
+      <p>
+        <strong>
+          {{ 'Changes.NoneTitle' | translate }}
+        </strong>
+      </p>
+      <p>
+        {{ 'Changes.NoneDescription' | translate }}
+      </p>
+    </ng-container>
+  </div>
+</div>

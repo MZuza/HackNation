@@ -1,0 +1,32 @@
+{
+    "/api/**": {
+        "target": "https://api.szkolenia.dane.gov.pl/",
+        "secure": false,
+        "pathRewrite": {
+            "^/api": ""
+        },
+        "logLevel": "warn",
+        "changeOrigin": true
+    },
+    "/media": {
+        "target": "https://szkolenia.dane.gov.pl/",
+        "secure": false,
+        "logLevel": "warn",
+        "changeOrigin": true
+    },
+    "/flags": {
+        "target": "https://dane.gov.pl/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/cms": {
+        "target": "https://cms.szkolenia.dane.gov.pl/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/cms": ""
+        }
+    }
+}

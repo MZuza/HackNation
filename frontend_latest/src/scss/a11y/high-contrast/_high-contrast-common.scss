@@ -1,0 +1,189 @@
+
+/* COMMON
+*********************/
+main,
+div,
+li,
+li::after,
+li::before,
+th,
+td,
+article,
+section,
+header,
+footer,
+form,
+option,
+.external-logos{
+    color: currentColor;
+    background: $hcSecondary;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a:not(.btn-primary) {
+    color: currentColor;
+}
+
+// a:not(.btn) {
+//     text-decoration: underline;
+// }
+
+// all svg graphics
+svg.icon:not(.non-hc) svg *,
+svg.icon:not(.non-hc) *,
+svg.brand-img * {
+    fill: $hcPrimary;
+}
+
+.tab-list__link--active.black-white svg.icon:not(.non-hc) svg * {
+  fill: $hcSecondary
+}
+.tab-list__link--active svg.icon:not(.non-hc) * {
+  fill: $hcSecondary
+}
+.tab-list__link--active svg.brand-img * {
+  fill: $hcSecondary
+}
+
+input[type=checkbox] {
+  accent-color: $hcPrimary;
+}
+
+input[type=radio] {
+  accent-color: $hcSecondary;
+}
+
+:focus {
+    outline: 2px dotted $hcPrimary;
+    outline-offset: initial;
+}
+
+.border-custom,
+.icon-rounded-wrapper {
+    border-color: $hcPrimary;
+}
+
+.text-primary {
+  color: $hcPrimary !important;
+}
+
+
+@import "bootstrap-overwrite/bootstrap-utilities-text";
+
+@import "bootstrap-overwrite/form";
+
+
+@import "bootstrap-overwrite/btn";
+
+
+@import "components/dropdown";
+
+
+@import "base/typography";
+
+
+@import "layout/top-bar";
+
+
+@import "layout/header";
+
+
+@import "layout/footer";
+
+
+@import "components/category-list";
+
+
+@import "components/search-and-filters";
+
+
+@import "components/breadcrumbs";
+
+
+@import "components/pager";
+
+
+@import "pages/home";
+
+
+@import "views/list-view";
+
+
+@import "views/resource-list";
+
+@import "views/resource-chart-table";
+
+@import "components/datagrid";
+
+@import "components/datepicker";
+
+@import "components/language-switcher";
+
+@import "components/tabpanel";
+
+@import "components/tour";
+
+@import "components/tour-button";
+
+
+@import "views/tabs";
+
+@import "views/collapsible-sidebar-view";
+
+@import "pages/auth";
+
+@import "pages/map";
+
+@import "pages/search";
+
+@import "pages/stats";
+
+@import "bootstrap-overwrite/modal";
+
+@import "bootstrap-overwrite/badge";
+
+@import "components/notifications";
+
+@import "components/cta-widget";
+
+@import "views/custom-form";
+
+@import "bootstrap-overwrite/carousel";
+
+@import "components/text-widget";
+
+@import "components/search-suggest";
+
+@import "views/common";
+
+@import "components/survey";
+
+@import "components/tooltip";
+
+@import "components/link";
+
+@import "components/sparql";
+
+@import "components/subscribe-button-light";
+
+@import "views/aod";
+
+@import "views/schedule";
+
+@import "views/dashboard-filtered-list";
+
+// cms
+
+@import "views/cms-tiles";
+
+@import "views/dga-tiles";
+
+@import "views/footer";
+
+@import "views/header";

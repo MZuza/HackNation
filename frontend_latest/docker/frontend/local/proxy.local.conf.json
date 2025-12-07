@@ -1,0 +1,32 @@
+{
+    "/api": {
+        "target": "http://api.mcod.local/1.4/",
+        "secure": false,
+        "pathRewrite": {
+            "^/api": ""
+        },
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/media": {
+        "target": "http://api.mcod.local/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/flags": {
+        "target": "https://dane.gov.pl/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/cms": {
+        "target": "http://cms.mcod.local/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/cms": ""
+        }
+    }
+}

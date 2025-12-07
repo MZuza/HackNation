@@ -1,0 +1,31 @@
+.activity-notifications {
+    position: relative;
+    display: inline-block;
+    top: -2px;
+}
+
+.activity-notifications__popup {
+    position: absolute;
+    top: 120%;
+    left: 0;
+    width: 300px;
+    z-index: 11;
+    background-color: #fff;
+    box-shadow: 0 5px 5px 5px rgba(0, 0, 0, .1);
+    padding: 15px;
+
+    &--right {
+        left: auto;
+        right: 0;
+        width: 380px;
+        padding: 0;
+        max-height: 164px;
+        overflow: auto;
+    }
+}
+
+.activity-notifications__total {
+    position: absolute;
+    right: 10px;
+    top: -5px;
+}

@@ -1,0 +1,55 @@
+<!-- HERO TEXT -->
+<section class="home-section home-section--hero" id="hero">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-8 offset-md-2">
+        <h1>
+          {{ 'Slogan' | translate }}
+        </h1>
+        <h2>
+          {{ 'SloganDescription' | translate }}
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH and SUGGESTIONS -->
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 mb-sm-5 pb-5">
+      <app-search-suggest
+        [apiModels]="[apiModel.SHOWCASE, apiModel.NEWS, apiModel.DATASET, apiModel.INSTITUTION, apiModel.KNOWLEDGE_BASE, apiModel.RESOURCE]"
+      ></app-search-suggest>
+    </div>
+  </div>
+</div>
+
+<!-- api notifications -->
+<div class="container" *ngIf="apiError">
+  <app-notifications></app-notifications>
+</div>
+
+<!-- SERVICE ALERT -->
+<home-service-alert></home-service-alert>
+
+<!-- BANNER - CMS-SECTION -->
+<cms-block2 className="text-center" [widgetsSubject]="cmsSectionOverSearchFieldCb" [isFullWidth]="true"></cms-block2>
+
+<!-- CATEGORIES -->
+<home-categories [items]="categories"></home-categories>
+
+<!-- STATISTICS -->
+<home-stats [stats]="stats"></home-stats>
+
+<!-- INSTITUTIONS -->
+<home-institutions [items]="institutions"></home-institutions>
+
+<!-- CMS SECTION -->
+<cms-block2 class="pt-3 pb-3" [widgetsSubject]="cmsSectionOverLatestNewsCb" [isFullWidth]="true"></cms-block2>
+
+<!-- HOME: APPS -->
+<home-applications [applications]="applications"></home-applications>
+
+<!-- NEWS -->
+<home-news></home-news>

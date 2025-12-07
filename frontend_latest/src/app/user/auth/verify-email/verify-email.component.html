@@ -1,0 +1,36 @@
+<div class="container vertical-spacing">
+  <h1 class="heading heading--md heading--separator">
+    {{ 'User.EmailVerification' | translate }}
+  </h1>
+
+  <!-- E-MAIL VERIFIED SUCCESSFULLY -->
+  <div class="text-center" *ngIf="isVerified">
+    <!-- success message -->
+    <p class="alert alert-success" role="alert" aria-live="polite">
+      <strong>
+        {{ 'User.Congratulations' | translate }}
+      </strong>
+      {{ 'User.AccountActivated' | translate }}
+    </p>
+
+    <!-- login page redirection -->
+    <div class="vertical-spacing">
+      <a [routerLink]="['/!user', '!login'] | localize" class="btn btn-lg btn-primary">
+        {{ 'Action.Login' | translate }}
+      </a>
+    </div>
+  </div>
+
+  <!-- E-MAIL VERIFICATION FAILED -->
+  <div class="text-center" *ngIf="!isVerified">
+    <!-- api notifications -->
+    <app-notifications></app-notifications>
+
+    <!-- homepage redirection -->
+    <div class="text-center">
+      <a [routerLink]="['/']" class="btn btn-outline-primary">
+        {{ 'BackToHome' | translate }}
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<!-- METADATA -->
+<span class="font-weight-bold pb-3">
+  {{ 'Action.Download' | translate }}
+  {{ 'Attribute.Metadata' | translate | lowercase }}
+  <ng-container *ngIf="islistView"> {{ 'Datasets.MetadataRelatedCatalog' | translate | lowercase }}: </ng-container>
+  <ng-container *ngIf="!islistView"> {{ 'Datasets.MetadataRelatedDataset' | translate | lowercase }}: </ng-container>
+</span>
+
+<!-- rdf -->
+<a href="{{ selfApiRdf }}?lang={{ currentLang }}" target="_blank">
+  <svg class="icon icon-file-download" role="img">
+    <title id="icon-file-rdf-title">{{ 'Action.Download' | translate }} RDF</title>
+    <use href="/assets/icomoon/sprite/sprite.svg#icon-file-rdf"></use>
+  </svg>
+</a>
+
+<!-- csv -->
+<a href="{{ selfApiCsv }}?lang={{ currentLang }}" target="_blank">
+  <svg class="icon icon-file-download ml-2" role="img">
+    <title id="icon-file-csv-title">{{ 'Action.Download' | translate }} CSV</title>
+    <use href="/assets/icomoon/sprite/sprite.svg#icon-file-csv"></use>
+  </svg>
+</a>
+
+<!-- xml -->
+<a *featureFlag="'S27_xml_metadata.pl'" href="{{ selfApiXml }}?lang={{ currentLang }}" target="_blank">
+  <svg class="icon icon-file-download ml-2" role="img">
+    <title id="icon-file-xml-title">{{ 'Action.Download' | translate }} XML</title>
+    <use href="/assets/icomoon/sprite/sprite.svg#icon-file-xml"></use>
+  </svg>
+</a>

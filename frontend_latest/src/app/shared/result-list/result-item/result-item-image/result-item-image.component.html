@@ -1,0 +1,35 @@
+<div class="d-flex flex-column flex-sm-row">
+  <div class="pr-3">
+    <!-- logo -->
+    <img
+      *ngIf="item.attributes.image_thumb_url; else noIcon"
+      class="result-item-logo__icon"
+      src="{{ item.attributes.image_thumb_url }}"
+      [alt]="item.attributes.image_alt ? item.attributes.image_alt : ('Applications.LogoApp' | translate) + ' ' + item.attributes.title"
+    />
+
+    <!-- no logo - default icon -->
+    <ng-template #noIcon>
+      <span class="visually-hidden">
+        {{ 'Applications.NoLogo' | translate }}
+        {{ item.attributes.title }}
+      </span>
+      <svg class="icon result-item-logo__icon" role="img" aria-hidden="true">
+        <use href="/assets/icomoon/sprite/sprite.svg#no-icon"></use>
+      </svg>
+    </ng-template>
+  </div>
+
+  <app-default-result-item
+    *ngIf="fromDatasetEndpoint; else defaultView"
+    class="text-wrap result-item-logo__result"
+    [item]="item"
+    [detailsUrl]="('/' | localize) + '/showcase/' + item.id + ',' + item.attributes.slug"
+  >
+  </app-default-result-item>
+
+  <ng-template #defaultView>
+    <app-default-result-item class="text-wrap result-item-logo__result" [item]="item" [detailsUrl]="item.id + ',' + item.attributes.slug">
+    </app-default-result-item>
+  </ng-template>
+</div>

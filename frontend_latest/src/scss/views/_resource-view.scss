@@ -1,0 +1,28 @@
+.resource-view {
+  .filters-wrapper {
+    margin: 30px 0;
+
+    .filters {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 0;
+
+      .filter {
+        margin-bottom: 5px;
+
+        &__value {
+          border-right: 0;
+          border-left: 0;
+        }
+      }
+    }
+  }
+}
+
+.region-list-item {
+  padding: 5px 10px;
+  margin: 0 15px 10px 0;
+  background-color: #f2f4f7;
+  border: 1px solid #d8d8d8;
+  border-radius: 20px;
+}

@@ -1,0 +1,31 @@
+/* TABS
+*********************/
+.tabs {
+    border-color: $hcPrimary;
+
+    .tab-list {
+        border-bottom-color: $hcPrimary;
+        &__item {  margin: 0; }
+        &__link {
+            &--active {
+                background-color: $hcPrimary;
+                border-color: $hcPrimary;
+                color: $hcSecondary;
+            }
+
+            // < MD
+            @include media-breakpoint-down(md)
+            {
+                background-color: transparent;
+
+                &--active {
+                    background-color: $hcPrimary;
+                }
+            }
+        }
+    }
+
+    &-content {
+        border-color: $hcPrimary;
+    }
+}

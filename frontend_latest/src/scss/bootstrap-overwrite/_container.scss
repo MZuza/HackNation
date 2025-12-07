@@ -1,0 +1,19 @@
+
+// < MD
+@include media-breakpoint-down(md)
+{
+    .container {
+        padding-right: 40px;
+        padding-left: 40px;
+        max-width: inherit;
+    }
+}
+
+// < SM
+@include media-breakpoint-down(sm)
+{
+    .container {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}

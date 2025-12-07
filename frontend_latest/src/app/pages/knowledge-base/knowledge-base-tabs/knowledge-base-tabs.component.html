@@ -1,0 +1,32 @@
+<section class="vertical-spacing">
+  <div class="container">
+    <header>
+      <h1 class="heading heading--separator">{{ 'KnowledgeBase.Self' | translate }}</h1>
+    </header>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <ul class="tab-list row no-gutters" role="tablist">
+        <!-- tabs -->
+        <li *ngFor="let childTab of tabs" class="tab-list__item col-12 col-md-4" role="presentation">
+          <a
+            class="tab-list__link"
+            role="tab"
+            [id]="childTab.id"
+            [routerLink]="childTab.meta.slug"
+            #tab="routerLinkActive"
+            [attr.aria-selected]="tab.isActive ? true : null"
+            routerLinkActive="tab-list__link--active"
+          >
+            {{ childTab.title }}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- TAB CONTENT: Educational Materials -->
+    <div class="tabs-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</section>

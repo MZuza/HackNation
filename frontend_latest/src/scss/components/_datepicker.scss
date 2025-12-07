@@ -1,0 +1,47 @@
+.datepicker-wrapper {
+
+    .datepicker {
+      position: relative;
+
+      .form-group{
+        margin-bottom: 0;
+      }
+
+      .btn-icon {
+        height: 32px;
+        width: 32px;
+        position: absolute;
+        top: 4px;
+        right: 0;
+        padding: 0
+      }
+
+      .form-control-sm {
+        ~.btn-icon{
+          top: 0;
+        }
+      }
+
+        &__input {
+            padding-right: 32px;
+            box-shadow:none;
+        }
+
+        &__calendar-icon {
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            transform: translate(0%, -50%);
+        }
+
+    }
+
+    &__error-message {
+        color: $color-red;
+    }
+
+}
+
+

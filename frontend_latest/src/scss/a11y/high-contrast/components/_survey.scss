@@ -1,0 +1,8 @@
+.survey-form {
+
+    input:not([type=checkbox]):not([type=radio]),
+    textarea, select {
+        border: 1px solid $hcPrimary;
+        background-color: transparent;
+    }
+}

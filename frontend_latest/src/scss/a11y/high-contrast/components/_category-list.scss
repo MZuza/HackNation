@@ -1,0 +1,29 @@
+
+
+
+
+/* COMMON: Categories, Institutions
+*********************/
+
+.category-list {
+    &__item-wrapper {
+        border-color: currentColor;
+
+        &:hover,
+        &:focus {
+            .category-list__item-content {
+                background-color: $hcPrimary;
+            }
+
+            .category-list__item-heading,
+            .category-list__item-info {
+                color: $hcSecondary;
+            }
+        }
+    }
+
+    &__item-heading,
+    &__item-info {
+        color: currentColor;
+    }
+}

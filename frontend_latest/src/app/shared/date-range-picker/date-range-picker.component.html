@@ -1,0 +1,64 @@
+<!-- header -->
+<div
+  class="d-flex align-items-center"
+  appInfoTooltip="{{ 'Tour.Tooltip.Filters.' + titleTranslationKey + '.text' | translate }}"
+  tooltipTitle="{{ 'Tour.Tooltip.Filters.' + titleTranslationKey + '.title' | translate }}"
+>
+  <span class="font-weight-bold" *ngIf="titleTranslationKey">
+    {{ titleTranslationKey | translate }}
+  </span>
+
+  <!-- on mobile - expand/collapse body -->
+  <button
+    type="button"
+    class="btn btn-link d-inline-block d-lg-none ml-auto"
+    *ngIf="titleTranslationKey"
+    [attr.aria-pressed]="isCollapsed"
+    (click)="isCollapsed = !isCollapsed"
+  >
+    {{ (isCollapsed ? 'Action.Collapse' : 'Action.Expand') | translate }}
+  </button>
+</div>
+
+<!-- body -->
+<div class="aggregation-filters__item-body" [ngClass]="{ 'visibility-animated': isCollapsed }">
+  <div class="dropdown">
+    <!-- date from -->
+    <div class="row">
+      <span class="col-sm-6">
+        <span class="date-range-picker__control-label">
+          {{ 'Attribute.From' | translate | lowercase }}
+        </span>
+
+        <app-datepicker
+          (dateChange)="onDateChange($event)"
+          [date]="startDate"
+          [maxDate]="endDate"
+          [placeholderTranslationKey]="''"
+          label="{{ 'Attribute.Date' | translate }} {{ 'Attribute.From' | translate | lowercase }}"
+        >
+        </app-datepicker>
+      </span>
+
+      <!-- date to -->
+      <span class="col-sm-6">
+        <span class="date-range-picker__control-label">
+          {{ 'Attribute.To' | translate | lowercase }}
+        </span>
+
+        <app-datepicker
+          (dateChange)="onDateChange($event, false)"
+          [date]="endDate"
+          [minDate]="startDate"
+          [placeholderTranslationKey]="''"
+          label="{{ 'Attribute.Date' | translate }} {{ 'Attribute.To' | translate | lowercase }}"
+        >
+        </app-datepicker>
+      </span>
+    </div>
+
+    <!-- additional actions - apply -->
+    <app-list-view-filters-action-buttons [enableApply]="enableApply" (triggerApplyChange)="onApplyFilter()">
+    </app-list-view-filters-action-buttons>
+  </div>
+</div>

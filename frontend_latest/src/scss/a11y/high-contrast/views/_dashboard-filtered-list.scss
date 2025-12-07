@@ -1,0 +1,23 @@
+.dashboard-filtered-list {
+    &-point {
+        margin-left: 0.5rem;
+
+        &::before {
+            display: none;
+        }
+    }
+
+    &-item {
+        border-left-color: $hcPrimary;
+
+        &__state {
+            color: $hcSecondary;
+            background-color: $hcPrimary;
+        }
+        
+        .table {
+            border: 1px solid currentColor;
+            color: currentColor;
+        }
+    }
+}

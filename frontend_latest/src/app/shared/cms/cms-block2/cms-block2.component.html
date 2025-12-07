@@ -1,0 +1,51 @@
+<div [ngClass]="{ container: !isFullWidth }" class="{{ className }}" *ngFor="let widget of widgets" @toggleVertically>
+  <!-- banner, image, svg -->
+  <cms-image
+    [banner]="widget"
+    [isFooterLogos]="isFooterLogos"
+    (imageHasLoaded)="this.contentHasLoaded = $event"
+    *ngIf="widget.type === widgetType.BANNER || widget.type === widgetType.IMAGE || widget.type === widgetType.SVG"
+  >
+  </cms-image>
+
+  <!-- link (with tooltip) -->
+  <ng-container *ngIf="widget.type === widgetType.LINK">
+    <!-- external -->
+    <a
+      [href]="widget.settings.url"
+      [title]="widget.settings.title || ''"
+      [innerHTML]="widget.settings.text | sanitizeHtml"
+      *ngIf="widget.settings.isExternalUrl"
+    >
+    </a>
+
+    <!-- internal -->
+    <a
+      [routerLink]="widget.settings.url"
+      [title]="widget.settings.title || ''"
+      [innerHTML]="widget.settings.text | sanitizeHtml"
+      *ngIf="!widget.settings.isExternalUrl"
+    >
+    </a>
+  </ng-container>
+
+  <!-- raw html, text -->
+  <cms-raw-text
+    class="cms-raw-text"
+    [rawText]="widget"
+    [isFullWidth]="isFullWidth"
+    (rawTextHasLoaded)="this.contentHasLoaded = $event"
+    *ngIf="widget.type === widgetType.RAW_TEXT || widget.type === widgetType.TEXT"
+  >
+  </cms-raw-text>
+
+  <!-- video -->
+  <cms-video [video]="widget" *ngIf="widget.type === widgetType.VIDEO"></cms-video>
+
+  <!-- call 2 action -->
+  <cms-call-to-action [cta]="widget" (ctaHasLoaded)="this.contentHasLoaded = $event" *ngIf="widget.type === widgetType.CTA">
+  </cms-call-to-action>
+
+  <!-- heading -->
+  <cms-heading [heading]="widget" *ngIf="widget.type === widgetType.HEADING"></cms-heading>
+</div>

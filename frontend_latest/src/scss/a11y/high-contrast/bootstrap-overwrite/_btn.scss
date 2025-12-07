@@ -1,0 +1,60 @@
+.btn {
+    &.btn-primary,
+    &.btn-secondary,
+    &.btn-danger {
+        color: $hcSecondary;
+        border-color: currentColor;
+        background-color: $hcPrimary;
+
+        .icon * {
+            fill: $hcSecondary;
+        }
+
+        &:hover {
+            color: currentColor;
+            border-color: currentColor;
+            background-color: $hcSecondary;
+
+            .icon * {
+                fill: $hcPrimary;
+            }
+        }
+    }
+
+    &.btn-link {
+        color: $hcPrimary;
+    }
+
+    &.btn-outline-primary,
+    &.btn-outline-danger {
+        color: currentColor;
+        border-color: currentColor;
+
+        &:hover {
+            color: $hcSecondary;
+            background-color: $hcPrimary;
+        }
+    }
+
+    // btns to change contrast
+    &.btn--hc {
+        &-1,
+        &-4 {
+            color: $color-black;
+        }
+        &-3 {
+            color: $color-yellow;
+        }
+    }
+
+    &--remove {
+        color: currentColor;
+        border-color: currentColor;
+        background-color: $hcSecondary;
+
+        &:hover {
+            color: $hcSecondary;
+            background-color: $hcPrimary;
+        }
+    }
+}

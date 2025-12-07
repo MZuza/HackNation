@@ -1,0 +1,17 @@
+<!-- Main content -->
+<ng-container *ngIf="!hasChildRoute">
+    <ng-content></ng-content>
+</ng-container>
+
+<!--Back button -->
+<ng-container *ngIf="hasChildRoute">
+    <a [routerLink]="backURL" class="btn btn-link btn-sm mb-2">
+        <svg class="icon icon-magnifying-glass">
+            <use xlink:href="/assets/icomoon/sprite/sprite.svg#icon-arrow-left2"></use>
+        </svg>
+        Powrót do listy
+    </a>
+</ng-container>
+
+<!--Child route content -->
+<router-outlet></router-outlet>

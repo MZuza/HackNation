@@ -1,0 +1,281 @@
+<article class="item-view">
+
+    <!-- DETAILS HEADER -->
+    <header class="item-view__header vertical-spacing">
+        <div class="container">
+            <h1 class="heading" [innerHtml]="institution?.attributes.title | sanitizeHtml">
+                <span *ngIf="institution.attributes.abbreviation" class="font-weight-light" [innerHtml]="institution.attributes.abbreviation | sanitizeHtml">
+                </span>
+            </h1>
+
+            <!-- created -->
+            <p class="item-view__attribute">
+                <strong>
+                    {{ 'Attribute.CreationDate' | translate }}:
+                </strong>
+                {{institution?.attributes?.created | translateDateFormat | async}}
+            </p>
+
+            <!-- modified -->
+            <p class="item-view__attribute">
+                <strong>
+                    {{ 'Attribute.UpdateDate' | translate }}:
+                </strong>
+                {{institution?.attributes?.modified | translateDateFormat | async}}
+            </p>
+
+
+            <div class="row mt-4">
+
+                <!-- LOCATION -->
+                <div class="col-md-6 col-lg-4 mb-4 mb-lg-0"
+                     *ngIf="institution?.attributes.street_type || institution?.attributes.city
+                     || institution?.attributes.street  || institution?.attributes.street_number
+                     || institution?.attributes.flat_number || institution?.attributes.postal_code ">
+                    <svg aria-hidden="true" class="icon icon-location-pin">
+                        <use href="/assets/icomoon/sprite/sprite.svg#icon-location-pin"></use>
+                    </svg>
+
+                    <!-- address: street, number -->
+                    <p class="item-view__attribute item-view__attribute--tight item-view__attribute--icon-related"
+                       *ngIf="institution?.attributes.street_type || institution?.attributes.street
+                       || institution?.attributes.street_number || institution?.attributes.flat_number">
+                        <ng-container *ngIf="institution?.attributes.street_type">
+                            {{ institution?.attributes.street_type }}
+                        </ng-container>
+                        <ng-container *ngIf="institution?.attributes.street">
+                            {{ institution?.attributes.street }}
+                        </ng-container>
+                        <ng-container *ngIf="institution?.attributes.street_number">
+                            {{ institution?.attributes.street_number }}
+                        </ng-container>
+                        <ng-container *ngIf="institution?.attributes.flat_number">
+                            lok. {{ institution?.attributes.flat_number }}
+                        </ng-container>
+                    </p>
+
+                    <!-- address: city -->
+                    <p class="item-view__attribute item-view__attribute--tight item-view__attribute--icon-related"
+                       *ngIf="institution?.attributes.postal_code || institution?.attributes.city">
+                        <ng-container *ngIf="institution?.attributes.postal_code">
+                            {{ institution?.attributes.postal_code }}
+                        </ng-container>
+                        <ng-container *ngIf="institution?.attributes.city">
+                            {{ institution?.attributes.city }}
+                        </ng-container>
+                    </p>
+
+                    <!-- regon -->
+                    <p class="item-view__attribute item-view__attribute--tight item-view__attribute--icon-related"
+                       *ngIf="institution?.attributes.regon">
+                        REGON: {{ institution?.attributes.regon }}
+                    </p>
+                </div>
+
+
+                <!-- TEL & FAX -->
+                <div class="col-md-6 col-lg-4 mb-4 mb-lg-0"
+                     *ngIf="institution?.attributes.tel || institution?.attributes.fax">
+                    <svg aria-hidden="true" class="icon icon-mobile">
+                        <use href="/assets/icomoon/sprite/sprite.svg#icon-mobile"></use>
+                    </svg>
+                    <p class="item-view__attribute item-view__attribute--tight item-view__attribute--icon-related"
+                       *ngIf="institution?.attributes.tel">
+                        Tel.: {{ institution?.attributes.tel }}
+                    </p>
+                    <p class="item-view__attribute item-view__attribute--tight item-view__attribute--icon-related"
+                       *ngIf="institution?.attributes.fax">
+                        Fax: {{ institution?.attributes.fax }}
+                    </p>
+                </div>
+
+
+                <!-- WEBSITE, MAIL, EPUAP -->
+                <div class="col-md-6 col-lg-4 institution-contact-info-container"
+                     *ngIf="institution?.attributes.website || institution?.attributes.email || institution?.attributes.epuap">
+                    <svg aria-hidden="true" class="icon icon-paper-plane">
+                        <use href="/assets/icomoon/sprite/sprite.svg#icon-paper-plane"></use>
+                    </svg>
+                    <p class="item-view__attribute item-view__attribute--tight item-view__attribute--icon-related"
+                       *ngIf="institution?.attributes.website">
+                        <a href="{{ institution?.attributes.website }}" target="_blank">
+                            {{ institution?.attributes.website }}
+                            <span class="visually-hidden">{{ "SkipTo.NewWindow" | translate }}</span>
+                        </a>
+                    </p>
+                    <p class="item-view__attribute item-view__attribute--tight item-view__attribute--icon-related"
+                       *ngIf="institution?.attributes.email">
+                        <a href="mailto:{{ institution?.attributes.email }}">
+                            {{ institution?.attributes.email }}
+                        </a>
+                    </p>
+                    <p class="item-view__attribute item-view__attribute--tight item-view__attribute--icon-related"
+                       *ngIf="institution?.attributes.epuap">
+                        <a href="{{ institution?.attributes.epuap }}" target="_blank">
+                            {{ 'Institutions.EpuapMailBox' | translate }}
+                            <span class="visually-hidden">{{ "SkipTo.NewWindow" | translate }}</span>
+                        </a>
+                    </p>
+                    <p class="item-view__attribute item-view__attribute--tight item-view__attribute--icon-related institution-delivery-address"
+                       *ngIf="institution?.attributes.electronic_delivery_address"
+                    >
+                      <span>{{ 'Institutions.EdorAddress' | translate }}: </span>
+                      <span class="institution-delivery-address__adr">{{institution?.attributes.electronic_delivery_address}}</span>
+                      <button
+                        class="btn copy-button institution-clipboard-button"
+                        [cdkCopyToClipboard]="institution?.attributes.electronic_delivery_address"
+                        [tooltip]="'Institutions.CopyEdorAddress' | translate"
+                        triggers="mouseenter:click mouseenter:mouseleave"
+                        placement="bottom"
+                        (click)="clickOnClipboard()"
+                      >
+                        <svg aria-hidden="true" class="icon icon-copy">
+                          <use href="/assets/icomoon/SVG/copy.svg#icon-copy"></use>
+                        </svg>
+                      </button>
+                      <span *ngIf="clipboardClicked" [ngClass]="[highContrastMode, 'institution-clipboard-text']">
+                        <div class="institution-clipboard-copied-icon">
+                          <svg
+                            aria-hidden="true"
+                            [ngClass]="[highContrastMode, 'icon', 'icon-confirm', 'institution-clipboard-confirm-icon'] "
+                          >
+                            <use href="assets/icomoon/SVG/ok.svg#ok"></use>
+                          </svg>
+                        </div>
+                        <div class="institution-clipboard-copied-text">
+                          {{ 'Action.Copied' | translate }}: <strong>{{institution?.attributes.electronic_delivery_address}}</strong>
+                        </div>
+                      </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+</article>
+
+<div class="vertical-spacing">
+    <div class="container pb-3">
+        <h2 class="heading heading--md">
+            {{ 'Institutions.RelatedDatasets' | translate }}
+        </h2>
+
+        <app-search-suggest
+            tooltipText="{{ 'Tour.Tooltip.InstitutionDetails.Search.text' | translate }}"
+            [searchQuery]="params.q"
+            [useTriggers]="true"
+            (searchTrigger)="updateParams({q: $event.q, sort: 'relevance'})"
+            (clearTrigger)="updateParams({q: '', sort: '-date'})">
+        </app-search-suggest>
+    </div>
+</div>
+
+<div class="container pb-0 pb-lg-4">
+    <div class="row no-gutters">
+        <aside class="col-lg-4 col-xl-3 bg-custom">
+
+            <!-- aggregation filters -->
+            <app-institution-item-list-view-filters 
+                [filtersOptions]="filters" 
+                [maxLength]="maxLength"
+                [originalSelectedData]="backupSelectedFilters"
+                [data]="selectedFilters"
+                (applyFilters)="updateParams($event, null, true)">
+            </app-institution-item-list-view-filters>
+        </aside>
+
+        <div class="col-lg-8 col-xl-9">
+            <div class="ml-0 ml-lg-4">
+
+                <!-- SEARCH RESULTS -->
+                <div class="results-section">
+
+                    <!-- SELECTED FILTERS -->
+                    <app-institution-item-selected-filters 
+                        [selectedIds]="backupSelectedFilters"
+                        [selectedFiltersCount]="selectedFiltersCount"
+                        (clearAllFilters)="clearSelectedFilters()"
+                        (clearSingleFilter)="clearSelectedFilter($event)">
+                    </app-institution-item-selected-filters>
+
+                    <app-found-results-counters-and-sort
+                        *ngIf="count && items?.length"
+                        [selected]="params?.sort"
+                        [selectedModel]="params['model[terms]'] ? params['model[terms]'] : apiModel.DATASET +','+ apiModel.RESOURCE"
+                        (update)="updateParams($event)"
+                        [counters]="[
+                            {label:'Attribute.AllData' | translate, count: count, value: apiModel.DATASET +','+ apiModel.RESOURCE, url: null},
+                            {label:'Datasets.Self' | translate, count: counters?.datasets, value: apiModel.DATASET, url: null},
+                            {label:'Resources.Self' | translate, count: counters?.resources, value: apiModel.RESOURCE, url: null}
+                        ]"
+                        [sortOptions]="[
+                                {label:'Sort.Default' | translate, value: 'relevance'},
+                                {label:'Attribute.NameAsc' | translate, value: 'title'},
+                                {label:'Attribute.NameDesc' | translate, value: '-title'},
+                                {label:'Attribute.Date' | translate, value: '-date'},
+                                {label:'Attribute.Popularity' | translate, value: '-views_count'}
+                                ]">
+                    </app-found-results-counters-and-sort>
+
+                    <!-- no results found -->
+                    <app-no-results-found [q]="params?.q" *ngIf="items && !items.length"></app-no-results-found>
+
+                    <!-- api notifications -->
+                    <app-notifications></app-notifications>
+
+                    <!-- RESULTS LIST -->
+                    <app-institution-item-results [items]="items"></app-institution-item-results>
+
+                    <!-- RESULTS FOOTER -->
+                    <footer class="results-footer pt-5" *ngIf="items && items.length">
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <!-- results per page -->
+                            <app-items-per-page 
+                                [selected]="params?.per_page" 
+                                (selectedChange)="updateParams({per_page: $event})">
+                            </app-items-per-page>
+
+                            <!-- pagination -->
+                            <app-pagination
+                                [itemsPerPage]="params.per_page"
+                                [totalItems]="count"
+                                [(page)]="params.page"
+                                (numPages)="numPages = $event"
+                                (pageChange)="updateParams({page: $event})">
+                            </app-pagination>
+                        </div>
+
+                        <div class="row m-0 pt-4 results-action">
+
+                            <!-- current page api -->
+                            <div class="col-sm-12 pl-0 pr-0 col-md-4 results-action__left sm-pb"
+                                    *ngIf="items && items.length">
+                                <app-api-source-link [apiUrl]="selfApi"></app-api-source-link>
+                            </div>
+
+                            <!--suggest application-->
+                            <div class="col-sm-12 pl-0 pr-0 col-md-8 results-action__right">
+
+                                <div class="w-100">
+                                    <div class="d-flex justify-content-end flex-wrap align-items-baseline">
+                                        <p class="pr-2 m-0 font-weight-bold">{{ 'LookingForDifferentData' | translate }}</p>
+                                        <app-write-us-info class="write-us-info-container" [showIcon]="false"
+                                                            [uppercase]="false"
+                                                            [buttonSize]="'md'"></app-write-us-info>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </footer>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

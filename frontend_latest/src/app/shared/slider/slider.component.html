@@ -1,0 +1,13 @@
+<label for="controlRange" class="mt-3"> {{ 'Map.Range' | translate }}</label>
+<input
+  type="range"
+  class="custom-range"
+  id="controlRange"
+  min="0"
+  max="{{ sliderValueMapping.length - 1 }}"
+  step="1"
+  value="{{ radius }}"
+  (input)="onRadiusChange($event)"
+  (change)="onRadiusChange($event)"
+/>
+<p id="sliderLabel" [ngStyle]="{ left: (280 / sliderValueMapping.length) * radius - 10 + 'px' }">{{ sliderValueMapping[radius] }} km</p>

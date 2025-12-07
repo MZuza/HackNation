@@ -1,0 +1,8 @@
+.dga-tiles{
+  &:hover{
+    .color-blue-light{
+      background-color: $hcPrimary;
+      color: $hcSecondary;
+    }
+  }
+}

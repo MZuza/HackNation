@@ -1,0 +1,8 @@
+
+    <div *ngIf="embedObject.embedType === getEmbedType().MEDIA">
+        <cms-video [video]="createVideoObject()"></cms-video>
+    </div>
+
+    <div *ngIf="embedObject.embedType === getEmbedType().IMAGE">
+        <cms-image [banner]="createBannerObject()"></cms-image>
+    </div>

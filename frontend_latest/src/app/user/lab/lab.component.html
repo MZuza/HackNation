@@ -1,0 +1,60 @@
+<h1 class="heading">
+  {{ 'MyDashboard.Lod' | translate }}
+</h1>
+
+<!-- TABS: ANCHORS -->
+<div class="tabs">
+  <ul class="tab-list row no-gutters" role="tablist">
+    <!-- Activities -->
+    <li class="tab-list__item col-md-4" role="presentation">
+      <a
+        class="tab-list__link"
+        role="tab"
+        id="tab1"
+        [routerLink]="['info']"
+        routerLinkActive="tab-list__link--active"
+        #infoActive="routerLinkActive"
+        [attr.aria-selected]="infoActive.isActive ? true : false"
+        aria-controls="lab-tabs"
+      >
+        {{ 'Lod.Information' | translate }}
+      </a>
+    </li>
+
+    <!-- Analyses -->
+    <li class="tab-list__item col-md-4" role="presentation">
+      <a
+        class="tab-list__link"
+        role="tab"
+        id="tab2"
+        [routerLink]="['analyses']"
+        routerLinkActive="tab-list__link--active"
+        #analysesActive="routerLinkActive"
+        [attr.aria-selected]="analysesActive.isActive ? true : false"
+        aria-controls="lab-tabs"
+      >
+        {{ 'Lod.Analyses' | translate }}
+      </a>
+    </li>
+
+    <!-- Researches -->
+    <li class="tab-list__item col-md-4" role="presentation">
+      <a
+        class="tab-list__link"
+        role="tab"
+        id="tab3"
+        [routerLink]="['researches']"
+        routerLinkActive="tab-list__link--active"
+        #researchesActive="routerLinkActive"
+        [attr.aria-selected]="researchesActive.isActive ? true : false"
+        aria-controls="lab-tabs"
+      >
+        {{ 'Lod.Research' | translate }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="tabs-content" role="tabpanel" id="lab-tabs" tabindex="0">
+  <router-outlet></router-outlet>
+</div>

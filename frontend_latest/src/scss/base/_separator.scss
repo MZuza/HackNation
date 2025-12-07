@@ -1,0 +1,10 @@
+@mixin separator {
+    &::after {
+        content: "";
+        display: block;
+        height: 5px;
+        width: 25px;
+        background-color: $color-grey-light-4;
+        margin-top: 0.5rem;
+    }
+}

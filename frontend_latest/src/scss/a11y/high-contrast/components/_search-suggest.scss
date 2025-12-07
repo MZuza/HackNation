@@ -1,0 +1,23 @@
+.search-suggest  {
+
+    &__listbox {
+        border: 1px solid currentColor;
+
+        &-item {
+            border-color: currentColor;
+
+            &.active {
+                background-color: currentColor;
+                
+                .search-suggest__listbox-title,
+                .search-suggest__listbox-area {
+                    color: $hcSecondary;
+                }
+            }
+        }
+
+        &-title {
+            color: currentColor;
+        }
+    }
+}

@@ -1,0 +1,142 @@
+// Bootstrap dropdown's overrdide
+
+.dropdown {
+    width: 100%;
+    min-width: 60px;
+
+    &-label {
+        @include control-label;
+    }
+
+    &-toggle {
+        width: inherit;
+        color: $color-text;
+        background: $color-white;
+        border-color: $color-grey-light-4;
+        text-align: left;
+        position: relative;
+        cursor: pointer;
+
+        // dropdown triangle on the right
+        &::after {
+            position: absolute;
+            right: 10px;
+            top: 40%;
+        }
+    }
+
+    &--animated {
+        .dropdown-menu {
+            display: block;
+        }
+    }
+
+    &-menu {
+        min-width: inherit;
+        width: inherit;
+        max-width: inherit;
+        padding: 5px;
+        margin: -1px 0 0 0;
+        box-shadow: 0 3px 6px rgba($color-black, 0.25);
+        overflow: hidden;
+    }
+
+    &-item {
+        cursor: pointer;
+        padding: 5px;
+        white-space: normal;
+        position: relative;
+        line-height: 1.2;
+
+        &:not(:first-child) {
+            margin-top: 1px;
+        }
+
+        &:hover,
+        &:focus,
+        &.current{
+            color: inherit;
+            background-color: $color-hover;
+        }
+
+        &__input {
+            position: absolute;
+            top: 8px;
+            left: 0px;
+
+            &:checked + * {
+                font-weight: bold;
+            }
+        }
+
+        &__content {
+            display: flex;
+            margin: 0;
+            padding-left: 1.1rem;
+            cursor: inherit;
+
+            &-wrapper {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+            }
+
+            &-title, &-doc-count {
+                white-space: nowrap;
+            }
+
+            &-hint {
+                margin-left: 5px;
+            }
+        }
+
+        //Todo remove after replacing by new filters
+        &__text {
+            display: block;
+            margin: 0;
+            padding-left: 20px;
+            cursor: inherit;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &-title {
+                white-space: nowrap;
+            }
+        }
+    }
+
+    &__list {
+        list-style: none;
+        margin: 5px 0 0 0;
+        padding: 0;
+        max-height: 240px;
+        overflow-y: auto;
+
+        &-expandable {
+            max-height: 90px;
+            overflow: hidden;
+            transition: 0.2s;
+
+            &--expanded {
+                max-height: 240px;
+                transition: 0.2s;
+                overflow-y: auto;
+            }
+        }
+    }
+
+    &__list-custom {
+        list-style: none;
+        margin: 5px 0 0 0;
+        padding: 0;
+    }
+
+    &__apply-wrapper {
+        text-align: center;
+    }
+
+    &__apply {
+        margin: 10px auto;
+    }
+
+}

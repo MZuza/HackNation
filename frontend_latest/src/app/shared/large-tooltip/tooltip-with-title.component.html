@@ -1,0 +1,12 @@
+<div class="app-tooltip-wrapper" id="app-tooltip" [class.tooltip-with-title]="!!title">
+  <span *ngIf="title" class="font-weight-bold d-block mb-2">{{ title }}</span>
+  {{ text }}
+  <span *ngIf="levelDataOpenness">
+    <!-- star rating -->
+    <ul class="star-rating" aria-hidden="true">
+      <li class="star-rating__star" *ngFor="let i of ratesArr" [ngClass]="{ 'text-secondary': +levelDataOpenness < i }">
+        {{ +levelDataOpenness >= i ? '&#x2605; ' : '&#x2606; ' }}
+      </li>
+    </ul>
+  </span>
+</div>

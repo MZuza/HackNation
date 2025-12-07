@@ -1,0 +1,22 @@
+<div id="image" *ngIf="urlImage">
+  <!-- image as link -->
+  <a
+    *ngIf="banner.value.action_url"
+    href="{{ banner.value.action_url }}"
+    target="{{ banner.value.target }}"
+    title="{{ banner.value.title }}"
+  >
+    <img
+      style="display: inline-block"
+      [ngClass]="cssClass"
+      [src]="urlImage"
+      [alt]="banner.value.image?.alt ? banner.value.image?.alt : banner.value.alt ? banner.value.alt : 'banner'"
+      [ngStyle]="styles ? styles : ''"
+    />
+
+    <span class="visually-hidden"> Banner - {{ 'Action.OpenInNewWindow' | translate }} </span>
+  </a>
+
+  <!-- image -->
+  <img *ngIf="!banner.value.action_url" [src]="urlImage" [alt]="isFooterLogos ? banner.value.title : banner.value.alt" [ngClass]="cssClass" [ngStyle]="styles ? styles : ''" />
+</div>

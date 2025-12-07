@@ -1,0 +1,131 @@
+<div class="resource-view" *ngIf="hasTableView">
+  <!-- TABLE + VIEW OPTIONS -->
+  <ng-container *ngIf="items">
+    <!-- count limit info -->
+    <div class="container" *ngIf="count > countLimit">
+      <p class="alert alert-info mt-4">
+        {{ 'Resources.VarTableRowsLimited' | translate: { param: countLimit, param1: count } }}
+      </p>
+    </div>
+
+    <!-- ITEMS PER PAGE and TABLE RELATED BUTTONS -->
+    <div class="container mt-4" id="resource-pagination-top">
+      <div class="row no-gutters justified-between">
+        <!-- items per page -->
+        <app-items-per-page [selected]="params?.per_page" (selectedChange)="updateParams({ per_page: $event })"> </app-items-per-page>
+
+        <!-- TABLE ACTIONS -->
+        <div class="mt-1 mt-md-0">
+          <!-- toggle horizontal margins -->
+          <button
+            class="btn btn--xs-100 ml-sm-1 d-none"
+            [ngClass]="isTableFullWidth ? 'btn-outline-primary' : 'btn-primary'"
+            (click)="isTableFullWidth = !isTableFullWidth"
+            [attr.aria-pressed]="isTableFullWidth || false"
+          >
+            <span class="visually-hidden">
+              {{ 'Action.SwitchViewTo' | translate }}
+            </span>
+            {{ (isTableFullWidth ? 'Resources.TableWithoutMargins' : 'Resources.TableWithMargins') | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="vertical-spacing" [ngClass]="{ container: !isTableFullWidth }">
+      <div class="sticky-header-table">
+        <table class="datagrid" #resourceTable>
+          <caption class="visually-hidden">
+            tabela z danymi
+            {{
+              tableTitle
+            }}
+          </caption>
+          <!-- DATATABLE HEAD -->
+          <thead>
+            <tr>
+              <th
+                class="datagrid__heading"
+                scope="col"
+                [attr.aria-sort]="
+                  params.sort.indexOf(column.name) === 0
+                    ? ('Sort.Ascending' | translate)
+                    : params.sort.indexOf(column.name) === 1
+                    ? ('Sort.Descending' | translate)
+                    : null
+                "
+                *ngFor="let column of columns"
+              >
+                <!-- sort order -->
+                <a
+                  class="datagrid__sort-column"
+                  [routerLink]="['.']"
+                  [attr.aria-label]="('Sort.By' | translate) + ' ' + column.description"
+                  [ngClass]="{
+                    ascending: params.sort.indexOf(column.name) === 0,
+                    descending: params.sort.indexOf(column.name) === 1
+                  }"
+                  (click)="sortByColumn(column.name)"
+                >
+                  {{ column.description }}
+                </a>
+              </th>
+            </tr>
+          </thead>
+
+          <!-- DATATABLE BODY -->
+          <tbody>
+            <tr
+              class="datagrid__row"
+              (mouseenter)="hoveredRowIndex = rowIndex"
+              (mouseleave)="onMouseLeave()"
+              [ngClass]="hoveredRowIndex === rowIndex ? 'hovered' : ''"
+              *ngFor="let item of items; let rowIndex = index"
+            >
+              <td
+                class="datagrid__cell"
+                tabindex="0"
+                (keydown)="onKeyDown($event)"
+                (focus)="onFocus(rowIndex, cellIndex)"
+                *ngFor="let column of columns; let cellIndex = index"
+              >
+                {{ item[column.name] | resourceColumnData: 'repr' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ITEMS PER PAGE and PAGINATION -->
+    <div class="container" id="resource-pagination">
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- items per page -->
+        <app-items-per-page [selected]="params?.per_page" (selectedChange)="updateParams({ per_page: $event })"> </app-items-per-page>
+
+        <!-- pagination -->
+        <app-pagination
+          [itemsPerPage]="params?.per_page"
+          [totalItems]="count >= countLimit ? countLimit : count"
+          [(page)]="params.page"
+          (numPages)="numPages = $event"
+          (pageChange)="updateParams({ page: $event })"
+        >
+        </app-pagination>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- no results found -->
+  <div class="container" *ngIf="params?.q && count === 0">
+    <app-no-results-found [hasCriteria]="true"></app-no-results-found>
+  </div>
+</div>
+
+<!-- No TABLE -->
+<div class="container pb-3" *ngIf="!hasTableView">
+  <p class="alert alert-info">
+    {{ 'Resources.NoTableView' | translate }}
+  </p>
+</div>

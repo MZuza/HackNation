@@ -1,0 +1,14 @@
+<div class="home-section vertical-spacing" *ngIf="serviceAlerts && serviceAlerts.length">
+  <div class="container">
+    <h2 class="visually-hidden">
+      {{ 'Home.ServiceAlert.Self' | translate }}
+    </h2>
+
+    <div class="alert alert-info" role="alert" *ngFor="let serviceAlert of serviceAlerts">
+      <h3 style="font-size: inherit; font-weight: bold" [innerHtml]="serviceAlert.title | sanitizeHtml">
+      </h3>
+
+      <div [innerHTML]="serviceAlert.description | sanitizeHtml"></div>
+    </div>
+  </div>
+</div>

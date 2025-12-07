@@ -1,0 +1,84 @@
+<section>
+
+    <!-- API notifications -->
+    <app-notifications></app-notifications>
+
+    <h1 class="heading">
+        {{ 'MyDashboard.FollowedObjects' | translate  }}
+    </h1>
+
+
+    <!-- EMAIL NOTIFICATIONS CONSENT -->
+    <div class="mb-5">
+
+        <!-- toggle -->
+        <button *ngIf="!isConsentVisible"
+            class="btn btn-primary"
+            type="button"
+            [attr.aria-pressed]="isConsentVisible"
+            (click)="onTogglePermission()">
+        
+            <!-- disable -->
+            <ng-container *ngIf="hasNotificationsEnabled">
+                {{ 'NotificationConsent.ResignNotificationsButton' | translate  }}
+            </ng-container>
+        
+            <!-- enable -->
+            <ng-container *ngIf="!hasNotificationsEnabled">
+                {{ 'NotificationConsent.EnableNotificationsButton' | translate }}
+            </ng-container>
+        </button>
+
+        <!-- fake button - toggle email notifications -->
+        <button *ngIf="isConsentVisible && !hasNotificationsEnabled"
+            class="btn btn-secondary"
+            type="button"
+            [attr.aria-pressed]="isConsentVisible">
+            {{ 'NotificationConsent.EnableNotificationsButton' | translate }}
+        </button>
+
+        <!-- consent -->
+        <div *ngIf="isConsentVisible" @toggleVertically>
+            <app-followed-email-notification-consent
+                (showConsentPanel)="isConsentVisible = $event" 
+                (setConsent)="setNotifications(true)">
+            </app-followed-email-notification-consent>
+        </div>
+    </div>
+
+
+    <!-- TABS - level 1 -->
+    <div class="tabs">
+        <ul class="tab-list row no-gutters" role="tablist">
+
+            <!-- Followed -->
+            <li class="tab-list__item  col-sm-6 col-xs-12" role="presentation">
+                <a class="tab-list__link" role="tab" id="tabFollowed"
+                    [routerLink]="['followed']"
+                    #tabLinkFollowed="routerLinkActive"
+                    [attr.aria-selected]="tabLinkFollowed.isActive ? true : null"
+                    routerLinkActive="tab-list__link--active">
+                    {{ 'User.Followed' | translate }}
+                </a>
+            </li>
+
+            <!-- Search history-->
+            <li class="tab-list__item col-sm-6 col-xs-12" role="presentation">
+                <a class="tab-list__link" role="tab" id="tabSearchHistory"
+                    [routerLink]="['search-history']"
+                    #tabLinkSearchHistory="routerLinkActive"
+                    [attr.aria-selected]="tabLinkSearchHistory.isActive ? true : null"
+                    routerLinkActive="tab-list__link--active">
+                    {{ 'User.SearchHistory' | translate }}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- TAB CONTENT: Followed / SearchHistory -->
+    <div class="tabs-content">
+        <router-outlet></router-outlet>
+    </div>
+
+</section>

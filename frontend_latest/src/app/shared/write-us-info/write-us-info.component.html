@@ -1,0 +1,58 @@
+<!-- modal trigger -->
+<button
+  class="btn btn-{{ buttonLook }} btn-{{ buttonSize }} write-us-info"
+  [ngClass]="{ 'inherit-look': inheritLook }"
+  (click)="openWriteUsModal(modalTemplate)"
+  #modalTrigger
+>
+  <ng-container *ngIf="hasButtonLook">
+    {{ uppercase ? (buttonLabel | translate | uppercase) : (buttonLabel | translate) }}
+  </ng-container>
+
+  <ng-container *ngIf="!hasButtonLook"> {{ buttonLabel | translate }}</ng-container>
+
+  <svg class="icon icon-chevrons-right" role="img" aria-hidden="true" *ngIf="hasButtonLook && showIcon">
+    <use href="/assets/icomoon/sprite/sprite.svg#icon-chevrons-right"></use>
+  </svg>
+</button>
+
+<ng-template #modalTemplate>
+  <div app-focus-trap>
+    <!-- modal header -->
+    <div class="modal-header">
+      <h1 class="modal-title pull-left">
+        {{ buttonLabel | translate }}
+      </h1>
+      <button type="button" id="header-close" class="btn-close" (click)="onWriteUsModalClose()">
+        <span class="visually-hidden">
+          {{ 'Action.Close' | translate }}
+          {{ 'Modal' | translate | lowercase }}
+          "{{ buttonLabel | translate }}"
+        </span>
+      </button>
+    </div>
+
+    <!-- modal body -->
+    <div class="modal-body">
+      <p>
+        {{ 'WriteUs.Suggestions' | translate }}
+      </p>
+      <a [href]="'mailto:' + appConfig.contactEmail + '?subject=[' + appConfig.domain + '] Kontakt ze strony'">
+        {{ appConfig.contactEmail }}
+      </a>
+    </div>
+
+    <!-- modal footer -->
+    <div class="modal-footer">
+      <div class="form-group text-right">
+        <button type="button" id="footer-close" class="btn btn-outline-primary focus-trap-last" (click)="onWriteUsModalClose()">
+          {{ 'Action.Close' | translate }}
+          <span class="visually-hidden">
+            {{ 'Modal' | translate | lowercase }}
+            "{{ buttonLabel | translate }}"
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,35 @@
+<div app-focus-trap>
+  <div class="modal-header">
+    <h1 class="modal-title pull-left">
+      {{ pageTitle ? pageTitle : ('Rodo.Title' | translate) }}
+    </h1>
+
+    <!-- modal close -->
+    <button type="button" id="close-modal-rodo" class="btn-close" (click)="closeModal()">
+      <span class="visually-hidden">
+        {{ 'Action.Close' | translate }}
+        {{ 'Modal' | translate | lowercase }}
+        "{{ 'Rodo.Label' | translate }}"
+      </span>
+    </button>
+  </div>
+
+  <!-- RODO assumptions -->
+  <div class="modal-body">
+    <app-loader *ngIf="!pageTitle"></app-loader>
+    <cms-block2 *ngIf="pageTitle" [widgetsSubject]="pageWidget" [isFullWidth]="true"></cms-block2>
+  </div>
+
+  <!-- close modal -->
+  <div class="modal-footer">
+    <div class="form-group text-right">
+      <button type="submit" class="btn btn-primary focus-trap-last" (click)="closeModal()" id="footer-close">
+        {{ 'Action.Close' | translate }}
+        <span class="visually-hidden">
+          {{ 'Modal' | translate | lowercase }}
+          "{{ 'Rodo.Label' | translate }}"
+        </span>
+      </button>
+    </div>
+  </div>
+</div>

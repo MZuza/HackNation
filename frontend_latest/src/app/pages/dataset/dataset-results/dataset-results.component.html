@@ -1,0 +1,28 @@
+<app-result-list [items]="items">
+  <!-- LEFT -->
+  <ng-template let-item>
+    <app-default-result-item [item]="item" [detailsUrl]="item.url" [fromDatasetEndpoint]="true"></app-default-result-item>
+  </ng-template>
+
+  <!-- RIGHT -->
+  <ng-template let-item>
+    <div class="d-flex flex-column flex-md-row align-items-md-center d-lg-block">
+      <div>
+        <app-details-result-item [detailsData]="item.detailsData" [titleTranslationKey]="item.titleTranslationKey" [isDatasetView]="true">
+        </app-details-result-item>
+      </div>
+
+      <div *ngIf="isUserLoggedIn && item.attributes.model === apiModel.DATASET">
+        <!-- subscribe/unsubscribe -->
+        <app-subscribe-button
+          tooltipText="{{ 'Tour.Tooltip.Dataset.Follow.text' | translate }}"
+          tooltipTitle="{{ 'Tour.Tooltip.Dataset.Follow.title' | translate }}"
+          class="subscribe-button w-100 d-inline-block mt-2 mt-md-0 mt-lg-3 ml-0 ml-md-3 ml-lg-0"
+          [bootstrapClass]="'btn-default'"
+          [item]="item"
+        >
+        </app-subscribe-button>
+      </div>
+    </div>
+  </ng-template>
+</app-result-list>

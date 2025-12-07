@@ -1,0 +1,44 @@
+<!-- additional actions - expand/collapse, apply -->
+<div class="d-flex align-items-baseline pt-2">
+
+    <!-- expand/collapse list -->
+    <app-dropdown-toogle *ngIf="displayShowMore"
+        [srTranslationKey]="srTranslationKey" 
+        @toggleVertically  
+        [isExpanded]="isExpanded"
+        (toogleChange)="expandOptionList()">
+    </app-dropdown-toogle>
+    
+
+    <!-- apply - active btn -->
+    <button type="button" class="btn btn-link font-weight-bold ml-auto p-0" (click)="triggerApply()" *ngIf="enableApply">
+        <span *ngIf="srTranslationKey" class="visually-hidden">
+            {{ srTranslationKey | translate }}:
+        </span>
+        <span *ngIf="selectedCount" class="visually-hidden">
+            {{ 'Filters.VarSelected' | translate: {param: selectedCount} }}.
+        </span>
+        <span *ngIf="!selectedCount" class="visually-hidden">
+            {{ 'Filters.RemoveSelected' | translate }}.
+        </span>
+
+        {{ 'Filters.ApplyFilter' | translate }}
+
+        <span *ngIf="selectedCount" aria-hidden="true">
+            ({{ selectedCount }})
+        </span>
+        <span class="visually-hidden">
+            ({{ 'Search.AutoContentReload' | translate }})
+        </span>
+    </button>
+
+    <!-- apply - inactive btn -->
+    <button type="button" class="btn disabled ml-auto p-0 border-0" *ngIf="!enableApply"
+        [title]="'Filters.NoFiltersSelected' | translate">
+        <span *ngIf="srTranslationKey" class="visually-hidden">
+            {{ srTranslationKey | translate }}:
+        </span>
+        {{ 'Filters.ApplyFilter' | translate }}
+    </button>
+
+</div>

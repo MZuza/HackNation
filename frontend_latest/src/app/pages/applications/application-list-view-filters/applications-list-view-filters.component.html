@@ -1,0 +1,50 @@
+<section class="aggregation-filters p-3">
+  <h2 class="heading heading--xs">
+    {{ 'Filters.Self' | translate }}
+  </h2>
+
+  <!-- Categories -->
+  <app-expandable-multiselect
+    id="showcase-category-filter"
+    [titleTranslationKey]="'Attribute.ShowcasesCategory'"
+    [options]="filtersOptions && filtersOptions[OptionsNames.SHOWCASE_CATEGORY]"
+    [selectedIds]="selectedData[FiltersNames.SHOWCASE_CATEGORY]"
+    [enableApply]="availabilityFilterMap[FiltersNames.SHOWCASE_CATEGORY]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'category-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.SHOWCASE_CATEGORY, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'category'"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Types -->
+  <app-expandable-multiselect
+    id="showcase-type-filter"
+    [titleTranslationKey]="'Attribute.ApplicationTypes'"
+    [options]="filtersOptions && filtersOptions[OptionsNames.SHOWCASE_TYPE]"
+    [selectedIds]="selectedData[FiltersNames.SHOWCASE_TYPE]"
+    [enableApply]="availabilityFilterMap[FiltersNames.SHOWCASE_TYPE]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'type-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.SHOWCASE_TYPE, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'type'"
+  >
+  </app-expandable-multiselect>
+
+  <!-- Platforms -->
+  <app-expandable-multiselect
+    id="showcase-platform-filter"
+    [titleTranslationKey]="'Attribute.PlatformTypes'"
+    [options]="filtersOptions && filtersOptions[OptionsNames.SHOWCASE_PLATFORMS]"
+    [selectedIds]="selectedData[FiltersNames.SHOWCASE_PLATFORMS]"
+    [enableApply]="availabilityFilterMap[FiltersNames.SHOWCASE_PLATFORMS]"
+    [maxLength]="maxLength"
+    [ariaLabel]="'platform-filter-label'"
+    (selectedChange)="onSelectedChange(FiltersNames.SHOWCASE_PLATFORMS, $event)"
+    (applyFilter)="applyFilter()"
+    [filterName]="'platform'"
+  >
+  </app-expandable-multiselect>
+</section>

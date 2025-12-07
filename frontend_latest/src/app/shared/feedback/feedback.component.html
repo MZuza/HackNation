@@ -1,0 +1,31 @@
+<div class="feedback-wrapper">
+    <!-- plus -->
+    <button (click)="onClicked(feedback.PLUS)"
+            [attr.aria-pressed]="isPlusButtonSelected"
+            [disabled]="!isEditable"
+            class="btn btn-link text-success p-0">
+        <svg aria-labelledby="icon-plus" class="icon icon-new-data-proposal"
+             role="img">
+            <title id="icon-plus">Oceń propozycję: Plus</title>
+            <use [attr.xlink:href]="'/assets/icomoon/sprite/sprite.svg#icon-thumb-up' + (isPlusButtonSelected ? '-solid' : '')"></use>
+        </svg>
+    </button>
+    <span [attr.aria-label]="'Liczba głosów za ' + plusesCount" [class.text-success]="isPlusButtonSelected" class="pl-2">
+        {{plusesCount}}
+    </span>
+
+    <!-- minus -->
+    <button (click)="onClicked(feedback.MINUS)"
+            [attr.aria-pressed]="isMinusButtonSelected"
+            [disabled]="!isEditable"
+            class="btn btn-link text-danger ml-2 p-0">
+        <svg aria-labelledby="icon-minus" class="icon icon-dislike"
+             role="img">
+            <title id="icon-minus">Oceń propozycję: Minus</title>
+            <use [attr.xlink:href]="'/assets/icomoon/sprite/sprite.svg#icon-thumb-down' + (isMinusButtonSelected ? '-solid' : '')"></use>
+        </svg>
+    </button>
+    <span [attr.aria-label]="'Liczba głosów przeciw ' + minusesCount" [class.text-danger]="isMinusButtonSelected" class="pl-2">
+        {{minusesCount}}
+    </span>
+</div>

@@ -1,0 +1,35 @@
+<ng-container *ngIf="!isDetailView || widgetFooterSubject; else routerOutlet">
+  <div *ngFor="let section of body" [ngClass]="pageCmsCss" class="container cms-landing-page">
+    <ng-template [ngTemplateOutletContext]="{ $implicit: section }" [ngTemplateOutlet]="landingPageSection"></ng-template>
+  </div>
+</ng-container>
+
+<ng-template #landingPageSection let-section>
+  <ng-container *ngIf="section && section.children && section.children.length">
+    <!-- Link + Heading - obsolete (to be removed) -->
+    <div
+      (click)="navigateToDetail(section)"
+      *ngIf="section.type === 'link' && section.children[0].type === 'heading'; else linksWithText"
+      [ngClass]="section.classname"
+    >
+      <ng-template ngFor [ngForOf]="section.children" [ngForTemplate]="landingPageSection"> </ng-template>
+    </div>
+
+    <!-- links with text -->
+    <ng-template #linksWithText>
+      <div [ngClass]="section.classname">
+        <ng-template ngFor [ngForOf]="section.children" [ngForTemplate]="landingPageSection"> </ng-template>
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <div *ngIf="section && section.children && !section.children.length" class="col p-0 hover justify-content-center">
+    <cms-block2 [oneWidget]="section"></cms-block2>
+  </div>
+</ng-template>
+
+<ng-template #routerOutlet>
+  <div [ngClass]="pageCmsCss" class="container cms-landing-page">
+    <router-outlet></router-outlet>
+  </div>
+</ng-template>

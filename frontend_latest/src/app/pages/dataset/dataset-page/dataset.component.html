@@ -1,0 +1,232 @@
+<!-- SEARCH and SUGGESTIONS -->
+<header class="vertical-spacing">
+  <div class="container pb-3">
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center">
+      <h1 class="heading">
+        {{ 'Menu.Datasets' | translate }}
+      </h1>
+
+      <!-- METADATA -->
+      <app-dataset-metadata class="pb-2" [selfLink]="selfApi" *ngIf="selfApi" @toggleVertically></app-dataset-metadata>
+    </div>
+
+    <!-- search suggest -->
+    <app-search-suggest
+      tooltipText="{{ 'Tour.Tooltip.Dataset.SearchBar.text' | translate }}"
+      [isSparqlSearchButtonVisible]="true"
+      [isApiValidationButtonVisible]="true"
+      [searchQuery]="params.q"
+      [apiModels]="[apiModel.DATASET, apiModel.RESOURCE]"
+      [maxResultsPerModel]="3"
+      [useTriggers]="true"
+      [showAdvancedSettings]="true"
+      [advancedSetting]="params.advanced || defaultAdvancedSetting"
+      (searchTrigger)="performSearch({ q: $event.q, advanced: $event.advanced, sort: 'relevance' })"
+      (clearTrigger)="updateParams({ q: '', advanced: '', sort: '-date' })"
+      (moveToSearchResultTrigger)="moveToSearchResult()"
+    >
+    </app-search-suggest>
+  </div>
+</header>
+
+<!-- SAVE QUERY FORM -->
+<ng-container *ngIf="loginService.loggedIn | async">
+  <div class="container pb-4" @toggleVertically *ngIf="!isQuerySubscribed && isQueryFormVisible">
+    <!-- save query -->
+    <form (ngSubmit)="addSubscriptionToQuery(queryForm)" #queryForm="ngForm" *ngIf="!isQueryFormSubmitted">
+      <div class="row">
+        <div class="col-md-4 col-lg-4 pr-md-0">
+          <!-- query field -->
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="{{ 'DatasetQueryForm.Placeholder' | translate }}..."
+              [attr.aria-label]="'Datasets.Placeholder' | translate"
+              ngModel
+              name="queryInput"
+              #queryInput="ngModel"
+              required
+              [attr.aria-describedby]="'query_error'"
+              [attr.aria-invalid]="!queryInput.valid && queryInput.touched"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4 pl-md-0">
+          <!-- perform save -->
+          <div class="form-group">
+            <!-- fake button to indicate 'disabled' state -->
+            <button
+              type="button"
+              class="btn btn-secondary disabled"
+              *ngIf="!queryForm.valid"
+              aria-describedby="query_error"
+              appTooltip="{{ 'Tour.Tooltip.Dataset.FollowSearchResult.text' | translate }}"
+              title="{{ 'Tour.Tooltip.Dataset.FollowSearchResult.title' | translate }}"
+              [attr.aria-disabled]="true"
+            >
+              {{ 'DatasetQueryForm.Submit' | translate }}
+            </button>
+
+            <!-- submit form -->
+            <button class="btn btn-primary" type="submit" *ngIf="queryForm.valid">
+              {{ 'DatasetQueryForm.Submit' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- query has been saved -->
+    <p class="alert alert-success" *ngIf="isQueryFormSubmitted">
+      {{ 'DatasetQueryForm.SuccessfulSubmit' | translate }}
+
+      <a [routerLink]="['/' | localize, 'user', 'dashboard', 'my', 'followed', 'query']">
+        {{ 'MyDashboard.Self' | translate }}
+      </a>
+    </p>
+
+    <!-- error in query -->
+    <p class="alert alert-danger" *ngIf="isQueryFormError">
+      {{ 'DatasetQueryForm.ErrorSubmit' | translate }}
+    </p>
+  </div>
+</ng-container>
+
+<div class="container pb-0 pb-lg-4">
+  <div class="row no-gutters">
+    <aside class="col-lg-4 col-xl-3 bg-custom">
+      <!-- aggregation filters -->
+      <app-dataset-list-view-filters
+        [filtersOptions]="filters"
+        [maxLength]="maxLength"
+        [originalSelectedData]="backupSelectedFilters"
+        [data]="selectedFilters"
+        (applyFilters)="updateParams($event, null, true)"
+        [showHideMapButton]="selectedFiltersCount > 0"
+        [initialValue]="initialRegionValue"
+        (showMapEmit)="showMap = $event"
+      >
+      </app-dataset-list-view-filters>
+    </aside>
+
+    <div class="col-lg-8 col-xl-9">
+      <div class="ml-0 ml-lg-4">
+        <div class="results-section">
+          <!-- SELECTED FILTERS -->
+          <app-dataset-selected-filters
+            [selectedIds]="backupSelectedFilters"
+            [selectedFiltersCount]="selectedFiltersCount"
+            (clearAllFilters)="clearSelectedFilters()"
+            (clearSingleFilter)="clearSelectedFilter($event, showMap)"
+          >
+          </app-dataset-selected-filters>
+
+          <!-- Map for regions -->
+          <app-regions-map
+            *ngIf="showMap"
+            [item]="selectedFilters"
+            [aggregations]="mapAggregations"
+            [sortOption]="sortOption"
+            [paramQ]="params.q"
+            [refresh]="refreshMap"
+            [isDefaultLocation]="isDefaultLocation"
+            (hideMap)="onHideMap($event)"
+            (removeFilters)="clearSelectedFilter({ names: 'regions', key: '', isDate: false }, showMap)"
+            (datasetFromMap)="getDataFromMap($event)"
+          ></app-regions-map>
+
+          <!-- show/hide map button -->
+          <button *ngIf="!showMap" type="button" class="btn btn-outline-primary" (click)="onShowMap()">
+            <svg class="icon icon-filter-map" aria-hidden="true">
+              <use href="/assets/icomoon/sprite/sprite.svg#icon-filter-map"></use>
+            </svg>
+            {{ 'Map.MapView' | translate }}
+          </button>
+
+          <!-- counters and sort -->
+          <app-found-results-counters-and-sort
+            *ngIf="count && items?.length"
+            tooltipText="{{ 'Tour.Tooltip.Dataset.Found.text' | translate }}"
+            tooltipTitle="{{ 'Tour.Tooltip.Dataset.Found.title' | translate }}"
+            [selected]="params?.sort"
+            [selectedModel]="params['model[terms]'] ? params['model[terms]'] : apiModel.DATASET + ',' + apiModel.RESOURCE"
+            (update)="updateParams($event)"
+            (sortOption)="sortOption = $event"
+            [counters]="[
+              { label: 'Attribute.AllData' | translate, count: counters?.datasets + counters?.resources, value: apiModel.DATASET + ',' + apiModel.RESOURCE, url: null },
+              { label: 'Datasets.Self' | translate, count: counters?.datasets, value: apiModel.DATASET, url: null },
+              { label: 'Resources.Self' | translate, count: counters?.resources, value: apiModel.RESOURCE, url: null }
+            ]"
+            [sortOptions]="[
+              { label: 'Sort.Default' | translate, value: 'relevance' },
+              { label: 'Attribute.NameAsc' | translate, value: 'title' },
+              { label: 'Attribute.NameDesc' | translate, value: '-title' },
+              { label: 'Attribute.Date' | translate, value: '-date' },
+              { label: 'Attribute.Popularity' | translate, value: '-views_count' }
+            ]"
+          >
+          </app-found-results-counters-and-sort>
+
+          <!-- api notifications -->
+          <app-notifications></app-notifications>
+
+          <!-- RESULT LIST -->
+          <app-dataset-results [isUserLoggedIn]="loginService.loggedIn | async" [items]="items"></app-dataset-results>
+
+          <!-- no results found -->
+          <app-no-results-found [q]="params?.q" *ngIf="items && !items.length"></app-no-results-found>
+
+          <!-- RESULTS FOOTER -->
+          <footer class="results-footer" *ngIf="count">
+            <div class="d-flex justify-content-between align-items-center">
+              <!-- results per page -->
+              <app-items-per-page [selected]="params?.per_page" (selectedChange)="updateParams({ per_page: $event, isMapOpen: showMap })">
+              </app-items-per-page>
+
+              <!-- pagination -->
+              <app-pagination
+                [itemsPerPage]="params.per_page"
+                [totalItems]="count"
+                [(page)]="params.page"
+                (numPages)="numPages = $event"
+                (pageChange)="updateParams({ page: $event, isMapOpen: showMap })"
+              >
+              </app-pagination>
+
+              <!-- button for screen readers only, back to search input -->
+              <button type="button" class="btn visually-hidden" (click)="backToSearchControl()">
+                {{ 'Datasets.BackToSearchInputText' | translate }}
+              </button>
+            </div>
+
+            <div class="row m-0 pt-4 results-action">
+              <!-- current page api -->
+              <div class="col-sm-12 pl-0 pr-0 col-md-4 results-action__left sm-pb" *ngIf="items && items.length">
+                <app-api-source-link [apiUrl]="selfApi"></app-api-source-link>
+              </div>
+
+              <!--suggest application-->
+              <div class="col-sm-12 pl-0 pr-0 col-md-8 results-action__right">
+                <app-new-data-contact
+                  class="w-100"
+                  [titleTranslationKey]="'LookingForDifferentData'"
+                  [routerLink]="'submissions'"
+                  [buttonTranslationKey]="'WriteUs.Self'"
+                ></app-new-data-contact>
+              </div>
+            </div>
+
+            <!-- data proposal link -->
+            <p class="m-0 pt-2 text-right underline">
+              <a [routerLink]="['!submissions', '!accepted'] | localize">
+                {{ 'DataProposal.UserSuggestions' | translate }}
+              </a>
+            </p>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

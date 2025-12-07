@@ -1,0 +1,15 @@
+
+/* AUTH FORMS
+*********************/
+.auth-form {
+
+    .hint {
+        color: $hcSecondary;
+        background-color: $hcPrimary;
+        font-weight: bold;
+
+        &::after {
+            border-top-color: $hcPrimary;
+        }
+    }
+}

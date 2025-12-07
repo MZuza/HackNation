@@ -1,0 +1,94 @@
+.resource-map {
+
+    #resourceMap {
+
+        .leaflet-top {
+            background-color: transparent;
+        }
+
+        .leaflet-control-zoom {
+            padding: 2px;
+            border: 1px solid $hcSecondary;
+            background-color: $hcSecondary;
+            background-clip: border-box;
+        }
+
+        a.leaflet-control-zoom-in,
+        a.leaflet-control-zoom-out {
+            color: $hcSecondary;
+            background-color: $hcPrimary;
+            border-radius: unset;
+        }
+
+        a.leaflet-control-zoom-in:hover,
+        a.leaflet-control-zoom-out:hover {
+            color: $hcPrimary;
+            background-color: $hcSecondary;
+        }
+
+        .leaflet-popup-tip-container {
+            background-color: transparent;
+        }
+
+        .leaflet-popup-content-wrapper {
+            border-radius: unset;
+        }
+    }
+}
+
+
+.mapOptions {
+
+    .localizationBelt,
+    .resultBelt {
+        color: $hcSecondary;
+        background-color: $hcPrimary;
+    }
+
+    .points {
+        .points__selected {
+            background-color: $hcPrimary;
+            color:$hcSecondary;
+            transition: none;
+            font-weight: bold;
+        }
+    }
+
+    #sliderLabel {
+        color: $hcPrimary;
+        border: $hcPrimary 1px solid;
+        background-color: $hcSecondary;
+    }
+
+    input[type=range] {
+
+        &::-webkit-slider-thumb {
+            background: $hcPrimary;
+            border: 2px solid $hcSecondary;
+            height: 20px;
+            width:  20px;
+            margin-top: -6px;
+        }
+
+        &::-moz-range-thumb {
+            background: $hcPrimary;
+            border: 2px solid $hcSecondary;
+
+        }
+
+        &::-ms-thumb {
+            background: $hcSecondary;
+            border: 2px solid $hcPrimary;
+            height: 20px;
+            width:  20px;
+        }
+
+        &::-webkit-slider-runnable-track  {
+            background: $hcPrimary;
+        }
+
+        &::-moz-range-track {
+            background: $hcPrimary;
+        }
+    }
+}

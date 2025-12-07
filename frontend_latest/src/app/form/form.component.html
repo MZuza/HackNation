@@ -1,0 +1,46 @@
+<div class="form-container">
+  <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="item-form">
+    <h2 class="form-title">Zgłoszenie znalezionego przedmiotu</h2>
+
+    <div class="form-field">
+      <label for="county">Powiat</label>
+      <input id="county" type="text" formControlName="county" placeholder="np. Warszawski" />
+    </div>
+
+    <div class="form-field">
+      <label for="municipality">Gmina</label>
+      <input id="municipality" type="text" formControlName="municipality" placeholder="np. Mokotów" />
+    </div>
+
+    <div class="form-field">
+      <label for="name">Nazwa przedmiotu</label>
+      <input id="name" type="text" formControlName="name" placeholder="np. Pęk kluczy z niebieskim brelokiem" />
+      <div *ngIf="itemForm.get('name')?.touched && itemForm.get('name')?.invalid" class="validation-error">Nazwa jest wymagana.</div>
+    </div>
+
+    <div class="form-field">
+      <label for="category">Kategoria</label>
+      <select id="category" formControlName="category">
+        <option value="" disabled selected>Wybierz kategorię</option>
+        <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label for="foundDate">Data znalezienia</label>
+      <input id="foundDate" type="date" formControlName="foundDate" />
+    </div>
+
+    <div class="form-field">
+      <label for="placeDescription">Opis miejsca znalezienia</label>
+      <textarea id="placeDescription" formControlName="placeDescription" placeholder="Szczegóły dotyczące lokalizacji..."></textarea>
+    </div>
+
+    <div class="form-field">
+      <label for="contactOffice">Biuro rzeczy znalezionych (Kontakt)</label>
+      <input id="contactOffice" type="text" formControlName="contactOffice" placeholder="Adres lub telefon" />
+    </div>
+
+    <button type="submit" [disabled]="itemForm.invalid" class="submit-button">Zapisz XML</button>
+  </form>
+</div>

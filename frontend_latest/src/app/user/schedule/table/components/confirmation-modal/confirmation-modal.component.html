@@ -1,0 +1,7 @@
+<div [ngClass]="{'position-relative': isOutsideTable}">
+    <div #container class="delete-confirmation-modal" [ngClass]="{'outside-table': isOutsideTable}">
+        <p class="mb-2">{{message ? message: 'Czy na pewno chcesz usunąć zgłoszenie?' }}</p>
+            <button (click)="selectedItemId.emit(itemId)" class="btn btn-sm btn-danger py-0 px-3">Tak</button>
+            <button (click)="closeDialog.emit(false)" class="btn btn-sm btn-outline-primary ml-2 py-0 px-3">Nie</button>
+    </div>
+</div>

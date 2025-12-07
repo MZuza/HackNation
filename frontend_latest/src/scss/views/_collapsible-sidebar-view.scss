@@ -1,0 +1,108 @@
+
+/*
+    2 columns: collapsible 'sidebar' and always visible 'main'
+*/
+
+    .collapsible-sidebar-view {
+        overflow: hidden;
+        clear: both;
+
+
+        // collapsible sidebar
+        &__sidebar {
+            float: left;
+            width: $collapsible-sidebar-width;
+            margin-left: -100%;
+            margin-right: $collapsible-sidebar-spacing;
+            transition: all $collapsible-sidebar-transition-duration;
+
+            // < MD
+            @include media-breakpoint-down(xl)
+            {
+                float: none;
+                width: 100%;
+                margin-left: 0;
+                transition: none;
+            }
+        }
+
+
+        // always visible
+        &__main {
+            transition: all $collapsible-sidebar-transition-duration;
+        }
+
+
+        &--sidebar-visible {
+
+            .collapsible-sidebar-view__sidebar { margin-left: 0; }
+            .collapsible-sidebar-view__main { margin-left: ($collapsible-sidebar-width + $collapsible-sidebar-spacing); }
+
+            // < MD
+            @include media-breakpoint-down(xl)
+            {
+                .collapsible-sidebar-view__sidbar { width: 100%; }
+                .collapsible-sidebar-view__main { margin-left: 0; }
+            }
+        }
+    }
+
+    .vertical-list {
+        list-style: none;
+        padding: 0;
+
+        &__item {
+            margin-bottom: 10px;
+
+            &-label {
+                font-weight: bold;
+                display: block;
+
+                // < MD
+                @include media-breakpoint-down(xl)
+                {
+                    display: inline;
+                }
+            }
+
+            &-framed {
+                border: 1px solid $primary;
+                padding: 1em;
+                margin: 0 1em 1em 0;
+                background-color: $color-white;
+            }
+
+            &-link {
+                text-decoration: underline;
+            }
+
+        }
+    }
+
+    .vertical-menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        &__item {
+            padding: 0.5rem 0.775rem;
+            margin-bottom: 1px;
+            background-color: $color-white;
+
+            .icon {   
+                margin-right: 0.5rem;
+                width: 1.25rem;
+                height: 1.25rem;
+                fill: currentColor;
+            }
+            
+            &.active {
+                background-color: $primary;
+
+                :link,
+                :visited {
+                    color: $color-white;
+                }
+            }
+        }
+    }

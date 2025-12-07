@@ -1,0 +1,17 @@
+
+
+/* COMMON: Header
+*********************/
+
+.top-bar {
+    .a11y-buttons__group:last-child,
+    .user-related  {
+        border-color: currentColor;
+
+        .btn {
+            &:not(.btn-primary) {
+                color: currentColor;
+            }
+        }
+    }
+}

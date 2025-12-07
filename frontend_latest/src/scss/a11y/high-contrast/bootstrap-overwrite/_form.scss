@@ -1,0 +1,13 @@
+
+
+
+.form-control, .form-select {
+    color: currentColor;
+    border-color: currentColor;
+    background-color: transparent;
+}
+
+input::placeholder {
+  color: currentColor;
+  opacity: 0.7;
+}

@@ -1,0 +1,110 @@
+/* PAGE: FOOTER
+********************/
+
+.page-footer {
+  padding-top: 2.5rem;
+  background-color: $color-blue-dark;
+  color: $color-white;
+
+  &__heading {
+    position: relative;
+
+    &-title {
+      font-weight: bold;
+      padding-bottom: 1rem;
+
+      @include media-breakpoint-down(sm) {
+        padding: 0.25rem 0;
+      }
+    }
+
+    &-toggle {
+      color: inherit;
+      background: transparent;
+      border: 0;
+      font-weight: bold;
+      padding: 0.25rem 0.5rem;
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      text-align: right;
+      border-bottom: 1px solid $color-blue-light;
+      display: none;
+
+      @include media-breakpoint-down(sm) {
+        display: inline;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      margin-top: 0.5rem;
+    }
+  }
+
+  &__nav {
+    @include media-breakpoint-down(sm) {
+      padding-top: 0.25rem;
+      @include visibility-animated;
+    }
+  }
+
+  &__list {
+    padding-left: 0;
+    list-style: none;
+
+    &-item {
+      & > * {
+        color: inherit;
+        text-decoration: underline;
+        cursor: pointer;
+
+        &:hover {
+          color: darken($color-hover, 20%);
+        }
+      }
+    }
+  }
+
+  .external-logos {
+    min-height: 95px;
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+    background-color: darken($color-white, 10%);
+
+    & > * {
+      margin: 0 2rem;
+
+      @include media-breakpoint-down(xl) {
+        margin: 0 1rem;
+      }
+
+      @include media-breakpoint-down(lg) {
+        margin: 0 0.5rem;
+      }
+    }
+
+    &--cms-block__elements-1{
+      img{
+        width: auto;
+        height: auto;
+        transform: scale(1);
+        max-height: 250px;
+        max-width: 90vw;
+      }
+      > div{
+        margin: auto;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    padding-top: 2rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-top: 1.5rem;
+  }
+}

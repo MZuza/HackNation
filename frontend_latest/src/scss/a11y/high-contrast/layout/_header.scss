@@ -1,0 +1,58 @@
+/* COMMON: Top menu
+*********************/
+.page-header {
+
+    &::before {
+        background-color: $hcSecondary;
+    }
+
+    .nav-section {
+        .navbar-nav {
+            background-color: inherit;
+
+            .nav-item {
+                .nav-link {
+                    color: currentColor;
+
+                    &:hover,
+                    &.active {
+                        color: $hcSecondary;
+                        background-color: $hcPrimary;
+                    }
+                }
+            }
+        }
+
+        .navbar-toggler {
+            border-color: $hcPrimary;
+            color: currentColor;
+        }
+    }
+    
+    .gov-nav-section {
+        background-color: inherit;
+        
+        .navbar {
+            border-bottom-color: currentColor;
+
+            .nav-item {
+                .nav-link {
+                    color: currentColor;
+                    border-bottom-color: $hcSecondary;
+
+                    &:hover,
+                    &.active {
+                        // color: $hcSecondary;
+                        // background-color: $hcPrimary;
+                        border-bottom-color: currentColor;
+                    }
+                }
+            }
+        }
+
+        .navbar-toggler {
+            border-color: $hcPrimary;
+            color: currentColor;
+        }
+    }
+}

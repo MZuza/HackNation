@@ -1,0 +1,53 @@
+<div class="d-flex flex-wrap">
+  <div class="btn-group pr-2 mb-2" *ngFor="let chart of savedCharts; let index = index; let isLast = last">
+    <!-- CREATED BY EDITOR -->
+    <ng-container *ngIf="chart.attributes.is_default">
+      <!-- load chart -->
+      <button
+        type="button"
+        (click)="onChartClick(index)"
+        class="btn btn-sm {{ index === selectedChartIndex ? 'btn-primary' : 'btn-outline-primary' }} btn--multiline"
+      >
+        <span>
+          {{ chart.attributes.name || ('Chart.StatusDefault' | translate) }}
+        </span>
+      </button>
+
+      <!-- remove chart (in edit mode) -->
+      <button type="button" class="btn btn-sm btn-outline-danger" (click)="onRemoveChart(chart.id)" *ngIf="isEditorPreview">X</button>
+    </ng-container>
+
+    <!-- CREATED BY USER -->
+    <ng-container *ngIf="!chart.attributes.is_default && !isEditorPreview">
+      <!-- load chart -->
+      <button
+        type="button"
+        class="btn btn-sm {{ index === selectedChartIndex ? 'btn-primary' : 'btn-outline-primary' }} btn--multiline"
+        (click)="onChartClick(index)"
+      >
+        {{ chart.attributes.name || ('Chart.StatusUserLoggedIn' | translate) }}
+      </button>
+
+      <!-- remove chart -->
+      <button type="button" class="btn btn-sm btn-outline-danger" (click)="onRemoveChart(chart.id)">X</button>
+    </ng-container>
+  </div>
+
+  <!-- isEditorPreview -->
+  <ng-container *ngIf="isEditorPreview && savedCharts?.length">
+    <button type="button" class="btn btn-sm btn-primary mb-2" (click)="onAddNewChart()">
+      {{ 'Action.Add' | translate }}
+      {{ 'Chart.Self' | translate | lowercase }}
+      <span>+</span>
+    </button>
+  </ng-container>
+
+  <!-- is User -->
+  <ng-container *ngIf="!isEditorPreview && !isUserChartDefined && isEditorChartDefined && !isChartCreationBlockedForUser">
+    <button type="button" class="btn btn-sm btn-primary mb-2" (click)="onAddNewChart()">
+      {{ 'Action.Add' | translate }}
+      {{ 'Chart.Self' | translate | lowercase }}
+      <span>+</span>
+    </button>
+  </ng-container>
+</div>

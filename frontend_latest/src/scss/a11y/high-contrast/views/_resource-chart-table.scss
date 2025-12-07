@@ -1,0 +1,18 @@
+.resource-chart-table {
+    color: currentColor;
+
+    &__heading, 
+    &__cell {
+        border-width: 1px;
+    }
+
+    &__heading {
+        color: $hcSecondary;
+        background-color: $hcPrimary;
+        border-color: $hcSecondary;
+    }
+    
+    &__cell {
+        border-color: currentColor;
+    }
+}

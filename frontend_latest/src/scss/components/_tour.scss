@@ -1,0 +1,93 @@
+.tour-overlay {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: .5;
+  z-index: 100000;
+  position: fixed;
+  top: 0;
+}
+
+.tour-wrapper {
+  &.shepherd-element {
+    border-radius: 0;
+    z-index: 100002;
+
+    .shepherd-arrow:before {
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+    }
+
+    &.shepherd-has-title[data-popper-placement^=bottom] > .shepherd-arrow:before {
+      background-color: #fff;
+    }
+  }
+
+  &.shepherd-has-title {
+    .shepherd-content {
+      background-color: #fff;
+
+      .shepherd-header {
+        background: transparent;
+      }
+    }
+  }
+
+  .shepherd-title {
+    @extend .heading;
+    @extend .heading--xs;
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+
+  .shepherd-button {
+    &.prev-btn {
+      margin-right: auto;
+    }
+
+    &.btn-primary {
+      background: $primary;
+      border-color: $primary;
+      color: #fff;
+    }
+
+    &.btn-outline-primary {
+      @extend .btn-outline-primary;
+      color: $primary;
+      border: 1px solid $primary;
+      &:hover {
+        color: white;
+      }
+    }
+
+    background: unset;
+    @extend .btn-sm
+  }
+}
+
+.tour-progress-wrapper {
+
+  .tour-progress {
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    padding-left: 0; // override <ol> default
+    list-style: none;
+    margin-bottom: 0;
+
+    .tour-progress__bullet {
+      width: 10px;
+      height: 10px;
+      margin: 0 4px;
+      border-radius: 50%;
+      background: #C4C4C4;
+      cursor: pointer;
+
+      &--active {
+        background: $color-blue-light;
+      }
+
+    }
+  }
+
+}

@@ -1,0 +1,108 @@
+<section class="item-view__body vertical-spacing">
+  <div class="container">
+    <h1 class="heading heading--md">{{title()}}</h1>
+    @for (section of cmsData().body; track section) {
+      <cms-block2 class="w-100" [oneWidget]="section"></cms-block2>
+    }
+    <ul class="list-unstyled mb-4">
+      <li>
+        <strong>{{'BrokenLinks.UpdateInfo' | translate }}: {{apiData().attributes?.update_date | dateFormat}}</strong>
+      </li>
+      <li>
+        <strong>{{"BrokenLinks.NumberOfBrokenLinks" | translate}}: {{ apiData().attributes?.rows_count }}</strong>
+      </li>
+    </ul>
+    <div class="item-view__actions">
+      <div class="d-flex flex-column flex-lg-row align-items-center">
+        <div class="d-flex flex-column">
+          <div class="d-flex align-items-center flex-wrap">
+            <div class="d-flex align-items-baseline">
+              <span class="font-weight-bold" style="min-width: 85px"> {{ 'Action.Download' | translate }}: </span>
+              @for (dataFiles of downloadFileList(); track dataFiles) {
+                <app-download-link
+                  [fileSize]="dataFiles.file_size"
+                  [fileUrl]="dataFiles.download_url"
+                  [format]="dataFiles.format"
+                  [customCssClass]="'btn btn-primary btn-sm mb-1 mr-1'"
+                  [opennessScore]="dataFiles.openness_score"
+                  (click)="downloadResource(dataFiles.download_url)"
+                >
+                </app-download-link>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pb-3">
+      <div class="search pt-5 pb-5">
+        <div class="container">
+          <form (ngSubmit)="generateQuery(f.value.searchInput)" #f="ngForm">
+            <div class="row">
+              <div class="col position-relative">
+                <!-- search input-->
+                <input
+                  class="form-control form-control-lg search__input"
+                  type="text"
+                  placeholder="{{ 'Action.SearchFor' | translate }}..."
+                  [attr.aria-label]="'Action.SearchFor' | translate"
+                  [ngModel]="searchQuery"
+                  name="searchInput"
+                />
+
+                <!-- clear search field -->
+                <button type="button" class="btn search__clear" (click)="generateQuery('')" *ngIf="searchQuery?.length">
+                <span class="visually-hidden">
+                  {{ 'Search.ClearInput' | translate }}
+                </span>
+                  <span aria-hidden="true">&times;</span>
+                </button>
+
+                <!-- info tooltip -->
+                <span
+                  class="search__info"
+                  appInfoTooltip="{{ 'BrokenLinks.Tooltip' | translate }}"
+                  tooltipTitle="{{ 'BrokenLinks.Search' | translate }}"
+                  withoutMargin
+                >
+              </span>
+              </div>
+
+              <!-- perform search -->
+              <div class="col-sm col-sm-auto">
+                <button class="btn btn-primary btn-lg search__button" type="submit">
+                  {{ 'Action.Search' | translate }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="mt-2 mb-5">
+      <div class="tabs">
+        <ul class="tab-list row no-gutters" role="tablist">
+          <li class="tab-list__item col-12 col-md-4" role="presentation">
+            <a
+              class="tab-list__link"
+              role="tab"
+              id="tab1"
+              appInfoTooltip="{{ 'Tour.Tooltip.DataResource.Table.text' | translate }}"
+              tooltipTitle="{{ 'Tour.Tooltip.DataResource.Table.title' | translate }}"
+              [routerLink]="['table']"
+              #tabLinkTableView="routerLinkActive"
+              [attr.aria-selected]="tabLinkTableView.isActive ? true : null"
+              routerLinkActive="tab-list__link--active"
+            >
+              {{ 'Resources.TableView' | translate }}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="tabs-content">
+        <router-outlet />
+      </div>
+    </div>
+  </div>
+</section>

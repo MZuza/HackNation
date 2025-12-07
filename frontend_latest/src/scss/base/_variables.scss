@@ -1,0 +1,67 @@
+// GRID BREAKPOINTS
+// $grid-xs: 0;
+// $grid-sm: 640px;
+// $grid-md: 1024px;
+// $grid-lg: 1280px;
+// $grid-xl: 1440px;
+
+// COLORS
+$color-white: #fff;
+$color-black: #000;
+
+$color-yellow: #ff0;
+$color-special-alert: #ffc605;
+$color-red: #d40043;
+$color-darker-red: #a91e2c;
+
+$color-blue-light: #0865c9;
+$color-blue-dark: #0f2648;
+$color-outline: #50a6ff;
+$color-highlight: #b0d5fe;
+
+$color-grey-dark: #5e5e5e;
+
+$color-grey-light-1: #f9f9f9;
+$color-grey-light-2: #e4e4e4;
+$color-grey-light-3: #bababa;
+$color-grey-light-4: #bfbfbf;
+$color-grey-light-5: #d8d8d8;
+$color-grey-light-6: #eee;
+$color-grey-light-7: #9b9b9b;
+$color-grey-light-8: #ced4da;
+
+$color-heading: #333;
+$color-text: #555;
+$color-hover: #def;
+$color-hover-2: #05407f;
+
+$color-gov-primary: #0052a5;
+
+// font size
+$heading-lg-size: 2.5rem;
+$heading-md-size: 2rem;
+$heading-sm-size: 1.5rem;
+$heading-xs-size: 1.25rem;
+
+//
+$vertical-spacing: 30px;
+
+// widths
+$collapsible-sidebar-width: 250px;
+$collapsible-sidebar-spacing: 15px;
+$collapsible-sidebar-transition-duration: 0.5s;
+
+// outline border
+$outline: 3px solid $color-outline;
+
+$primary: #0865c9;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1440px
+) !default;
+

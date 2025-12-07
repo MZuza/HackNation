@@ -1,0 +1,203 @@
+stages:
+  - test
+  - build
+  - preprod-release
+  - release
+  - merge
+  - update
+
+variables:
+  REGISTRY_HOST: registry.dane.gov.pl
+  REGISTRY_PATH: registry.dane.gov.pl/mcod/frontend
+  COMMIT_REF_NAME: $CI_COMMIT_REF_NAME
+
+cache:
+  key: "$CI_BUILD_REF_NAME"
+  untracked: true
+  paths:
+    - node_modules/
+
+before_script:
+  - npm install --verbose
+  - "bash create-env.sh"
+  - PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
+
+test-feat-branch:
+  stage: test
+  except:
+    - pre-develop
+    - develop
+  script:
+    - "npm run test"
+  allow_failure: false
+  tags:
+    - frontend-3
+
+release-feat-to-int:
+  stage: release
+  script:
+    - "./node_modules/@angular/cli/bin/ng build -c production --buildOptimizer"
+    - "./node_modules/@angular/cli/bin/ng run frontend:server:production"
+    - docker build -f docker/frontend/Dockerfile -t $REGISTRY_PATH/frontend-ssr:feat .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $REGISTRY_HOST
+    - docker tag $REGISTRY_PATH/frontend:feat $REGISTRY_PATH/frontend-ssr:int-latest
+    - docker push $REGISTRY_PATH/frontend-ssr:int-latest
+  when: manual
+  dependencies:
+    - test-feat-branch
+  # artifacts:
+  #   paths:
+  #     - "dist/"
+  only:
+    - /^feat-.*$/
+
+test-dev:
+  stage: test
+  only:
+    - pre-develop
+    - develop
+  except:
+    - tags
+    - schedules
+  script:
+    - "npm run test"
+  allow_failure: true
+  tags:
+    - frontend-3
+
+build-pre-dev:
+  stage: build
+  script:
+    - npm run build
+    - docker build -f docker/frontend/Dockerfile -t $REGISTRY_PATH/frontend:pre-dev .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $REGISTRY_HOST
+    - docker push $REGISTRY_PATH/frontend:pre-dev
+  only:
+    - pre-develop
+  artifacts:
+    paths:
+      - "dist/"
+  except:
+    - schedules
+  tags:
+    - frontend-3
+
+build-dev:
+  stage: build
+  script:
+    - npm run build
+    - docker build -f docker/frontend/Dockerfile -t $REGISTRY_PATH/frontend:dev .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $REGISTRY_HOST
+    - docker push $REGISTRY_PATH/frontend:dev
+  only:
+    - develop
+  artifacts:
+    paths:
+      - "dist/"
+  except:
+    - schedules
+  tags:
+    - frontend-3
+
+build-master:
+  stage: build
+  script:
+    - npm run build:prod
+    - docker build -f docker/frontend/Dockerfile -t $REGISTRY_PATH/frontend:master .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $REGISTRY_HOST
+    - docker push $REGISTRY_PATH/frontend:master
+  only:
+    - master
+  # artifacts:
+  #   paths:
+  #     - "dist/"
+  except:
+    - schedules
+  tags:
+    - frontend-3
+
+build-master-pwa:
+  stage: build
+  script:
+    - npm run build:pwa
+    - docker build -f docker/frontend/Dockerfile -t $REGISTRY_PATH/frontend:pwa .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $REGISTRY_HOST
+    - docker push $REGISTRY_PATH/frontend:pwa
+  only:
+    - master
+  # artifacts:
+  #   paths:
+  #     - "dist/"
+  except:
+    - schedules
+  tags:
+    - frontend-3
+
+release-preprod:
+  stage: preprod-release
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $REGISTRY_HOST
+    - docker tag $REGISTRY_PATH/frontend:master $REGISTRY_PATH/frontend:master-rc-$PACKAGE_VERSION
+    - docker tag $REGISTRY_PATH/frontend:master $REGISTRY_PATH/frontend:master-rc-latest
+    - docker push $REGISTRY_PATH/frontend:master-rc-$PACKAGE_VERSION
+    - docker push $REGISTRY_PATH/frontend:master-rc-latest
+  only:
+    - master
+  dependencies:
+    - build-master
+  except:
+    - schedules
+  tags:
+    - frontend-3
+
+release-prod:
+  stage: release
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $REGISTRY_HOST
+    - docker tag $REGISTRY_PATH/frontend:master-rc-$PACKAGE_VERSION $REGISTRY_PATH/frontend:master-prod-$PACKAGE_VERSION
+    - docker tag $REGISTRY_PATH/frontend:master-rc-$PACKAGE_VERSION $REGISTRY_PATH/frontend:master-prod-latest
+    - docker push $REGISTRY_PATH/frontend:master-prod-$PACKAGE_VERSION
+    - docker push $REGISTRY_PATH/frontend:master-prod-latest
+  only:
+    - master
+  when: manual
+  dependencies:
+    - release-preprod
+  except:
+    - schedules
+  tags:
+    - frontend-3
+
+merge_to_master:on-schedule:
+  before_script: []
+  script:
+    - merge-frontend
+  after_script: []
+  only:
+    - schedules
+  except:
+    variables:
+      - $RENOVATE == "true"
+
+renovate_deps:on-schedule:
+  stage: update
+  before_script: []
+  script:
+    - docker run -e RENOVATE_TOKEN="$RENOVATE_KEY" -v $PWD/renovate-config.js:/usr/src/app/config.js renovate/renovate:slim
+  after_script: []
+  only:
+    variables:
+      - $RENOVATE == "true"
+
+publish-code:
+  stage: release
+  script:
+    - git archive --output /gluster/mcod/code/frontend_$PACKAGE_VERSION.zip -9 HEAD
+    - cd /gluster/mcod/code
+    - ln -sf frontend_$PACKAGE_VERSION.zip frontend_latest.zip
+  except:
+    - schedules
+  only:
+    - master
+  when: manual
+

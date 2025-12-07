@@ -1,0 +1,54 @@
+<div role="tabpanel" aria-labelledby="tabFollowedList">
+    <section class="results-section vertical-spacing">
+        <div class="container">
+            <header class="results-header">
+                <div class="d-md-flex justify-content-between align-items-center">
+                    <h2 class="heading heading--md heading--separator">
+                        {{ 'Search.Results' | translate }}
+                        ({{ count || 0 }})
+                    </h2>
+                </div>
+
+                <!-- api notifications -->
+                <app-notifications></app-notifications>
+
+            </header>
+
+            <!-- no results found -->
+            <p *ngIf="!items || (items && !items.length)">
+                {{ 'Found.Nothing' | translate }}
+            </p>
+
+            <!-- RESULT LIST -->
+            <app-follow-query-results [items]="items" (unfollow)="removeSubscription($event)"></app-follow-query-results>
+
+
+            <!-- RESULTS FOOTER -->
+            <footer class="results-footer" *ngIf="count > 0">
+                <div class="row no-gutters justify-content-between">
+
+                    <!-- results per page -->
+                    <div class="col-12 col-md-6 order-12 order-md-1">
+                        <app-items-per-page 
+                            [selected]="params?.per_page" 
+                            (selectedChange)="updateParams({per_page: $event})">
+                        </app-items-per-page>
+                    </div>
+
+                    <!-- pagination -->
+                    <div class="col-12 col-md-6 order-1 order-md-12 text-md-right">
+                        <div class="pager d-inline-flex align-items-baseline">
+                            <app-pagination
+                                [itemsPerPage]="params.per_page"
+                                [totalItems]="count"
+                                [page]="params.page"
+                                (numPages)="numPages = $event"
+                                (pageChange)="updateParams({page: $event})">
+                            </app-pagination>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </section>
+</div>

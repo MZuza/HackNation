@@ -1,0 +1,72 @@
+<app-schedule-tab>
+  <div *ngIf="isReady">
+    <app-schedule-table
+      (deleteItem)="deleteItem($event)"
+      (scheduleSettingsUpdated)="updateScheduleAfterSettingsChanged($event)"
+      [columns]="columns"
+      [config]="config"
+      [dataSource]="dataSource"
+      [itemToDelete]="itemToDelete"
+    >
+      <!--  Table header -->
+      <div class="schedule-header font-weight-bold mt-4" *ngIf="dataSource">
+        <p *ngIf="dataSource.totalAgentsCount && !isRepresentativeView" class="d-inline-block">
+          {{ 'Hod.AllProxiesList' | translate }}: {{ dataSource.totalAgentsCount }}
+        </p>
+        <p *ngIf="dataSource.planningEndDate && !isAdmin" class="d-inline-block">
+          {{ 'Hod.PlanningEndDate' | translate }}: {{ dataSource.planningEndDate }}
+        </p>
+        <p *ngIf="dataSource.periodName && !isAdmin" [class.ml-5]="dataSource.planningEndDate" class="d-inline-block">
+          {{ 'Hod.Period' | translate }}: {{ dataSource.periodName }}
+        </p>
+        <ng-container *ngIf="isRepresentativeView">
+          <p *ngIf="dataSource.newPlanningEndDate && !isAdmin" class="text-danger">
+            {{ 'Hod.NewPlanningEndDate' | translate }}: {{ dataSource.periodName }}: {{ dataSource.newPlanningEndDate }}
+          </p>
+          <h2 *hasPermission="[Role.ADMIN]" class="heading heading--sm">
+            {{ 'Hod.ScheduleAssigned' | translate }}: {{ dataSource.representativeEmail }}
+          </h2></ng-container
+        >
+      </div>
+      <div class="schedule-footer" *ngIf="dataSource">
+        <ng-container *ngIf="!isAdmin">
+          <app-schedule-status-switcher
+            (scheduleStatusChanged)="changeScheduleStatus($event)"
+            *hasPermission="[Role.REPRESENTATIVE]"
+            [disabled]="dataSource.isBlocked"
+            [completed]="dataSource.completed"
+          ></app-schedule-status-switcher>
+        </ng-container>
+        <ng-container *ngIf="!isRepresentativeView">
+          <app-schedule-status-switcher
+            (scheduleStatusChanged)="blockSchedule($event)"
+            *hasPermission="[Role.ADMIN]"
+            [text]="'Hod.LockSchedule' | translate"
+            [completed]="dataSource.isBlocked"
+          ></app-schedule-status-switcher>
+        </ng-container>
+        <ng-container *ngIf="isRepresentativeView">
+          <app-schedule-status *hasPermission="[Role.ADMIN]" [isCompleted]="dataSource.completed"></app-schedule-status>
+        </ng-container>
+      </div>
+    </app-schedule-table>
+  </div>
+</app-schedule-tab>
+<ng-template #templateRef let-data>
+  <app-schedule-search-suggest
+    [apiModels]="[apiModel.DATASET]"
+    [maxResultsPerModel]="3"
+    [searchQuery]="data.data[data.columnID]"
+    [elementToExcludeId]="data.data.id"
+    [useTriggers]="true"
+  >
+  </app-schedule-search-suggest>
+</ng-template>
+
+<app-confirmation-modal
+  [isOutsideTable]="true"
+  (closeDialog)="closeDialog()"
+  (selectedItemId)="openNewSchedule()"
+  message="Czy na pewno chcesz otworzyć nowy okres?"
+  *ngIf="isStartNewPeriodConfirmationDialogVisible"
+></app-confirmation-modal>

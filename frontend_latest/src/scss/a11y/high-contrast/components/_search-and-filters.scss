@@ -1,0 +1,13 @@
+.search {
+    background-color: inherit;
+
+    .filters-toggle {
+        color: currentColor;
+    }
+}
+
+.aggregation-filters {
+    &__divider {
+        border-bottom-color: transparent;
+    }
+}

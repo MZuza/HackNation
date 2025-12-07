@@ -1,0 +1,50 @@
+.confirm-dialog .confirm-dialog {
+  
+  @media screen and (max-width: 432px) {
+    &-button {
+      margin: 7px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  @media screen and (min-width: 432px) {
+    &-button {
+      margin: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  &-title {
+    font-size: 40px;
+    font-weight: bold;
+    padding: 15px;
+    line-height: normal;
+    white-space: pre-wrap;
+  }
+}
+
+.confirm-dialog {
+  &.black-white {
+    .mat-dialog-container {
+      background-color: black;
+      color: white;
+      border: 1px solid white;
+    }
+  }
+  &.black-yellow {
+    .mat-dialog-container {
+      background-color: black;
+      color: yellow;
+      border: 1px solid yellow;
+    }
+  }
+  &.yellow-black {
+    .mat-dialog-container {
+      background-color: yellow;
+      color: black;
+      border: 1px solid black;
+    }
+  }
+}

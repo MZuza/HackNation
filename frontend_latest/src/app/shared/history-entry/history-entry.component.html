@@ -1,0 +1,30 @@
+<div>
+  <!-- message -->
+  <span *ngIf="item.attributes.message">
+    {{ item.attributes.message }}
+  </span>
+
+  <!-- no message -->
+  <span *ngIf="!item.attributes.message">
+    {{ 'DatabaseOperations.' + item.attributes.action | translate }}
+
+    <strong *ngIf="title || (!link && !title)">
+      {{ 'DatabaseTables.' + item.attributes.table_name | translate | lowercase }}
+    </strong>
+
+    <a href="{{ link }}" *ngIf="link && !title">
+      {{ 'DatabaseTables.' + item.attributes.table_name | translate | lowercase }}
+    </a>
+
+    <a href="{{ link }}" *ngIf="link && title">
+      {{ title }}
+    </a>
+
+    <span *ngIf="!link">{{ title }}</span>
+  </span>
+
+  <!-- activity date -->
+  <span class="activity__date" [title]="item.attributes.change_timestamp | translateDateFormat | async">
+    {{ item.attributes.change_timestamp | timespan }}
+  </span>
+</div>

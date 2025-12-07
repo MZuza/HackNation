@@ -1,0 +1,50 @@
+
+/* ITEMS LIST: Datasets, Apps, Articles
+*********************/
+.results-section {
+
+    .results-footer {
+        .other-data {
+            border-color: currentColor;
+        }
+    }
+
+    .result-item, .result-item-promoted {
+        background: $hcSecondary;
+
+        border-color: currentColor;
+        color: currentColor;
+
+        &__right {
+            border-left-color: currentColor;
+            background-color: $hcSecondary;
+
+            @include media-breakpoint-down(lg) {
+                border-top: 1px solid currentColor;
+            }
+        }
+
+        @include media-breakpoint-down(lg) {
+            &__right {
+                border-left: none;
+            }
+        }
+    }
+
+    .result-item-attributes {
+        &__list {
+            color: currentColor;
+        }
+
+        @include media-breakpoint-down(lg) {
+
+            &__heading {
+                border-right-color: currentColor;
+            }
+
+            &__list-item {
+                border-left-color: currentColor;
+            }
+        }
+    }
+}

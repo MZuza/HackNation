@@ -1,0 +1,67 @@
+
+.aod {
+    &-circle {
+        position: relative;
+        display: inline-block;
+    
+        &::before {
+            position: absolute;
+            content: "";
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid $color-white;
+        }
+    
+        &--law {
+            color: color("cyan");
+            
+            &::before {
+               border-color: color("cyan");
+            }
+        }
+    
+        &--technical {
+            color: color("orange");
+            
+            &::before {
+               border-color: color("orange");
+            }
+        }
+    
+        &--extra {
+            color: color("teal");
+            
+            &::before {
+               border-color: color("teal");
+            }
+        }
+    
+        &--exam {
+            color: color("purple");
+            
+            &::before {
+               border-color: color("purple");
+            }
+        }
+    
+        &--general {
+            color: color("pink");
+            
+            &::before {
+               border-color: color("pink");
+            }
+        }
+
+        &--law_technical {
+            color: $color-text;
+
+            &::before {
+                border-color: $color-text;
+            }
+        }
+    }
+}

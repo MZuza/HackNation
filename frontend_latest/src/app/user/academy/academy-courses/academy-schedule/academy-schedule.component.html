@@ -1,0 +1,33 @@
+<table class="table table-borderless table-sm d-inline-block w-auto">
+  <thead>
+    <tr>
+      <th class="text-center bg-custom" scope="colgroup" attr.colspan="{{ scheduleByMonth.value.length }}">
+        <span class="d-block px-3">
+          {{ scheduleByMonth.key | titlecase }}
+        </span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- day of week -->
+    <tr>
+      <td class="text-center font-weight-bold" *ngFor="let schedule of scheduleByMonth.value" title="{{ schedule.date }}">
+        {{ schedule.date | translateDateFormat: 'dd' | async }}
+      </td>
+    </tr>
+
+    <!-- day of month -->
+    <tr>
+      <td class="text-center" *ngFor="let schedule of scheduleByMonth.value" title="{{ schedule.type_name + ', ' + schedule.date }}">
+        <span class="aod-circle aod-circle--{{ schedule.type }}">
+          {{ schedule.date | date: 'd' }}
+        </span>
+      </td>
+    </tr>
+
+    <!-- session number -->
+    <tr>
+      <td class="text-center" *ngFor="let schedule of scheduleByMonth.value" title="{{ schedule.type_name }}">S{{ schedule.session }}</td>
+    </tr>
+  </tbody>
+</table>

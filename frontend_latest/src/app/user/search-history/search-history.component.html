@@ -1,0 +1,21 @@
+<div role="tabpanel" aria-labelledby="tabSearchHistory">
+    <ul class="search-history">
+        <li class="row" *ngFor="let item of groupedSearchHistory | keyvalueOrder">
+            <div class="col">
+                {{ item.key }}
+            </div>
+            <div class="col-md-10">
+                <a *ngFor="let query of item.value"
+                    class="btn btn-outline-primary btn-sm"
+                    [routerLink]="[
+                    (query.params.category === '2' || query.params.category === '3') ? ('/' | localize) + '/' + routerEndpoints.KNOWLEDGE_BASE : '/' | localize,
+                    !query.params.category ? query.resource :
+                        query.params.category === '2' ? 'help' : query.params.category === '3' ? routerEndpoints.EDUCATION : routerEndpoints.ARTICLES
+                    ]"
+                    [queryParams]="query.params">
+                    {{ query.sentence }}
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>

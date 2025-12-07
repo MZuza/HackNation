@@ -1,0 +1,142 @@
+<section>
+    <header class="bg-custom vertical-spacing">
+        <div class="container">
+            <h1 class="heading">
+                {{ 'Newsletter.Contact' | translate }}
+            </h1>
+        </div>
+    </header>
+
+    <!-- success message -->
+    <div class="container vertical-spacing" *ngIf="successMessage">
+        <p class="alert alert-success" role="alert" aria-live="polite">
+            {{ 'Newsletter.SubscriptionSent' | translate }}
+
+            <span class="d-block">
+                {{ successMessage }}
+            </span>
+        </p>
+    </div>
+
+    <!-- form -->
+    <div class="container vertical-spacing" *ngIf="!successMessage">
+
+        <!-- api notifications -->
+        <app-notifications id="notifications"></app-notifications>
+
+        <form name="form" (ngSubmit)="onSubmit()" [formGroup]="newsletterForm">
+            
+            <!-- email -->
+            <div class="form-group">
+                <label for="email">
+                    {{'Newsletter.Description' | translate }}
+                </label>
+                <input type="email" class="form-control" 
+                    id="email"
+                    name="email"
+                    placeholder="{{ 'Action.Enter' | translate }} {{'User.Email' | translate | lowercase }}"
+                    formControlName="email"
+                    [attr.aria-describedby]="'email_error'"
+                    [attr.aria-invalid]="newsletterForm.get('email').invalid">
+
+                <!-- email field validation error -->
+                <small class="form-text text-danger" role="alert" id="email_error"
+                    *ngIf="newsletterForm.get('email').invalid && newsletterForm.get('email').touched"
+                    @toggleVertically>
+                    {{ 'Validation.RequiredEmail' | translate }}
+                </small>
+            </div>
+
+            <!-- description -->
+            <p>
+                {{ 'Newsletter.Description2' | translate }}
+                <span class="font-weight-bold">
+                    {{ 'Action.Subscribe' | translate }}.
+                </span>
+            </p>
+
+            <!-- before consent is loaded -->
+            <app-loader *ngIf="!newsletterConsent"></app-loader>
+
+            <!-- consents -->
+            <ng-container *ngIf="newsletterConsent">
+                <div class="ml-4 mb-3">
+                    <input type="checkbox" class="form-check-input" 
+                        id="allSelection"
+                        name="allSelection"
+                        [checked]="allChecked"
+                        (change)="onChangeAll($event.target.checked)"
+                        (keydown.enter)="$event.preventDefault()">
+
+                    <label class="form-check-label clickable" for="allSelection">
+                        {{ 'Newsletter.SelectAll' | translate }}
+                    </label>
+                </div>
+    
+                <!-- personal data processing -->
+                <div class="ml-5 mb-3">
+                    <input type="checkbox" class="form-check-input"
+                        id="personal_data_processing"
+                        name="personal_data_processing"
+                        formControlName="personal_data_processing"
+                        [attr.aria-describedby]="'personal_data_processing_error'"
+                        [attr.aria-invalid]="newsletterForm.get('personal_data_processing').invalid"
+                        (change)="onChange('personal_data_processing', $event.target.checked)"
+                        (keydown.enter)="$event.preventDefault()">
+    
+                    <label class="form-check-label clickable" for="personal_data_processing">
+                        {{ newsletterConsent?.personal_data_processing }}
+                    </label>
+    
+                    <!-- validation error -->
+                    <small class="form-text text-danger" id="personal_data_processing_error"
+                        *ngIf="newsletterForm.get('personal_data_processing').invalid && newsletterForm.get('personal_data_processing').touched"
+                        @toggleVertically>
+                        {{ 'Newsletter.RequiredMessage' | translate }}
+                    </small>
+                </div>
+    
+                <!-- personal data use -->
+                <div class="ml-5 mb-3">
+                    <input type="checkbox" class="form-check-input" 
+                        id="personal_data_use"
+                        name="personal_data_use"
+                        formControlName="personal_data_use"
+                        [attr.aria-describedby]="'personal_data_use_error'"
+                        [attr.aria-invalid]="newsletterForm.get('personal_data_use').invalid && newsletterForm.get('personal_data_use').touched"
+                        (change)="onChange('personal_data_use',$event.target.checked)"
+                        (keydown.enter)="$event.preventDefault()">
+    
+                    <label class="form-check-label clickable" for="personal_data_use">
+                        {{ newsletterConsent?.personal_data_use}}
+                    </label>
+    
+                    <!-- validation error -->
+                    <small class="form-text text-danger" id="personal_data_use_error"
+                        *ngIf="newsletterForm.get('personal_data_use').invalid && newsletterForm.get('personal_data_use').touched"
+                        @toggleVertically>
+                        {{ 'Newsletter.RequiredMessage' | translate }}
+                    </small>
+                </div>
+    
+                <!-- personal data use rules -->
+                <div class="cms-consent-list ml-5 pl-3" [innerHTML]="cmsPageInfo.body | textToLinks | sanitizeHtml" *ngIf="cmsPageInfo"></div>
+
+            </ng-container>
+
+            <!-- fake submit -->
+            <button type="button" class="btn btn-secondary disabled ml-5"
+                [attr.aria-disabled]="true"
+                [attr.aria-describedby]="'backend_notifications email_error personal_data_use_error personal_data_processing_error'"
+                *ngIf="newsletterForm.invalid">
+                {{ 'Action.Subscribe' | translate | uppercase }}
+            </button>
+
+            <!-- submit -->
+            <button type="submit" class="btn btn-primary ml-5"
+                *ngIf="newsletterForm.valid">
+                {{ 'Action.Subscribe' | translate | uppercase }}
+            </button>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,63 @@
+
+// h1 heading
+.heading {
+    font-size: $heading-lg-size;
+    font-weight: bold;
+    color: $color-heading;
+    margin-bottom: 15px;
+
+    :link,
+    :visited {
+        color: inherit;
+        border-bottom: 1px dotted $color-text;
+
+        &:hover {
+            color: $color-blue-light;
+            border-bottom-color: $color-blue-light;
+            text-decoration: none;
+        }
+    }
+
+    &--primary-link {
+        :link,
+        :visited {
+            color: map-get($theme-colors, 'primary');
+            border-bottom: 0;   
+            text-decoration: underline;
+
+            &:hover {
+                color: $color-hover-2;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &--xs {
+        font-size: $heading-xs-size;
+    }
+
+    &--sm {
+        font-size: $heading-sm-size;
+    }
+
+    &--md {
+        font-size: $heading-md-size;
+    }
+
+
+    &--separator {
+        @include separator;
+    }
+
+
+    &--centered {
+        text-align: center;
+
+        &.heading--separator {
+            &::after {
+                margin-left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    }
+}

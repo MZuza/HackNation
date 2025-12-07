@@ -1,0 +1,49 @@
+<section class="home-section home-section--news vertical-spacing" id="news">
+  <h2 class="heading heading--md heading--separator heading--centered">
+    {{ 'Home.News.Title' | translate }}
+  </h2>
+
+  <div class="container">
+    <!-- api notifications -->
+    <app-notifications></app-notifications>
+
+    <!-- NEWS LIST -->
+    <ul class="row home-news">
+      <li class="col-lg-4 home-news__item" *ngFor="let item of items">
+        <h3 class="home-news__item-heading heading heading--sm">
+          <a
+            [routerLink]="['/!article' | localize, item.attributes.slug]"
+            [innerHtml]="item.attributes.title | sanitizeHtml"
+          >
+          </a>
+        </h3>
+
+        <!-- created -->
+        <p class="home-news__item-date">
+          {{ item?.attributes?.created | translateDateFormat | async }}
+        </p>
+
+        <!-- excerpt (description) -->
+        <p
+          class="home-news__item-excerpt"
+          [innerHtml]="item.attributes.notes | stripHtml | truncateText: 220 | sanitizeHtml"
+        >
+        </p>
+
+        <!-- read more -->
+        <a class="home-news__item-read-more with-chevron" [routerLink]="['/!article' | localize, item.attributes.slug]">
+          {{ 'Home.News.ReadMore' | translate }}
+          <span class="visually-hidden">
+            {{ 'Connector.About' | translate }}
+            {{ item.attributes.title }}
+          </span>
+          <svg class="icon icon-chevrons-right" role="img" aria-hidden="true">
+            <use href="/assets/icomoon/sprite/sprite.svg#icon-chevrons-right"></use></svg
+        ></a>
+      </li>
+    </ul>
+
+    <!-- view all (anchor) -->
+    <home-section-footer [routerURL]="'/!article'" [text]="'Home.News.All'"></home-section-footer>
+  </div>
+</section>

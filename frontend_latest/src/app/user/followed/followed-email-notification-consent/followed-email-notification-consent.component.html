@@ -1,0 +1,33 @@
+<div class="mb-4 mt-2" aria-live="polite">
+    <!--    Consent for notifications-->
+    <p class="heading heading--sm h5">{{'NotificationConsent.Header' | translate}}</p>
+    <div class="ml-4 mb-3" >
+        <input type="checkbox"
+               class="form-check-input"
+               id="notificationCheckbox"
+               [checked]="showAcceptButton"
+               (change)="this.showAcceptButton = !this.showAcceptButton">
+        <label class="form-check-label"
+               for="notificationCheckbox">
+            {{'NotificationConsent.CheckboxText' | translate}}
+        </label>
+    </div>
+    <button *ngIf="showAcceptButton"
+            type="submit"
+            class="btn btn-primary btn-sm mr-4 pl-3 pr-3"
+            (click)="onSubmit()">
+        {{'NotificationConsent.AcceptButton' | translate}}
+    </button>
+    <button *ngIf="!showAcceptButton"
+            type="button"
+            [attr.aria-label]="'NotificationConsent.Required' | translate"
+            [attr.aria-disabled]="true"
+            class="btn btn-secondary disabled btn-sm mr-4 pl-3 pr-3">
+        {{'NotificationConsent.AcceptButton' | translate}}
+    </button>
+    <button class="btn btn-danger btn-sm pl-3 pr-3"
+            type="button"
+            (click)="onCancel()">
+        {{'Action.Cancel' | translate}}
+    </button>
+</div>

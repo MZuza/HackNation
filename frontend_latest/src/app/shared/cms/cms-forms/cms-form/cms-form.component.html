@@ -1,0 +1,53 @@
+<article>
+    <header class="bg-custom vertical-spacing">
+        <div class="container">
+            <ng-container *ngIf="!isFormSubmitted">
+                <h1 class="heading" *ngIf="cmsFormPage.title">{{ cmsFormPage.title }}</h1>
+                <div *ngIf="cmsFormPage.intro" [innerHTML]="cmsFormPage.intro | sanitizeHtml"></div>
+            </ng-container>
+            <ng-container *ngIf="isFormSubmitted">
+                <h1 class="heading">{{ 'Cms.FormSubmitted' | translate }}</h1>
+                <div *ngIf="cmsFormPage.thank_you_text" [innerHTML]="cmsFormPage.thank_you_text | sanitizeHtml"></div>
+            </ng-container>
+        </div>
+    </header>
+
+    <div class="container vertical-spacing" *ngIf="formsetObjects.length && !isFormSubmitted">
+
+        <form class="survey-form" (submit)="onSubmit()" [formGroup]="form">
+
+            <ng-container *ngFor="let formset of formsetObjects">
+                <cms-form-question [form]="form" [formset]="formset"></cms-form-question>
+            </ng-container>
+
+            <!-- message: required fields -->
+            <div *ngIf="!form.valid" @toggleVertically>
+                <div class="alert alert-info text-center mb-0" role="alert" aria-live="polite">
+                    {{ 'Cms.FillRequired' | translate }}
+                </div>
+            </div>
+
+            <!-- submit -->
+            <div class="text-center" [ngClass]="{'pt-4': !form.valid}">
+
+                <!-- submit error -->
+                <div *ngIf="submitError" class="text-danger p-4">
+                    {{ 'Cms.FormSubmitError' | translate }}
+                </div>
+            
+                <!-- fake submit -->
+                <button type="button" class="btn btn-secondary" *ngIf="!form.valid"
+                    [attr.aria-label]="'Validation.InvalidForm' | translate"
+                    [attr.aria-disabled]="true">
+                    {{ 'Action.Send' | translate }}
+                </button>
+
+                <!-- submit -->
+                <button type="submit" class="btn btn-primary" *ngIf="form.valid">
+                    {{ 'Action.Send' | translate }}
+                </button>
+            </div>
+        </form>
+    </div>
+</article>
+

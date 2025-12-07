@@ -1,0 +1,42 @@
+.language-switcher {
+    margin-left: auto;
+    display: flex;
+
+    @include media-breakpoint-down(md) {
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    @include media-breakpoint-down(sm) {
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+
+    &__languages {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        font-size: 0;
+        vertical-align: middle;
+    }
+
+
+    &__language {
+        display: inline-block;
+        margin-left: 2px;
+
+        .btn {
+            color: $color-blue-light;
+            background-color: transparent;
+            line-height: 1;
+            padding: 2px;
+
+            &.active {
+                font-weight: bold;
+                color: currentColor;
+                border: none;
+            }
+        }
+    }
+}

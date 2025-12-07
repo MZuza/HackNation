@@ -1,0 +1,16 @@
+.useful-materials {
+    .col {
+        border-color: $hcPrimary;
+    }
+
+    .hover:hover {
+        color: $hcSecondary;
+        border-color: $hcPrimary;
+        background-color: $hcPrimary;
+
+        .hc-Cms-Text {
+            background-color: $hcPrimary;
+            color: $hcSecondary;
+        }
+    }
+}

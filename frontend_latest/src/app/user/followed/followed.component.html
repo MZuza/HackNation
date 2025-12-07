@@ -1,0 +1,47 @@
+<div class="tabpanel" role="tabpanel" aria-labelledby="tabFollowed">
+
+    <!-- TABS - LEVEL 2 -->
+    <ul class="row no-gutters tabpanel__tablist" role="tablist">
+
+        <!-- Datasets -->
+        <li class="col-sm-6 col-xs-12" role="presentation">
+            <a class="btn tabpanel__tab" role="tab" id="tabFollowedDatasets"
+                [attr.aria-selected]="datasetActive.isActive ? true : null"
+                [routerLink]="['dataset']"
+                #datasetActive="routerLinkActive"
+                routerLinkActive="active">
+
+                <!-- icon -->
+                <svg class="icon icon-followed-datasets">
+                    <use xlink:href="/assets/icomoon/sprite/sprite.svg#icon-followed-datasets"></use>
+                </svg>
+                <span class="tabpanel__tab-text">
+                    {{ 'Datasets.Self' | translate }}
+                </span>
+            </a>
+        </li>
+
+        <!-- Queries -->
+        <li class="col-sm-6 col-xs-12" role="presentation">
+            <a class="btn tabpanel__tab" role="tab" id="tabFollowedQueries"
+                [attr.aria-selected]="queryActive.isActive ? true : null"
+                [routerLink]="['query']"
+                #queryActive="routerLinkActive"
+                routerLinkActive="active">
+
+                <!-- icon -->
+                <svg class="icon icon-followed-queries">
+                    <use xlink:href="/assets/icomoon/sprite/sprite.svg#icon-followed-queries"></use>
+                </svg>
+                <span class="tabpanel__tab-text">
+                    {{ 'Search.Results' | translate }}
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<!-- TAB PANELS -->
+<router-outlet></router-outlet>
+
