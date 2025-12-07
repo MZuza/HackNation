@@ -64,7 +64,7 @@ textarea {
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   font-size: 1rem;
-  color: #333; // Ustawienie ciemnego koloru tekstu w polach
+  color: #333;
   transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 
   &:focus {
@@ -95,7 +95,7 @@ textarea {
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
-  align-self: flex-end; // Wyrównuje przycisk do prawej
+  align-self: flex-end;
 
   &:hover:not(:disabled) {
     background-color: var(--primary-color-hover);
@@ -107,7 +107,6 @@ textarea {
   }
 }
 
-// Ustawienie domyślnego wyglądu dla selecta
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -118,7 +117,6 @@ select {
   background-size: 8px 10px;
 }
 
-// Style dla komunikatów i spinnera
 .submit-message {
   padding: 0.75rem 1.25rem;
   border-radius: var(--border-radius);

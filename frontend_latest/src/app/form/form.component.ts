@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FoundItem } from './models/foundItem.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-// IMPORT BIBLIOTEKI DO HASHOWANIA
 import * as CryptoJS from 'crypto-js';
 
 @Component({
@@ -46,8 +45,6 @@ export class FormComponent implements OnInit {
 
       this.downloadAsXml(foundItem);
 
-      // Opcjonalne wysłanie na backend
-
       const apiUrl = '/api/found-items';
       this.http.post(apiUrl, foundItem).subscribe({
         next: response => {
@@ -61,19 +58,14 @@ export class FormComponent implements OnInit {
   }
 
   private downloadAsXml(item: FoundItem): void {
-    // 1. GENEROWANIE HASHA MD5 DLAZBIORU DANYCH (DATASET)
-    // Tworzymy unikalny klucz dla urzędu (powiat + gmina)
     const datasetRawString = `${item.county}-${item.municipality}`.toLowerCase().trim();
     const datasetHash = CryptoJS.MD5(datasetRawString).toString();
     const datasetExtIdent = `dataset_${datasetHash}`;
 
-    // 2. GENEROWANIE HASHA MD5 DLA ZASOBU (RESOURCE - PRZEDMIOTU)
-    // Tworzymy unikalny klucz dla przedmiotu na podstawie jego cech i daty
     const resourceRawString = `${item.name}-${item.category}-${item.foundDate}-${item.placeDescription}`.toLowerCase().trim();
     const resourceHash = CryptoJS.MD5(resourceRawString).toString();
     const resourceExtIdent = `resource_${resourceHash}`;
 
-    // Data w formacie YYYY
     const year = new Date(item.foundDate).getFullYear();
 
     const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
@@ -135,7 +127,6 @@ export class FormComponent implements OnInit {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    // W nazwie pliku również możemy użyć kawałka hasha, aby była unikalna
     a.download = `zgloszenie_${resourceHash}.xml`;
     a.click();
     URL.revokeObjectURL(url);

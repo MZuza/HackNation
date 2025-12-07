@@ -512,16 +512,16 @@
       </div>
 
       <div *ngIf="currentStep === 'login'" class="step-container login-mockup">
-        <h2>Wymagane logowanie</h2>
-        <p>Aby dodać ogłoszenie, musisz być zalogowany w systemie.</p>
+        <div class="login-form-container">
+          <h3>Wymagane logowanie</h3>
+          <p>Aby dodać zgłoszenie, musisz być zalogowany w systemie.</p>
 
-        <div class="login-box">
-          <div class="fake-input">Użytkownik</div>
-          <div class="fake-input">Hasło</div>
+          <input type="text" class="login-input" placeholder="Użytkownik" />
+          <input type="password" class="login-input" placeholder="Hasło" />
 
-          <div class="actions">
-            <button class="btn btn-secondary" (click)="resetForm()">Anuluj</button>
-            <button class="btn btn-primary" (click)="performLogin()">Zaloguj</button>
+          <div class="login-buttons">
+            <button class="btn-cancel" (click)="resetForm()">Anuluj</button>
+            <button class="btn-login" (click)="performLogin()">Zaloguj</button>
           </div>
         </div>
       </div>
