@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FoundItem } from './models/foundItem.model';
 import { TranslateModule } from '@ngx-translate/core';
 
+// IMPORT BIBLIOTEKI DO HASHOWANIA
+import * as CryptoJS from 'crypto-js';
+
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -15,7 +18,6 @@ import { TranslateModule } from '@ngx-translate/core';
 export class FormComponent implements OnInit {
   itemForm!: FormGroup;
 
-  // Kategorie przedmiotów
   categories = [
     { id: 'electronics', name: 'Elektronika' },
     { id: 'documents', name: 'Dokumenty' },
@@ -42,28 +44,38 @@ export class FormComponent implements OnInit {
     if (this.itemForm.valid) {
       const foundItem: FoundItem = this.itemForm.value;
 
-      // Generujemy XML w strukturze "Otwartych Danych"
       this.downloadAsXml(foundItem);
 
       // Opcjonalne wysłanie na backend
-      /*
+
       const apiUrl = '/api/found-items';
-      this.http.post(apiUrl, foundItem).subscribe(...);
-      */
+      this.http.post(apiUrl, foundItem).subscribe({
+        next: response => {
+          console.log('Zgłoszenie wysłane pomyślnie', response);
+        },
+        error: error => {
+          console.error('Błąd podczas wysyłania zgłoszenia', error);
+        },
+      });
     }
   }
 
   private downloadAsXml(item: FoundItem): void {
-    // Generowanie unikalnych identyfikatorów (symulacja)
-    const timestamp = new Date().getTime();
-    // extIdent dla całego zbioru (dataset) - np. identyfikator urzędu
-    const datasetExtIdent = `urzad_${this.escapeXml(item.county)}_${this.escapeXml(item.municipality)}`.toLowerCase().replace(/\s/g, '_');
-    // extIdent dla konkretnego zasobu (resource) - czyli tego zgłoszenia
-    const resourceExtIdent = `zgloszenie_${timestamp}`;
+    // 1. GENEROWANIE HASHA MD5 DLAZBIORU DANYCH (DATASET)
+    // Tworzymy unikalny klucz dla urzędu (powiat + gmina)
+    const datasetRawString = `${item.county}-${item.municipality}`.toLowerCase().trim();
+    const datasetHash = CryptoJS.MD5(datasetRawString).toString();
+    const datasetExtIdent = `dataset_${datasetHash}`;
 
-    const year = new Date().getFullYear();
+    // 2. GENEROWANIE HASHA MD5 DLA ZASOBU (RESOURCE - PRZEDMIOTU)
+    // Tworzymy unikalny klucz dla przedmiotu na podstawie jego cech i daty
+    const resourceRawString = `${item.name}-${item.category}-${item.foundDate}-${item.placeDescription}`.toLowerCase().trim();
+    const resourceHash = CryptoJS.MD5(resourceRawString).toString();
+    const resourceExtIdent = `resource_${resourceHash}`;
 
-    // Mapowanie danych przedmiotu na strukturę XML Otwartych Danych
+    // Data w formacie YYYY
+    const year = new Date(item.foundDate).getFullYear();
+
     const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
 <ns2:datasets xmlns:ns2="urn:otwarte-dane:harvester:1.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <dataset status="published">
@@ -119,17 +131,16 @@ export class FormComponent implements OnInit {
   </dataset>
 </ns2:datasets>`;
 
-    // Tworzenie i pobieranie pliku
     const blob = new Blob([xmlContent], { type: 'application/xml' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `found_item_${resourceExtIdent}.xml`;
+    // W nazwie pliku również możemy użyć kawałka hasha, aby była unikalna
+    a.download = `zgloszenie_${resourceHash}.xml`;
     a.click();
     URL.revokeObjectURL(url);
   }
 
-  // Funkcja czyszcząca znaki specjalne
   private escapeXml(unsafe: any): string {
     if (!unsafe) return '';
     return String(unsafe)
