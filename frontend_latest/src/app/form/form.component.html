@@ -1,78 +1,46 @@
 <div class="form-container">
-  <h2 class="form-title">{{ 'FoundItemForm.Title' | translate }}</h2>
   <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="item-form">
+    <h2 class="form-title">Zgłoszenie znalezionego przedmiotu</h2>
+
     <div class="form-field">
-      <label for="county">{{ 'FoundItemForm.County' | translate }}:</label>
-      <input id="county" type="text" formControlName="county" />
-      <div *ngIf="itemForm.get('county')?.invalid && itemForm.get('county')?.touched" class="validation-error">
-        <span *ngIf="itemForm.get('county')?.errors?.['required']">
-          {{ 'Validation.RequiredField' | translate }}
-        </span>
-      </div>
+      <label for="county">Powiat</label>
+      <input id="county" type="text" formControlName="county" placeholder="np. Warszawski" />
     </div>
 
     <div class="form-field">
-      <label for="municipality">{{ 'FoundItemForm.Municipality' | translate }}:</label>
-      <input id="municipality" type="text" formControlName="municipality" />
+      <label for="municipality">Gmina</label>
+      <input id="municipality" type="text" formControlName="municipality" placeholder="np. Mokotów" />
     </div>
 
     <div class="form-field">
-      <label for="name">{{ 'FoundItemForm.ItemName' | translate }}:</label>
-      <input id="name" type="text" formControlName="name" [placeholder]="'FoundItemForm.ItemNamePlaceholder' | translate" />
-      <div *ngIf="itemForm.get('name')?.invalid && itemForm.get('name')?.touched" class="validation-error">
-        <span *ngIf="itemForm.get('name')?.errors?.['required']">
-          {{ 'Validation.RequiredField' | translate }}
-        </span>
-        <span *ngIf="itemForm.get('name')?.errors?.['maxlength']">
-          {{ 'Validation.VarMaxLength' | translate : { param: 100 } }}
-        </span>
-      </div>
+      <label for="name">Nazwa przedmiotu</label>
+      <input id="name" type="text" formControlName="name" placeholder="np. Pęk kluczy z niebieskim brelokiem" />
+      <div *ngIf="itemForm.get('name')?.touched && itemForm.get('name')?.invalid" class="validation-error">Nazwa jest wymagana.</div>
     </div>
 
     <div class="form-field">
-      <label for="category">{{ 'FoundItemForm.Category' | translate }}:</label>
+      <label for="category">Kategoria</label>
       <select id="category" formControlName="category">
-        <option value="" disabled>{{ 'FoundItemForm.ChooseCategory' | translate }}</option>
-        <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+        <option value="" disabled selected>Wybierz kategorię</option>
+        <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
       </select>
-      <div *ngIf="itemForm.get('category')?.invalid && itemForm.get('category')?.touched" class="validation-error">
-        <span *ngIf="itemForm.get('category')?.errors?.['required']">
-          {{ 'Validation.RequiredField' | translate }}
-        </span>
-      </div>
     </div>
 
     <div class="form-field">
-      <label for="foundDate">{{ 'FoundItemForm.FoundDate' | translate }}:</label>
+      <label for="foundDate">Data znalezienia</label>
       <input id="foundDate" type="date" formControlName="foundDate" />
-      <div *ngIf="itemForm.get('foundDate')?.invalid && itemForm.get('foundDate')?.touched" class="validation-error">
-        <span *ngIf="itemForm.get('foundDate')?.errors?.['required']">
-          {{ 'Validation.RequiredField' | translate }}
-        </span>
-      </div>
     </div>
 
     <div class="form-field">
-      <label for="placeDescription">{{ 'FoundItemForm.PlaceDescription' | translate }}:</label>
-      <textarea id="placeDescription" formControlName="placeDescription" rows="4"></textarea>
+      <label for="placeDescription">Opis miejsca znalezienia</label>
+      <textarea id="placeDescription" formControlName="placeDescription" placeholder="Szczegóły dotyczące lokalizacji..."></textarea>
     </div>
 
     <div class="form-field">
-      <label for="contactOffice">{{ 'FoundItemForm.ContactOffice' | translate }}:</label>
-      <input id="contactOffice" type="text" formControlName="contactOffice" />
+      <label for="contactOffice">Biuro rzeczy znalezionych (Kontakt)</label>
+      <input id="contactOffice" type="text" formControlName="contactOffice" placeholder="Adres lub telefon" />
     </div>
 
-    <div
-      *ngIf="submitMessage"
-      class="submit-message"
-      [ngClass]="{ success: submitMessage.type === 'success', error: submitMessage.type === 'error' }"
-    >
-      {{ submitMessage.text | translate }}
-    </div>
-
-    <button type="submit" [disabled]="itemForm.invalid || isSubmitting" class="submit-button">
-      <span *ngIf="!isSubmitting">{{ 'FoundItemForm.Submit' | translate }}</span>
-      <span *ngIf="isSubmitting"> <span class="spinner"></span> {{ 'FoundItemForm.Submitting' | translate }} </span>
-    </button>
+    <button type="submit" [disabled]="itemForm.invalid" class="submit-button">Zapisz XML</button>
   </form>
 </div>
